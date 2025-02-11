@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" styleClass="mainFxmlClass" stylesheets="@/css/admindashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminDashboardController">
+   <children>
+      <Pane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="admindashboard" layoutX="435.0" layoutY="72.0" text="Admin Dashboard" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman" size="31.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tableView" layoutX="209.0" layoutY="155.0" prefHeight="431.0" prefWidth="677.0">
+              <columns>
+                <TableColumn fx:id="idColumn" prefWidth="75.0" text="User ID" />
+                <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First Name" />
+                <TableColumn fx:id="middleNameColumn" prefWidth="75.0" text="Middle Name" />
+                <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name" />
+                <TableColumn fx:id="emailColumn" prefWidth="75.0" text="Email" />
+                <TableColumn fx:id="userNameColumn" prefWidth="75.0" text="Username" />
+                <TableColumn fx:id="passwordColumn" prefWidth="75.0" text="Password" />
+                <TableColumn fx:id="roleColumn" prefWidth="75.0" text="Role" />
+                <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
+      <Pane prefHeight="600.0" prefWidth="200.0" style="-fx-background-color: #000000; -fx-border-color: #E2DADA; -fx-background-radius: 5; -fx-border-radius: 5;" />
+   </children>
+</AnchorPane>
