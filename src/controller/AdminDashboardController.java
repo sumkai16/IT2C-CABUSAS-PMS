@@ -23,6 +23,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import style.CustomTitleBarController;
 
 public class AdminDashboardController implements Initializable {
 
@@ -103,16 +105,28 @@ public class AdminDashboardController implements Initializable {
     }
 }
 
-
-    // Method to switch scenes
     public void switchScene(Class<?> clazz, Event evt, String targetFXML) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource(targetFXML));  // Use getClass() to load resource
+        FXMLLoader contentLoader = new FXMLLoader(clazz.getResource(targetFXML));
+        Parent content = contentLoader.load();
+
+        FXMLLoader titleLoader = new FXMLLoader(clazz.getResource("/style/CustomTitle.fxml"));
+        Parent titleBar = titleLoader.load();
+        CustomTitleBarController controller = titleLoader.getController();
+
         Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
+        controller.setStage(stage);  // Pass the stage to title bar
+
+        VBox layout = new VBox(titleBar, content);  // Combine title bar + content
+        Scene newScene = new Scene(layout, 900, 600);  // Set default size
+
+        // Apply styling
+        newScene.getStylesheets().add(clazz.getResource("/style/style.css").toExternalForm());
+
+        stage.setScene(newScene);
         stage.centerOnScreen();
         stage.show();
-        setCenterAlignment(stage);
     }
+
 
 
     // Method to center the stage on the screen

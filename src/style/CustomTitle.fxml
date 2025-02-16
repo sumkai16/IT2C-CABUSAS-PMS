@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="style.CustomTitleBarController">
-    <AnchorPane prefHeight="40.0" prefWidth="600.0" style="-fx-background-color: #2B2B2B;">
-        <Label text="My Application" layoutX="10" layoutY="10" style="-fx-text-fill: white; -fx-font-size: 14px;" />
-        <HBox spacing="10" layoutX="520" layoutY="5">
-            <Button fx:id="minimizeBtn" text="—" styleClass="control-button" />
-            <Button fx:id="maximizeBtn" text="□" styleClass="control-button" />
-            <Button fx:id="closeBtn" text="✕" styleClass="control-button-close" />
-        </HBox>
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="style.CustomTitleBarController">
+    <AnchorPane prefHeight="40.0" prefWidth="900.0" style="-fx-background-color: #000000;">
+        <Label layoutX="10" layoutY="10" style="-fx-text-fill: white; -fx-font-size: 14px;" text="SyllabusConcordia" />
+      <Group layoutX="818.0" layoutY="7.0">
+         <children>
+            <ImageView fx:id="maximizeBtn" fitHeight="25.0" fitWidth="25.0" layoutX="25.0" layoutY="1.0" onMouseClicked="#MaximizeHandler" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/fluent--maximize-16-filled.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="minimizeBtn" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#MinimizeHandler" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/material-symbols--minimize-rounded.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="closeBtn" fitHeight="25.0" fitWidth="25.0" layoutX="50.0" layoutY="1.0" onMouseClicked="#CloseHandler" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/material-symbols--close-rounded.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+
     </AnchorPane>
 </AnchorPane>

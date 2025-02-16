@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,7 +21,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import style.CustomTitleBarController;
 
 public class RegisterPageController implements Initializable {
 
@@ -98,20 +101,16 @@ public class RegisterPageController implements Initializable {
         }
     }
 
+    
     @FXML
     private void LoginClickHandler(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoginPage.fxml"));  // Replace with the actual path of your FXML
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Login Page");
-            stage.show();
-        } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load the login page: " + e.getMessage());
+            switchScene(getClass(), event, "/fxml/LoginPage.fxml");  // Ensure title bar remains
+        } catch (Exception ex) {
+            showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
         }
     }
+
 
     private boolean validateInputs(String firstname, String lastname, String email, String contact, String username, String password) {
         if (firstname.isEmpty() || lastname.isEmpty() || email.isEmpty() || contact.isEmpty() || username.isEmpty() || password.isEmpty()) {
@@ -163,4 +162,27 @@ public class RegisterPageController implements Initializable {
         pwF.clear();
         middleF.clear();
     }
+    // Method to switch scenes while keeping the custom title bar
+    public void switchScene(Class<?> clazz, Event evt, String targetFXML) throws Exception {
+        FXMLLoader contentLoader = new FXMLLoader(clazz.getResource(targetFXML));
+        Parent content = contentLoader.load();
+
+        FXMLLoader titleLoader = new FXMLLoader(clazz.getResource("/style/CustomTitle.fxml"));
+        Parent titleBar = titleLoader.load();
+        CustomTitleBarController controller = titleLoader.getController();
+
+        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+        controller.setStage(stage);  // Pass the stage to title bar
+
+        VBox layout = new VBox(titleBar, content);  // Combine title bar + content
+        Scene newScene = new Scene(layout, 900, 600);  // Set default size
+
+        // Apply styling
+        newScene.getStylesheets().add(clazz.getResource("/style/style.css").toExternalForm());
+
+        stage.setScene(newScene);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
 }

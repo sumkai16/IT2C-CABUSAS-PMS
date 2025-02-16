@@ -20,8 +20,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import style.CustomTitleBarController;
 
 public class LoginPageController implements Initializable {
 
@@ -58,14 +60,9 @@ public class LoginPageController implements Initializable {
             if (role != null) {
                 showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome back!");
 
-                // Switch scenes based on the user's role
-                if (role.equalsIgnoreCase("admin") || role.equalsIgnoreCase("Admin")) {
-                    switchScene(getClass(), event, "/fxml/AdminDashboard.fxml");
-                }else if ((role.equalsIgnoreCase("user")) || role.equalsIgnoreCase("User")) {
-                    switchScene(getClass(), event, "/fxml/UserDashboard.fxml");
-                }else {
-                    showAlert(Alert.AlertType.WARNING, "Role Error", "Unrecognized role: " + role);
-                }
+                // Switch to the correct dashboard
+                String fxmlPath = role.equalsIgnoreCase("admin") ? "/fxml/AdminDashboard.fxml" : "/fxml/UserDashboard.fxml";
+                switchScene(getClass(), event, fxmlPath);
             } else {
                 showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
             }
@@ -99,15 +96,29 @@ public class LoginPageController implements Initializable {
         alert.showAndWait();
     }
 
-    // Method to switch scenes
+    
     public void switchScene(Class<?> clazz, Event evt, String targetFXML) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource(targetFXML));  // Use getClass() to load resource
+        FXMLLoader contentLoader = new FXMLLoader(clazz.getResource(targetFXML));
+        Parent content = contentLoader.load();
+
+        FXMLLoader titleLoader = new FXMLLoader(clazz.getResource("/style/CustomTitle.fxml"));
+        Parent titleBar = titleLoader.load();
+        CustomTitleBarController controller = titleLoader.getController();
+
         Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
+        controller.setStage(stage);  // Pass the stage to title bar
+
+        VBox layout = new VBox(titleBar, content);  // Combine title bar + content
+        Scene newScene = new Scene(layout);
+
+        // Apply styling
+        newScene.getStylesheets().add(clazz.getResource("/style/style.css").toExternalForm());
+
+        stage.setScene(newScene);
         stage.centerOnScreen();
         stage.show();
-        setCenterAlignment(stage);
     }
+
 
 
     // Method to center the stage on the screen
@@ -119,7 +130,13 @@ public class LoginPageController implements Initializable {
         stage.setY(centerY);
     }
 
-    @FXML
+   @FXML
     private void RegisterBtnOnClickHandler(MouseEvent event) {
+        try {
+            switchScene(getClass(), event, "/fxml/RegisterPage.fxml");  // Load Register Page
+        } catch (Exception ex) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to open Register page: " + ex.getMessage());
+        }
     }
+
 }
