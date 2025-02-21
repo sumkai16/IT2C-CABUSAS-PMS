@@ -8,25 +8,18 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="585.0" prefWidth="867.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginPageController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginPageController">
     <stylesheets>
         <URL value="@loginpage.css" />
     </stylesheets>
    <children>
-      <ImageView layoutX="-1.0">
-         <image>
-            <Image url="@../img/pexels-njeromin-29268077.png" />
-         </image>
-      </ImageView>
-      <StackPane layoutX="254.0" layoutY="111.0" opacity="0.5" prefHeight="379.0" prefWidth="392.0" style="-fx-background-color: #26272b; -fx-border-color: #ffffff; -fx-border-radius: 20; -fx-background-radius: 20;">
+      <StackPane layoutX="249.0" layoutY="111.0" opacity="0.5" prefHeight="379.0" prefWidth="392.0" style="-fx-background-color: #26272b; -fx-border-color: #ffffff; -fx-border-radius: 20; -fx-background-radius: 20;">
          <effect>
             <BoxBlur height="0.0" iterations="3" width="0.0" />
          </effect>
@@ -46,17 +39,10 @@
                   <Font name="Yu Gothic UI Semibold" size="18.0" />
                </font>
             </Label>
-            <ImageView fitHeight="65.0" fitWidth="69.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="52.0" fitWidth="55.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/DeWatermark.ai_1739076535737-removebg-preview.png" />
+                  <Image url="@../img/game-icons--graduate-cap.png" />
                </image>
-               <effect>
-                  <DropShadow>
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </DropShadow>
-               </effect>
             </ImageView>
          </children>
       </Group>

@@ -17,6 +17,7 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         primaryStage.initStyle(StageStyle.UNDECORATED);
         loadScene("/fxml/LoginPage.fxml"); // Load login page on startup
+        
         primaryStage.show();
     }
 

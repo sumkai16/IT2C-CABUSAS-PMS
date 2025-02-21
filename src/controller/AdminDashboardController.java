@@ -4,27 +4,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
+import javafx.scene.control.Label;
 import main.dbConnector;
 import models.User;
+import utils.utilities;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import style.CustomTitleBarController;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
+import utils.hoveer;
 
 public class AdminDashboardController implements Initializable {
 
@@ -51,8 +46,21 @@ public class AdminDashboardController implements Initializable {
 
     private ObservableList<User> userList;
     private dbConnector db;
+
     @FXML
-    private Label admindashboard;
+    private Button home;
+    @FXML
+    private Button prospectus;
+    @FXML
+    private Button managePrograms;
+    @FXML
+    private Button settings;
+    @FXML
+    private Button logout;
+    @FXML
+    private Button manageStudent;
+    @FXML
+    private Button genReport;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -72,69 +80,73 @@ public class AdminDashboardController implements Initializable {
 
         // Load data from database
         loadDataFromDatabase();
+        
+        hoveer hv = new hoveer();
+        hv.addHoverEffect(home);
+        hv.addHoverEffect(prospectus);
+        hv.addHoverEffect(managePrograms);
+        hv.addHoverEffect(settings);
+        hv.addHoverEffect(logout);
+        hv.addHoverEffect(manageStudent);
+        hv.addHoverEffect(genReport);
     }
 
     private void loadDataFromDatabase() {
-    String query = "SELECT u_id, u_fname, u_mname, u_lname, u_email, u_username, u_password, u_role FROM user";
-    try {
-        ResultSet rs = db.getData(query);
-        if (rs == null) {
-            System.out.println("ResultSet is null");
-            return;
+        String query = "SELECT u_id, u_fname, u_mname, u_lname, u_email, u_username, u_password, u_role FROM user";
+        try {
+            ResultSet rs = db.getData(query);
+            if (rs == null) {
+                System.out.println("ResultSet is null");
+                return;
+            }
+
+            while (rs.next()) {
+                int id = rs.getInt("u_id");
+                String firstName = rs.getString("u_fname");
+                String middleName = rs.getString("u_mname");
+                String lastName = rs.getString("u_lname");
+                String email = rs.getString("u_email");
+                String userName = rs.getString("u_username");
+                String password = rs.getString("u_password");
+                String role = rs.getString("u_role");
+                String status = "Registered";
+
+                userList.add(new User(id, firstName, middleName, lastName, email, userName, password, role, status));
+            }
+
+            tableView.setItems(userList);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        while (rs.next()) {
-            System.out.println("User found: " + rs.getString("u_username"));  // Debugging output
-            int id = rs.getInt("u_id");
-            String firstName = rs.getString("u_fname");
-            String middleName = rs.getString("u_mname");
-            String lastName = rs.getString("u_lname");
-            String email = rs.getString("u_email");
-            String userName = rs.getString("u_username");
-            String password = rs.getString("u_password");
-            String role = rs.getString("u_role");
-            String status = "Registered";
-
-            userList.add(new User(id, firstName, middleName, lastName, email, userName, password, role, status));
-        }
-
-        tableView.setItems(userList);
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-}
-
-    public void switchScene(Class<?> clazz, Event evt, String targetFXML) throws Exception {
-        FXMLLoader contentLoader = new FXMLLoader(clazz.getResource(targetFXML));
-        Parent content = contentLoader.load();
-
-        FXMLLoader titleLoader = new FXMLLoader(clazz.getResource("/style/CustomTitle.fxml"));
-        Parent titleBar = titleLoader.load();
-        CustomTitleBarController controller = titleLoader.getController();
-
-        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-        controller.setStage(stage);  // Pass the stage to title bar
-
-        VBox layout = new VBox(titleBar, content);  // Combine title bar + content
-        Scene newScene = new Scene(layout, 900, 600);  // Set default size
-
-        // Apply styling
-        newScene.getStylesheets().add(clazz.getResource("/style/style.css").toExternalForm());
-
-        stage.setScene(newScene);
-        stage.centerOnScreen();
-        stage.show();
     }
 
+    // Scene switch using AppUtils
+    public void switchScene(Class<?> clazz, Event evt, String targetFXML) {
+        try {
+            utilities.switchScene(clazz, evt, targetFXML);
+        } catch (Exception ex) {
+            utilities.showAlert(javafx.scene.control.Alert.AlertType.ERROR, "Error", "Failed to switch scene: " + ex.getMessage());
+        }
+    }
 
+    @FXML
+    private void homeOnClick(ActionEvent event) {
+    }
 
-    // Method to center the stage on the screen
-    public void setCenterAlignment(Stage stage) {
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        double centerX = (screenBounds.getWidth() - stage.getWidth()) / 2;
-        double centerY = (screenBounds.getHeight() - stage.getHeight()) / 2;
-        stage.setX(centerX);
-        stage.setY(centerY);
+    @FXML
+    private void prospectusOnClick(ActionEvent event) {
+    }
+
+    @FXML
+    private void studentDetailsOnClick(ActionEvent event) {
+    }
+
+    @FXML
+    private void settingsOnClick(ActionEvent event) {
+    }
+
+    @FXML
+    private void logoutOnClick(ActionEvent event) {
     }
 }

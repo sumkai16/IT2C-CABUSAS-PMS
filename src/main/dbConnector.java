@@ -53,7 +53,18 @@ public class dbConnector {
         public Connection getConnection() {
             return connect;
         }
-     
+//        public void displayData(){
+//           try{
+//               dbConnector dbc = new dbConnector();
+//               ResultSet rs = dbc.getData("SELECT * FROM tbl_student");
+//               student_table.setModel(DbUtils.resultSetToTableModel(rs));
+//                rs.close();
+//           }catch(SQLException ex){
+//               System.out.println("Errors: "+ex.getMessage());
+//
+//           }
+//
+//       }
 
     }
         

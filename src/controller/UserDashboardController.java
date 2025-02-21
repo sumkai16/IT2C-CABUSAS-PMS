@@ -1,59 +1,75 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import style.CustomTitleBarController;
-
-/**
- * FXML Controller class
- *
- * @author axcee
- */
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import utils.utilities;
+import utils.hoveer;
 public class UserDashboardController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private Button home;
+    @FXML
+    private Button prospectus;
+    @FXML
+    private Button studentDetails;
+    @FXML
+    private Button settings;
+    @FXML
+    private Button logout;
+
+    private Button selectedButton = null; // To track the selected button
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
-    // Method to switch scenes while keeping the custom title bar
-    public void switchScene(Class<?> clazz, Event evt, String targetFXML) throws Exception {
-        FXMLLoader contentLoader = new FXMLLoader(clazz.getResource(targetFXML));
-        Parent content = contentLoader.load();
-
-        FXMLLoader titleLoader = new FXMLLoader(clazz.getResource("/style/CustomTitle.fxml"));
-        Parent titleBar = titleLoader.load();
-        CustomTitleBarController controller = titleLoader.getController();
-
-        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-        controller.setStage(stage);  // Pass the stage to title bar
-
-        VBox layout = new VBox(titleBar, content);  // Combine title bar + content
-        Scene newScene = new Scene(layout, 900, 600);  // Set default size
-
-        // Apply styling
-        newScene.getStylesheets().add(clazz.getResource("/style/style.css").toExternalForm());
-
-        stage.setScene(newScene);
-        stage.centerOnScreen();
-        stage.show();
+        // Add hover and click effects to buttons
+        hoveer hv = new hoveer();
+        hv.addHoverEffect(home);
+        hv.addHoverEffect(prospectus);
+        hv.addHoverEffect(studentDetails);
+        hv.addHoverEffect(settings);
+        hv.addHoverEffect(logout);
     }
 
-    
+    // Method to apply hover and selection effects
+  
+
+    // Method to switch scenes while keeping the custom title bar
+    public void switchScene(Class<?> clazz, Event evt, String targetFXML) {
+        try {
+            utilities.switchScene(clazz, evt, targetFXML);
+        } catch (Exception ex) {
+            utilities.showAlert(javafx.scene.control.Alert.AlertType.ERROR, "Error", "Failed to switch scene: " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void homeOnClick(ActionEvent event) {
+        switchScene(UserDashboardController.class, event, "/fxml/Home.fxml");
+    }
+
+    @FXML
+    private void prospectusOnClick(ActionEvent event) {
+        switchScene(UserDashboardController.class, event, "/fxml/Prospectus.fxml");
+    }
+
+    @FXML
+    private void studentDetailsOnClick(ActionEvent event) {
+        switchScene(UserDashboardController.class, event, "/fxml/StudentDetails.fxml");
+    }
+
+    @FXML
+    private void settingsOnClick(ActionEvent event) {
+        switchScene(UserDashboardController.class, event, "/fxml/Settings.fxml");
+    }
+
+    @FXML
+    private void logoutOnClick(ActionEvent event) {
+        switchScene(UserDashboardController.class, event, "/fxml/Login.fxml");
+    }
 }
