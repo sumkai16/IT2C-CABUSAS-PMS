@@ -5,10 +5,10 @@
 .mainFxmlClass {
 
 }
-RadialGradient radialGradient = new RadialGradient(
+/*RadialGradient radialGradient = new RadialGradient(
         0, 0, 0.5, 0.5, 0.5, true, CycleMethod.NO_CYCLE, 
         new Stop(0, Color.web("#ff7e5f")), 
         new Stop(1, Color.web("#feb47b"))
-);
+);*/
 
-root.setBackground(new Background(new BackgroundFill(radialGradient, CornerRadii.EMPTY, null)));
+/*root.setBackground(new Background(new BackgroundFill(radialGradient, CornerRadii.EMPTY, null)));*/

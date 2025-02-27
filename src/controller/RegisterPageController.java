@@ -24,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import style.CustomTitleBarController;
+import utils.hoveer;
 
 public class RegisterPageController implements Initializable {
 
@@ -44,17 +45,23 @@ public class RegisterPageController implements Initializable {
 
     private dbConnector db;
     @FXML
-    private Button RegisterBtn;
-    @FXML
     private Label loginlbl;
     @FXML
     private Label registerBtn11;
     @FXML
     private Label registerBtn1;
+    @FXML
+    private Button register;
+    @FXML
+    private Button login;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         db = new dbConnector();  // Initialize the database connection
+        
+        hoveer hv = new hoveer();
+        hv.btnAuth(register);
+        hv.btnSwitch(login);
     }
 
     @FXML
@@ -102,14 +109,7 @@ public class RegisterPageController implements Initializable {
     }
 
     
-    @FXML
-    private void LoginClickHandler(MouseEvent event) {
-        try {
-            switchScene(getClass(), event, "/fxml/LoginPage.fxml");  // Ensure title bar remains
-        } catch (Exception ex) {
-            showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
-        }
-    }
+   
 
 
     private boolean validateInputs(String firstname, String lastname, String email, String contact, String username, String password) {
@@ -183,6 +183,15 @@ public class RegisterPageController implements Initializable {
         stage.setScene(newScene);
         stage.centerOnScreen();
         stage.show();
+    }
+
+    @FXML
+    private void LoginHandler(ActionEvent event) {
+        try {
+            switchScene(getClass(), event, "/fxml/LoginPage.fxml");  // Ensure title bar remains
+        } catch (Exception ex) {
+            showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
+        }
     }
 
 }

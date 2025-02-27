@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import utils.hoveer;
 
 public class LoginPageController implements Initializable {
 
@@ -32,10 +33,16 @@ public class LoginPageController implements Initializable {
     private dbConnector db;
     @FXML
     private Label registerBtn11;
+    @FXML
+    private Button register;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         db = new dbConnector();  // Initialize the database connection
+        
+        hoveer hv = new hoveer();
+        hv.btnAuth(loginBtn);
+        hv.btnSwitch(register);
     }
 
     @FXML
@@ -82,6 +89,15 @@ public class LoginPageController implements Initializable {
 
     @FXML
     private void RegisterBtnOnClickHandler(MouseEvent event) {
+        try {
+            utilities.switchScene(getClass(), event, "/fxml/RegisterPage.fxml");  // Load Register Page
+        } catch (Exception ex) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open Register page: " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void registerHandler(ActionEvent event) {
         try {
             utilities.switchScene(getClass(), event, "/fxml/RegisterPage.fxml");  // Load Register Page
         } catch (Exception ex) {

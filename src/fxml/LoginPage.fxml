@@ -11,6 +11,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
@@ -19,19 +20,12 @@
         <URL value="@loginpage.css" />
     </stylesheets>
    <children>
+      <Pane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: black;" />
       <StackPane layoutX="249.0" layoutY="111.0" opacity="0.5" prefHeight="379.0" prefWidth="392.0" style="-fx-background-color: #26272b; -fx-border-color: #ffffff; -fx-border-radius: 20; -fx-background-radius: 20;">
          <effect>
             <BoxBlur height="0.0" iterations="3" width="0.0" />
          </effect>
       </StackPane>
-      <Label fx:id="registerBtn11" layoutX="422.0" layoutY="220.0" text="Login" textFill="WHITE">
-         <font>
-            <Font name="Arial Black" size="18.0" />
-         </font>
-         <effect>
-            <ColorAdjust brightness="1.0" />
-         </effect>
-      </Label>
       <Group layoutX="328.0" layoutY="145.0">
          <children>
             <Label layoutX="69.0" layoutY="25.0" text="SyllabusConcordia" textFill="WHITE">
@@ -46,6 +40,19 @@
             </ImageView>
          </children>
       </Group>
+      <Button fx:id="register" layoutX="479.0" layoutY="341.0" mnemonicParsing="false" onAction="#registerHandler" style="-fx-background-color: transparent;" text="Register." textFill="#ff007f">
+         <font>
+            <Font name="Arial Italic" size="12.0" />
+         </font>
+      </Button>
+      <Label fx:id="registerBtn11" layoutX="422.0" layoutY="220.0" text="Login" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="18.0" />
+         </font>
+         <effect>
+            <ColorAdjust brightness="1.0" />
+         </effect>
+      </Label>
       <TextField fx:id="userF" alignment="CENTER" layoutX="344.0" layoutY="253.0" prefHeight="27.0" prefWidth="211.0" promptText="username" style="-fx-background-color: transparent; -fx-border-radius: 6; -fx-border-color: #FFFFFF; -fx-text-fill: #FFFFFF;">
          <font>
             <Font name="Arial" size="12.0" />
@@ -62,16 +69,11 @@
             <ColorAdjust brightness="1.0" />
          </effect>
       </PasswordField>
-      <Button fx:id="loginBtn" layoutX="374.0" layoutY="381.0" mnemonicParsing="false" onAction="#LoginOnClickHandler" prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: #C8A2C8; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #000000;" text="Login">
+      <Button fx:id="loginBtn" layoutX="374.0" layoutY="381.0" mnemonicParsing="false" onAction="#LoginOnClickHandler" prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: #ff007f; -fx-border-radius: 15; -fx-background-radius: 15;" text="Login" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="12.0" />
          </font>
       </Button>
-      <Label fx:id="registerBtn" layoutX="492.0" layoutY="343.0" onMouseClicked="#RegisterBtnOnClickHandler" text="Register." textFill="#c8a2c8">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font>
-      </Label>
       <Label layoutX="352.0" layoutY="343.0" onMouseClicked="#RegisterBtnOnClickHandler" text="Don't have an account?" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />

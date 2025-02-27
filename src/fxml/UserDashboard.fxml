@@ -36,31 +36,59 @@
             </Pane>
             <Pane layoutY="51.0" prefHeight="549.0" prefWidth="177.0" style="-fx-background-color: #ffffff;">
                <children>
-                  <Button fx:id="home" layoutX="13.0" layoutY="54.0" mnemonicParsing="false" onAction="#homeOnClick" prefHeight="33.0" prefWidth="152.0" style="-fx-background-color: transparent; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="Home">
+                  <Button fx:id="home" alignment="BASELINE_LEFT" layoutY="55.0" mnemonicParsing="false" onAction="#homeOnClick" prefHeight="38.0" prefWidth="177.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="Home">
                      <font>
                         <Font name="Cambria" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="prospectus" layoutX="13.0" layoutY="109.0" mnemonicParsing="false" onAction="#prospectusOnClick" prefHeight="33.0" prefWidth="152.0" style="-fx-background-color: transparent; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="View Prospectus">
+                  <Button fx:id="prospectus" alignment="BASELINE_LEFT" layoutY="106.0" mnemonicParsing="false" onAction="#prospectusOnClick" prefHeight="38.0" prefWidth="177.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="View Prospectus">
                      <font>
                         <Font name="Cambria" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="studentDetails" layoutX="13.0" layoutY="165.0" mnemonicParsing="false" onAction="#studentDetailsOnClick" prefHeight="33.0" prefWidth="152.0" style="-fx-background-color: transparent; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="My Student Details">
+                  <Button fx:id="studentDetails" alignment="BASELINE_LEFT" layoutY="160.0" mnemonicParsing="false" onAction="#studentDetailsOnClick" prefHeight="38.0" prefWidth="177.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="My Student Details">
                      <font>
                         <Font name="Cambria" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="settings" layoutX="13.0" layoutY="222.0" mnemonicParsing="false" onAction="#settingsOnClick" prefHeight="33.0" prefWidth="152.0" style="-fx-background-color: transparent; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="Settings">
+                  <Button fx:id="settings" alignment="BASELINE_LEFT" layoutY="212.0" mnemonicParsing="false" onAction="#settingsOnClick" prefHeight="38.0" prefWidth="177.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="Settings">
                      <font>
                         <Font name="Cambria" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="logout" layoutX="13.0" layoutY="275.0" mnemonicParsing="false" onAction="#logoutOnClick" prefHeight="33.0" prefWidth="152.0" style="-fx-background-color: transparent; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="Logout">
+                  <Button fx:id="logout" alignment="BASELINE_LEFT" layoutY="262.0" mnemonicParsing="false" onAction="#logoutOnClick" prefHeight="38.0" prefWidth="177.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="Logout">
                      <font>
                         <Font name="Cambria" size="14.0" />
                      </font>
                   </Button>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="16.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icons8-home-unscreen.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="16.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icons8-paper-unscreen.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="16.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icons8-settings-unscreen.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="16.0" layoutY="271.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icons8-logout%20(2).gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="16.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icons8-name-unscreen.gif" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="-1.0" />
+                     </effect>
+                  </ImageView>
                </children>
             </Pane>
             <Pane layoutX="192.0" layoutY="50.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-background-radius: 6;">
