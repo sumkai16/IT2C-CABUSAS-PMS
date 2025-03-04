@@ -1,11 +1,8 @@
 package controller;
 
-import main.dbConnector;
-import utils.hoveer;
-import utils.utilities;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -13,36 +10,51 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import utils.utilities;
+import main.dbConnector;
 import utils.validations;
 
-public class RegisterPageController implements Initializable {
+/**
+ * FXML Controller class
+ *
+ * @author axcee
+ */
+public class AddUserController implements Initializable {
 
     @FXML
-    private TextField firstnameF, lastnameF, emailF, contactF, userFF, middleF;
+    private TextField firstnameF;
+    @FXML
+    private TextField lastnameF;
+    @FXML
+    private TextField emailF;
+    @FXML
+    private TextField contactF;
+    @FXML
+    private TextField userFF;
     @FXML
     private PasswordField pwF;
     @FXML
-    private Button register, login;
+    private TextField middleF;
+    @FXML
+    private Button addUser;
 
     private dbConnector db;
     @FXML
-    private Label registerBtn11;
+    private AnchorPane rootPane;
     @FXML
-    private Label registerBtn1;
+    private Pane backgroundPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         db = new dbConnector();
-        hoveer hv = new hoveer();
-        hv.btnAuth(register);
-        hv.btnSwitch(login);
     }
+
     @FXML
-    private void RegisterOnClickHandler(ActionEvent event) {
+    private void addUserHandler(ActionEvent event) {
         String firstname = firstnameF.getText().trim();
         String lastname = lastnameF.getText().trim();
         String email = emailF.getText().trim();
@@ -67,7 +79,9 @@ public class RegisterPageController implements Initializable {
             }
 
             String sql = "INSERT INTO user (u_fname, u_mname, u_lname, u_email, u_contact_number, u_username, u_password, u_role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            try (PreparedStatement pst = db.getConnection().prepareStatement(sql)) {
+            try (Connection conn = db.getConnection();
+                 PreparedStatement pst = conn.prepareStatement(sql)) {
+
                 pst.setString(1, firstname);
                 pst.setString(2, middle);
                 pst.setString(3, lastname);
@@ -77,6 +91,7 @@ public class RegisterPageController implements Initializable {
                 pst.setString(7, password);
                 pst.setString(8, "user");
                 pst.executeUpdate();
+
                 utilities.showAlert(Alert.AlertType.INFORMATION, "Registration Successful", "You have successfully registered!");
                 clearFields();
             }
@@ -84,8 +99,6 @@ public class RegisterPageController implements Initializable {
             utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred: " + ex.getMessage());
         }
     }
-
-    
 
     private void clearFields() {
         firstnameF.clear();
@@ -96,15 +109,4 @@ public class RegisterPageController implements Initializable {
         pwF.clear();
         middleF.clear();
     }
-
-    @FXML
-    private void LoginHandler(ActionEvent event) {
-        try {
-            utilities.animatePaneTransitionRightToLeft(getClass(), event, "/fxml/LoginPage.fxml");
-        } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
-        }
-    }
-
-   
 }

@@ -15,18 +15,29 @@ import javafx.scene.input.MouseEvent;
  */
 public class hoveer {
     private Button selectedButton = null;
+    
+    public void constant(Button button){
+        button.setStyle("-fx-background-color: #E75480; -fx-text-fill: #000000; -fx-padding:  10 10 10 40");
+        if (selectedButton != null) {
+            // Reset previous button style
+             selectedButton.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #000000; -fx-padding:  10 10 10 40");
+            }
+        selectedButton = button; // Set the new selected button
+        button.setStyle("-fx-background-color: #E75480; -fx-text-fill: #000000; -fx-padding:  10 10 10 40");
+   
+    }
       public void addHoverEffect(Button button) {
         // Hover effect
         button.setOnMouseEntered((MouseEvent event) -> {
             if (button != selectedButton) {
-                button.setStyle("-fx-background-color: #E2DADA; -fx-text-fill: black; -fx-padding:  10 10 10 40");
+                button.setStyle("-fx-background-color: #E75480; -fx-text-fill: #000000; -fx-padding:  10 10 10 40");
             }
         });
 
         // Mouse exit effect
         button.setOnMouseExited((MouseEvent event) -> {
             if (button != selectedButton) {
-                button.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: black; -fx-padding:  10 10 10 40;");
+                button.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #000000; -fx-padding:  10 10 10 40;");
             }
         });
 
@@ -34,10 +45,10 @@ public class hoveer {
         button.setOnAction((ActionEvent event) -> {
             if (selectedButton != null) {
                 // Reset previous button style
-                selectedButton.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: black; -fx-padding:  10 10 10 40");
+                selectedButton.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #000000; -fx-padding:  10 10 10 40");
             }
             selectedButton = button; // Set the new selected button
-            button.setStyle("-fx-background-color: #E2DADA; -fx-text-fill: black; -fx-padding:  10 10 10 40"); // Selected color
+            button.setStyle("-fx-background-color: #E75480; -fx-text-fill: #000000; -fx-padding:  10 10 10 40"); // Selected color
         });
     }
       public void btnAuth(Button button) {
@@ -51,7 +62,7 @@ public class hoveer {
         // Mouse exit effect
         button.setOnMouseExited((MouseEvent event) -> {
             if (button != selectedButton) {
-                button.setStyle("-fx-background-color: #ff007f; -fx-text-fill: white; -fx-border-radius: 15; -fx-background-radius: 15");
+                button.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #000000; -fx-border-radius: 15; -fx-background-radius: 15");
             }
         });    
     }
@@ -66,7 +77,7 @@ public class hoveer {
         // Mouse exit effect
         button.setOnMouseExited((MouseEvent event) -> {
             if (button != selectedButton) {
-                button.setStyle("-fx-background-color: transparent; -fx-text-fill: #ff007f;");
+                button.setStyle("-fx-background-color: transparent; -fx-text-fill: #000000;");
             }
         });
 

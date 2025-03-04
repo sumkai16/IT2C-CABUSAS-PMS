@@ -2,13 +2,13 @@ package controller;
 
 import main.dbConnector;
 import utils.utilities;
+import utils.hoveer;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -16,8 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import utils.hoveer;
+import models.UserSession;
 
 public class LoginPageController implements Initializable {
 
@@ -29,22 +28,18 @@ public class LoginPageController implements Initializable {
     private Button loginBtn;
     @FXML
     private Label registerBtn;
-
-    private dbConnector db;
-    @FXML
-    private Label registerBtn11;
     @FXML
     private Button register;
 
+    private dbConnector db;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        db = new dbConnector();  // Initialize the database connection
-        
+        db = new dbConnector();
         hoveer hv = new hoveer();
         hv.btnAuth(loginBtn);
         hv.btnSwitch(register);
     }
-
     @FXML
     private void LoginOnClickHandler(ActionEvent event) {
         String username = userF.getText().trim();
@@ -59,47 +54,45 @@ public class LoginPageController implements Initializable {
             String role = authenticateUser(username, password);
             if (role != null) {
                 utilities.showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome back!");
-
-                // Switch to the correct dashboard
-                String fxmlPath = role.equalsIgnoreCase("admin") ? "/fxml/AdminDashboard.fxml" : "/fxml/UserDashboard.fxml";
+                String fxmlPath = role.equalsIgnoreCase("Admin") ? "/fxml/AdminDashboard.fxml" : "/fxml/UserDashboard.fxml";
                 utilities.switchScene(getClass(), event, fxmlPath);
             } else {
                 utilities.showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
             }
         } catch (SQLException ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred: " + ex.getMessage());
+            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Database connection failed: " + ex.getMessage());
         } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
+            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashbodasard: " + ex.getMessage());
         }
     }
 
-    // Method to authenticate user and retrieve role
-    private String authenticateUser(String username, String password) throws SQLException {
-        String sql = "SELECT u_role FROM user WHERE u_username = ? AND u_password = ?";
+    public String authenticateUser(String username, String password) throws SQLException {
+        String sql = "SELECT u_id, u_fname, u_lname, u_role FROM user WHERE u_username = ? AND u_password = ?";
         try (PreparedStatement pst = db.getConnection().prepareStatement(sql)) {
             pst.setString(1, username);
             pst.setString(2, password);
-            ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
-                return rs.getString("u_role");  // Return user role if authentication is successful
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    int userId = rs.getInt("u_id");
+                    String firstName = rs.getString("u_fname");
+                    String lastName = rs.getString("u_lname");
+                    String role = rs.getString("u_role"); // Get user role first
+
+                    // ✅ Store user data in session BEFORE returning
+                    UserSession.createSession(userId, firstName, lastName);
+
+                    return role; // ✅ Now return role
+                }
             }
         }
         return null;
     }
 
-    @FXML
-    private void RegisterBtnOnClickHandler(MouseEvent event) {
-        try {
-            utilities.switchScene(getClass(), event, "/fxml/RegisterPage.fxml");  // Load Register Page
-        } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open Register page: " + ex.getMessage());
-        }
-    }
 
     @FXML
     private void registerHandler(ActionEvent event) {
         try {
-            utilities.switchScene(getClass(), event, "/fxml/RegisterPage.fxml");  // Load Register Page
+            utilities.animatePaneTransitionLeftToRight(getClass(), event, "/fxml/RegisterPage.fxml");
         } catch (Exception ex) {
             utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open Register page: " + ex.getMessage());
         }

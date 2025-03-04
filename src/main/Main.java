@@ -1,5 +1,6 @@
 package main;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,44 +8,68 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import style.CustomTitleBarController;
+import controller.CustomTitleBarController;
 
 public class Main extends Application {
-    private Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        loadScene("/fxml/LoginPage.fxml"); // Load login page on startup
-        
-        primaryStage.show();
-    }
-
-    public void loadScene(String fxmlPath) {
         try {
-            // Load main content
+            primaryStage.initStyle(StageStyle.DECORATED);
+            loadScene(primaryStage, "/fxml/LoginPage.fxml"); // Load login page on startup
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Error initializing application: " + e.getMessage());
+        }
+    }
+ 
+    public void loadScene(Stage stage, String fxmlPath) {
+        try {
+            // Validate main content path
+            if (getClass().getResource(fxmlPath) == null) {
+                throw new IOException("FXML file not found: " + fxmlPath);
+            }
+
             FXMLLoader contentLoader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent content = contentLoader.load();
 
-            // Load custom title bar
-            FXMLLoader titleLoader = new FXMLLoader(getClass().getResource("/style/CustomTitle.fxml"));
-            Parent titleBar = titleLoader.load();
-            CustomTitleBarController controller = titleLoader.getController();
-            controller.setStage(primaryStage);
+            // Validate custom title bar path
+            String titleBarPath = "/fxml/CustomTitle.fxml";
+            if (getClass().getResource(titleBarPath) == null) {
+                throw new IOException("FXML file not found: " + titleBarPath);
+            }
 
-            // Combine title bar and content
+            FXMLLoader titleLoader = new FXMLLoader(getClass().getResource(titleBarPath));
+            Parent titleBar = titleLoader.load();
+
+            // Set stage in CustomTitleBarController
+            CustomTitleBarController controller = titleLoader.getController();
+            if (controller != null) {
+                controller.setStage(stage);
+                System.out.println("CustomTitleBarController successfully received the stage.");
+            } else {
+                System.err.println("Error: CustomTitleBarController is null.");
+            }
+
             VBox layout = new VBox(titleBar, content);
             Scene scene = new Scene(layout);
 
-            // Add CSS for styling
-            scene.getStylesheets().add(getClass().getResource("/style/style.css").toExternalForm());
+            // Load CSS if exists
+            String cssPath = "/css/style.css";
+            if (getClass().getResource(cssPath) != null) {
+                scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
+            } else {
+                System.err.println("Warning: CSS file not found at " + cssPath);
+            }
 
-            primaryStage.setScene(scene);
-        } catch (Exception e) {
+            stage.setScene(scene);
+        } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("Failed to load FXML: " + fxmlPath);
         }
     }
+
 
     public static void main(String[] args) {
         launch(args);

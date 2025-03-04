@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,72 +13,74 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginPageController">
-    <stylesheets>
-        <URL value="@loginpage.css" />
-    </stylesheets>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" styleClass="mainFxmlClass" stylesheets="@loginpage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginPageController">
    <children>
-      <Pane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: black;" />
-      <StackPane layoutX="249.0" layoutY="111.0" opacity="0.5" prefHeight="379.0" prefWidth="392.0" style="-fx-background-color: #26272b; -fx-border-color: #ffffff; -fx-border-radius: 20; -fx-background-radius: 20;">
-         <effect>
-            <BoxBlur height="0.0" iterations="3" width="0.0" />
-         </effect>
-      </StackPane>
-      <Group layoutX="328.0" layoutY="145.0">
+      <StackPane prefHeight="600.0" prefWidth="488.0" style="-fx-background-color: black;" />
+      <StackPane layoutX="434.0" prefHeight="600.0" prefWidth="466.0" style="-fx-background-color: white; -fx-border-radius: 30; -fx-background-radius: 30 0 0 30;" />
+      <Group layoutX="29.0" layoutY="79.0">
          <children>
-            <Label layoutX="69.0" layoutY="25.0" text="SyllabusConcordia" textFill="WHITE">
-               <font>
-                  <Font name="Yu Gothic UI Semibold" size="18.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="52.0" fitWidth="55.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/game-icons--graduate-cap.png" />
-               </image>
-            </ImageView>
+            <Pane layoutX="-7.0" layoutY="12.0" prefHeight="379.0" prefWidth="392.0" style="-fx-background-color: white; -fx-border-color: black; -fx-background-radius: 20; -fx-border-radius: 20;">
+               <children>
+                  <Group layoutX="86.0" layoutY="46.0">
+                     <children>
+                        <Label layoutX="69.0" layoutY="25.0" text="SyllabusConcordia">
+                           <font>
+                              <Font name="Yu Gothic UI Semibold" size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="52.0" fitWidth="55.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/game-icons--graduate-cap.png" />
+                           </image>
+                           <effect>
+                              <ColorAdjust brightness="-1.0" />
+                           </effect>
+                        </ImageView>
+                        <Group layoutY="80.0">
+                           <children>
+                              <Button fx:id="register" layoutX="135.0" layoutY="117.0" mnemonicParsing="false" onAction="#registerHandler" style="-fx-background-color: transparent;" text="Register.">
+                                 <font>
+                                    <Font name="Arial Bold Italic" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Label fx:id="registerBtn11" layoutX="78.0" text="Login">
+                                 <font>
+                                    <Font name="Arial Black" size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="userF" alignment="CENTER" layoutY="33.0" prefHeight="27.0" prefWidth="211.0" promptText="username" stylesheets="@../css/style.css">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                                 <effect>
+                                    <ColorAdjust brightness="-1.0" />
+                                 </effect>
+                              </TextField>
+                              <PasswordField fx:id="passF" alignment="CENTER" layoutY="80.0" prefHeight="27.0" prefWidth="211.0" promptText="password" stylesheets="@../css/style.css">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                                 <effect>
+                                    <ColorAdjust brightness="-1.0" />
+                                 </effect>
+                              </PasswordField>
+                              <Button fx:id="loginBtn" layoutX="30.0" layoutY="161.0" mnemonicParsing="false" onAction="#LoginOnClickHandler" prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 4);" stylesheets="@../css/style.css" text="Login">
+                                 <font>
+                                    <Font name="Arial Black" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Label layoutX="8.0" layoutY="123.0" text="Don't have an account?">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Group>
+                     </children>
+                  </Group>
+               </children>
+            </Pane>
          </children>
       </Group>
-      <Button fx:id="register" layoutX="479.0" layoutY="341.0" mnemonicParsing="false" onAction="#registerHandler" style="-fx-background-color: transparent;" text="Register." textFill="#ff007f">
-         <font>
-            <Font name="Arial Italic" size="12.0" />
-         </font>
-      </Button>
-      <Label fx:id="registerBtn11" layoutX="422.0" layoutY="220.0" text="Login" textFill="WHITE">
-         <font>
-            <Font name="Arial Black" size="18.0" />
-         </font>
-         <effect>
-            <ColorAdjust brightness="1.0" />
-         </effect>
-      </Label>
-      <TextField fx:id="userF" alignment="CENTER" layoutX="344.0" layoutY="253.0" prefHeight="27.0" prefWidth="211.0" promptText="username" style="-fx-background-color: transparent; -fx-border-radius: 6; -fx-border-color: #FFFFFF; -fx-text-fill: #FFFFFF;">
-         <font>
-            <Font name="Arial" size="12.0" />
-         </font>
-         <effect>
-            <ColorAdjust brightness="1.0" />
-         </effect>
-      </TextField>
-      <PasswordField fx:id="passF" alignment="CENTER" layoutX="344.0" layoutY="300.0" prefHeight="27.0" prefWidth="211.0" promptText="password" style="-fx-background-color: transparent; -fx-border-radius: 6; -fx-border-color: #FFFFFF; -fx-text-fill: #FFFFFF;">
-         <font>
-            <Font name="Arial" size="12.0" />
-         </font>
-         <effect>
-            <ColorAdjust brightness="1.0" />
-         </effect>
-      </PasswordField>
-      <Button fx:id="loginBtn" layoutX="374.0" layoutY="381.0" mnemonicParsing="false" onAction="#LoginOnClickHandler" prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: #ff007f; -fx-border-radius: 15; -fx-background-radius: 15;" text="Login" textFill="WHITE">
-         <font>
-            <Font name="Arial Black" size="12.0" />
-         </font>
-      </Button>
-      <Label layoutX="352.0" layoutY="343.0" onMouseClicked="#RegisterBtnOnClickHandler" text="Don't have an account?" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-         <effect>
-            <ColorAdjust brightness="1.0" />
-         </effect>
-      </Label>
    </children>
 </AnchorPane>

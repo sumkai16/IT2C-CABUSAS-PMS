@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="379.0" prefWidth="690.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserTable">
+    <stylesheets>
+        <URL value="@/css/adduser.css" />
+    </stylesheets>
+   <children>
+      <Pane prefHeight="412.0" prefWidth="690.0">
+         <children>
+            <TableView fx:id="tableView" layoutY="33.0" prefHeight="379.0" prefWidth="690.0" stylesheets="@../css/admindashboard.css">
+              <columns>
+                  <TableColumn fx:id="idColumn" editable="false" prefWidth="95.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="User ID" />
+                  <TableColumn fx:id="firstNameColumn" editable="false" prefWidth="115.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="First Name" />
+                  <TableColumn fx:id="middleNameColumn" editable="false" prefWidth="115.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="Middle Name" />
+                  <TableColumn fx:id="lastNameColumn" editable="false" prefWidth="115.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="Last Name" />
+                  <TableColumn fx:id="roleColumn" editable="false" prefWidth="115.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="Role" />
+                  <TableColumn fx:id="statusColumn" editable="false" prefWidth="115.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="Status" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
+      <ImageView fx:id="deleteIcon" fitHeight="30.0" fitWidth="30.0" layoutX="660.0" layoutY="9.0" onMouseClicked="#deleteHandler">
+         <image>
+            <Image url="@../img/output-onlinegiftools%20(2).gif" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="editIcon" fitHeight="30.0" fitWidth="30.0" layoutX="624.0" layoutY="9.0" onMouseClicked="#editHandler">
+         <image>
+            <Image url="@../img/output-onlinegiftools%20(1).gif" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="addIcon" fitHeight="30.0" fitWidth="30.0" layoutX="586.0" layoutY="9.0" onMouseClicked="#addHandler">
+         <image>
+            <Image url="@../img/output-onlinegiftools.gif" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

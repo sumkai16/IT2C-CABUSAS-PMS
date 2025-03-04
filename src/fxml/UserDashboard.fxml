@@ -91,27 +91,9 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="192.0" layoutY="50.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-background-radius: 6;">
+            <Pane layoutX="664.0" layoutY="73.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-background-radius: 6;">
                <children>
-                  <Label layoutX="14.0" layoutY="14.0" text="Total Programs">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane layoutX="429.0" layoutY="50.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-background-radius: 6;">
-               <children>
-                  <Label layoutX="14.0" layoutY="14.0" text="Total Students">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane layoutX="666.0" layoutY="50.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-background-radius: 6;">
-               <children>
-                  <Label layoutX="14.0" layoutY="14.0" text="Active Courses">
+                  <Label layoutX="14.0" layoutY="14.0" text="Enrolled Courses">
                      <font>
                         <Font name="Cambria" size="14.0" />
                      </font>
@@ -128,6 +110,12 @@
                </children>
             </Pane>
             <Pane layoutX="192.0" layoutY="247.0" prefHeight="149.0" prefWidth="692.0" style="-fx-background-color: #ffffff; -fx-background-radius: 0 0 6 6;" />
-         </children></Pane>
+            <Label fx:id="welcome" layoutX="192.0" layoutY="65.0" text="Welcome!, ">
+               <font>
+                  <Font name="Cambria" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

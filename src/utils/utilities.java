@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package utils;
 
+import javafx.animation.TranslateTransition;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,44 +11,119 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import controller.CustomTitleBarController;
+import java.io.IOException;
+
 
 /**
- *
- * @author axcee
+ * Utility class for JavaFX scene management and animations.
  */
 public class utilities {
+
+    // Show alert dialog and center it on screen
     public static void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
-        alert.showAndWait();
+        alert.show();
+
+        Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        alertStage.setX((screenBounds.getWidth() - alertStage.getWidth()) / 2);
+        alertStage.setY((screenBounds.getHeight() - alertStage.getHeight()) / 2);
     }
 
-    public static void switchScene(Class<?> clazz, Event evt, String targetFXML) throws Exception {
-        FXMLLoader contentLoader = new FXMLLoader(clazz.getResource(targetFXML));
-        Parent content = contentLoader.load();
+    // Switch scene and add custom title bar
+    public static void switchScene(Class<?> clazz, Event evt, String targetFXML) {
+        try {
+            FXMLLoader contentLoader = new FXMLLoader(clazz.getResource(targetFXML));
+            Parent content = contentLoader.load();
 
-        FXMLLoader titleLoader = new FXMLLoader(clazz.getResource("/style/CustomTitle.fxml"));
-        Parent titleBar = titleLoader.load();
+            FXMLLoader titleLoader = new FXMLLoader(clazz.getResource("/fxml/CustomTitle.fxml"));
+            Parent titleBar = titleLoader.load();
 
-        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-        VBox layout = new VBox(titleBar, content);
-        Scene newScene = new Scene(layout);
+            Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
 
-        newScene.getStylesheets().add(clazz.getResource("/style/style.css").toExternalForm());
+            CustomTitleBarController controller = titleLoader.getController();
+            if (controller != null) {
+                controller.setStage(stage);
+            }
 
-        stage.setScene(newScene);
-        stage.centerOnScreen();
-        stage.show();
+            VBox layout = new VBox(titleBar, content);
+            Scene newScene = new Scene(layout);
+            newScene.getStylesheets().add(clazz.getResource("/css/style.css").toExternalForm());
+
+            stage.setScene(newScene);
+            stage.centerOnScreen();
+            stage.show();
+        } catch (IOException ex) {
+             ex.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load scene: " + ex.getMessage());
+        }
     }
+   
+    
 
+    // Center window on screen
     public static void setCenterAlignment(Stage stage) {
-        javafx.geometry.Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        double centerX = (screenBounds.getWidth() - stage.getWidth()) / 2;
-        double centerY = (screenBounds.getHeight() - stage.getHeight()) / 2;
-        stage.setX(centerX);
-        stage.setY(centerY);
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
     }
-}
 
+    // Smoothly transition only the content pane, keeping the scene static
+    public static void animatePaneTransition(Class<?> clazz, Event event, String fxmlPath, boolean leftToRight) {
+        try {
+            FXMLLoader contentLoader = new FXMLLoader(clazz.getResource(fxmlPath));
+            Parent newContent = contentLoader.load();
+
+            Node eventSource = (Node) event.getSource();
+            Scene currentScene = eventSource.getScene();
+            Parent root = currentScene.getRoot();
+
+            if (!(root instanceof VBox)) {
+                return;
+            }
+
+            VBox layout = (VBox) root;
+            if (layout.getChildren().size() < 2) {
+                return;
+            }
+
+            Node currentContent = layout.getChildren().remove(1);
+            layout.getChildren().add(newContent);
+
+            double sceneWidth = currentScene.getWidth();
+            double startX = leftToRight ? -sceneWidth : sceneWidth;
+
+            newContent.setTranslateX(startX);
+
+            TranslateTransition slideOut = new TranslateTransition(Duration.millis(500), currentContent);
+            slideOut.setToX(-startX);
+
+            TranslateTransition slideIn = new TranslateTransition(Duration.millis(500), newContent);
+            slideIn.setFromX(startX);
+            slideIn.setToX(0);
+
+            slideOut.setOnFinished(e -> layout.getChildren().remove(currentContent));
+
+            slideOut.play();
+            slideIn.play();
+        } catch (IOException ex) {
+            showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load content: " + ex.getMessage());
+        }
+    }
+
+    // Wrapper method for Right-to-Left transition
+    public static void animatePaneTransitionRightToLeft(Class<?> clazz, Event event, String fxmlPath) {
+        animatePaneTransition(clazz, event, fxmlPath, false);
+    }
+
+    // Wrapper method for Left-to-Right transition
+    public static void animatePaneTransitionLeftToRight(Class<?> clazz, Event event, String fxmlPath) {
+        animatePaneTransition(clazz, event, fxmlPath, true);
+    }
+    
+}
