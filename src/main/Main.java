@@ -15,7 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            primaryStage.initStyle(StageStyle.DECORATED);
+            primaryStage.initStyle(StageStyle.UNDECORATED);
             loadScene(primaryStage, "/fxml/LoginPage.fxml"); // Load login page on startup
             primaryStage.show();
         } catch (Exception e) {

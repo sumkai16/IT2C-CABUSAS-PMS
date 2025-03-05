@@ -54,13 +54,21 @@ public class LoginPageController implements Initializable {
             String role = authenticateUser(username, password);
             if (role != null) {
                 utilities.showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome back!");
-                String fxmlPath = role.equalsIgnoreCase("Admin") ? "/fxml/AdminDashboard.fxml" : "/fxml/UserDashboard.fxml";
-                utilities.switchScene(getClass(), event, fxmlPath);
+//                String fxmlPath = role.equalsIgnoreCase("Admin") ? "/fxml/AdminDashboard.fxml" : "/fxml/UserDashboard.fxml";      
+
+            String fxmlPath;
+            if(role.equalsIgnoreCase("Admin")) {
+              utilities.switchScene(getClass(), event,  "/fxml/AdminDashboard.fxml");
+            } else {
+                utilities.switchScene(getClass(), event,  "/fxml/UserDashboard.fxml");
+            }
+
+                
             } else {
                 utilities.showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
             }
         } catch (SQLException ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Database connection failed: " + ex.getMessage());
+            utilities.showAlert(Alert.AlertType.ERROR, "Database Er23ror", "Database connection failed: " + ex.getMessage());
         } catch (Exception ex) {
             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashbodasard: " + ex.getMessage());
         }

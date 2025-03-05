@@ -41,8 +41,18 @@ public class RegisterPageController implements Initializable {
         hv.btnAuth(register);
         hv.btnSwitch(login);
     }
+
     @FXML
-    private void RegisterOnClickHandler(ActionEvent event) {
+    private void LoginHandler(ActionEvent event) {
+        try {
+            utilities.animatePaneTransitionRightToLeft(getClass(), event, "/fxml/LoginPage.fxml");
+        } catch (Exception ex) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void RegisterOnClickHandler(MouseEvent event) {
         String firstname = firstnameF.getText().trim();
         String lastname = lastnameF.getText().trim();
         String email = emailF.getText().trim();
@@ -81,11 +91,11 @@ public class RegisterPageController implements Initializable {
                 clearFields();
             }
         } catch (SQLException ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred: " + ex.getMessage());
+                         ex.printStackTrace();
+
+//            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred: " + ex.getMessage());
         }
     }
-
-    
 
     private void clearFields() {
         firstnameF.clear();
@@ -96,15 +106,4 @@ public class RegisterPageController implements Initializable {
         pwF.clear();
         middleF.clear();
     }
-
-    @FXML
-    private void LoginHandler(ActionEvent event) {
-        try {
-            utilities.animatePaneTransitionRightToLeft(getClass(), event, "/fxml/LoginPage.fxml");
-        } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
-        }
-    }
-
-   
 }

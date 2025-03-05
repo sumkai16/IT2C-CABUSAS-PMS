@@ -36,7 +36,7 @@ public class utilities {
     }
 
     // Switch scene and add custom title bar
-    public static void switchScene(Class<?> clazz, Event evt, String targetFXML) {
+    public static void switchScene(Class clazz, Event evt, String targetFXML) {
         try {
             FXMLLoader contentLoader = new FXMLLoader(clazz.getResource(targetFXML));
             Parent content = contentLoader.load();
@@ -59,6 +59,7 @@ public class utilities {
             stage.centerOnScreen();
             stage.show();
         } catch (IOException ex) {
+            
              ex.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load scene: " + ex.getMessage());
         }

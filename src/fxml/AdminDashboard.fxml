@@ -6,143 +6,134 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" styleClass="mainFxmlClass" stylesheets="@/css/admindashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminDashboardController">
    <children>
-      <Pane layoutX="10.0" layoutY="10.0" prefHeight="610.0" prefWidth="910.0" style="-fx-background-color: #E2DADA;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Pane layoutY="-4.0" prefHeight="44.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
+      <Pane prefHeight="610.0" prefWidth="910.0" style="-fx-background-color: #E2DADA;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <BorderPane fx:id="bgPane" prefHeight="600.0" prefWidth="900.0">
+         <top>
+            <Pane prefHeight="46.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="47.0" layoutY="12.0" text="Prospectus Management">
-                     <font>
-                        <Font name="Arial" size="17.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="9.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/game-icons--graduate-cap.png" />
-                     </image>
-                     <effect>
-                        <ColorAdjust brightness="-0.67" contrast="-1.0" hue="1.0" saturation="-1.0" />
-                     </effect>
-                  </ImageView>
+                  <Pane prefHeight="44.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
+                     <children>
+                        <Label layoutX="47.0" layoutY="12.0" text="Prospectus Management">
+                           <font>
+                              <Font name="Arial" size="17.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="9.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/game-icons--graduate-cap.png" />
+                           </image>
+                           <effect>
+                              <ColorAdjust brightness="-0.67" contrast="-1.0" hue="1.0" saturation="-1.0" />
+                           </effect>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </children>
             </Pane>
-            <Pane layoutY="51.0" prefHeight="549.0" prefWidth="185.0" style="-fx-background-color: #ffffff;">
+         </top>
+         <left>
+            <Pane prefHeight="560.0" prefWidth="185.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="home" alignment="BASELINE_LEFT" contentDisplay="CENTER" layoutY="55.0" lineSpacing="45.0" mnemonicParsing="false" onAction="#homeOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Home">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="prospectus" alignment="BASELINE_LEFT" layoutY="106.0" mnemonicParsing="false" onAction="#prospectusOnClick" prefHeight="38.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Manage Prospectus">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="managePrograms" alignment="BASELINE_LEFT" layoutY="157.0" mnemonicParsing="false" onAction="#ProgramsOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Manage Programs">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="settings" alignment="BASELINE_LEFT" layoutY="396.0" mnemonicParsing="false" onAction="#settingsOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Settings">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="logout" alignment="BASELINE_LEFT" layoutY="441.0" mnemonicParsing="false" onAction="#logoutOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Logout">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="manageStudent" alignment="BASELINE_LEFT" layoutY="203.0" mnemonicParsing="false" onAction="#manageStudentOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Manage Students">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="genReport" alignment="BASELINE_LEFT" layoutY="249.0" mnemonicParsing="false" onAction="#GenReportsOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Generate Reports">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/icons8-home-unscreen.gif" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/icons8-paper-unscreen.gif" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/icons8-book-unscreen.gif" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="212.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/icons8-people-unscreen.gif" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="258.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/icons8-rescan-document-unscreen.gif" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="405.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/icons8-settings-unscreen.gif" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="450.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/icons8-logout%20(2).gif" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="manageUser" alignment="BASELINE_LEFT" layoutY="297.0" mnemonicParsing="false" onAction="#UserManageOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Users">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/icons8-people-unscreen.gif" />
-                     </image>
-                  </ImageView>
+                  <Pane layoutY="3.0" prefHeight="549.0" prefWidth="185.0" style="-fx-background-color: #ffffff;">
+                     <children>
+                        <Button fx:id="home" alignment="BASELINE_LEFT" contentDisplay="CENTER" layoutY="55.0" lineSpacing="45.0" mnemonicParsing="false" onMouseClicked="#homeOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Home">
+                           <font>
+                              <Font name="Cambria" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="prospectus" alignment="BASELINE_LEFT" layoutY="106.0" mnemonicParsing="false" onAction="#prospectusOnClick" prefHeight="38.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Manage Prospectus">
+                           <font>
+                              <Font name="Cambria" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="managePrograms" alignment="BASELINE_LEFT" layoutY="157.0" mnemonicParsing="false" onAction="#ProgramsOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Manage Programs">
+                           <font>
+                              <Font name="Cambria" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="settings" alignment="BASELINE_LEFT" layoutY="396.0" mnemonicParsing="false" onAction="#settingsOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Settings">
+                           <font>
+                              <Font name="Cambria" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="logout" alignment="BASELINE_LEFT" layoutY="441.0" mnemonicParsing="false" onAction="#logoutOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Logout">
+                           <font>
+                              <Font name="Cambria" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="manageStudent" alignment="BASELINE_LEFT" layoutY="203.0" mnemonicParsing="false" onAction="#manageStudentOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Manage Students">
+                           <font>
+                              <Font name="Cambria" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="genReport" alignment="BASELINE_LEFT" layoutY="249.0" mnemonicParsing="false" onAction="#GenReportsOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Generate Reports">
+                           <font>
+                              <Font name="Cambria" size="14.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-home-unscreen.gif" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-paper-unscreen.gif" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-book-unscreen.gif" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="212.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-people-unscreen.gif" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="258.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-rescan-document-unscreen.gif" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="405.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-settings-unscreen.gif" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="450.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-logout%20(2).gif" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="manageUser" alignment="BASELINE_LEFT" layoutY="297.0" mnemonicParsing="false" onMouseClicked="#UserManageOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Users">
+                           <font>
+                              <Font name="Cambria" size="14.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-people-unscreen.gif" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </children>
             </Pane>
-            <Pane layoutX="192.0" layoutY="50.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-background-radius: 6;">
+         </left>
+         <center>
+            <Pane prefHeight="550.0" prefWidth="715.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="14.0" layoutY="14.0" text="Total Programs" textFill="#110e0e">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Label>
+                  <fx:include source="HomeDashboard.fxml" />
                </children>
             </Pane>
-            <Pane layoutX="429.0" layoutY="50.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-background-radius: 6;">
-               <children>
-                  <Label layoutX="14.0" layoutY="14.0" text="Total Students">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane layoutX="666.0" layoutY="50.0" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-background-radius: 6;">
-               <children>
-                  <Label layoutX="14.0" layoutY="14.0" text="Active Courses">
-                     <font>
-                        <Font name="Cambria" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane fx:id="contentPane" disable="true" layoutX="194.0" layoutY="161.0" prefHeight="412.0" prefWidth="690.0" />
-         </children>
-      </Pane>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>

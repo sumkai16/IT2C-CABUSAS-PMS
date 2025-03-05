@@ -31,7 +31,7 @@ public class validations {
                 }
             }
         } catch (SQLException ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred: " + ex.getMessage());
+            utilities.showAlert(Alert.AlertType.ERROR, "Database Err434or", "An error occurred: " + ex.getMessage());
         }
         return false;
     }

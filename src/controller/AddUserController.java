@@ -79,7 +79,7 @@ public class AddUserController implements Initializable {
             }
 
             String sql = "INSERT INTO user (u_fname, u_mname, u_lname, u_email, u_contact_number, u_username, u_password, u_role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            try (Connection conn = db.getConnection();
+            try (Connection conn = db.getConnection(); 
                  PreparedStatement pst = conn.prepareStatement(sql)) {
 
                 pst.setString(1, firstname);

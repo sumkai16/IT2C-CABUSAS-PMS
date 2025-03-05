@@ -5,15 +5,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import utils.hoveer;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import utils.utilities;
 
 public class AdminDashboardController implements Initializable {
 
@@ -34,11 +39,9 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private Button genReport;
     @FXML
-    private Button userPage;
-    @FXML
-    private Pane contentPane;
-    @FXML
     private Button manageUser;
+    @FXML
+    private BorderPane bgPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -51,13 +54,17 @@ public class AdminDashboardController implements Initializable {
         hv.addHoverEffect(logout);
         hv.addHoverEffect(manageStudent);
         hv.addHoverEffect(genReport); 
-        hv.addHoverEffect(userPage); 
+        hv.addHoverEffect(manageUser); 
+    }
+    
+    private void loadPage(String targetFXML) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource(targetFXML));
+        bgPane.setCenter(root);
     }
 
    
 
-    @FXML
-    private void homeOnClick(ActionEvent event) {
+    private void homeOnClick(ActionEvent event) throws IOException {
     }
 
     @FXML
@@ -85,8 +92,15 @@ public class AdminDashboardController implements Initializable {
     private void GenReportsOnClick(ActionEvent event) {
     }
 
+
     @FXML
-    private void UserManageOnClick(ActionEvent event) {
-       
-    }   
+    private void homeOnClick(MouseEvent event) throws IOException {
+        loadPage("/fxml/HomeDashboard.fxml");
+    }
+
+    @FXML
+    private void UserManageOnClick(MouseEvent event) throws IOException {
+       loadPage("/fxml/UserTable.fxml");
+
+    }
 }
