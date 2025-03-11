@@ -3,18 +3,20 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2025 at 02:17 PM
--- Generation Time: Feb 19, 2025 at 09:50 AM
+-- Generation Time: Mar 11, 2025 at 03:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
+
 --
 -- Database: `prospectus`
 --
@@ -83,6 +85,7 @@ CREATE TABLE `student` (
 --
 -- Table structure for table `user`
 --
+
 CREATE TABLE `user` (
   `u_id` int(11) NOT NULL,
   `u_fname` varchar(50) DEFAULT NULL,
@@ -92,13 +95,28 @@ CREATE TABLE `user` (
   `u_contact_number` varchar(50) DEFAULT NULL,
   `u_username` varchar(50) DEFAULT NULL,
   `u_password` varchar(50) DEFAULT NULL,
-  `u_role` varchar(50) DEFAULT NULL
+  `u_role` varchar(50) DEFAULT NULL,
+  `u_status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Dumping data for table `user`
 --
-INSERT INTO `user` (`u_id`, `u_fname`, `u_mname`, `u_lname`, `u_email`, `u_contact_number`, `u_username`, `u_password`, `u_role`) VALUES
-(1, 'adminaxcee', 'adminaxcee', 'adminaxcee', 'adminaxcee', 'adminaxcee@gmail.com', 'adminaxcee', 'adminaxcee', 'Admin');
+
+INSERT INTO `user` (`u_id`, `u_fname`, `u_mname`, `u_lname`, `u_email`, `u_contact_number`, `u_username`, `u_password`, `u_role`, `u_status`) VALUES
+(1, 'adminaxcee', 'adminaxcee', 'adminaxcee', 'adminaxcee', 'adminaxcee@gmail.com', 'adminaxcee', 'adminaxcee', 'Admin', ''),
+(2, 'Axcee', 'Axcee', 'Axcee', 'Axcee@gmail.com', 'user', 'user', 'user', 'user', ''),
+(3, 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'user', ''),
+(4, 'test', 'test', 'test', 'test2', 'test', 'test', 'test', 'user', ''),
+(5, 'test3', 'test3', 'test3', 'test3', 'test3', 'test3', 'test3', 'user', ''),
+(6, 'test34', 'test34', 'test34', 'test34', 'test34', 'test34', 'test34', 'user', ''),
+(7, 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'user', ''),
+(8, 'qweqwe', 'qweqw', 'qweqwe', 'test', 'qweqwe', 'test', 'qweq', 'user', ''),
+(9, 'test', 'test', 'test', 'test@gmail.com', '9459804057', 'testtest', 'testtest', 'team member', 'inactive'),
+(10, 'qweqwe', 'qweqwe', 'qweqweq', 'weqeqw@gmail.com', '9914082061', 'qweqw', 'qweqweqwe', 'team member', 'inactive'),
+(11, 'qweqweqw', 'eqweqw', 'eqweqeq', 'eqwewq@gmail.com', '9914082061', 'eqweqwe', 'qweqweqw', 'team member', 'inactive'),
+(12, 'qweqw', 'qweqwe', 'qweqw', 'eqweq@gmail.com', '9459804057', 'qweqweq', 'qweqw2323', 'Student', 'Inactive');
+
 --
 -- Indexes for dumped tables
 --
@@ -134,6 +152,7 @@ ALTER TABLE `student`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`u_id`);
+
 --
 -- AUTO_INCREMENT for dumped tables
 --
@@ -166,7 +185,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables

@@ -34,6 +34,7 @@ public class utilities {
         alertStage.setX((screenBounds.getWidth() - alertStage.getWidth()) / 2);
         alertStage.setY((screenBounds.getHeight() - alertStage.getHeight()) / 2);
     }
+    
 
     // Switch scene and add custom title bar
     public static void switchScene(Class clazz, Event evt, String targetFXML) {

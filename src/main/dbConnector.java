@@ -28,19 +28,18 @@ public class dbConnector {
         }
              
         //Function to save data
-        public int insertData(String sql){
-            int result;
-            try{
-                PreparedStatement pst = connect.prepareStatement(sql);
-                pst.executeUpdate();
-                System.out.println("Inserted Successfully!");
-                pst.close();
-                result =1;
-            }catch(SQLException ex){
-                System.out.println("Connection Error: "+ex);
-                result =0;
+        public boolean insertData(String query, Object... values) {
+            try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+                for (int i = 0; i < values.length; i++) {
+                    pstmt.setObject(i + 1, values[i]); // Set values dynamically
+                }
+                int rowsAffected = pstmt.executeUpdate();
+                return rowsAffected > 0; // Returns true if the insertion was successful
+            } catch (SQLException e) {
+                System.out.println("Insert failed: " + e.getMessage());
+                e.printStackTrace();
+                return false;
             }
-            return result;
         }
         
         //Function to retrieve data
@@ -50,7 +49,7 @@ public class dbConnector {
             return rst;
         }
             // Method to get the connection
-        public Connection getConnection() {
+        public  Connection getConnection() {
             return connect;
         }
 //        public void displayData(){

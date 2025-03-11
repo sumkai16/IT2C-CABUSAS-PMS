@@ -14,10 +14,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import utils.utilities;
 import main.dbConnector;
 import utils.validations;
-
+import controller.RegisterPageController;
 /**
  * FXML Controller class
  *
@@ -52,52 +53,29 @@ public class AddUserController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         db = new dbConnector();
     }
-
+    RegisterPageController rp = new RegisterPageController();
     @FXML
-    private void addUserHandler(ActionEvent event) {
-        String firstname = firstnameF.getText().trim();
-        String lastname = lastnameF.getText().trim();
-        String email = emailF.getText().trim();
-        String contact = contactF.getText().trim();
-        String username = userFF.getText().trim();
-        String password = pwF.getText().trim();
-        String middle = middleF.getText().trim();
-
-        if (!validations.validateInputs(firstname, lastname, email, contact, username, password)) {
-            return;
-        }
-
-        try {
-            if (validations.isDuplicate("u_email", email)) {
-                utilities.showAlert(Alert.AlertType.ERROR, "Duplicate Email", "This email is already registered.");
-                return;
-            }
-
-            if (validations.isDuplicate("u_username", username)) {
-                utilities.showAlert(Alert.AlertType.ERROR, "Duplicate Username", "This username is already taken.");
-                return;
-            }
-
-            String sql = "INSERT INTO user (u_fname, u_mname, u_lname, u_email, u_contact_number, u_username, u_password, u_role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            try (Connection conn = db.getConnection(); 
-                 PreparedStatement pst = conn.prepareStatement(sql)) {
-
-                pst.setString(1, firstname);
-                pst.setString(2, middle);
-                pst.setString(3, lastname);
-                pst.setString(4, email);
-                pst.setString(5, contact);
-                pst.setString(6, username);
-                pst.setString(7, password);
-                pst.setString(8, "user");
-                pst.executeUpdate();
-
-                utilities.showAlert(Alert.AlertType.INFORMATION, "Registration Successful", "You have successfully registered!");
+    private void addUserHandler(ActionEvent event) throws Exception {
+        Stage currentStage = (Stage)backgroundPane.getScene().getWindow();
+        String firstName = firstnameF.getText();
+        String middleName = middleF.getText();
+        String lastName = lastnameF.getText();
+        String emailAddress = emailF.getText();
+        String phoneNumber = contactF.getText();
+        String username = userFF.getText();
+        String password = pwF.getText();
+        
+        String query = "INSERT INTO user (u_fname, u_mname, u_lname, u_email, u_contact_number,u_username, u_password, u_role, u_status) "
+                + "VALUES ( ?, ?, ?, ?, ?, ? ,? , 'Student' , 'Inactive')";
+        
+        if(!rp.verifyUser(currentStage, query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
+           if(db.insertData(query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
+                System.out.println("User added to database!");
+                utilities.showAlert(Alert.AlertType.INFORMATION, "User successfully registered!", "Register Completed!");
                 clearFields();
-            }
-        } catch (SQLException ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred: " + ex.getMessage());
-        }
+                utilities.switchScene(getClass(), event,  "/fxml/AdminDashboard.fxml");
+            } 
+        }  
     }
 
     private void clearFields() {

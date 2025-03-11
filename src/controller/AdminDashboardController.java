@@ -41,7 +41,7 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private Button manageUser;
     @FXML
-    private BorderPane bgPane;
+    public BorderPane bgPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

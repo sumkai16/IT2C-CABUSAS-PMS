@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,7 +8,9 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -17,7 +20,8 @@ import javafx.scene.input.MouseEvent;
 import main.dbConnector;
 import models.User;
 import utils.utilities;
-
+import controller.AdminDashboardController;
+import javafx.scene.layout.BorderPane;
 public class UserTable implements Initializable {
 
     private dbConnector db;
@@ -44,12 +48,14 @@ public class UserTable implements Initializable {
     private ImageView editIcon;
     @FXML
     private ImageView addIcon;
+    @FXML
+    private BorderPane bgPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         db = new dbConnector();
+       
         userList = FXCollections.observableArrayList();
-
         // Ensure columns are linked to User model fields
         idColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -57,10 +63,9 @@ public class UserTable implements Initializable {
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-
         loadDataFromDatabase();
     }
-
+    
     private void loadDataFromDatabase() {
         String query = "SELECT u_id, u_fname, u_mname, u_lname, u_role FROM user";
         try {
@@ -91,6 +96,10 @@ public class UserTable implements Initializable {
             e.printStackTrace();
         }
     }
+    private void loadPage(String targetFXML) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource(targetFXML));
+        bgPane.setRight(root);
+    }
 
     @FXML
     private void deleteHandler(MouseEvent event) {
@@ -101,9 +110,13 @@ public class UserTable implements Initializable {
     }
 
     @FXML
-    private void addHandler(MouseEvent event) {
+    private void addHandler(MouseEvent event) { 
+        deleteIcon.setVisible(false);
+        editIcon.setVisible(false);
+        addIcon.setVisible(false);
+
         try {
-            utilities.switchScene(getClass(), event, "/fxml/addUser.fxml");
+             loadPage("/fxml/addUser.fxml");
         } catch (Exception ex) {
             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
         }

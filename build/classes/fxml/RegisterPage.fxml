@@ -16,7 +16,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterPageController">
    <children>
       <StackPane layoutX="421.0" prefHeight="600.0" prefWidth="479.0" style="-fx-background-color: black;" />
-      <Pane layoutX="488.0" layoutY="34.0" prefHeight="532.0" prefWidth="392.0" style="-fx-background-color: white; -fx-border-color: black; -fx-background-radius: 20; -fx-border-radius: 20;">
+      <Pane fx:id="registerPane" layoutX="488.0" layoutY="34.0" prefHeight="532.0" prefWidth="392.0" style="-fx-background-color: white; -fx-border-color: black; -fx-background-radius: 20; -fx-border-radius: 20;">
          <children>
             <Group layoutX="85.0" layoutY="43.0">
                <children>
