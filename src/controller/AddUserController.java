@@ -19,6 +19,7 @@ import utils.utilities;
 import main.dbConnector;
 import utils.validations;
 import controller.RegisterPageController;
+import javafx.scene.control.MenuButton;
 /**
  * FXML Controller class
  *
@@ -36,7 +37,6 @@ public class AddUserController implements Initializable {
     private TextField contactF;
     @FXML
     private TextField userFF;
-    @FXML
     private PasswordField pwF;
     @FXML
     private TextField middleF;
@@ -48,6 +48,7 @@ public class AddUserController implements Initializable {
     private AnchorPane rootPane;
     @FXML
     private Pane backgroundPane;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

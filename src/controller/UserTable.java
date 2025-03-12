@@ -22,6 +22,7 @@ import models.User;
 import utils.utilities;
 import controller.AdminDashboardController;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 public class UserTable implements Initializable {
 
     private dbConnector db;
@@ -43,13 +44,12 @@ public class UserTable implements Initializable {
     private TableColumn<User, String> statusColumn;
     
     @FXML
-    private ImageView deleteIcon;
-    @FXML
-    private ImageView editIcon;
-    @FXML
     private ImageView addIcon;
     @FXML
     private BorderPane bgPane;
+    @FXML
+    private ImageView editIcon;
+   
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -67,7 +67,7 @@ public class UserTable implements Initializable {
     }
     
     private void loadDataFromDatabase() {
-        String query = "SELECT u_id, u_fname, u_mname, u_lname, u_role FROM user";
+        String query = "SELECT u_id, u_fname, u_mname, u_lname, u_role, u_status FROM user";
         try {
             ResultSet rs = db.getData(query);
             if (rs == null) {
@@ -81,7 +81,7 @@ public class UserTable implements Initializable {
                 String middleName = rs.getString("u_mname");
                 String lastName = rs.getString("u_lname");
                 String role = rs.getString("u_role");
-                String status = "Active";
+                String status =rs.getString("u_status");
 
                 userList.add(new User(id, firstName, middleName, lastName, role, status));
             }
@@ -98,27 +98,30 @@ public class UserTable implements Initializable {
     }
     private void loadPage(String targetFXML) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource(targetFXML));
-        bgPane.setRight(root);
+        bgPane.setCenter(root);
+      
     }
 
     @FXML
-    private void deleteHandler(MouseEvent event) {
-    }
-
-    @FXML
-    private void editHandler(MouseEvent event) {
-    }
-
-    @FXML
-    private void addHandler(MouseEvent event) { 
-        deleteIcon.setVisible(false);
-        editIcon.setVisible(false);
+    private void addUserHandler(MouseEvent event) {    
         addIcon.setVisible(false);
-
+        editIcon.setVisible(false);
         try {
-             loadPage("/fxml/addUser.fxml");
+             loadPage("/fxml/addUse.fxml");
+        } catch (Exception ex) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void editIconHandler(MouseEvent event) {
+        addIcon.setVisible(false);
+        editIcon.setVisible(false);
+        try {  
+             loadPage("/fxml/editUser.fxml");
         } catch (Exception ex) {
             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
         }
     }
 }
+    

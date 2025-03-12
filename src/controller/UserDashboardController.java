@@ -43,7 +43,7 @@ public class UserDashboardController implements Initializable {
         firstName = UserSession.getFirstName();
         lastName = UserSession.getLastName();
         
-        welcome.setText("Welcome, " + firstName + " " + lastName + "!");
+        welcome.setText("Hello, " + firstName + " " + lastName + "!");
     }
 
    

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -8,18 +9,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 
 <AnchorPane id="AnchorPane" prefHeight="379.0" prefWidth="690.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserTable">
     <stylesheets>
         <URL value="@/css/adduser.css" />
     </stylesheets>
    <children>
-      <Pane prefHeight="412.0" prefWidth="690.0" />
+      <StackPane prefHeight="412.0" prefWidth="690.0" />
       <BorderPane fx:id="bgPane" prefHeight="412.0" prefWidth="690.0">
          <center>
-            <Pane prefHeight="241.0" prefWidth="629.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="343.0" prefWidth="662.0" style="backgro: 20;" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tableView" layoutX="-2.0" layoutY="3.0" prefHeight="354.0" prefWidth="690.0" stylesheets="@../css/admindashboard.css">
+                  <TableView fx:id="tableView" layoutY="29.0" prefHeight="354.0" prefWidth="684.0" stylesheets="@../css/admindashboard.css">
                     <columns>
                         <TableColumn fx:id="idColumn" editable="false" prefWidth="95.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="User ID" />
                         <TableColumn fx:id="firstNameColumn" editable="false" prefWidth="115.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="First Name" />
@@ -32,25 +34,35 @@
                </children></Pane>
          </center>
          <top>
-            <Pane prefHeight="45.0" prefWidth="690.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="29.0" prefWidth="690.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="addIcon" fitHeight="30.0" fitWidth="30.0" layoutX="562.0" layoutY="23.0" onMouseClicked="#addHandler">
+                  <ImageView fx:id="editIcon" fitHeight="35.0" fitWidth="35.0" layoutX="609.0" layoutY="23.0" onMouseClicked="#editIconHandler">
                      <image>
-                        <Image url="@../img/output-onlinegiftools.gif" />
+                        <Image url="@../img/editing%20(1).png" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
                   </ImageView>
-                  <ImageView fx:id="editIcon" fitHeight="30.0" fitWidth="30.0" layoutX="602.0" layoutY="23.0" onMouseClicked="#editHandler">
+                  <ImageView fx:id="addIcon" fitHeight="35.0" fitWidth="35.0" layoutX="564.0" layoutY="23.0" onMouseClicked="#addUserHandler">
                      <image>
-                        <Image url="@../img/output-onlinegiftools%20(1).gif" />
+                        <Image url="@../img/addUser.png" />
                      </image>
-                  </ImageView>
-                  <ImageView fx:id="deleteIcon" fitHeight="30.0" fitWidth="30.0" layoutX="637.0" layoutY="23.0" onMouseClicked="#deleteHandler">
-                     <image>
-                        <Image url="@../img/output-onlinegiftools%20(2).gif" />
-                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                </children></Pane>
          </top>
+         <right>
+            <Pane prefHeight="343.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+         </right>
+         <left>
+            <Pane prefHeight="343.0" prefWidth="7.0" BorderPane.alignment="CENTER" />
+         </left>
+         <bottom>
+            <Pane prefHeight="24.0" prefWidth="690.0" BorderPane.alignment="CENTER" />
+         </bottom>
       </BorderPane>
    </children>
 </AnchorPane>

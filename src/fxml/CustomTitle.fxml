@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
@@ -21,6 +22,9 @@
          <image>
             <Image url="@../img/fluent--maximize-16-filled.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
       <ImageView fx:id="minimizeBtn" fitHeight="25.0" fitWidth="25.0" layoutX="849.0" layoutY="2.0" onMouseClicked="#MinimizeHandler" pickOnBounds="true" preserveRatio="true">
          <effect>
@@ -29,6 +33,9 @@
          <image>
             <Image url="@../img/material-symbols--minimize-rounded.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
       <ImageView fx:id="closeBtn" fitHeight="25.0" fitWidth="25.0" layoutX="870.0" layoutY="4.0" onMouseClicked="#CloseHandler" pickOnBounds="true" preserveRatio="true">
          <effect>
@@ -37,6 +44,9 @@
          <image>
             <Image url="@../img/material-symbols--close-rounded.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
     </AnchorPane>
 </AnchorPane>

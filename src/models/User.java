@@ -23,6 +23,10 @@ public class User {
         this.status = status;
     }
 
+    public User(String username) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getUserID() { return userID; }
     public String getFirstName() { return firstName; }
     public String getMiddleName() { return middleName; }
