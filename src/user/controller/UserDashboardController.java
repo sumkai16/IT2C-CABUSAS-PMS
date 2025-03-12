@@ -1,4 +1,4 @@
-package controller;
+package user.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -80,6 +80,6 @@ public class UserDashboardController implements Initializable {
 
     @FXML
     private void logoutOnClick(ActionEvent event) throws Exception {
-        utilities.switchScene(UserDashboardController.class, event, "/fxml/Login.fxml");
+        utilities.switchScene(UserDashboardController.class, event, "/auth.fxml/LoginPage.fxml");
     }
 }

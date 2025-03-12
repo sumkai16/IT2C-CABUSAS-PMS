@@ -1,4 +1,4 @@
-package controller;
+package admin.controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,7 +20,7 @@ import javafx.scene.input.MouseEvent;
 import main.dbConnector;
 import models.User;
 import utils.utilities;
-import controller.AdminDashboardController;
+import admin.controller.AdminDashboardController;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 public class UserTable implements Initializable {
@@ -107,7 +107,7 @@ public class UserTable implements Initializable {
         addIcon.setVisible(false);
         editIcon.setVisible(false);
         try {
-             loadPage("/fxml/addUse.fxml");
+             loadPage("/admin/fxml/addUser.fxml");
         } catch (Exception ex) {
             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
         }
@@ -118,7 +118,7 @@ public class UserTable implements Initializable {
         addIcon.setVisible(false);
         editIcon.setVisible(false);
         try {  
-             loadPage("/fxml/editUser.fxml");
+             loadPage("/admin/fxml/editUser.fxml");
         } catch (Exception ex) {
             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
         }

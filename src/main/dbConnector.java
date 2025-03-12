@@ -52,6 +52,19 @@ public class dbConnector {
         public  Connection getConnection() {
             return connect;
         }
+        public boolean updateData(String query, Object... params) {
+        try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+            for (int i = 0; i < params.length; i++) {
+                pstmt.setObject(i + 1, params[i]);
+            }
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 //        public void displayData(){
 //           try{
 //               dbConnector dbc = new dbConnector();

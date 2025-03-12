@@ -1,4 +1,4 @@
-package controller;
+package admin.controller;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -18,7 +18,8 @@ import javafx.stage.Stage;
 import utils.utilities;
 import main.dbConnector;
 import utils.validations;
-import controller.RegisterPageController;
+import auth.controller.RegisterPageController;
+import auth.controller.RegisterPageController;
 import javafx.scene.control.MenuButton;
 /**
  * FXML Controller class
@@ -37,6 +38,7 @@ public class AddUserController implements Initializable {
     private TextField contactF;
     @FXML
     private TextField userFF;
+    @FXML
     private PasswordField pwF;
     @FXML
     private TextField middleF;
@@ -72,9 +74,9 @@ public class AddUserController implements Initializable {
         if(!rp.verifyUser(currentStage, query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
            if(db.insertData(query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
                 System.out.println("User added to database!");
-                utilities.showAlert(Alert.AlertType.INFORMATION, "User successfully registered!", "Register Completed!");
+                utilities.showAlert(Alert.AlertType.INFORMATION, "User successfully added!", "Added Completed!");
                 clearFields();
-                utilities.switchScene(getClass(), event,  "/fxml/AdminDashboard.fxml");
+                utilities.switchScene(getClass(), event,  "/admin/fxml/AdminDashboard.fxml");
             } 
         }  
     }

@@ -16,10 +16,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             primaryStage.initStyle(StageStyle.UNDECORATED);
-            loadScene(primaryStage, "/fxml/LoginPage.fxml"); // Load login page on startup
+            loadScene(primaryStage, "/auth/fxml/LoginPage.fxml"); // Load login page on startup
+            System.out.println("dawd");
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("error");
             System.err.println("Error initializing application: " + e.getMessage());
         }
     }

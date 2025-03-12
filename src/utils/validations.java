@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import main.dbConnector;
 import javafx.scene.control.Alert;
-import controller.RegisterPageController;
+import auth.controller.RegisterPageController;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;

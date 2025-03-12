@@ -26,3 +26,9 @@ login.button {
     -fx-border-color: black;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 0);
 }
+
+.menu-item {
+    -fx-pref-width: 233px; 
+     -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}

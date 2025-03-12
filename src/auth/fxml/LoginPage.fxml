@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" styleClass="mainFxmlClass" stylesheets="@loginpage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginPageController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" styleClass="mainFxmlClass" stylesheets="@loginpage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auth.controller.LoginPageController">
    <children>
       <StackPane prefHeight="600.0" prefWidth="488.0" style="-fx-background-color: black;" />
       <StackPane layoutX="434.0" prefHeight="600.0" prefWidth="466.0" style="-fx-background-color: white; -fx-border-radius: 30; -fx-background-radius: 30 0 0 30;" />

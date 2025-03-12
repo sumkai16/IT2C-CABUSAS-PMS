@@ -1,4 +1,4 @@
-package controller;
+package auth.controller;
 
 import main.dbConnector;
 import utils.utilities;
@@ -27,11 +27,11 @@ public class LoginPageController implements Initializable {
     @FXML
     private Button loginBtn;
     @FXML
-    private Label registerBtn;
-    @FXML
     private Button register;
 
     private dbConnector db;
+    @FXML
+    private Label registerBtn11;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -58,9 +58,9 @@ public class LoginPageController implements Initializable {
 
             String fxmlPath;
             if(role.equalsIgnoreCase("Admin")) {
-              utilities.switchScene(getClass(), event,  "/fxml/AdminDashboard.fxml");
+              utilities.switchScene(getClass(), event,  "/admin/fxml/AdminDashboard.fxml");
             } else {
-                utilities.switchScene(getClass(), event,  "/fxml/UserDashboard.fxml");
+                utilities.switchScene(getClass(), event,  "/user/fxml/UserDashboard.fxml");
             }
 
                 
@@ -100,7 +100,7 @@ public class LoginPageController implements Initializable {
     @FXML
     private void registerHandler(ActionEvent event) {
         try {
-            utilities.animatePaneTransitionLeftToRight(getClass(), event, "/fxml/RegisterPage.fxml");
+            utilities.animatePaneTransitionLeftToRight(getClass(), event, "/auth/fxml/RegisterPage.fxml");
         } catch (Exception ex) {
             utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open Register page: " + ex.getMessage());
         }

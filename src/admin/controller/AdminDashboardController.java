@@ -1,4 +1,4 @@
-package controller;
+package admin.controller;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
@@ -64,8 +64,7 @@ public class AdminDashboardController implements Initializable {
 
    
 
-    private void homeOnClick(ActionEvent event) throws IOException {
-    }
+    
 
     @FXML
     private void prospectusOnClick(ActionEvent event) {
@@ -95,12 +94,12 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     private void homeOnClick(MouseEvent event) throws IOException {
-        loadPage("/fxml/HomeDashboard.fxml");
+        loadPage("/admin/fxml/HomeDashboard.fxml");
     }
 
     @FXML
     private void UserManageOnClick(MouseEvent event) throws IOException {
-       loadPage("/fxml/UserTable.fxml");
+       loadPage("/admin/fxml/UserTable.fxml");
 
     }
 }

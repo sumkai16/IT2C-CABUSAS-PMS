@@ -1,4 +1,4 @@
-package controller;
+package auth.controller;
 
 import main.dbConnector;
 import utils.hoveer;
@@ -56,7 +56,7 @@ public class RegisterPageController implements Initializable {
     @FXML
     private void LoginHandler(ActionEvent event) {
         try {
-            utilities.animatePaneTransitionRightToLeft(getClass(), event, "/fxml/LoginPage.fxml");
+            utilities.animatePaneTransitionRightToLeft(getClass(), event, "/auth.fxml/LoginPage.fxml");
         } catch (Exception ex) {
             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
         }
@@ -81,7 +81,7 @@ public class RegisterPageController implements Initializable {
                 System.out.println("User added to database!");
                 utilities.showAlert(Alert.AlertType.INFORMATION, "User successfully registered!", "Register Completed!");
                 clearFields();
-                utilities.switchScene(getClass(), event,  "/fxml/LoginPage.fxml");
+                utilities.switchScene(getClass(), event,  "/auth/fxml/LoginPage.fxml");
             } 
         }  
     }
