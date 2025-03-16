@@ -1,0 +1,87 @@
+/* Global Styles */
+.root {
+    -fx-background-color: linear-gradient(to bottom, #2a2a2a, #1f1f1f);
+    -fx-font-family: "Arial", sans-serif;
+}
+
+/* Overlay Pane (Blur Effect) */
+#overlayPane {
+    -fx-background-color: rgba(0, 0, 0, 0.6);
+    -fx-background-radius: 10;
+}
+
+/* Dialog Pane (Glassmorphism Effect) */
+#dialogPane {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 5);
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+/* Password Fields */
+.password-field {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-radius: 8;
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+}
+
+.password-field:focused {
+    -fx-border-color: #4CAF50;
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8 15;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+.button:pressed {
+    -fx-background-color: #388E3C;
+}
+
+/* Cancel Button */
+#btnCancel {
+    -fx-background-color: #FF5252;
+}
+
+#btnCancel:hover {
+    -fx-background-color: #D32F2F;
+}
+
+#btnCancel:pressed {
+    -fx-background-color: #B71C1C;
+}
+
+/* Close Button */
+#closeBtn {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+}
+
+#closeBtn:hover {
+    -fx-text-fill: #FF5252;
+}

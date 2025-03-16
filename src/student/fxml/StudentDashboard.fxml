@@ -11,10 +11,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="user.controller.UserDashboardController">
-    <stylesheets>
-        <URL value="@/css/userdashboard.css" />
-    </stylesheets>
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="student.controller.StudentDashboardController">
+   <stylesheets>
+      <URL value="@/css/userdashboard.css" />
+   </stylesheets>
    <children>
       <Pane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #E2DADA;" styleClass="userdashboard.css" visible="false" />
       <BorderPane fx:id="bgPane" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -46,42 +46,52 @@
                <children>
                   <Pane layoutY="3.0" prefHeight="549.0" prefWidth="185.0" style="-fx-background-color: #ffffff;">
                      <children>
-                        <Button fx:id="home" alignment="BASELINE_LEFT" layoutY="102.0" mnemonicParsing="false" onMouseClicked="#homeOnClick" prefHeight="38.0" prefWidth="177.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="Home">
+                        <Button fx:id="home" alignment="BASELINE_LEFT" layoutY="94.0" mnemonicParsing="false" onMouseClicked="#homeOnClick" prefHeight="38.0" prefWidth="177.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="Home">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="studentDetails" alignment="BASELINE_LEFT" layoutY="149.0" mnemonicParsing="false" onMouseClicked="#studentDetailsOnClick" prefHeight="38.0" prefWidth="177.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="Profile">
+                        <Button fx:id="prospectus" alignment="BASELINE_LEFT" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#prospectusOnClick" prefHeight="38.0" prefWidth="177.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="View Prospectus">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="settings" alignment="BASELINE_LEFT" layoutY="265.0" mnemonicParsing="false" onMouseClicked="#settingsOnClick" prefHeight="38.0" prefWidth="177.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="Settings">
+                        <Button fx:id="studentDetails" alignment="BASELINE_LEFT" layoutY="199.0" mnemonicParsing="false" onMouseClicked="#studentDetailsOnClick" prefHeight="38.0" prefWidth="177.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="My Student Details">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="logout" alignment="BASELINE_LEFT" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#logoutOnClick" prefHeight="38.0" prefWidth="177.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="Logout">
+                        <Button fx:id="settings" alignment="BASELINE_LEFT" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#settingsOnClick" prefHeight="38.0" prefWidth="177.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="Settings">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="16.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+                        <Button fx:id="logout" alignment="BASELINE_LEFT" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#logoutOnClick" prefHeight="38.0" prefWidth="177.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="Logout">
+                           <font>
+                              <Font name="Cambria" size="14.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="16.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../img/icons8-home-unscreen.gif" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="16.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="16.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/icons8-paper-unscreen.gif" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="16.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../img/icons8-settings-unscreen.gif" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="16.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="16.0" layoutY="359.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../img/icons8-logout%20(2).gif" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="16.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="16.0" layoutY="208.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../img/icons8-name-unscreen.gif" />
                            </image>
@@ -89,11 +99,6 @@
                               <ColorAdjust brightness="-1.0" />
                            </effect>
                         </ImageView>
-                        <Button fx:id="enrollmentForm" alignment="BASELINE_LEFT" layoutY="195.0" mnemonicParsing="false" onMouseClicked="#enrollmentOnClickHandler" prefHeight="38.0" prefWidth="177.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 7 7 7 7; -fx-background-radius: 7 7 7 7;" text="Enroll Here">
-                           <font>
-                              <Font name="Cambria" size="14.0" />
-                           </font>
-                        </Button>
                      </children>
                   </Pane>
                </children>

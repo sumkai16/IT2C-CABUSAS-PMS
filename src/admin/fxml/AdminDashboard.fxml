@@ -26,7 +26,7 @@
                         </Label>
                         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="9.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../img/game-icons--graduate-cap.png" />
+                              <Image url="@../../img/game-icons--graduate-cap.png" />
                            </image>
                            <effect>
                               <ColorAdjust brightness="-0.67" contrast="-1.0" hue="1.0" saturation="-1.0" />
@@ -47,32 +47,32 @@
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="prospectus" alignment="BASELINE_LEFT" layoutY="106.0" mnemonicParsing="false" onAction="#prospectusOnClick" prefHeight="38.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Manage Prospectus">
+                        <Button fx:id="prospectus" alignment="BASELINE_LEFT" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#prospectusOnClick" prefHeight="38.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Manage Prospectus">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="managePrograms" alignment="BASELINE_LEFT" layoutY="157.0" mnemonicParsing="false" onAction="#ProgramsOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Manage Programs">
+                        <Button fx:id="managePrograms" alignment="BASELINE_LEFT" layoutY="157.0" mnemonicParsing="false" onMouseClicked="#ProgramsOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Manage Programs">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="settings" alignment="BASELINE_LEFT" layoutY="396.0" mnemonicParsing="false" onAction="#settingsOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Settings">
+                        <Button fx:id="settings" alignment="BASELINE_LEFT" layoutY="396.0" mnemonicParsing="false" onMouseClicked="#settingsOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Settings">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="logout" alignment="BASELINE_LEFT" layoutY="441.0" mnemonicParsing="false" onAction="#logoutOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Logout">
+                        <Button fx:id="logout" alignment="BASELINE_LEFT" layoutY="441.0" mnemonicParsing="false" onMouseClicked="#logoutOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Logout">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="manageStudent" alignment="BASELINE_LEFT" layoutY="203.0" mnemonicParsing="false" onAction="#manageStudentOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Manage Students">
+                        <Button fx:id="manageStudent" alignment="BASELINE_LEFT" layoutY="203.0" mnemonicParsing="false" onMouseClicked="#manageStudentOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Manage Students">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="genReport" alignment="BASELINE_LEFT" layoutY="249.0" mnemonicParsing="false" onAction="#GenReportsOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Generate Reports">
+                        <Button fx:id="genReport" alignment="BASELINE_LEFT" layoutY="249.0" mnemonicParsing="false" onMouseClicked="#GenReportsOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Generate Reports">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>

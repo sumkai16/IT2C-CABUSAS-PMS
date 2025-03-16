@@ -2,7 +2,6 @@ package auth.controller;
 
 import main.dbConnector;
 import utils.utilities;
-import utils.hoveer;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import models.UserSession;
 
 public class LoginPageController implements Initializable {
@@ -26,20 +26,16 @@ public class LoginPageController implements Initializable {
     private PasswordField passF;
     @FXML
     private Button loginBtn;
-    @FXML
-    private Button register;
 
     private dbConnector db;
     @FXML
-    private Label registerBtn11;
+    private Label registerbtn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         db = new dbConnector();
-        hoveer hv = new hoveer();
-        hv.btnAuth(loginBtn);
-        hv.btnSwitch(register);
     }
+
     @FXML
     private void LoginOnClickHandler(ActionEvent event) {
         String username = userF.getText().trim();
@@ -51,58 +47,64 @@ public class LoginPageController implements Initializable {
         }
 
         try {
-            String role = authenticateUser(username, password);
-            if (role != null) {
+            String[] userInfo = authenticateUser(username, password);
+
+            if (userInfo != null) {
+                String role = userInfo[0];
+                String e_status = userInfo[1]; // Enrollment Status
+
                 utilities.showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome back!");
-//                String fxmlPath = role.equalsIgnoreCase("Admin") ? "/fxml/AdminDashboard.fxml" : "/fxml/UserDashboard.fxml";      
 
-            String fxmlPath;
-            if(role.equalsIgnoreCase("Admin")) {
-              utilities.switchScene(getClass(), event,  "/admin/fxml/AdminDashboard.fxml");
-            } else {
-                utilities.switchScene(getClass(), event,  "/user/fxml/UserDashboard.fxml");
-            }
-
-                
+                // ✅ Correct Role-Based Navigation
+                if (role.equalsIgnoreCase("Admin")) {
+                    utilities.switchScene(getClass(), event, "/admin/fxml/AdminDashboard.fxml");
+                } else if (e_status.equalsIgnoreCase("Not Enrolled")) {
+                    utilities.switchScene(getClass(), event, "/user/fxml/UserDashboard.fxml"); 
+                } else {
+                    utilities.switchScene(getClass(), event, "/student/fxml/StudentDashboard.fxml");
+                }
             } else {
                 utilities.showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
             }
         } catch (SQLException ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Database Er23ror", "Database connection failed: " + ex.getMessage());
+            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Database connection failed: " + ex.getMessage());
         } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashbodasard: " + ex.getMessage());
+            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
         }
     }
 
-    public String authenticateUser(String username, String password) throws SQLException {
-        String sql = "SELECT u_id, u_fname, u_lname, u_role FROM user WHERE u_username = ? AND u_password = ?";
+    // ✅ FIXED authenticateUser Method (Returns String Array)
+    public String[] authenticateUser(String username, String password) throws SQLException {
+        String sql = "SELECT u_id, u_fname, u_lname, u_role, enrollment_status FROM user WHERE u_username = ? AND u_password = ?";
         try (PreparedStatement pst = db.getConnection().prepareStatement(sql)) {
             pst.setString(1, username);
             pst.setString(2, password);
+
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
                     int userId = rs.getInt("u_id");
                     String firstName = rs.getString("u_fname");
                     String lastName = rs.getString("u_lname");
-                    String role = rs.getString("u_role"); // Get user role first
+                    String role = rs.getString("u_role");
+                    String enrollment_status = rs.getString("enrollment_status"); 
 
-                    // ✅ Store user data in session BEFORE returning
-                    UserSession.createSession(userId, firstName, lastName);
+                    // Store session
+                    UserSession.createSession(userId, firstName, lastName, role, enrollment_status);
 
-                    return role; // ✅ Now return role
+                    return new String[]{role, enrollment_status}; 
                 }
             }
         }
-        return null;
+        return null; // No user found
     }
 
 
     @FXML
-    private void registerHandler(ActionEvent event) {
-        try {
+    private void registerHandler(MouseEvent event) {
+         try {
             utilities.animatePaneTransitionLeftToRight(getClass(), event, "/auth/fxml/RegisterPage.fxml");
         } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open Register page: " + ex.getMessage());
+            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Faialed to open Register page: " + ex.getMessage());
         }
     }
 }

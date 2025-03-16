@@ -3,7 +3,6 @@ package admin.controller;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import utils.hoveer;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -45,16 +44,7 @@ public class AdminDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        hoveer hv = new hoveer();
-        hv.constant(home);
-        hv.addHoverEffect(home);
-        hv.addHoverEffect(prospectus);
-        hv.addHoverEffect(managePrograms);
-        hv.addHoverEffect(settings);
-        hv.addHoverEffect(logout);
-        hv.addHoverEffect(manageStudent);
-        hv.addHoverEffect(genReport); 
-        hv.addHoverEffect(manageUser); 
+       
     }
     
     private void loadPage(String targetFXML) throws IOException{
@@ -63,43 +53,46 @@ public class AdminDashboardController implements Initializable {
     }
 
    
-
-    
-
-    @FXML
-    private void prospectusOnClick(ActionEvent event) {
-    }
-
-
-    @FXML
-    private void settingsOnClick(ActionEvent event) {
-    }
-
-    @FXML
-    private void logoutOnClick(ActionEvent event) {
-    }
-
-    @FXML
-    private void ProgramsOnClick(ActionEvent event) {
-    }
-
-    @FXML
-    private void manageStudentOnClick(ActionEvent event) {
-    }
-
-    @FXML
-    private void GenReportsOnClick(ActionEvent event) {
-    }
-
-
     @FXML
     private void homeOnClick(MouseEvent event) throws IOException {
-        loadPage("/admin/fxml/HomeDashboard.fxml");
+       try {
+            loadPage("/admin/fxml/HomeDashboard.fxml");
+        } catch (IOException ex) {
+             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
+        }
     }
 
     @FXML
     private void UserManageOnClick(MouseEvent event) throws IOException {
-       loadPage("/admin/fxml/UserTable.fxml");
+       try {
+            loadPage("/admin/fxml/UserTable.fxml");
+        } catch (IOException ex) {
+             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
+        }
+    }
 
+    @FXML
+    private void prospectusOnClick(MouseEvent event) {
+    }
+
+    @FXML
+    private void ProgramsOnClick(MouseEvent event) {
+    }
+
+    @FXML
+    private void settingsOnClick(MouseEvent event) {
+    }
+
+    @FXML
+    private void logoutOnClick(MouseEvent event) {
+        utilities.switchScene(getClass(), event,  "/auth/fxml/LoginPage.fxml");  
+    }
+
+    @FXML
+    private void manageStudentOnClick(MouseEvent event) {
+    }
+
+    @FXML
+    private void GenReportsOnClick(MouseEvent event) {
     }
 }

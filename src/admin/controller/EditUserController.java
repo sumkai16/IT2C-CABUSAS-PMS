@@ -61,7 +61,7 @@ public class EditUserController implements Initializable {
         userList = FXCollections.observableArrayList();  
         dropdownSelecUserHandler(); 
     }
-
+    //load user sa dropdown
     @FXML
     private void dropdownSelecUserHandler() {
         String query = "SELECT u_username FROM user";       
@@ -88,7 +88,7 @@ public class EditUserController implements Initializable {
             e.printStackTrace();
         }
     }
-
+    //load details sa mga textfield
     private void loadUserDetails(String username) {
         String query = "SELECT u_fname, u_mname, u_lname, u_email, u_contact_number,u_username, u_role, u_status FROM user WHERE u_username = ?";
         
@@ -183,7 +183,7 @@ public class EditUserController implements Initializable {
     @FXML
     private void selectRoleClicked(MouseEvent event) {
         roleSelect.getItems().clear(); 
-        String[] roles = {"Student", "Admin"}; 
+        String[] roles = {"User", "Admin"}; 
     
         for (String role : roles) {
             MenuItem menuItem = new MenuItem(role);

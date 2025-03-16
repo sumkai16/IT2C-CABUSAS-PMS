@@ -1,7 +1,6 @@
 package auth.controller;
 
 import main.dbConnector;
-import utils.hoveer;
 import utils.utilities;
 import java.net.URL;
 import java.sql.Connection;
@@ -45,23 +44,13 @@ public class RegisterPageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {     
         db = new dbConnector();
        
-        hoveer hv = new hoveer();
-        hv.btnAuth(register);
-        hv.btnSwitch(login);
+      
     }
     validations vd = new validations();
      utilities ut = new utilities();
     private static final dbConnector db2 = new dbConnector();
     private static final int MINIMUM_PASSWORD_LENGTH = 8;
-    @FXML
-    private void LoginHandler(ActionEvent event) {
-        try {
-            utilities.animatePaneTransitionRightToLeft(getClass(), event, "/auth.fxml/LoginPage.fxml");
-        } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
-        }
-    }
-
+   
     @FXML
      void RegisterOnClickHandler(MouseEvent event) throws Exception {
         Stage currentStage = (Stage)registerPane.getScene().getWindow();
@@ -73,8 +62,8 @@ public class RegisterPageController implements Initializable {
         String username = userFF.getText();
         String password = pwF.getText();
         
-        String query = "INSERT INTO user (u_fname, u_mname, u_lname, u_email, u_contact_number,u_username, u_password, u_role, u_status) "
-                + "VALUES ( ?, ?, ?, ?, ?, ? ,? , 'Student' , 'Inactive')";
+        String query = "INSERT INTO user (u_fname, u_mname, u_lname, u_email, u_contact_number,u_username, u_password, u_role, u_status, enrollment_status) "
+                + "VALUES ( ?, ?, ?, ?, ?, ? ,? , 'User' , 'Inactive', 'Not Enrolled')";
         
         if(!verifyUser(currentStage, query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
            if(db.insertData(query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
@@ -155,6 +144,15 @@ public class RegisterPageController implements Initializable {
         userFF.clear();
         pwF.clear();
         middleF.clear();
+    }
+
+    @FXML
+    private void LoginHandler(MouseEvent event) {
+         try {
+            utilities.animatePaneTransitionRightToLeft(getClass(), event, "/auth/fxml/LoginPage.fxml");
+        } catch (Exception ex) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to loaad login page: " + ex.getMessage());
+        }
     }
     
 

@@ -5,95 +5,91 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="379.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.controller.AddUserController">
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="379.0" prefWidth="690.0" stylesheets="@../../css/enrollmentform.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.controller.AddUserController">
    <children>
-      <Pane fx:id="backgroundPane" layoutX="170.0" layoutY="13.0" prefHeight="354.0" prefWidth="351.0" style="-fx-background-color: white; -fx-border-color: black; -fx-background-radius: 20; -fx-border-radius: 20;">
+      <Pane fx:id="backgroundPane" layoutX="94.0" layoutY="13.0" prefHeight="354.0" prefWidth="503.0" style="-fx-background-color: white; -fx-border-color: black; -fx-background-radius: 20; -fx-border-radius: 20;">
          <children>
             <Group layoutX="64.0" layoutY="-54.0" />
-            <TextField fx:id="firstnameF" alignment="CENTER" layoutX="45.0" layoutY="54.0" prefHeight="27.0" prefWidth="117.0" stylesheets="@../css/style.css">
-               <font>
-                  <Font name="Arial" size="12.0" />
-               </font>
-               <effect>
-                  <ColorAdjust brightness="-1.0" />
-               </effect>
-            </TextField>
-            <TextField fx:id="lastnameF" alignment="CENTER" layoutX="70.0" layoutY="96.0" prefHeight="27.0" prefWidth="211.0" stylesheets="@../css/style.css">
+            <TextField fx:id="firstnameF" alignment="CENTER" layoutX="45.0" layoutY="64.0" prefHeight="30.0" prefWidth="117.0" promptText="Enter first name" stylesheets="@../css/style.css">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </TextField>
-            <TextField fx:id="emailF" alignment="CENTER" layoutX="70.0" layoutY="138.0" prefHeight="27.0" prefWidth="211.0" stylesheets="@../css/style.css">
+            <TextField fx:id="lastnameF" alignment="CENTER" layoutX="341.0" layoutY="64.0" prefHeight="27.0" prefWidth="117.0" promptText="Enter last name" stylesheets="@../css/style.css">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </TextField>
-            <TextField fx:id="contactF" alignment="CENTER" layoutX="70.0" layoutY="186.0" prefHeight="27.0" prefWidth="211.0" stylesheets="@../css/style.css">
+            <TextField fx:id="emailF" alignment="CENTER" layoutX="149.0" layoutY="118.0" prefHeight="27.0" prefWidth="289.0" promptText="Enter email" stylesheets="@../css/style.css">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </TextField>
-            <TextField fx:id="userFF" alignment="CENTER" layoutX="70.0" layoutY="232.0" prefHeight="27.0" prefWidth="211.0" stylesheets="@../css/style.css">
+            <TextField fx:id="contactF" alignment="CENTER" layoutX="149.0" layoutY="168.0" prefHeight="27.0" prefWidth="289.0" promptText="Enter contact number" stylesheets="@../css/style.css">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="pwF" alignment="CENTER" layoutX="70.0" layoutY="278.0" prefHeight="27.0" prefWidth="211.0" stylesheets="@../css/style.css">
+            <TextField fx:id="userFF" alignment="CENTER" layoutX="149.0" layoutY="218.0" prefHeight="27.0" prefWidth="289.0" promptText="Enter username" stylesheets="@../css/style.css">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="pwF" alignment="CENTER" layoutX="149.0" layoutY="269.0" prefHeight="27.0" prefWidth="289.0" promptText="Enter password" stylesheets="@../css/style.css">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </PasswordField>
-            <TextField fx:id="middleF" alignment="CENTER" layoutX="190.0" layoutY="54.0" prefHeight="27.0" prefWidth="117.0" promptText="(optional)" stylesheets="@../css/style.css">
+            <TextField fx:id="middleF" alignment="CENTER" layoutX="190.0" layoutY="64.0" prefHeight="27.0" prefWidth="117.0" promptText="Enter middle name" stylesheets="@../css/style.css">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </TextField>
-            <Button fx:id="addUser" layoutX="70.0" layoutY="311.0" mnemonicParsing="false" onAction="#addUserHandler" prefHeight="33.0" prefWidth="211.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 4); -fx-cursor: hand;" stylesheets="@../css/style.css" text="Add">
+            <Button fx:id="addUser" layoutX="168.0" layoutY="299.0" mnemonicParsing="false" onAction="#addUserHandler" prefHeight="33.0" prefWidth="211.0" stylesheets="@../css/style.css" text="Add">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
             </Button>
-            <Label layoutX="50.0" layoutY="38.0" text="First Name" textFill="#170101">
+            <Label layoutX="50.0" layoutY="47.0" text="First Name" textFill="#170101">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="196.0" layoutY="38.0" text="Middle Name" textFill="#170101">
+            <Label layoutX="196.0" layoutY="47.0" text="Middle Name" textFill="#170101">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="76.0" layoutY="81.0" text="Last Name" textFill="#170101">
+            <Label layoutX="349.0" layoutY="47.0" text="Last Name" textFill="#170101">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="76.0" layoutY="123.0" text="Email" textFill="#170101">
+            <Label layoutX="35.0" layoutY="124.0" text="Email" textFill="#170101">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="75.0" layoutY="170.0" text="Contact Number" textFill="#170101">
+            <Label layoutX="33.0" layoutY="174.0" text="Contact Number" textFill="#170101">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="77.0" layoutY="217.0" text="Username" textFill="#170101">
+            <Label layoutX="34.0" layoutY="224.0" text="Username" textFill="#170101">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="77.0" layoutY="263.0" text="Password" textFill="#170101">
+            <Label layoutX="35.0" layoutY="275.0" text="Password" textFill="#170101">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="134.0" layoutY="14.0" text="Add User">
+            <Label layoutX="219.0" layoutY="14.0" style="-fx-font-weight: bold; -fx-font-size: 15;" text="Add User">
                <font>
                   <Font name="Cambria Bold" size="20.0" />
                </font>

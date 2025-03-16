@@ -3,12 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/SCC-COLLEGE/Documents/Cabusas/IT2C-CABUSAS-PMS/src/controller/EditUserController.java</file>
-            <file>file:/C:/Users/SCC-COLLEGE/Documents/Cabusas/IT2C-CABUSAS-PMS/src/controller/LoginPageController.java</file>
-            <file>file:/C:/Users/SCC-COLLEGE/Documents/Cabusas/IT2C-CABUSAS-PMS/src/controller/UserDashboardController.java</file>
-            <file>file:/C:/Users/SCC-COLLEGE/Documents/Cabusas/IT2C-CABUSAS-PMS/src/controller/AdminDashboardController.java</file>
-            <file>file:/C:/Users/SCC-COLLEGE/Documents/Cabusas/IT2C-CABUSAS-PMS/src/fxml/editUser.fxml</file>
-            <file>file:/C:/Users/SCC-COLLEGE/Documents/Cabusas/IT2C-CABUSAS-PMS/src/controller/UserTable.java</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/utils/utilities.java</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/css/style.css</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/auth/controller/LoginPageController.java</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/auth/controller/RegisterPageController.java</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/auth/fxml/LoginPage.fxml</file>
         </group>
     </open-files>
 </project-private>
