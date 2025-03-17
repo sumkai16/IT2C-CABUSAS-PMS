@@ -71,7 +71,7 @@ public class AddUserController implements Initializable {
         String query = "INSERT INTO user (u_fname, u_mname, u_lname, u_email, u_contact_number,u_username, u_password, u_role, u_status) "
                 + "VALUES ( ?, ?, ?, ?, ?, ? ,? , 'Student' , 'Inactive')";
         
-        if(!rp.verifyUser(currentStage, query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
+        if(!rp.verifyUser(currentStage, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
            if(db.insertData(query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
                 System.out.println("User added to database!");
                 utilities.showAlert(Alert.AlertType.INFORMATION, "User successfully added!", "Added Completed!");

@@ -2,6 +2,8 @@ package auth.controller;
 
 import main.dbConnector;
 import utils.utilities;
+import utils.PasswordHasher;
+import models.UserSession;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +18,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import models.UserSession;
 
 public class LoginPageController implements Initializable {
 
@@ -26,19 +27,19 @@ public class LoginPageController implements Initializable {
     private PasswordField passF;
     @FXML
     private Button loginBtn;
-
-    private dbConnector db;
     @FXML
     private Label registerbtn;
+
+    private dbConnector db;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         db = new dbConnector();
     }
-
+    
     @FXML
-    private void LoginOnClickHandler(ActionEvent event) {
-        String username = userF.getText().trim();
+    private void LoginOnClickHandler(MouseEvent event) {
+         String username = userF.getText().trim();
         String password = passF.getText().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
@@ -51,15 +52,14 @@ public class LoginPageController implements Initializable {
 
             if (userInfo != null) {
                 String role = userInfo[0];
-                String e_status = userInfo[1]; // Enrollment Status
+                String enrollmentStatus = userInfo[1];
 
                 utilities.showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome back!");
 
-                // ✅ Correct Role-Based Navigation
                 if (role.equalsIgnoreCase("Admin")) {
                     utilities.switchScene(getClass(), event, "/admin/fxml/AdminDashboard.fxml");
-                } else if (e_status.equalsIgnoreCase("Not Enrolled")) {
-                    utilities.switchScene(getClass(), event, "/user/fxml/UserDashboard.fxml"); 
+                } else if (enrollmentStatus.equalsIgnoreCase("Not Enrolled")) {
+                    utilities.switchScene(getClass(), event, "/user/fxml/UserDashboard.fxml");
                 } else {
                     utilities.switchScene(getClass(), event, "/student/fxml/StudentDashboard.fxml");
                 }
@@ -68,43 +68,37 @@ public class LoginPageController implements Initializable {
             }
         } catch (SQLException ex) {
             utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Database connection failed: " + ex.getMessage());
-        } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
         }
     }
+    
 
-    // ✅ FIXED authenticateUser Method (Returns String Array)
     public String[] authenticateUser(String username, String password) throws SQLException {
-        String sql = "SELECT u_id, u_fname, u_lname, u_role, enrollment_status FROM user WHERE u_username = ? AND u_password = ?";
+        String sql = "SELECT u_id, u_fname, u_lname, u_role, enrollment_status, u_password FROM user WHERE u_username = ?";
         try (PreparedStatement pst = db.getConnection().prepareStatement(sql)) {
             pst.setString(1, username);
-            pst.setString(2, password);
 
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
-                    int userId = rs.getInt("u_id");
-                    String firstName = rs.getString("u_fname");
-                    String lastName = rs.getString("u_lname");
-                    String role = rs.getString("u_role");
-                    String enrollment_status = rs.getString("enrollment_status"); 
-
-                    // Store session
-                    UserSession.createSession(userId, firstName, lastName, role, enrollment_status);
-
-                    return new String[]{role, enrollment_status}; 
+                    String storedHash = rs.getString("u_password");
+                    if (PasswordHasher.hashPassword(password).equals(storedHash)) {
+                        return new String[]{rs.getString("u_role"), rs.getString("enrollment_status")};
+                    }
                 }
             }
         }
-        return null; // No user found
+        return null;
     }
-
 
     @FXML
     private void registerHandler(MouseEvent event) {
-         try {
+        try {
             utilities.animatePaneTransitionLeftToRight(getClass(), event, "/auth/fxml/RegisterPage.fxml");
         } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Faialed to open Register page: " + ex.getMessage());
+            ex.printStackTrace();
+            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open Register page: " + ex.getMessage());
         }
     }
+
+    
 }
+

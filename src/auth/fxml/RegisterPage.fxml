@@ -58,7 +58,7 @@
                               <Font name="Arial" size="12.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="register" layoutX="6.0" layoutY="404.0" mnemonicParsing="false" onMouseClicked="#RegisterOnClickHandler" prefHeight="33.0" prefWidth="211.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 4);" stylesheets="@../css/style.css" text="Register">
+                        <Button layoutX="6.0" layoutY="404.0" mnemonicParsing="false" onMouseClicked="#RegisterOnClickHandler" prefHeight="33.0" prefWidth="211.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 4);" stylesheets="@../css/style.css" text="Register">
                            <font>
                               <Font name="Arial Black" size="12.0" />
                            </font>
