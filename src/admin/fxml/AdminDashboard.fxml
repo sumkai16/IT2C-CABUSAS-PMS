@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" styleClass="mainFxmlClass" stylesheets="@/css/admindashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.controller.AdminDashboardController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.controller.AdminDashboardController">
    <children>
       <Pane prefHeight="610.0" prefWidth="910.0" style="-fx-background-color: #E2DADA;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <BorderPane fx:id="bgPane" prefHeight="600.0" prefWidth="900.0">
@@ -40,39 +40,39 @@
          <left>
             <Pane prefHeight="560.0" prefWidth="185.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane layoutY="3.0" prefHeight="549.0" prefWidth="185.0" style="-fx-background-color: #ffffff;">
+                  <Pane layoutY="3.0" prefHeight="549.0" prefWidth="185.0" stylesheets="@../../css/navbar.css">
                      <children>
-                        <Button fx:id="home" alignment="BASELINE_LEFT" contentDisplay="CENTER" layoutY="55.0" lineSpacing="45.0" mnemonicParsing="false" onMouseClicked="#homeOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Home">
+                        <Button fx:id="home" alignment="BASELINE_LEFT" contentDisplay="CENTER" layoutY="55.0" lineSpacing="45.0" mnemonicParsing="false" onMouseClicked="#homeOnClick" prefHeight="33.0" prefWidth="185.0" stylesheets="@../../css/navbar.css" text="Home">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="prospectus" alignment="BASELINE_LEFT" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#prospectusOnClick" prefHeight="38.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Manage Prospectus">
+                        <Button fx:id="prospectus" alignment="BASELINE_LEFT" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#prospectusOnClick" prefHeight="38.0" prefWidth="185.0" text="Manage Prospectus">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="managePrograms" alignment="BASELINE_LEFT" layoutY="157.0" mnemonicParsing="false" onMouseClicked="#ProgramsOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Manage Programs">
+                        <Button fx:id="managePrograms" alignment="BASELINE_LEFT" layoutY="157.0" mnemonicParsing="false" onMouseClicked="#ProgramsOnClick" prefHeight="33.0" prefWidth="185.0" text="Manage Programs">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="settings" alignment="BASELINE_LEFT" layoutY="396.0" mnemonicParsing="false" onMouseClicked="#settingsOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Settings">
+                        <Button fx:id="settings" alignment="BASELINE_LEFT" layoutY="396.0" mnemonicParsing="false" onMouseClicked="#settingsOnClick" prefHeight="33.0" prefWidth="185.0" text="Settings">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="logout" alignment="BASELINE_LEFT" layoutY="441.0" mnemonicParsing="false" onMouseClicked="#logoutOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Logout">
+                        <Button fx:id="logout" alignment="BASELINE_LEFT" layoutY="441.0" mnemonicParsing="false" onMouseClicked="#logoutOnClick" prefHeight="33.0" prefWidth="185.0" text="Logout">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="manageStudent" alignment="BASELINE_LEFT" layoutY="203.0" mnemonicParsing="false" onMouseClicked="#manageStudentOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Manage Students">
+                        <Button fx:id="manageStudent" alignment="BASELINE_LEFT" layoutY="203.0" mnemonicParsing="false" onMouseClicked="#manageStudentOnClick" prefHeight="33.0" prefWidth="185.0" text="Manage Students">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="genReport" alignment="BASELINE_LEFT" layoutY="249.0" mnemonicParsing="false" onMouseClicked="#GenReportsOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Generate Reports">
+                        <Button fx:id="genReport" alignment="BASELINE_LEFT" layoutY="249.0" mnemonicParsing="false" onMouseClicked="#GenReportsOnClick" prefHeight="33.0" prefWidth="185.0" text="Generate Reports">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
@@ -112,7 +112,7 @@
                               <Image url="@../../img/icons8-logout%20(2).gif" />
                            </image>
                         </ImageView>
-                        <Button fx:id="manageUser" alignment="BASELINE_LEFT" layoutY="297.0" mnemonicParsing="false" onMouseClicked="#UserManageOnClick" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-padding: 10 10 10 40; -fx-border-radius: 8 8 8 8; -fx-background-radius: 8 8 8 8;" text="Users">
+                        <Button fx:id="manageUser" alignment="BASELINE_LEFT" layoutY="297.0" mnemonicParsing="false" onMouseClicked="#UserManageOnClick" prefHeight="33.0" prefWidth="185.0" text="Users">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>

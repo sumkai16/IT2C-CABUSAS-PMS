@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import controller.CustomTitleBarController;
 import java.io.IOException;
-import javafx.application.Platform;
 
 
 /**
@@ -24,19 +23,17 @@ public class utilities {
 
     // Show alert dialog and center it on screen
     public static void showAlert(Alert.AlertType alertType, String title, String message) {
-    Alert alert = new Alert(alertType);
-    alert.setTitle(title);
-    alert.setHeaderText(null);
-    alert.setContentText(message);
-    alert.show();
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.show();
 
-    Platform.runLater(() -> {
         Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         alertStage.setX((screenBounds.getWidth() - alertStage.getWidth()) / 2);
         alertStage.setY((screenBounds.getHeight() - alertStage.getHeight()) / 2);
-    });
-}
+    }
     
 
     // Switch scene and add custom title bar
