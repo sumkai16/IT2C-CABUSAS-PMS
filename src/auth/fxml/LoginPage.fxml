@@ -44,7 +44,7 @@
                                        </font>
                                     </Button>
                                     <Label layoutX="8.0" layoutY="123.0" text="Don't have an account?" />
-                                    <Label fx:id="registerbtn" layoutX="180.0" layoutY="123.0" onMouseClicked="#registerHandler" text="Register">
+                                    <Label layoutX="158.0" layoutY="123.0" onMouseClicked="#registerHandler" text="Register">
                                        <font>
                                           <Font name="Arial Black" size="18.0" />
                                        </font>

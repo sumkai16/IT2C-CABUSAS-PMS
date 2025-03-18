@@ -7,18 +7,23 @@ public class UserSession {
     private static String name;
     private static String userRole;
     private static String en_status;
-    public static void createSession(int id, String fName, String lName, String role, String enrollment_status) {
+    private static String userStatus;
+    public static void createSession(int id, String fName, String lName, String role,String u_status, String enrollment_status) {
         userId = id;
         firstName = fName;
         lastName = lName;
         userRole = role;
         en_status = enrollment_status;
+        userStatus = u_status;
+        
     }
 
     public static String getFirstName() {
         return firstName;
     }
-
+    public static String getUserStatus() {
+        return userStatus;
+    }
     public static String getLastName() {
         return lastName;
     }

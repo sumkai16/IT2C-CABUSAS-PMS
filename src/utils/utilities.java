@@ -114,6 +114,8 @@ public class utilities {
             slideOut.play();
             slideIn.play();
         } catch (IOException ex) {
+             ex.printStackTrace();
+             System.out.println("check ");
             showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load content: " + ex.getMessage());
         }
     }

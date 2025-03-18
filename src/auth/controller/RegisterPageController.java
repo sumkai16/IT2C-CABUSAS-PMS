@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import utils.passwordHasher;
 import utils.validations;
 import utils.utilities;
 
@@ -30,8 +31,6 @@ public class RegisterPageController implements Initializable {
     private TextField firstnameF, lastnameF, emailF, contactF, userFF, middleF;
     @FXML
     private PasswordField pwF;
-    @FXML
-    private Button register, login;
     private dbConnector db;
     @FXML
     private Label registerBtn11;
@@ -61,12 +60,14 @@ public class RegisterPageController implements Initializable {
         String phoneNumber = contactF.getText();
         String username = userFF.getText();
         String password = pwF.getText();
-        
+        String hashedPassword = passwordHasher.hashPassword(password);
+
+       
         String query = "INSERT INTO user (u_fname, u_mname, u_lname, u_email, u_contact_number,u_username, u_password, u_role, u_status, enrollment_status) "
                 + "VALUES ( ?, ?, ?, ?, ?, ? ,? , 'User' , 'Inactive', 'Not Enrolled')";
         
         if(!verifyUser(currentStage, query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
-           if(db.insertData(query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
+           if(db.insertData(query, firstName, middleName, lastName, emailAddress, phoneNumber, username, hashedPassword)) {
                 System.out.println("User added to database!");
                 utilities.showAlert(Alert.AlertType.INFORMATION, "User successfully registered!", "Register Completed!");
                 clearFields();

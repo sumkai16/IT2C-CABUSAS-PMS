@@ -21,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.dbConnector;
+import utils.passwordHasher;
 import utils.utilities;
 
 public class EditUserController implements Initializable {
@@ -117,6 +118,7 @@ public class EditUserController implements Initializable {
 
     @FXML
     private void editUserButtonHandler(ActionEvent event) {
+        
         if (selectedUsername == null) {
             utilities.showAlert(Alert.AlertType.WARNING, "No user selected!", "Please select a user to update.");
             return;
@@ -138,7 +140,7 @@ public class EditUserController implements Initializable {
         String username = userFF.getText();
         String role = selectedRole;
         String status = selectedStatus;
-
+        
         String query = "UPDATE user SET u_fname = ?, u_mname = ?, u_lname = ?, u_email = ?, u_contact_number = ?,u_username = ?, u_role = ?, u_status = ? WHERE u_username = ?";
 
         try (PreparedStatement pstmt = db.getConnection().prepareStatement(query)) {

@@ -4,10 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/utils/utilities.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/css/style.css</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/utils/passwordHasher.java</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/auth/controller/ChangePasswordController.java</file>
             <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/auth/controller/LoginPageController.java</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/models/UserSession.java</file>
             <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/auth/controller/RegisterPageController.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/auth/fxml/LoginPage.fxml</file>
         </group>
     </open-files>
 </project-private>

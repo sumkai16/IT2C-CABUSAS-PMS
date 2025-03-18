@@ -17,6 +17,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import utils.passwordHasher;
 
 public class ChangePasswordController implements Initializable {
 
@@ -47,8 +48,7 @@ public class ChangePasswordController implements Initializable {
     private void changeClickHandler() {
         String oldPassword = oldPasswordField.getText().trim();
         String newPassword = newPasswordField.getText().trim();
-        String confirmPassword = confirmPasswordField.getText().trim();
-
+        String confirmPassword = confirmPasswordField.getText().trim(); 
         if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
             utils.showAlert(Alert.AlertType.ERROR, "Validation Error", "All fields are required.");
             return;
