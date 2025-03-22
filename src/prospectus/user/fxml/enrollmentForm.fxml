@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="550" prefWidth="715.0" style="-fx-background-color: #f4f4f4;" stylesheets="@../../../css/enrollmentForm.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.user.controller.EnrollmentFormController">
+    
+    <!-- Container -->
+    <Pane layoutX="17.0" layoutY="13.0" prefHeight="525.0" prefWidth="682.0" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 10; -fx-padding: 20;" styleClass="pane">
+        
+        <!-- Title -->
+        <Label layoutX="242.0" layoutY="24.0" style="-fx-font-weight: bold; -fx-font-size: 17; -fx-font-family: Cambria;" text="Student Enrollment Form">
+         <font>
+            <Font name="Cambria Bold" size="14.0" />
+         </font></Label>
+
+        <!-- First Name -->
+        <Label layoutX="126.0" layoutY="83.0" text="First Name:" />
+        <TextField fx:id="fnameField" layoutX="256.0" layoutY="78.0" prefWidth="300" promptText="Enter first name" />
+
+        <!-- Middle Name -->
+        <Label layoutX="126.0" layoutY="123.0" text="Middle Name:" />
+        <TextField fx:id="mnameField" layoutX="256.0" layoutY="118.0" prefWidth="300" promptText="Enter middle name" />
+
+        <!-- Last Name -->
+        <Label layoutX="126.0" layoutY="163.0" text="Last Name:" />
+        <TextField fx:id="lnameField" layoutX="256.0" layoutY="158.0" prefWidth="300" promptText="Enter last name" />
+
+        <!-- Birthdate -->
+        <Label layoutX="126.0" layoutY="203.0" text="Birthdate:" />
+        <DatePicker fx:id="bdateField" layoutX="256.0" layoutY="192.0" prefWidth="300" />
+
+        <!-- Gender Selection -->
+        <Label layoutX="126.0" layoutY="243.0" text="Sex:" />
+        <MenuButton fx:id="sexMenu" layoutX="256.0" layoutY="238.0" prefWidth="300" text="Select Gender">
+            <items>
+                <MenuItem onAction="#selectSex" text="Male" />
+                <MenuItem onAction="#selectSex" text="Female" />
+            </items>
+        </MenuButton>
+
+        <!-- Address -->
+        <Label layoutX="126.0" layoutY="283.0" text="Address:" />
+        <TextArea fx:id="addressField" layoutX="256.0" layoutY="278.0" prefHeight="50" prefWidth="300" promptText="Enter address" />
+
+        <!-- Year Level -->
+        <Label layoutX="126.0" layoutY="343.0" text="Year Level:" />
+        <TextField fx:id="yearField" layoutX="256.0" layoutY="338.0" prefWidth="300" promptText="Enter year level (e.g., 1, 2, 3, 4)" />
+
+        <!-- Program Selection -->
+        <Label layoutX="126.0" layoutY="383.0" text="Program:" />
+        <MenuButton fx:id="programMenu" layoutX="256.0" layoutY="378.0" prefWidth="300" text="Select Program">
+            <items>
+                <MenuItem onAction="#selectProgram" text="BSIT" />
+                <MenuItem onAction="#selectProgram" text="BSCS" />
+                <MenuItem onAction="#selectProgram" text="BSECE" />
+                <MenuItem onAction="#selectProgram" text="BSEE" />
+            </items>
+        </MenuButton>
+
+        <!-- Submit Button -->
+        <Button fx:id="submitButton" layoutX="252.0" layoutY="450.0" prefHeight="30.0" prefWidth="179.0" text="Submit" />
+    </Pane>
+</AnchorPane>

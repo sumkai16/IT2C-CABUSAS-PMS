@@ -1,0 +1,26 @@
+.root {
+    -fx-background-color: #F5F5F5;
+}
+.custom-alert {
+    -fx-background-color: #f8f9fa; /* Light Gray */
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+}
+
+/* Custom Text Styling */
+.custom-alert .content {
+    -fx-font-size: 13px;
+    -fx-text-fill: #333;
+}
+
+/* Button Styling */
+.dialog-pane .button {
+    -fx-background-color: #007BFF;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+}
+
+.dialog-pane .button:hover {
+    -fx-background-color: #0056b3;
+}

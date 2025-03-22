@@ -6,47 +6,51 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomTitleBarController">
-    <AnchorPane prefHeight="30.0" prefWidth="900.0" style="-fx-background-color: white;">
-        <Label layoutX="6.0" layoutY="6.0" style="-fx-text-fill: black; -fx-font-size: 14px;" text="SyllabusConcordia">
-            <font>
-                <Font name="Arial" size="12.0" />
-            </font>
-        </Label>
-      <ImageView fx:id="maximizeBtn" fitHeight="25.0" fitWidth="25.0" layoutX="826.0" layoutY="4.0" onMouseClicked="#MaximizeHandler" pickOnBounds="true" preserveRatio="true">
-         <effect>
-            <ColorAdjust brightness="-1.0" />
-         </effect>
-         <image>
-            <Image url="@../img/fluent--maximize-16-filled.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <ImageView fx:id="minimizeBtn" fitHeight="25.0" fitWidth="25.0" layoutX="849.0" layoutY="2.0" onMouseClicked="#MinimizeHandler" pickOnBounds="true" preserveRatio="true">
-         <effect>
-            <ColorAdjust brightness="-1.0" />
-         </effect>
-         <image>
-            <Image url="@../img/material-symbols--minimize-rounded.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <ImageView fx:id="closeBtn" fitHeight="25.0" fitWidth="25.0" layoutX="870.0" layoutY="4.0" onMouseClicked="#CloseHandler" pickOnBounds="true" preserveRatio="true">
-         <effect>
-            <ColorAdjust brightness="-1.0" />
-         </effect>
-         <image>
-            <Image url="@../img/material-symbols--close-rounded.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-    </AnchorPane>
-</AnchorPane>
+
+ <AnchorPane prefHeight="30.0" prefWidth="900.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomTitleBarController">
+   <Pane prefHeight="30.0" prefWidth="900.0" styleClass="title-bar">
+      <children>
+           <Label layoutX="14.0" layoutY="3.0" styleClass="title-bar-label" text="SyllabusConcordia">
+               <font>
+                   <Font name="Arial" size="12.0" />
+               </font>
+           </Label>
+         <ImageView fx:id="maximizeBtn" fitHeight="25.0" fitWidth="25.0" layoutX="849.0" layoutY="3.0" onMouseClicked="#MaximizeHandler" pickOnBounds="true" preserveRatio="true" styleClass="title-bar-button">
+            <effect>
+               <ColorAdjust brightness="1.0" />
+            </effect>
+            <image>
+               <Image url="@../prospectus/images/maximizeIcon.png" />
+            </image>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ImageView>
+         <ImageView fx:id="minimizeBtn" fitHeight="25.0" fitWidth="25.0" layoutX="824.0" layoutY="4.0" onMouseClicked="#MinimizeHandler" pickOnBounds="true" preserveRatio="true" styleClass="title-bar-button">
+            <effect>
+               <ColorAdjust brightness="1.0" />
+            </effect>
+            <image>
+               <Image url="@../prospectus/images/minimizeIcon.png" />
+            </image>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ImageView>
+         <ImageView fx:id="closeBtn" fitHeight="25.0" fitWidth="25.0" layoutX="874.0" layoutY="3.0" onMouseClicked="#CloseHandler" pickOnBounds="true" preserveRatio="true" styleClass="title-bar-close">
+            <effect>
+               <ColorAdjust brightness="1.0" />
+            </effect>
+            <image>
+               <Image url="@../prospectus/images/closeIcon.png" />
+            </image>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ImageView>
+      </children>
+   </Pane>
+ </AnchorPane>

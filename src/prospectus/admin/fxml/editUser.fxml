@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="379.0" prefWidth="690.0" stylesheets="@../../../css/enrollmentForm.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.controller.EditUserController">
+   <children>
+      <Pane fx:id="backgroundPane" layoutX="89.0" layoutY="13.0" prefHeight="354.0" prefWidth="513.0" style="-fx-background-color: white; -fx-border-color: black; -fx-background-radius: 20; -fx-border-radius: 20;">
+         <children>
+            <Group layoutX="64.0" layoutY="-54.0" />
+            <Button fx:id="editUser" layoutX="161.0" layoutY="291.0" mnemonicParsing="false" onAction="#editUserButtonHandler" prefHeight="33.0" prefWidth="211.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 4); -fx-cursor: hand;" stylesheets="@../../../css/enrollmentForm.css" text="Edit">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Button>
+            <Label layoutX="224.0" layoutY="14.0" text="Edit User">
+               <font>
+                  <Font name="Cambria Bold" size="20.0" />
+               </font>
+            </Label>
+            <MenuButton fx:id="userDropdown" layoutX="150.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#dropdownSelecUserHandler" prefHeight="27.0" prefWidth="233.0" style="-fx-background-color: transparent; -fx-background-color: white; -fx-border-color: black; -fx-background-radius: 4; -fx-border-radius: 4;" text="Select User">
+              <items>
+                <MenuItem mnemonicParsing="false" text="" />
+                <MenuItem mnemonicParsing="false" text="" />
+              </items>
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </MenuButton>
+            <TextField fx:id="firstnameF" alignment="CENTER" layoutX="64.0" layoutY="89.0" prefHeight="27.0" prefWidth="117.0">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="lastnameF" alignment="CENTER" layoutX="352.0" layoutY="89.0" prefHeight="27.0" prefWidth="117.0">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="emailF" alignment="CENTER" layoutX="64.0" layoutY="138.0" prefHeight="27.0" prefWidth="117.0">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="contactF" alignment="CENTER" layoutX="209.0" layoutY="138.0" prefHeight="27.0" prefWidth="117.0">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="userFF" alignment="CENTER" layoutX="352.0" layoutY="138.0" prefHeight="27.0" prefWidth="117.0">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="middleF" alignment="CENTER" layoutX="209.0" layoutY="89.0" prefHeight="27.0" prefWidth="117.0" promptText="(optional)">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="93.0" layoutY="73.0" text="First Name" textFill="#170101">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="232.0" layoutY="73.0" text="Middle Name" textFill="#170101">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="381.0" layoutY="73.0" text="Last Name" textFill="#170101">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="104.0" layoutY="123.0" text="Email" textFill="#170101">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="222.0" layoutY="123.0" text="Contact Number" textFill="#170101">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="383.0" layoutY="123.0" text="Username" textFill="#170101">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Label>
+            <MenuButton fx:id="roleSelect" layoutX="149.0" layoutY="190.0" mnemonicParsing="false" onMouseClicked="#selectRoleClicked" prefHeight="27.0" prefWidth="233.0" text="Select Role">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Student" />
+                <MenuItem mnemonicParsing="false" text="Admin" />
+              </items>
+            </MenuButton>
+            <MenuButton fx:id="statusSelect" layoutX="149.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#selectStatusClicked" prefHeight="27.0" prefWidth="233.0" text="Select Status">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Active" />
+                  <MenuItem mnemonicParsing="false" text="Inactive" />
+               </items>
+            </MenuButton>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

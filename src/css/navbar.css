@@ -1,34 +1,32 @@
-/* Main Sidebar */
-Pane {
-    -fx-background-color: #ffffff;
-}
 
-/* Sidebar Buttons */
-Button {
-    -fx-background-color: transparent;
-    -fx-padding: 10 10 10 40;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
-    -fx-font-family: 'Cambria';
-    -fx-font-size: 14px;
-    -fx-text-fill: #333;
-    -fx-alignment: CENTER_LEFT;
-}
-
-Button:hover {
+/* Navigation Bar */
+.nav-bar {
     -fx-background-color: #12192C;
-    -fx-text-fill: #ffffff;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
 }
 
-Button:pressed {
-    -fx-background-color: #C0BABA;
+/* Navigation Buttons */
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FBFCF8;
+    -fx-font-size: 12px;
+    -fx-padding: 5px 10px 5px 35px; 
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-alignment: center-left; 
+    -fx-min-width: 165px;
+    -fx-max-width: 165px;
+    -fx-min-height: 35px; 
+    -fx-graphic-text-gap: 6px;
 }
 
-/* Sidebar Icons */
-ImageView {
-    -fx-opacity: 0.8;
-}
 
-ImageView:hover {
-    -fx-opacity: 1;
+.nav-button:hover {
+    -fx-background-color: #C0C0C0; /* Slight transparency on hover */
+    -fx-text-fill: black;
+}
+.nav-button:focused {
+    -fx-background-color: #C0C0C0; /* Slight transparency on hover */
+    -fx-text-fill: black;
 }

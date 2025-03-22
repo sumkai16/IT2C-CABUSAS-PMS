@@ -1,0 +1,83 @@
+/* General styles */
+.root {
+    -fx-font-family: "Poppins";
+    -fx-background-color: #FBFCF8;
+}
+
+/* Pane styles */
+.anchor-pane {
+    -fx-background-color: #FFFFFF;
+    -fx-border-radius: 10px;
+    -fx-border-color: #D1D1D1;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.5, 0, 4);
+}
+
+/* Text fields and password fields */
+.text-field, .password-field {
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-background-color: #FFFFFF;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #12192C;
+    -fx-background-color: #F9F9F9;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #12192C;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #1F2A44;
+}
+.label{
+    -fx-text-fill: #110000;
+    -fx-font-size: 13px;
+}
+
+.labelbtn {
+    -fx-text-fill: #110000;
+    -fx-font-size: 12px;
+}
+
+.labelbtn:hover {
+    -fx-text-fill: #12192C;
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+/* Header label */
+.header-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #170101;
+}
+
+/* Title label */
+.title-label {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* Sidebar panel */
+.pane {
+    -fx-background-color: #12192C;
+}
+
+/* Drop shadow effect */
+.shadow {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 4);
+}

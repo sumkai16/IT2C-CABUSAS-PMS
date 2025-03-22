@@ -1,0 +1,46 @@
+/* Root background */
+.root {
+    -fx-background-color: #F5F5F5; /* Light Gray */
+}
+
+/* Welcome Header */
+.label-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333; /* Dark Text */
+}
+
+/* Subtext */
+.label-subtext {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+    -fx-wrap-text: true;
+}
+
+.button-green {
+    -fx-background-color: #28A745;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.button-green:hover {
+    -fx-background-color: #218838; 
+}
+
+.button-yellow {
+    -fx-background-color: #FFC107;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.button-yellow:hover {
+    -fx-background-color: #E0A800; /* Darker Yellow */
+}

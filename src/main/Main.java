@@ -16,7 +16,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             primaryStage.initStyle(StageStyle.UNDECORATED);
-            loadScene(primaryStage, "/auth/fxml/LoginPage.fxml"); // Load login page on startup
+            loadScene(primaryStage, "/prospectus/auth/fxml/LoginPage.fxml"); // Load login page on startup
             System.out.println("dawd");
             primaryStage.show();
         } catch (Exception e) {
