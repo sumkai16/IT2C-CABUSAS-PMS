@@ -4,6 +4,7 @@ import main.dbConnector;
 import prospectus.models.UserSession;
 import prospectus.utilities.utilities;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -48,10 +49,12 @@ public class ChangePasswordController implements Initializable {
     }
 
     @FXML
-    private void changeClickHandler() {
+    private void changeClickHandler() throws NoSuchAlgorithmException {
         String oldPassword = oldPasswordField.getText().trim();
         String newPassword = newPasswordField.getText().trim();
-        String confirmPassword = confirmPasswordField.getText().trim(); 
+        String confirmPassword = confirmPasswordField.getText().trim();
+        String hashedOldPassword = passwordHasher.hashPassword(oldPassword);
+        String hashedNewPassword = passwordHasher.hashPassword(newPassword);
         if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
             utils.showAlert(Alert.AlertType.ERROR, "Validation Error", "All fields are required.");
             return;
@@ -68,7 +71,7 @@ public class ChangePasswordController implements Initializable {
         }
 
         try {
-            updatePassword(oldPassword, newPassword);
+            updatePassword(hashedOldPassword, hashedNewPassword);
         } catch (SQLException e) {
             utils.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to change password: " + e.getMessage());
         }

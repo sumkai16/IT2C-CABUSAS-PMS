@@ -10,11 +10,14 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import prospectus.utilities.utilities;
 
 /**
  * FXML Controller class
@@ -58,6 +61,15 @@ public class EnrollmentFormController implements Initializable {
     @FXML
     private void selectProgram(ActionEvent event) {
         
+    }
+
+    @FXML
+    private void returnHandler(MouseEvent event) {
+        try {
+            utilities.switchScene(getClass(), event, "/prospectus/user/fxml/UserDashboard.fxml");
+        } catch (Exception ex) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open return page: " + ex.getMessage());
+        }
     }
     
 }

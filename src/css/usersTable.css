@@ -57,7 +57,7 @@
 
 /* Selected Row */
 .table-row-cell:selected {
-    -fx-background-color: #E75480; 
+    -fx-background-color: #3A86FF; 
     -fx-text-fill: black;
     -fx-font-weight: bold;
 }

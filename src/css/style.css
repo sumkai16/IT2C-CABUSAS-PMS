@@ -48,6 +48,7 @@
 
 .button:hover {
     -fx-background-color: #265DDA;
+    -fx-cursor: hand;
 }
 
 /* Labels */

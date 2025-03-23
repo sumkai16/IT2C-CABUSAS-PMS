@@ -41,6 +41,7 @@
 
 .button:hover {
     -fx-background-color: #1F2A44;
+    -fx-cursor: hand;
 }
 .label{
     -fx-text-fill: #110000;

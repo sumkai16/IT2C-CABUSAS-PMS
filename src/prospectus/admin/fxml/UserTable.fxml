@@ -10,12 +10,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="715.0" styleClass="mainFxmlClass" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.controller.UserTable">
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="550.0" prefWidth="715.0" styleClass="mainFxmlClass" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.controller.UserTable">
    <children>
-      <StackPane prefHeight="550.0" prefWidth="715.0" styleClass="container" />
+      <Pane layoutX="-3.0" layoutY="-3.0">
+         <children>
+            <StackPane layoutX="3.0" layoutY="3.0" prefHeight="550.0" prefWidth="715.0" styleClass="container" />
+         </children>
+      </Pane>
       <BorderPane fx:id="bgPane" prefHeight="550.0" prefWidth="690.0">
          <center>
-            <Pane prefHeight="343.0" prefWidth="662.0" stylesheets="@../../../css/adminDashboard.css" BorderPane.alignment="CENTER">
+            <Pane prefHeight="343.0" prefWidth="662.0" stylesheets="@../../../css/usersTable.css" BorderPane.alignment="CENTER">
                <children>
                   <TableView fx:id="tableView" layoutX="21.0" layoutY="30.0" prefHeight="468.0" prefWidth="644.0">
                     <columns>
@@ -30,7 +34,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <ImageView fx:id="editIcon" fitHeight="30.0" fitWidth="30.0" layoutX="589.0" layoutY="-1.0" onMouseClicked="#editIconHandler">
+                  <ImageView fx:id="editIcon" fitHeight="30.0" fitWidth="30.0" layoutX="589.0" layoutY="-1.0" onMouseClicked="#editIconHandler" pickOnBounds="true">
                      <image>
                         <Image url="@../../images/editUserIcon.png" />
                      </image>
@@ -38,7 +42,7 @@
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fx:id="addIcon" fitHeight="30.0" fitWidth="30.0" layoutX="550.0" layoutY="-1.0" onMouseClicked="#addUserHandler">
+                  <ImageView fx:id="addIcon" fitHeight="30.0" fitWidth="30.0" layoutX="550.0" layoutY="-1.0" onMouseClicked="#addUserHandler" pickOnBounds="true">
                      <image>
                         <Image url="@../../images/addUserIcon.png" />
                      </image>

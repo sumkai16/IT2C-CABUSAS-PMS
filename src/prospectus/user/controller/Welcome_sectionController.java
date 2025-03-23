@@ -34,7 +34,7 @@ public class Welcome_sectionController implements Initializable {
     private Label closeBtn;
     @FXML
     private AnchorPane overlayPane;
-
+    private static UserProfileController instance;
     /**
      * Initializes the controller class.
      */
@@ -42,11 +42,12 @@ public class Welcome_sectionController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
+    
     @FXML
     private void handleProceedToEnrollment(MouseEvent event) {
+        
          try {
-            utilities.switchScene(getClass(), event, "/prospectus/user/fxml/enrollmentForm.fxml"); 
+             utilities.loadFXMLWithFade(overlayPane, "/prospectus/user/fxml/enrollmentForm.fxml");
         } catch (Exception ex) {
             utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open Enrollment page: " + ex.getMessage());
         }

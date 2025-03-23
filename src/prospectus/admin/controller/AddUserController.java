@@ -21,6 +21,7 @@ import prospectus.utilities.validations;
 import prospectus.auth.controller.RegisterPageController;
 import prospectus.auth.controller.RegisterPageController;
 import javafx.scene.control.MenuButton;
+import javafx.scene.input.MouseEvent;
 /**
  * FXML Controller class
  *
@@ -47,9 +48,9 @@ public class AddUserController implements Initializable {
 
     private dbConnector db;
     @FXML
-    private AnchorPane rootPane;
-    @FXML
     private Pane backgroundPane;
+    @FXML
+    private AnchorPane overlayPane;
     
 
     @Override
@@ -89,5 +90,14 @@ public class AddUserController implements Initializable {
         userFF.clear();
         pwF.clear();
         middleF.clear();
+    }
+
+    @FXML
+    private void returnHandler(MouseEvent event) {
+         try {
+            utilities.switchScene(getClass(), event, "/prospectus/admin/fxml/AdminDashboard.fxml");
+        } catch (Exception ex) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open return page: " + ex.getMessage());
+        }
     }
 }

@@ -21,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.dbConnector;
+import prospectus.models.User;
 import prospectus.utilities.passwordHasher;
 import prospectus.utilities.utilities;
 
@@ -35,8 +36,7 @@ public class EditUserController implements Initializable {
     private AnchorPane rootPane;
     @FXML
     private Pane backgroundPane;
-    @FXML
-    private MenuButton userDropdown;
+    
     @FXML
     private TextField firstnameF;
     @FXML
@@ -59,36 +59,24 @@ public class EditUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         db = new dbConnector();
-        userList = FXCollections.observableArrayList();  
-        dropdownSelecUserHandler(); 
+        userList = FXCollections.observableArrayList();     
     }
-    //load user sa dropdown
-    @FXML
-    private void dropdownSelecUserHandler() {
-        String query = "SELECT u_username FROM user";       
-        try {
-            ResultSet rs = db.getData(query);
-            if (rs == null) {
-                System.out.println("ResultSet is null. Check database connection.");
-                return;
-            }
+    
+    public void setUserData(User user) {
+        firstnameF.setText(user.getFirstName());
+        middleF.setText(user.getMiddleName());
+        lastnameF.setText(user.getLastName());
+        emailF.setText(user.getEmail());  
+        contactF.setText(user.getContact());  
+        userFF.setText(user.getUserName());  
+        selectedUsername = user.getUserName();
+        selectedRole = user.getRole();
+        selectedStatus = user.getStatus();
 
-            userDropdown.getItems().clear();
-            while (rs.next()) {
-                String username = rs.getString("u_username");
-                MenuItem menuItem = new MenuItem(username);
-
-                menuItem.setOnAction(e -> {
-                    selectedUsername = username; // Store selected username
-                    userDropdown.setText(username);
-                    loadUserDetails(username); // Load user details into form
-                });
-                userDropdown.getItems().add(menuItem);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        roleSelect.setText(selectedRole != null ? selectedRole : "Select Role");
+        statusSelect.setText(selectedStatus != null ? selectedStatus : "Select Status");
     }
+
     //load details sa mga textfield
     private void loadUserDetails(String username) {
         String query = "SELECT u_fname, u_mname, u_lname, u_email, u_contact_number,u_username, u_role, u_status FROM user WHERE u_username = ?";
@@ -158,7 +146,7 @@ public class EditUserController implements Initializable {
             if (rowsAffected > 0) {
                 utilities.showAlert(Alert.AlertType.INFORMATION, "User updated!", "Update Completed!");
                 clearFields();
-                dropdownSelecUserHandler();
+                
             } else {
                 utilities.showAlert(Alert.AlertType.ERROR, "Update failed!", "User update unsuccessful.");
             }
@@ -174,7 +162,7 @@ public class EditUserController implements Initializable {
         contactF.clear();
         userFF.clear();
         middleF.clear();
-        userDropdown.setText("Select User");
+
         selectedUsername = null;
         roleSelect.setText("Select Role");
         selectedRole = null;
@@ -208,6 +196,15 @@ public class EditUserController implements Initializable {
                 selectedStatus = status; 
             });
             statusSelect.getItems().add(menuItem);
+        }
+    }
+
+    @FXML
+    private void returnHandler(MouseEvent event) {
+         try {
+            utilities.switchScene(getClass(), event, "/prospectus/admin/fxml/AdminDashboard.fxml");
+        } catch (Exception ex) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open return page: " + ex.getMessage());
         }
     }
 }
