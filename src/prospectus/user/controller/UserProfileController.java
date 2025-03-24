@@ -51,4 +51,9 @@ public class UserProfileController implements Initializable {
     private void changePasswordOnClickHandler(MouseEvent event) {
         utilities.loadFXMLWithFade(rootPane, "/prospectus/auth/fxml/ChangePassword.fxml");
     }
+
+    @FXML
+    private void recoveryPhraseHandler(MouseEvent event) {
+        utilities.loadFXMLWithFade(rootPane, "/prospectus/auth/fxml/SecretRecoveryPhrase.fxml");
+    }
 }

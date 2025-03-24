@@ -8,14 +8,15 @@ public class UserSession {
     private static String userRole;
     private static String en_status;
     private static String userStatus;
-    public static void createSession(int id, String fName, String lName, String role,String u_status, String enrollment_status) {
+    private static String userName;
+    public static void createSession(int id, String fName, String lName, String role,String u_status, String enrollment_status, String username) {
         userId = id;
         firstName = fName;
         lastName = lName;
         userRole = role;
         en_status = enrollment_status;
         userStatus = u_status;
-        
+        userName = username;
     }
 
     public static String getFirstName() {
@@ -32,6 +33,9 @@ public class UserSession {
     }
      public static String getEnrollmentStatus() {
         return en_status;
+    }
+    public static String getUsername() {
+        return userName;
     }
     public static int getUserId() {
         return userId;

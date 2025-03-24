@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import prospectus.utilities.passwordHasher;
@@ -35,9 +36,9 @@ public class RegisterPageController implements Initializable {
     @FXML
     private Label registerBtn11;
     @FXML
-    private Label registerBtn1;
-    @FXML
     private Pane registerPane;
+    @FXML
+    private AnchorPane rootPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {     
@@ -51,8 +52,8 @@ public class RegisterPageController implements Initializable {
     private static final int MINIMUM_PASSWORD_LENGTH = 8;
    
     @FXML
-     void RegisterOnClickHandler(MouseEvent event) throws Exception {
-        Stage currentStage = (Stage)registerPane.getScene().getWindow();
+    void RegisterOnClickHandler(MouseEvent event) throws Exception {
+        Stage currentStage = (Stage) registerPane.getScene().getWindow();
         String firstName = firstnameF.getText();
         String middleName = middleF.getText();
         String lastName = lastnameF.getText();
@@ -62,18 +63,26 @@ public class RegisterPageController implements Initializable {
         String password = pwF.getText();
         String hashedPassword = passwordHasher.hashPassword(password);
 
-       
-        String query = "INSERT INTO user (u_fname, u_mname, u_lname, u_email, u_contact_number,u_username, u_password, u_role, u_status, enrollment_status) "
-                + "VALUES ( ?, ?, ?, ?, ?, ? ,? , 'User' , 'Inactive', 'Not Enrolled')";
-        
-        if(!verifyUser(currentStage, query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
-           if(db.insertData(query, firstName, middleName, lastName, emailAddress, phoneNumber, username, hashedPassword)) {
+        RecoveryPhraseGenerator generator = new RecoveryPhraseGenerator();
+        String recoveryPhrase = generator.generateUniqueRecoveryPhrase(); // Get unique phrase
+
+        String query = "INSERT INTO user (u_fname, u_mname, u_lname, u_email, u_contact_number, u_username, u_password, u_role, u_status, enrollment_status, recovery_phrase) "
+                     + "VALUES (?, ?, ?, ?, ?, ?, ?, 'User', 'Inactive', 'Not Enrolled', ?)";
+
+        if (!verifyUser(currentStage, query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
+            if (db.insertData(query, firstName, middleName, lastName, emailAddress, phoneNumber, username, hashedPassword, recoveryPhrase)) {
                 System.out.println("User added to database!");
-                utilities.showAlert(Alert.AlertType.INFORMATION, "User successfully registered!", "Register Completed!");
+                // Show alert message
+                utilities.showAlert(Alert.AlertType.INFORMATION, "User successfully registered!", 
+                    "Register Completed!" + "\n\nNOTE: Please save your recovery phrase, check it in your profile");
+                // Load SecretRecoveryPhrase.fxml as an overlay with fade effect
+                utilities.loadFXMLWithFade(rootPane, "/prospectus/auth/fxml/SecretRecoveryPhrase.fxml");
+                // Clear input fields after registration
                 clearFields();
-                utilities.switchScene(getClass(), event,  "/prospectus/auth/fxml/LoginPage.fxml");
-            } 
-        }  
+                utilities.switchScene(getClass(), event, "/prospectus/auth/fxml/LoginPage.fxml");
+            }
+        }
+
     }
     public boolean verifyUser(Stage currentStage, String query, String firstName, String middleName, String lastName, String emailAddress, String phoneNumber, String username, String password) throws Exception {
         if(firstName.isEmpty()) {

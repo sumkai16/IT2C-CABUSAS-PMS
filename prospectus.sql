@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2025 at 03:31 PM
+-- Generation Time: Mar 24, 2025 at 04:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,8 +31,7 @@ CREATE TABLE `course` (
   `c_id` int(11) NOT NULL,
   `c_code` int(11) NOT NULL,
   `c_desc` int(11) NOT NULL,
-  `c_units` int(11) NOT NULL,
-  `c_prerequisites` int(11) NOT NULL
+  `c_units` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -94,26 +93,21 @@ CREATE TABLE `user` (
   `u_email` varchar(50) DEFAULT NULL,
   `u_contact_number` varchar(50) DEFAULT NULL,
   `u_username` varchar(50) DEFAULT NULL,
-  `u_password` varchar(50) DEFAULT NULL,
+  `u_password` varchar(255) DEFAULT NULL,
   `u_role` varchar(50) DEFAULT NULL,
   `u_status` varchar(255) NOT NULL,
-  `enrollment_status` varchar(255) NOT NULL
+  `enrollment_status` varchar(255) NOT NULL,
+  `recovery_phrase` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`u_id`, `u_fname`, `u_mname`, `u_lname`, `u_email`, `u_contact_number`, `u_username`, `u_password`, `u_role`, `u_status`, `enrollment_status`) VALUES
-(1, 'adminaxcee', 'adminaxcee', 'adminaxcee', 'adminaxcee', 'adminaxcee@gmail.com', 'adminaxcee', 'adminaxcee', 'Admin', '', ''),
-(2, 'Axcee', 'Axcee', 'Axcee', 'Axcee@gmail.com', 'user', 'user', 'user', 'User', '', 'Not Enrolled'),
-(3, 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'User', '', 'Enrolled'),
-(5, 'Axcee', 'Felisilda', 'Cabusas', 'axceelfelis03@gmail.com', '9914082061', 'axcee1', 'axcee123', 'User', 'Active', 'Not Enrolled'),
-(6, 'test34', 'test34', 'test34', 'test34', 'test34', 'test34', 'test34', 'User', '', ''),
-(9, 'test', 'test', 'test', 'test@gmail.com', '9459804057', 'testtest', 'testtest', 'User', 'Inactive', ''),
-(10, 'qweqwe', 'qweqwe', 'qweqweq', 'weqeqw@gmail.com', '9914082061', 'qweqw', 'qweqweqwe', 'User', 'Inactive', ''),
-(11, 'qweqweqw', 'eqweqw', 'eqweqeq', 'eqwewq@gmail.com', '9914082061', 'eqweqwe', 'qweqweqw', 'User', 'Inactive', ''),
-(12, 'qweqw', 'qweqwe', 'qweqw', 'eqweq@gmail.com', '9459804057', 'qweqweq', 'qweqw2323', 'User', 'Inactive', '');
+INSERT INTO `user` (`u_id`, `u_fname`, `u_mname`, `u_lname`, `u_email`, `u_contact_number`, `u_username`, `u_password`, `u_role`, `u_status`, `enrollment_status`, `recovery_phrase`) VALUES
+(20251001, 'Axcee', 'Felisilda', 'Cabusas', 'axceelfelis03@gmail.com', '9914082061', 'axceead', 'lfSpezuM6snazqzIynAFQyu2izwBASU822ehKzaLWqg=', 'Admin', 'Active', 'Enrolled', ''),
+(20251017, 'rashed', '', 'rashed', 'rashed@gmail.com', '98273645671', 'rashed', 'lfSpezuM6snazqzIynAFQyu2izwBASU822ehKzaLWqg=', 'User', 'Active', 'Not Enrolled', 'jungle sunflower waterfall grape volcano sunflower umbrella tiger apple banana grape mountain'),
+(20251018, 'addrianne', '', 'inso', 'inso12@gmail.com', '99872635678', 'inso', 'ZMI04LI4wpHFQpAFMuXoV2yxsvqk4QMRbYUIAql7DWI=', 'User', 'Active', 'Not Enrolled', 'elephant waterfall jungle kangaroo banana jungle dog flower waterfall grape waterfall queen');
 
 --
 -- Indexes for dumped tables
@@ -183,7 +177,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20251019;
 
 --
 -- Constraints for dumped tables

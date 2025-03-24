@@ -83,7 +83,7 @@ public class LoginPageController implements Initializable {
 
 
     public String[] authenticateUser(String username, String password) throws SQLException {
-        String sql = "SELECT u_id, u_fname, u_lname, u_role, u_status, enrollment_status FROM user WHERE u_username = ? AND u_password = ?";
+        String sql = "SELECT u_id, u_fname, u_lname, u_role, u_status, enrollment_status, u_username FROM user WHERE u_username = ? AND u_password = ?";
         try (PreparedStatement pst = db.getConnection().prepareStatement(sql)) {
             pst.setString(1, username);
             pst.setString(2, password);
@@ -96,9 +96,9 @@ public class LoginPageController implements Initializable {
                     String role = rs.getString("u_role");
                     String u_status = rs.getString("u_status"); 
                     String enrollment_status = rs.getString("enrollment_status"); 
-
+                    String userName = rs.getString("u_username");
                     // Store session
-                    UserSession.createSession(userId, firstName, lastName, role, u_status, enrollment_status);
+                    UserSession.createSession(userId, firstName, lastName, role, u_status, enrollment_status, userName);
 
                     return new String[]{role, u_status, enrollment_status}; 
                 }
