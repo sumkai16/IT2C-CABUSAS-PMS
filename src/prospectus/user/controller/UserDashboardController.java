@@ -21,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import prospectus.models.UserSession;
+import prospectus.utilities.logger;
 import prospectus.utilities.utilities;
 public class UserDashboardController implements Initializable {
 
@@ -62,6 +63,9 @@ public class UserDashboardController implements Initializable {
 
     @FXML
     private void logoutOnClick(MouseEvent event) {
+        String username = UserSession.getUsername(); 
+        logger.addLog(username, "Logout", "User logged out: " + username);
+        UserSession.clearSession(); 
         utilities.switchScene(getClass(), event,  "/prospectus/auth/fxml/LoginPage.fxml");  
     }
 

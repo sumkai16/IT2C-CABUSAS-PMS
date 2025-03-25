@@ -3,17 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/models/UserSession.java</file>
             <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/auth/controller/LoginPageController.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/admin/controller/EditUserController.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/utilities/utilities.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/main/Main.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/css/authPage.css</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/auth/controller/SecretRecoveryPhraseController.java</file>
             <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/user/controller/UserProfileController.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/user/controller/UserDashboardController.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/admin/controller/AddUserController.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/admin/controller/UserTable.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/user/controller/Welcome_sectionController.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/auth/controller/ChangePasswordController.java</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/auth/controller/RegisterPageController.java</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/auth/controller/RecoveryPhraseGenerator.java</file>
         </group>
     </open-files>
 </project-private>

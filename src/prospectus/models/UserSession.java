@@ -42,10 +42,16 @@ public class UserSession {
     }
 
     public static void clearSession() {
-        userId = 0;
-        firstName = null;
-        lastName = null;
-    }
+    userId = 0;
+    firstName = null;
+    lastName = null;
+    userRole = null;
+    en_status = null;
+    userStatus = null;
+    userName = null;
+    name = null;
+}
+
     public static String name() {
         return name;
     }

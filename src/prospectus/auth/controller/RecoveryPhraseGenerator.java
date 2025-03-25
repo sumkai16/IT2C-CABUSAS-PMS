@@ -10,7 +10,7 @@ import java.util.List;
 import main.dbConnector;
 
 public class RecoveryPhraseGenerator {
-    private dbConnector db2 = new dbConnector(); // Fixed declaration
+    private dbConnector db2 = new dbConnector(); 
 
     private static final List<String> WORD_LIST = Arrays.asList(
         "apple", "banana", "cherry", "dog", "elephant", "flower", "grape", "house", "island", "jungle",
@@ -27,7 +27,7 @@ public class RecoveryPhraseGenerator {
                 phrase.append(WORD_LIST.get(random.nextInt(WORD_LIST.size()))).append(" ");
             }
             recoveryPhrase = phrase.toString().trim();
-        } while (isRecoveryPhraseExists(recoveryPhrase)); // Check uniqueness
+        } while (isRecoveryPhraseExists(recoveryPhrase)); 
 
         return recoveryPhrase;
     }
@@ -35,16 +35,16 @@ public class RecoveryPhraseGenerator {
 
     public boolean isRecoveryPhraseExists(String phrase) {
         String query = "SELECT COUNT(*) FROM user WHERE recovery_phrase = ?";
-        try (Connection conn = db2.getConnection(); // Fixed connection method
+        try (Connection conn = db2.getConnection(); 
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, phrase);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next() && rs.getInt(1) > 0) {
-                return true; // Recovery phrase already exists
+                return true; // if phrase already exists
             }
         } catch (SQLException e) {
             System.out.println("Error checking recovery phrase: " + e.getMessage());
         }
-        return false; // Phrase is unique
+        return false; // unique
     }
 }

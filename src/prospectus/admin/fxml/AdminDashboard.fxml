@@ -70,7 +70,7 @@
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="genReport" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#GenReportsOnClick" prefHeight="33.0" prefWidth="185.0" styleClass="nav-button" text="Generate Reports">
+                        <Button alignment="BASELINE_LEFT" layoutX="10.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#auditLogsHandler" prefHeight="33.0" prefWidth="185.0" styleClass="nav-button" text="Audit Logs">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
@@ -123,7 +123,7 @@
                               <Image url="@../../images/studentsIcon.gif" />
                            </image>
                         </ImageView>
-                        <Line endX="87.5" layoutX="99.0" layoutY="325.0" startX="-100.0" stroke="#fffdfd" />
+                        <Line endX="87.5" layoutX="99.0" layoutY="363.0" startX="-100.0" stroke="#fffdfd" />
                      </children>
                   </Pane>
                </children>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="715.0" stylesheets="@../../../css/auditLog.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.controller.AuditLogController">
+   <Pane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+           <Label layoutX="299.0" layoutY="10.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Audit Logs" />
+   
+              <!-- Search and Refresh Buttons -->
+           <HBox alignment="CENTER" layoutX="98.0" layoutY="37.0" spacing="10">
+               <TextField fx:id="searchField" prefWidth="300" promptText="Search logs..." />
+               <Button onAction="#handleSearch" prefHeight="29.0" text="Search" />
+               <Button onAction="#handleRefresh" prefHeight="29.0" text="Refresh" />
+           </HBox>
+   
+              <!-- Logs Table -->
+           <TableView fx:id="logsTable" layoutX="13.0" layoutY="95.0" prefHeight="431.0" prefWidth="689.0">
+               <columns>
+                   <TableColumn fx:id="colUsername" editable="false" prefWidth="100.0" text="Username" />
+                   <TableColumn fx:id="colAction" editable="false" minWidth="1.0" prefWidth="150.0" text="Action" />
+                   <TableColumn fx:id="colDescription" editable="false" prefWidth="300.0" text="Description" />
+                   <TableColumn fx:id="colTimestamp" editable="false" prefWidth="150.0" text="Date and Time" />
+               </columns>
+           </TableView>
+      </children>
+   </Pane>
+
+</AnchorPane>

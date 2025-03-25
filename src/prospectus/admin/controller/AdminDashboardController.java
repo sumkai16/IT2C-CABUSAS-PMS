@@ -17,6 +17,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import prospectus.models.UserSession;
+import prospectus.utilities.logger;
 import prospectus.utilities.utilities;
 
 public class AdminDashboardController implements Initializable {
@@ -35,8 +37,6 @@ public class AdminDashboardController implements Initializable {
     private Button logout;
     @FXML
     private Button manageStudent;
-    @FXML
-    private Button genReport;
     @FXML
     private Button manageUser;
     @FXML
@@ -85,7 +85,11 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     private void logoutOnClick(MouseEvent event) {
+       String username = UserSession.getUsername(); 
+        logger.addLog(username, "Logout", "Admin logged out: " + username);
+        UserSession.clearSession(); 
         utilities.switchScene(getClass(), event,  "/prospectus/auth/fxml/LoginPage.fxml");  
+        
     }
 
     @FXML
@@ -93,6 +97,12 @@ public class AdminDashboardController implements Initializable {
     }
 
     @FXML
-    private void GenReportsOnClick(MouseEvent event) {
+    private void auditLogsHandler(MouseEvent event) {
+        try {
+            loadPage("/prospectus/admin/fxml/AuditLog.fxml");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load audit log: " + ex.getMessage());
+        }
     }
 }

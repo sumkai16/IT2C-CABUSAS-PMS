@@ -22,6 +22,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.dbConnector;
 import prospectus.models.User;
+import prospectus.models.UserSession;
+import prospectus.utilities.logger;
 import prospectus.utilities.passwordHasher;
 import prospectus.utilities.utilities;
 
@@ -143,11 +145,15 @@ public class EditUserController implements Initializable {
             pstmt.setString(9, selectedUsername);
 
             int rowsAffected = pstmt.executeUpdate();
+            String usernamelog = UserSession.getUsername(); 
+            logger.addLog(usernamelog, "Updated User", "User Successfully updated: "+ username);
+            UserSession.clearSession(); 
             if (rowsAffected > 0) {
                 utilities.showAlert(Alert.AlertType.INFORMATION, "User updated!", "Update Completed!");
                 clearFields();
                 
             } else {
+                logger.addLog(usernamelog, "Updated User", "User attempting to update: ");
                 utilities.showAlert(Alert.AlertType.ERROR, "Update failed!", "User update unsuccessful.");
             }
         } catch (SQLException e) {

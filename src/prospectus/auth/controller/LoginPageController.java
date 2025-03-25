@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import prospectus.models.UserSession;
+import prospectus.utilities.logger;
 import prospectus.utilities.passwordHasher;
 
 public class LoginPageController implements Initializable {
@@ -59,9 +60,9 @@ public class LoginPageController implements Initializable {
                     utilities.showAlert(Alert.AlertType.WARNING, "Account Inactive", "Your account is currently inactive. Please contact the administrator.");
                     return; // Prevent login
                 }
-
+                
                 utilities.showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome to SyllabusConcordia!");
-
+                logger.addLog(username, "Login", "User logged in: " + username);
                 if (role.equalsIgnoreCase("Admin")) {
                     utilities.switchScene(getClass(), event, "/prospectus/admin/fxml/AdminDashboard.fxml");
                 } else if (e_status.equalsIgnoreCase("Not Enrolled")) {

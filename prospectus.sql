@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2025 at 04:09 PM
+-- Generation Time: Mar 25, 2025 at 04:17 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,6 +33,58 @@ CREATE TABLE `course` (
   `c_desc` int(11) NOT NULL,
   `c_units` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logs`
+--
+
+CREATE TABLE `logs` (
+  `log_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `action` text NOT NULL,
+  `description` text NOT NULL,
+  `date_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`log_id`, `user_id`, `action`, `description`, `date_time`) VALUES
+(1, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:12:50'),
+(2, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:20:18'),
+(3, 20251017, 'User Login', 'User logged in: rashed', '2025-03-25 14:22:17'),
+(4, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:22:30'),
+(5, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:24:33'),
+(6, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:28:34'),
+(7, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:30:28'),
+(8, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:32:38'),
+(9, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:34:15'),
+(10, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:35:25'),
+(11, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:38:27'),
+(12, 20251017, 'User Login', 'User logged in: rashed', '2025-03-25 14:43:33'),
+(13, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:43:44'),
+(14, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:48:32'),
+(15, 20251001, 'User Logout', 'User logged out: axceead', '2025-03-25 14:48:38'),
+(16, 20251017, 'User Login', 'User logged in: rashed', '2025-03-25 14:48:45'),
+(17, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:48:51'),
+(18, 20251017, 'User Login', 'User logged in: rashed', '2025-03-25 14:49:54'),
+(19, 20251017, 'User Login', 'User logged in: rashed', '2025-03-25 14:50:39'),
+(20, 20251017, 'User Logout', 'User logged out: rashed', '2025-03-25 14:50:41'),
+(21, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:50:46'),
+(22, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:53:49'),
+(23, 20251001, 'User Login', 'User logged in: axceead', '2025-03-25 14:58:17'),
+(24, 20251001, 'Updated User', 'User Successfully updated: axceead', '2025-03-25 14:58:34'),
+(25, 20251017, 'Login', 'User logged in: rashed', '2025-03-25 15:02:15'),
+(26, 20251017, 'Logout', 'User logged out: rashed', '2025-03-25 15:02:17'),
+(27, 20251001, 'Login', 'User logged in: axceead', '2025-03-25 15:02:20'),
+(28, 20251001, 'Login', 'User logged in: axceead', '2025-03-25 15:02:59'),
+(29, 20251001, 'Updated User', 'User Successfully updated: inso', '2025-03-25 15:03:08'),
+(30, 20251001, 'Login', 'User logged in: axceead', '2025-03-25 15:03:34'),
+(31, 20251001, 'Login', 'User logged in: axceead', '2025-03-25 15:04:05'),
+(32, 20251001, 'Login', 'User logged in: axceead', '2025-03-25 15:04:47');
 
 -- --------------------------------------------------------
 
@@ -105,9 +157,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`u_id`, `u_fname`, `u_mname`, `u_lname`, `u_email`, `u_contact_number`, `u_username`, `u_password`, `u_role`, `u_status`, `enrollment_status`, `recovery_phrase`) VALUES
-(20251001, 'Axcee', 'Felisilda', 'Cabusas', 'axceelfelis03@gmail.com', '9914082061', 'axceead', 'lfSpezuM6snazqzIynAFQyu2izwBASU822ehKzaLWqg=', 'Admin', 'Active', 'Enrolled', ''),
-(20251017, 'rashed', '', 'rashed', 'rashed@gmail.com', '98273645671', 'rashed', 'lfSpezuM6snazqzIynAFQyu2izwBASU822ehKzaLWqg=', 'User', 'Active', 'Not Enrolled', 'jungle sunflower waterfall grape volcano sunflower umbrella tiger apple banana grape mountain'),
-(20251018, 'addrianne', '', 'inso', 'inso12@gmail.com', '99872635678', 'inso', 'ZMI04LI4wpHFQpAFMuXoV2yxsvqk4QMRbYUIAql7DWI=', 'User', 'Active', 'Not Enrolled', 'elephant waterfall jungle kangaroo banana jungle dog flower waterfall grape waterfall queen');
+(20251001, 'Axcee', 'Felisilda', 'Cabusas', 'axceelfelis03@gmail.com', '99140820611', 'axceead', 'lfSpezuM6snazqzIynAFQyu2izwBASU822ehKzaLWqg=', 'Admin', 'Active', 'Enrolled', ''),
+(20251017, 'rashed', 'wahaha', 'rashed', 'rashed@gmail.com', '98273645671', 'rashed', 'lfSpezuM6snazqzIynAFQyu2izwBASU822ehKzaLWqg=', 'User', 'Active', 'Not Enrolled', 'jungle sunflower waterfall grape volcano sunflower umbrella tiger apple banana grape mountain'),
+(20251018, 'addrianne', 'brobro', 'inso', 'inso12@gmail.com', '99872635678', 'inso', 'ZMI04LI4wpHFQpAFMuXoV2yxsvqk4QMRbYUIAql7DWI=', 'User', 'Active', 'Not Enrolled', 'elephant waterfall jungle kangaroo banana jungle dog flower waterfall grape waterfall queen');
 
 --
 -- Indexes for dumped tables
@@ -118,6 +170,13 @@ INSERT INTO `user` (`u_id`, `u_fname`, `u_mname`, `u_lname`, `u_email`, `u_conta
 --
 ALTER TABLE `course`
   ADD PRIMARY KEY (`c_id`);
+
+--
+-- Indexes for table `logs`
+--
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`log_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `program`
@@ -156,6 +215,12 @@ ALTER TABLE `course`
   MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `logs`
+--
+ALTER TABLE `logs`
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
 -- AUTO_INCREMENT for table `program`
 --
 ALTER TABLE `program`
@@ -182,6 +247,12 @@ ALTER TABLE `user`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `logs`
+--
+ALTER TABLE `logs`
+  ADD CONSTRAINT `logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `prospectus`
