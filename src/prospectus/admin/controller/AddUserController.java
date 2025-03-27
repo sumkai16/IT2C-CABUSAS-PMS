@@ -22,6 +22,8 @@ import prospectus.auth.controller.RegisterPageController;
 import prospectus.auth.controller.RegisterPageController;
 import javafx.scene.control.MenuButton;
 import javafx.scene.input.MouseEvent;
+import prospectus.models.UserSession;
+import prospectus.utilities.logger;
 /**
  * FXML Controller class
  *
@@ -75,6 +77,8 @@ public class AddUserController implements Initializable {
         if(!rp.verifyUser(currentStage, query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
            if(db.insertData(query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
                 System.out.println("User added to database!");
+                String usernamelog = UserSession.getUsername(); 
+                logger.addLog(usernamelog, "User Added", "Admin added a user " + username);
                 utilities.showAlert(Alert.AlertType.INFORMATION, "User successfully added!", "Added Completed!");
                 clearFields();
                 utilities.switchScene(getClass(), event,  "/prospectus/admin/fxml/AdminDashboard.fxml");

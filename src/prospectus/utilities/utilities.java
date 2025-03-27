@@ -1,5 +1,6 @@
 package prospectus.utilities;
 
+import java.io.IOException;
 import javafx.animation.TranslateTransition;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
@@ -12,12 +13,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import controller.CustomTitleBarController;
-import java.io.IOException;
 import javafx.animation.FadeTransition;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
 
 /**
  * Utility class for JavaFX scene management and animations.
@@ -44,39 +42,25 @@ public class utilities {
         alertStage.setY((screenBounds.getHeight() - alertStage.getHeight()) / 2);
     }
     
-
-    // Switch scene and add custom title bar
+    // Switch scene without custom title bar
     public static void switchScene(Class clazz, Event evt, String targetFXML) {
         try {
             FXMLLoader contentLoader = new FXMLLoader(clazz.getResource(targetFXML));
             Parent content = contentLoader.load();
 
-            FXMLLoader titleLoader = new FXMLLoader(clazz.getResource("/fxml/CustomTitle.fxml"));
-            Parent titleBar = titleLoader.load();
-
             Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-
-            CustomTitleBarController controller = titleLoader.getController();
-            if (controller != null) {
-                controller.setStage(stage);
-            }
-
-            VBox layout = new VBox(titleBar, content);
-            Scene newScene = new Scene(layout);
+            Scene newScene = new Scene(content);
             newScene.getStylesheets().add(clazz.getResource("/css/style.css").toExternalForm());
 
             stage.setScene(newScene);
             stage.centerOnScreen();
             stage.show();
         } catch (IOException ex) {
-            
-             ex.printStackTrace();
+            ex.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load scene: " + ex.getMessage());
         }
     }
-   
     
-
     // Center window on screen
     public static void setCenterAlignment(Stage stage) {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
@@ -85,59 +69,69 @@ public class utilities {
     }
 
     // Smoothly transition only the content pane, keeping the scene static
-    public static void animatePaneTransition(Class<?> clazz, Event event, String fxmlPath, boolean leftToRight) {
+    public static void animatePaneTransition(Class<?> clazz, Event event, String fxmlPath) {
         try {
             FXMLLoader contentLoader = new FXMLLoader(clazz.getResource(fxmlPath));
             Parent newContent = contentLoader.load();
 
             Node eventSource = (Node) event.getSource();
+            if (eventSource == null) {
+                System.out.println("Error: Event source is null!");
+                return;
+            }
+
             Scene currentScene = eventSource.getScene();
+            if (currentScene == null) {
+                System.out.println("Error: Current scene is null!");
+                return;
+            }
+
             Parent root = currentScene.getRoot();
-
-            if (!(root instanceof VBox)) {
+            if (!(root instanceof Pane)) {  // Works for VBox, AnchorPane, etc.
+                System.out.println("Error: Root is not a Pane!");
                 return;
             }
 
-            VBox layout = (VBox) root;
-            if (layout.getChildren().size() < 2) {
+            Pane layout = (Pane) root;
+            if (layout.getChildren().isEmpty()) {
+                System.out.println("Error: Pane does not have any children!");
                 return;
             }
 
-            Node currentContent = layout.getChildren().remove(1);
-            layout.getChildren().add(newContent);
+            Node currentContent = layout.getChildren().get(0); // Get current content
+            layout.getChildren().add(newContent); // Add new content
 
-            double sceneWidth = currentScene.getWidth();
-            double startX = leftToRight ? -sceneWidth : sceneWidth;
+            // Set initial opacity to 0 (hidden)
+            newContent.setOpacity(0);
 
-            newContent.setTranslateX(startX);
+            // Fade Out for current content
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentContent);
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0);
 
-            TranslateTransition slideOut = new TranslateTransition(Duration.millis(500), currentContent);
-            slideOut.setToX(-startX);
+            // Fade In for new content
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
 
-            TranslateTransition slideIn = new TranslateTransition(Duration.millis(500), newContent);
-            slideIn.setFromX(startX);
-            slideIn.setToX(0);
+            fadeOut.setOnFinished(e -> layout.getChildren().remove(currentContent)); // Remove old content after fade out
 
-            slideOut.setOnFinished(e -> layout.getChildren().remove(currentContent));
+            fadeOut.play();
+            fadeIn.play();
 
-            slideOut.play();
-            slideIn.play();
         } catch (IOException ex) {
-             ex.printStackTrace();
-             System.out.println("check ");
+            ex.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load content: " + ex.getMessage());
         }
     }
 
-    // Wrapper method for Right-to-Left transition
-    public static void animatePaneTransitionRightToLeft(Class<?> clazz, Event event, String fxmlPath) {
-        animatePaneTransition(clazz, event, fxmlPath, false);
+
+
+    public static void animatePaneFadeTransition(Class<?> clazz, Event event, String fxmlPath) {
+        animatePaneTransition(clazz, event, fxmlPath); // Calls the fade animation method
     }
 
-    // Wrapper method for Left-to-Right transition
-    public static void animatePaneTransitionLeftToRight(Class<?> clazz, Event event, String fxmlPath) {
-        animatePaneTransition(clazz, event, fxmlPath, true);
-    }
+    
     public static void loadFXMLWithFade(Pane rootPane, String fxmlPath) {
         try {
             FXMLLoader loader = new FXMLLoader(utilities.class.getResource(fxmlPath));

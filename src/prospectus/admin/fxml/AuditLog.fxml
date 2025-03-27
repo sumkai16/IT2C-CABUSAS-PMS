@@ -2,8 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -20,16 +19,7 @@
                <Button onAction="#handleSearch" prefHeight="29.0" text="Search" />
                <Button onAction="#handleRefresh" prefHeight="29.0" text="Refresh" />
            </HBox>
-   
-              <!-- Logs Table -->
-           <TableView fx:id="logsTable" layoutX="13.0" layoutY="95.0" prefHeight="431.0" prefWidth="689.0">
-               <columns>
-                   <TableColumn fx:id="colUsername" editable="false" prefWidth="100.0" text="Username" />
-                   <TableColumn fx:id="colAction" editable="false" minWidth="1.0" prefWidth="150.0" text="Action" />
-                   <TableColumn fx:id="colDescription" editable="false" prefWidth="300.0" text="Description" />
-                   <TableColumn fx:id="colTimestamp" editable="false" prefWidth="150.0" text="Date and Time" />
-               </columns>
-           </TableView>
+         <TextArea fx:id="logTextArea" editable="false" layoutX="14.0" layoutY="92.0" prefHeight="444.0" prefWidth="687.0" />
       </children>
    </Pane>
 

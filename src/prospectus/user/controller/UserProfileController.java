@@ -42,10 +42,6 @@ public class UserProfileController implements Initializable {
         enrollmentStatus.setText(e_status);
     }
 
-    @FXML
-    private void changeProfileOnClickHandler(MouseEvent event) {
-       
-    }
 
     @FXML
     private void changePasswordOnClickHandler(MouseEvent event) {
@@ -55,5 +51,9 @@ public class UserProfileController implements Initializable {
     @FXML
     private void recoveryPhraseHandler(MouseEvent event) {
         utilities.loadFXMLWithFade(rootPane, "/prospectus/auth/fxml/SecretRecoveryPhrase.fxml");
+    }
+
+    @FXML
+    private void editEmailHandler(MouseEvent event) {
     }
 }

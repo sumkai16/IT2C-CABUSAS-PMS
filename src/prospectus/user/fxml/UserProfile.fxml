@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="550.0" prefWidth="715.0" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.user.controller.UserProfileController">
    <children>
-      <Pane prefHeight="550.0" prefWidth="715.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane prefHeight="550.0" prefWidth="715.0">
          <children>
             <Pane layoutX="20.0" layoutY="22.0" prefHeight="138.0" prefWidth="676.0" styleClass="cards">
                <children>
@@ -38,11 +38,6 @@
                         </Label>
                      </children>
                   </Pane>
-                  <ImageView fitHeight="110.0" fitWidth="110.0" layoutX="12.0" layoutY="7.0" onMouseClicked="#changeProfileOnClickHandler">
-                     <image>
-                        <Image url="@../../img/icons8-user-50.png" />
-                     </image>
-                  </ImageView>
                   <Label fx:id="role" layoutX="139.0" layoutY="61.0" text="Role">
                      <font>
                         <Font name="Arial" size="12.0" />
@@ -50,9 +45,9 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="20.0" layoutY="188.0" prefHeight="346.0" prefWidth="676.0" style="-fx-background-radius: 15;" styleClass="container">
+            <Pane layoutX="17.0" layoutY="185.0" prefHeight="358.0" prefWidth="676.0" style="-fx-background-radius: 15;" styleClass="container">
                <children>
-                  <Pane layoutX="20.0" layoutY="15.0" prefHeight="73.0" prefWidth="636.0" styleClass="cards">
+                  <Pane layoutX="20.0" layoutY="98.0" prefHeight="73.0" prefWidth="636.0" styleClass="cards">
                      <children>
                         <Label layoutX="14.0" layoutY="27.0" text="Password: ********">
                            <font>
@@ -67,8 +62,9 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                     </children></Pane>
-                  <Pane layoutX="20.0" layoutY="100.0" prefHeight="73.0" prefWidth="636.0" styleClass="cards">
+                     </children>
+                  </Pane>
+                  <Pane layoutX="20.0" layoutY="266.0" prefHeight="73.0" prefWidth="636.0" styleClass="cards">
                      <children>
                         <Label layoutX="14.0" layoutY="27.0" text="Secret Recovery Phrase">
                            <font>
@@ -85,7 +81,9 @@
                         </ImageView>
                      </children>
                   </Pane>
-               </children></Pane>
-         </children></Pane>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

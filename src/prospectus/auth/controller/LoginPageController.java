@@ -31,6 +31,8 @@ public class LoginPageController implements Initializable {
     @FXML
     private Button loginBtn;
     private dbConnector db;
+    @FXML
+    private AnchorPane rootPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -81,8 +83,6 @@ public class LoginPageController implements Initializable {
         }
     }
 
-
-
     public String[] authenticateUser(String username, String password) throws SQLException {
         String sql = "SELECT u_id, u_fname, u_lname, u_role, u_status, enrollment_status, u_username FROM user WHERE u_username = ? AND u_password = ?";
         try (PreparedStatement pst = db.getConnection().prepareStatement(sql)) {
@@ -113,9 +113,15 @@ public class LoginPageController implements Initializable {
     @FXML
     private void registerHandler(MouseEvent event) {
          try {
-            utilities.animatePaneTransitionLeftToRight(getClass(), event, "/prospectus/auth/fxml/RegisterPage.fxml");
+             System.out.println("Loaded Register Page");
+            utilities.animatePaneFadeTransition(getClass(), event, "/prospectus/auth/fxml/RegisterPage.fxml");
         } catch (Exception ex) {
             utilities.showAlert(Alert.AlertType.ERROR, "Error", "Faialed to open Register page: " + ex.getMessage());
         }
+    }
+
+    @FXML
+    private void forgotPasswordHandler(MouseEvent event) {
+         utilities.loadFXMLWithFade(rootPane, "/prospectus/auth/fxml/ForgotPassword.fxml");
     }
 }

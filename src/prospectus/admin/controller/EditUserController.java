@@ -108,7 +108,6 @@ public class EditUserController implements Initializable {
 
     @FXML
     private void editUserButtonHandler(ActionEvent event) {
-        
         if (selectedUsername == null) {
             utilities.showAlert(Alert.AlertType.WARNING, "No user selected!", "Please select a user to update.");
             return;
@@ -130,36 +129,66 @@ public class EditUserController implements Initializable {
         String username = userFF.getText();
         String role = selectedRole;
         String status = selectedStatus;
-        
-        String query = "UPDATE user SET u_fname = ?, u_mname = ?, u_lname = ?, u_email = ?, u_contact_number = ?,u_username = ?, u_role = ?, u_status = ? WHERE u_username = ?";
 
-        try (PreparedStatement pstmt = db.getConnection().prepareStatement(query)) {
-            pstmt.setString(1, firstName);
-            pstmt.setString(2, middleName);
-            pstmt.setString(3, lastName);
-            pstmt.setString(4, emailAddress);
-            pstmt.setString(5, phoneNumber);
-            pstmt.setString(6, username);
-            pstmt.setString(7, role);
-            pstmt.setString(8, status);
-            pstmt.setString(9, selectedUsername);
+        // Retrieve existing user details for comparison
+        String fetchQuery = "SELECT u_fname, u_mname, u_lname, u_email, u_contact_number, u_username, u_role, u_status FROM user WHERE u_username = ?";
 
-            int rowsAffected = pstmt.executeUpdate();
-            String usernamelog = UserSession.getUsername(); 
-            logger.addLog(usernamelog, "Updated User", "User Successfully updated: "+ username);
-            UserSession.clearSession(); 
-            if (rowsAffected > 0) {
-                utilities.showAlert(Alert.AlertType.INFORMATION, "User updated!", "Update Completed!");
-                clearFields();
-                
-            } else {
-                logger.addLog(usernamelog, "Updated User", "User attempting to update: ");
-                utilities.showAlert(Alert.AlertType.ERROR, "Update failed!", "User update unsuccessful.");
+        try (PreparedStatement fetchStmt = db.getConnection().prepareStatement(fetchQuery)) {
+            fetchStmt.setString(1, selectedUsername);
+            ResultSet rs = fetchStmt.executeQuery();
+
+            if (rs.next()) {
+                String oldFirstName = rs.getString("u_fname");
+                String oldMiddleName = rs.getString("u_mname");
+                String oldLastName = rs.getString("u_lname");
+                String oldEmail = rs.getString("u_email");
+                String oldPhone = rs.getString("u_contact_number");
+                String oldUsername = rs.getString("u_username");
+                String oldRole = rs.getString("u_role");
+                String oldStatus = rs.getString("u_status");
+
+                StringBuilder logDetails = new StringBuilder();
+                logDetails.append("Updated user: ").append(username).append(". Changes: ");
+
+                if (!firstName.equals(oldFirstName)) logDetails.append("[First Name: ").append(oldFirstName).append(" -> ").append(firstName).append("] ");
+                if (!middleName.equals(oldMiddleName)) logDetails.append("[Middle Name: ").append(oldMiddleName).append(" -> ").append(middleName).append("] ");
+                if (!lastName.equals(oldLastName)) logDetails.append("[Last Name: ").append(oldLastName).append(" -> ").append(lastName).append("] ");
+                if (!emailAddress.equals(oldEmail)) logDetails.append("[Email: ").append(oldEmail).append(" -> ").append(emailAddress).append("] ");
+                if (!phoneNumber.equals(oldPhone)) logDetails.append("[Phone: ").append(oldPhone).append(" -> ").append(phoneNumber).append("] ");
+                if (!username.equals(oldUsername)) logDetails.append("[Username: ").append(oldUsername).append(" -> ").append(username).append("] ");
+                if (!role.equals(oldRole)) logDetails.append("[Role: ").append(oldRole).append(" -> ").append(role).append("] ");
+                if (!status.equals(oldStatus)) logDetails.append("[Status: ").append(oldStatus).append(" -> ").append(status).append("] ");
+
+                String updateQuery = "UPDATE user SET u_fname = ?, u_mname = ?, u_lname = ?, u_email = ?, u_contact_number = ?, u_username = ?, u_role = ?, u_status = ? WHERE u_username = ?";
+
+                try (PreparedStatement pstmt = db.getConnection().prepareStatement(updateQuery)) {
+                    pstmt.setString(1, firstName);
+                    pstmt.setString(2, middleName);
+                    pstmt.setString(3, lastName);
+                    pstmt.setString(4, emailAddress);
+                    pstmt.setString(5, phoneNumber);
+                    pstmt.setString(6, username);
+                    pstmt.setString(7, role);
+                    pstmt.setString(8, status);
+                    pstmt.setString(9, selectedUsername);
+
+                    int rowsAffected = pstmt.executeUpdate();
+                    String adminUsername = UserSession.getUsername();
+                    if (rowsAffected > 0) {
+                        logger.addLog(adminUsername, "Update", logDetails.toString());
+                        utilities.showAlert(Alert.AlertType.INFORMATION, "User updated!", "Update Completed!");
+                        clearFields();
+                    } else {
+                        logger.addLog(adminUsername, "Update", "User update attempted but no changes were made.");
+                        utilities.showAlert(Alert.AlertType.ERROR, "Update failed!", "User update unsuccessful.");
+                    }
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     private void clearFields() {
         firstnameF.clear();

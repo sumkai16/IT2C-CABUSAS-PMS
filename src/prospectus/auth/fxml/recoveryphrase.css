@@ -8,14 +8,14 @@
 .label.title {
     -fx-font-size: 22px;
     -fx-font-weight: bold;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: black;
     -fx-alignment: center;
 }
 
 /* Subtitle */
 .label.subtitle {
     -fx-font-size: 14px;
-    -fx-text-fill: yellow;
+    -fx-text-fill: red;
     -fx-wrap-text: true;
     -fx-text-alignment: center;
 }

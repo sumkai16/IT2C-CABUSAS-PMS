@@ -8,7 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 
 public class CustomTitleBarController {
-
+//Connecting Courses, Empowering Students.
     private Stage stage;
 
     public void setStage(Stage stage) {

@@ -2,26 +2,18 @@ package prospectus.admin.controller;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Formatter;
 import java.util.ResourceBundle;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import prospectus.models.LogEntry;
+import javafx.event.ActionEvent;
 import main.dbConnector;
 
 public class AuditLogController implements Initializable {
@@ -29,30 +21,68 @@ public class AuditLogController implements Initializable {
     @FXML
     private TextField searchField;
     @FXML
-    private TableView<LogEntry> logsTable;
-    @FXML
-    private TableColumn<LogEntry, String> colUsername;
-    @FXML
-    private TableColumn<LogEntry, String> colAction;
-    @FXML
-    private TableColumn<LogEntry, String> colDescription;
-    @FXML
-    private TableColumn<LogEntry, String> colTimestamp;
+    private TextArea logTextArea;
 
-    private ObservableList<LogEntry> logList = FXCollections.observableArrayList();
     private static dbConnector db = new dbConnector();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        colUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
-        colAction.setCellValueFactory(new PropertyValueFactory<>("action"));
-        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colTimestamp.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
-
+       System.out.println("Initializing AuditLogController...");
+        if (logTextArea == null) {
+            System.out.println("logTextArea is NULL!");
+        } else {
+            System.out.println("logTextArea is properly initialized.");
+        }
         loadLogs();
     }
 
     public void loadLogs() {
+        try (Connection conn = db.getConnection()) {
+            if (conn == null) {
+                System.out.println("Database connection failed!");
+                return;
+            }
+
+            String query = "SELECT user.u_username, logs.action, logs.description, logs.date_time " +
+                           "FROM logs " +
+                           "JOIN user ON logs.user_id = user.u_id " +
+                           "ORDER BY logs.date_time DESC";
+
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
+
+            logTextArea.clear(); // Clear previous logs
+
+            while (rs.next()) {
+                String username = rs.getString("u_username");
+                String action = rs.getString("action");
+                String description = rs.getString("description");
+                String dateTime = rs.getTimestamp("date_time").toString();
+
+                String logEntry = formatLogEntry(dateTime, username, action, description);
+                logTextArea.appendText(logEntry);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logTextArea.appendText("Error loading logs: " + e.getMessage() + "\n");
+        }
+    }
+    public String formatLogEntry(String dateTime, String username, String action, String description) {
+        return "[" + dateTime + "]\t[" + username + "]\t[" + action + "]\t[" + description + "]\n";
+    }
+
+
+    @FXML
+    private void handleSearch(ActionEvent event) {
+        String searchText = searchField.getText().trim().toLowerCase();
+
+        if (searchText.isEmpty()) {
+            loadLogs(); // Reload full logs if search is empty
+            return;
+        }
+
+        StringBuilder filteredLogs = new StringBuilder();
+
         String query = "SELECT user.u_username, logs.action, logs.description, logs.date_time " +
                        "FROM logs " +
                        "JOIN user ON logs.user_id = user.u_id " +
@@ -62,49 +92,28 @@ public class AuditLogController implements Initializable {
              PreparedStatement pstmt = conn.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
 
-            logList.clear();
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm:ss"); // Example: Mar 16, 2025 14:30:00
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm:ss");
 
             while (rs.next()) {
                 String username = rs.getString("u_username");
                 String action = rs.getString("action");
                 String description = rs.getString("description");
-
-                // Convert SQL Timestamp to LocalDateTime and format
                 LocalDateTime dateTime = rs.getTimestamp("date_time").toLocalDateTime();
                 String formattedTimestamp = dateTime.format(formatter);
 
-                logList.add(new LogEntry(username, action, description, formattedTimestamp));
+                String logEntry = "[" + formattedTimestamp + "] " + username + " - " + action + ": " + description + "\n";
+
+                if (logEntry.toLowerCase().contains(searchText)) {
+                    filteredLogs.append(logEntry);
+                }
             }
 
-            logsTable.setItems(logList);
+            logTextArea.setText(filteredLogs.toString());
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error loading logs: " + e.getMessage());
+            logTextArea.appendText("Error searching logs: " + e.getMessage() + "\n");
         }
-    }
-
-    @FXML
-    private void handleSearch(ActionEvent event) {
-        String searchText = searchField.getText().trim().toLowerCase();
-
-        if (searchText.isEmpty()) {
-            logsTable.setItems(logList); // Reset to full list
-            return;
-        }
-
-        ObservableList<LogEntry> filteredList = FXCollections.observableArrayList();
-        for (LogEntry log : logList) {
-            if (log.getUsername().toLowerCase().contains(searchText) ||
-                log.getAction().toLowerCase().contains(searchText) ||
-                log.getDescription().toLowerCase().contains(searchText)) { // ✅ Include description in search
-                filteredList.add(log);
-            }
-        }
-
-        logsTable.setItems(filteredList); // Show filtered results
     }
 
     @FXML

@@ -160,7 +160,7 @@ public class RegisterPageController implements Initializable {
     @FXML
     private void LoginHandler(MouseEvent event) {
          try {
-            utilities.animatePaneTransitionRightToLeft(getClass(), event, "/prospectus/auth/fxml/LoginPage.fxml");
+            utilities.animatePaneFadeTransition(getClass(), event, "/prospectus/auth/fxml/LoginPage.fxml");
         } catch (Exception ex) {
             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to loaad login page: " + ex.getMessage());
         }

@@ -5,73 +5,81 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import controller.CustomTitleBarController;
 
 public class Main extends Application {
+
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     @Override
     public void start(Stage primaryStage) {
         try {
-            primaryStage.initStyle(StageStyle.UNDECORATED);
-            loadScene(primaryStage, "/prospectus/auth/fxml/LoginPage.fxml"); // Load login page on startup
-            System.out.println("dawd");
-            primaryStage.show();
+            primaryStage.initStyle(StageStyle.DECORATED); // Window with default title bar
+            
+            // ✅ Set the window title
+            primaryStage.setTitle("Syllabus Concordia");
+
+            
+            String iconPath = "/prospectus/images/Syllabus Concordia Icon.png";
+            if (getClass().getResource(iconPath) != null) {
+                primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(iconPath)));
+            } else {
+                System.err.println("Warning: Icon file not found at " + iconPath);
+            }
+
+            Parent root = loadFXML("/prospectus/auth/fxml/LoginPage.fxml"); // Load login page
+
+            if (root != null) {
+                makeStageDraggable(root, primaryStage); // Enable dragging
+                Scene scene = new Scene(root);
+
+                // Load CSS if exists
+                String cssPath = "/css/style.css";
+                if (getClass().getResource(cssPath) != null) {
+                    scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
+                } else {
+                    System.err.println("Warning: CSS file not found at " + cssPath);
+                }
+
+                primaryStage.setScene(scene);
+                primaryStage.show();
+            } else {
+                System.err.println("Error: Unable to load LoginPage.fxml.");
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("error");
             System.err.println("Error initializing application: " + e.getMessage());
         }
     }
- 
-    public void loadScene(Stage stage, String fxmlPath) {
+
+    private Parent loadFXML(String fxmlPath) {
         try {
-            // Validate main content path
             if (getClass().getResource(fxmlPath) == null) {
                 throw new IOException("FXML file not found: " + fxmlPath);
             }
-
-            FXMLLoader contentLoader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent content = contentLoader.load();
-
-            // Validate custom title bar path
-            String titleBarPath = "/fxml/CustomTitle.fxml";
-            if (getClass().getResource(titleBarPath) == null) {
-                throw new IOException("FXML file not found: " + titleBarPath);
-            }
-
-            FXMLLoader titleLoader = new FXMLLoader(getClass().getResource(titleBarPath));
-            Parent titleBar = titleLoader.load();
-
-            // Set stage in CustomTitleBarController
-            CustomTitleBarController controller = titleLoader.getController();
-            if (controller != null) {
-                controller.setStage(stage);
-                System.out.println("CustomTitleBarController successfully received the stage.");
-            } else {
-                System.err.println("Error: CustomTitleBarController is null.");
-            }
-
-            VBox layout = new VBox(titleBar, content);
-            Scene scene = new Scene(layout);
-
-            // Load CSS if exists
-            String cssPath = "/css/style.css";
-            if (getClass().getResource(cssPath) != null) {
-                scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
-            } else {
-                System.err.println("Warning: CSS file not found at " + cssPath);
-            }
-
-            stage.setScene(scene);
+            return FXMLLoader.load(getClass().getResource(fxmlPath));
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Failed to load FXML: " + fxmlPath);
+            return null;
         }
     }
 
+    private void makeStageDraggable(Parent root, Stage stage) {
+        root.setOnMousePressed((MouseEvent event) -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        root.setOnMouseDragged((MouseEvent event) -> {
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+    }
 
     public static void main(String[] args) {
         launch(args);
