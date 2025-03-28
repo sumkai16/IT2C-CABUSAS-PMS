@@ -1,0 +1,63 @@
+/*
+ * Custom JavaFX TableView Styling
+ */
+
+.mainFxmlClass {}
+
+/* Table View */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+    -fx-font-family: "Cambria";
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 8, 0, 0, 3);
+}
+
+/* Column Header Text */
+.table-view .column-header {
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    
+    
+}
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+    -fx-border-radius: 8px 8px 0 0;
+    -fx-background-radius: 8px 8px 0 0;
+    -fx-text-fill: white;
+}
+
+.table-cell {
+    -fx-padding: 10px;
+    -fx-border-color: #ddd;
+    -fx-border-width: 0 1px 0 0;
+    -fx-alignment: CENTER;
+}
+.table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: #ddd;
+    -fx-border-width: 0 0 1px 0;
+}
+.table-view .scroll-bar:vertical {
+    -fx-background-color: #f0f0f0;  /* Background color */
+}
+
+
+/* Alternate Row Colors 
+.table-row-cell:odd {
+    -fx-background-color: #f5f5f5;
+}*/
+
+/* Hover Effect */
+.table-row-cell:hover {
+    -fx-background-color: #e1e4e8;
+}
+
+/* Selected Row */
+.table-row-cell:selected {
+    -fx-background-color: #3A86FF; 
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}

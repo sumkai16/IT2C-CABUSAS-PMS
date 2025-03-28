@@ -50,7 +50,7 @@
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="managePrograms" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#ProgramsOnClick" prefHeight="33.0" prefWidth="185.0" styleClass="nav-button" text="Manage Programs">
+                        <Button fx:id="managePrograms" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#programsClickHandler" prefHeight="33.0" prefWidth="185.0" styleClass="nav-button" text="Manage Programs">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
@@ -113,7 +113,7 @@
                               <Image url="@../../images/logoutIcon.gif" />
                            </image>
                         </ImageView>
-                        <Button fx:id="manageUser" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="280.0" mnemonicParsing="false" onMouseClicked="#UserManageOnClick" prefHeight="33.0" prefWidth="185.0" styleClass="nav-button" text="Users">
+                        <Button fx:id="userManageOnClick" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="280.0" mnemonicParsing="false" onMouseClicked="#userManageOnClick" prefHeight="33.0" prefWidth="185.0" styleClass="nav-button" text="Users">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>

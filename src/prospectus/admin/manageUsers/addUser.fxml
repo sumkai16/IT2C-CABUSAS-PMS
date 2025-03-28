@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="overlayPane" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(0, 0, 0, 0.5);" stylesheets="@../../../css/enrollmentForm.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.controller.AddUserController">
+<AnchorPane id="AnchorPane" fx:id="overlayPane" prefHeight="550.0" prefWidth="715.0" style="-fx-background-color: rgba(0, 0, 0, 0.5);" stylesheets="@../../../css/enrollmentForm.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.manageUsers.AddUserController">
    <children>
       <Pane fx:id="backgroundPane" layoutX="75.0" layoutY="33.0" prefHeight="484.0" prefWidth="565.0" style="-fx-background-color: white; -fx-border-color: black; -fx-background-radius: 20; -fx-border-radius: 20;">
          <children>

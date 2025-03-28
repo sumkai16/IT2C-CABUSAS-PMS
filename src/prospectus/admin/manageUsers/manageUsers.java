@@ -1,6 +1,6 @@
-package prospectus.admin.controller;
+package prospectus.admin.manageUsers;
 
-import java.io.IOException;
+
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,9 +8,9 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,10 +21,8 @@ import javafx.scene.layout.AnchorPane;
 import main.dbConnector;
 import prospectus.models.User;
 import prospectus.utilities.utilities;
-import prospectus.admin.controller.AdminDashboardController;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-public class UserTable implements Initializable {
+
+public class manageUsers implements Initializable {
 
     private dbConnector db;
     private ObservableList<User> userList;
@@ -46,8 +44,7 @@ public class UserTable implements Initializable {
     
     @FXML
     private ImageView addIcon;
-    @FXML
-    private BorderPane bgPane;
+    
     @FXML
     private ImageView editIcon;
     private User selectedUser;
@@ -60,7 +57,7 @@ public class UserTable implements Initializable {
         db = new dbConnector();
        
         userList = FXCollections.observableArrayList();
-        // Ensure columns are linked to User model fields
+        
         idColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         middleNameColumn.setCellValueFactory(new PropertyValueFactory<>("middleName"));
@@ -85,7 +82,7 @@ public class UserTable implements Initializable {
                 return;
             }
 
-            userList.clear(); // Clear existing data to avoid duplication
+            userList.clear(); 
 
             while (rs.next()) {
                 int id = rs.getInt("u_id");
@@ -99,7 +96,7 @@ public class UserTable implements Initializable {
                 String status = rs.getString("u_status");
                 String contact = rs.getString("u_contact_number");
 
-                // Use the updated User constructor with all fields
+                
                 userList.add(new User(id, firstName, middleName, lastName, email, username, password, role, status, contact));
             }
 
@@ -114,22 +111,8 @@ public class UserTable implements Initializable {
         }
     }
 
-    private void loadPage(String targetFXML) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource(targetFXML));
-        bgPane.setCenter(root);
-      
-    }
 
-    @FXML
-    private void addUserHandler(MouseEvent event) {    
-        addIcon.setVisible(false);
-        editIcon.setVisible(false);
-        try {
-           utilities.loadFXMLWithFade(rootPane, "/prospectus/admin/fxml/addUser.fxml");
-        } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
-        }
-    }
+    
 
     @FXML
     private void editIconHandler(MouseEvent event) {
@@ -140,21 +123,24 @@ public class UserTable implements Initializable {
             return;
         }
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/prospectus/admin/fxml/editUser.fxml"));
-            Parent root = loader.load();
-
-            // Get controller and pass the selected user
-            EditUserController editController = loader.getController();
+        utilities.loadFXMLWithFadeEdit(rootPane, "/prospectus/admin/manageUsers/editUser.fxml", controller -> {
+            EditUserController editController = (EditUserController) controller;
             editController.setUserData(selectedUser);
+        });
+    }
 
-            bgPane.setCenter(root);
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load edit user page: " + ex.getMessage());
+    @FXML
+    private void addUser(MouseEvent event) {
+       
+        try {
+            System.out.println("Add User Test");
+           utilities.loadFXMLWithFade(rootPane, "/prospectus/admin/manageUsers/addUser.fxml");
+        } catch (Exception ex) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
         }
     }
+
+
 
 
 }

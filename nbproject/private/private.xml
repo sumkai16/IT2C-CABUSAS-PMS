@@ -3,12 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/models/UserSession.java</file>
             <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/auth/controller/LoginPageController.java</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/auth/fxml/ForgotPassword.fxml</file>
             <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/auth/controller/SecretRecoveryPhraseController.java</file>
             <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/user/controller/UserProfileController.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/auth/controller/RegisterPageController.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/auth/controller/RecoveryPhraseGenerator.java</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/auth/controller/PasswordResetController.java</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/css/style.css</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/auth/fxml/PasswordReset.fxml</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/auth/controller/ForgotPasswordController.java</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/auth/controller/ChangePasswordController.java</file>
         </group>
     </open-files>
 </project-private>

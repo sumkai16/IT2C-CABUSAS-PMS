@@ -1,6 +1,7 @@
 package prospectus.utilities;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 import javafx.animation.TranslateTransition;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 /**
@@ -150,4 +152,65 @@ public class utilities {
             e.printStackTrace(); 
         }
     }
+    public static void loadFXMLWithFadeEdit(Pane rootPane, String fxmlPath, Consumer<Object> controllerInitializer) {
+        try {
+            FXMLLoader loader = new FXMLLoader(utilities.class.getResource(fxmlPath));
+            AnchorPane overlay = loader.load(); // ✅ Use AnchorPane like the normal method
+
+            // Initialize controller if needed
+            if (controllerInitializer != null) {
+                controllerInitializer.accept(loader.getController());
+            }
+
+            // Set initial opacity before adding to rootPane
+            overlay.setOpacity(0);
+            rootPane.getChildren().add(overlay); // ✅ Add it on top, instead of replacing children
+
+            // Apply fade-in transition
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(300), overlay);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load page: " + e.getMessage());
+        }
+    }
+    public static void loadPageWithFade(BorderPane rootPane, String fxmlPath, Consumer<Object> controllerInitializer) {
+        try {
+            FXMLLoader loader = new FXMLLoader(utilities.class.getResource(fxmlPath));
+            Parent root = loader.load();
+
+            // Initialize controller if needed
+            if (controllerInitializer != null) {
+                controllerInitializer.accept(loader.getController());
+            }
+
+            // Apply fade transition
+            root.setOpacity(0);
+            rootPane.setCenter(root); // Set new FXML page
+
+            FadeTransition fade = new FadeTransition(Duration.millis(300), root);
+            fade.setFromValue(0);
+            fade.setToValue(1);
+            fade.play();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load page: " + e.getMessage());
+        }
+    }
+    public static void closeOverlay(Pane overlay) {
+        if (overlay == null) return; // Prevent null errors
+
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(300), overlay);
+        fadeOut.setFromValue(1);
+        fadeOut.setToValue(0);
+        fadeOut.setOnFinished(event -> overlay.setVisible(false));
+        fadeOut.play();
+    }
+
+
+
 }

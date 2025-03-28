@@ -1,4 +1,4 @@
-package prospectus.admin.controller;
+package prospectus.admin.manageUsers;
 
 import prospectus.auth.controller.RegisterPageController;
 import java.net.URL;
@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import main.dbConnector;
 import prospectus.models.User;
 import prospectus.models.UserSession;
@@ -34,8 +36,6 @@ public class EditUserController implements Initializable {
     private String selectedRole;
     private String selectedStatus;
     
-    @FXML
-    private AnchorPane rootPane;
     @FXML
     private Pane backgroundPane;
     
@@ -57,6 +57,8 @@ public class EditUserController implements Initializable {
     private MenuButton roleSelect;
     @FXML
     private MenuButton statusSelect;
+    @FXML
+    private AnchorPane overlayPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -121,43 +123,40 @@ public class EditUserController implements Initializable {
             return;
         }
 
-        String firstName = firstnameF.getText();
-        String middleName = middleF.getText();
-        String lastName = lastnameF.getText();
-        String emailAddress = emailF.getText();
-        String phoneNumber = contactF.getText();
-        String username = userFF.getText();
+        // Get updated user details
+        String firstName = firstnameF.getText().trim();
+        String middleName = middleF.getText().trim();
+        String lastName = lastnameF.getText().trim();
+        String emailAddress = emailF.getText().trim();
+        String phoneNumber = contactF.getText().trim();
+        String newUsername = userFF.getText().trim(); // Updated username
         String role = selectedRole;
         String status = selectedStatus;
 
-        // Retrieve existing user details for comparison
+        // Validation: Ensure required fields are filled
+        if (firstName.isEmpty() || lastName.isEmpty() || emailAddress.isEmpty() || phoneNumber.isEmpty() || newUsername.isEmpty()) {
+            utilities.showAlert(Alert.AlertType.WARNING, "Missing Fields!", "All fields must be filled.");
+            return;
+        }
+
         String fetchQuery = "SELECT u_fname, u_mname, u_lname, u_email, u_contact_number, u_username, u_role, u_status FROM user WHERE u_username = ?";
 
         try (PreparedStatement fetchStmt = db.getConnection().prepareStatement(fetchQuery)) {
-            fetchStmt.setString(1, selectedUsername);
+            fetchStmt.setString(1, selectedUsername); // Use selected user for fetching
             ResultSet rs = fetchStmt.executeQuery();
 
             if (rs.next()) {
-                String oldFirstName = rs.getString("u_fname");
-                String oldMiddleName = rs.getString("u_mname");
-                String oldLastName = rs.getString("u_lname");
-                String oldEmail = rs.getString("u_email");
-                String oldPhone = rs.getString("u_contact_number");
-                String oldUsername = rs.getString("u_username");
-                String oldRole = rs.getString("u_role");
-                String oldStatus = rs.getString("u_status");
-
                 StringBuilder logDetails = new StringBuilder();
-                logDetails.append("Updated user: ").append(username).append(". Changes: ");
+                logDetails.append("Updated user: ").append(selectedUsername).append(". Changes: ");
 
-                if (!firstName.equals(oldFirstName)) logDetails.append("[First Name: ").append(oldFirstName).append(" -> ").append(firstName).append("] ");
-                if (!middleName.equals(oldMiddleName)) logDetails.append("[Middle Name: ").append(oldMiddleName).append(" -> ").append(middleName).append("] ");
-                if (!lastName.equals(oldLastName)) logDetails.append("[Last Name: ").append(oldLastName).append(" -> ").append(lastName).append("] ");
-                if (!emailAddress.equals(oldEmail)) logDetails.append("[Email: ").append(oldEmail).append(" -> ").append(emailAddress).append("] ");
-                if (!phoneNumber.equals(oldPhone)) logDetails.append("[Phone: ").append(oldPhone).append(" -> ").append(phoneNumber).append("] ");
-                if (!username.equals(oldUsername)) logDetails.append("[Username: ").append(oldUsername).append(" -> ").append(username).append("] ");
-                if (!role.equals(oldRole)) logDetails.append("[Role: ").append(oldRole).append(" -> ").append(role).append("] ");
-                if (!status.equals(oldStatus)) logDetails.append("[Status: ").append(oldStatus).append(" -> ").append(status).append("] ");
+                if (!firstName.equals(rs.getString("u_fname"))) logDetails.append("[First Name: ").append(rs.getString("u_fname")).append(" -> ").append(firstName).append("] ");
+                if (!middleName.equals(rs.getString("u_mname"))) logDetails.append("[Middle Name: ").append(rs.getString("u_mname")).append(" -> ").append(middleName).append("] ");
+                if (!lastName.equals(rs.getString("u_lname"))) logDetails.append("[Last Name: ").append(rs.getString("u_lname")).append(" -> ").append(lastName).append("] ");
+                if (!emailAddress.equals(rs.getString("u_email"))) logDetails.append("[Email: ").append(rs.getString("u_email")).append(" -> ").append(emailAddress).append("] ");
+                if (!phoneNumber.equals(rs.getString("u_contact_number"))) logDetails.append("[Phone: ").append(rs.getString("u_contact_number")).append(" -> ").append(phoneNumber).append("] ");
+                if (!newUsername.equals(rs.getString("u_username"))) logDetails.append("[Username: ").append(rs.getString("u_username")).append(" -> ").append(newUsername).append("] ");
+                if (!role.equals(rs.getString("u_role"))) logDetails.append("[Role: ").append(rs.getString("u_role")).append(" -> ").append(role).append("] ");
+                if (!status.equals(rs.getString("u_status"))) logDetails.append("[Status: ").append(rs.getString("u_status")).append(" -> ").append(status).append("] ");
 
                 String updateQuery = "UPDATE user SET u_fname = ?, u_mname = ?, u_lname = ?, u_email = ?, u_contact_number = ?, u_username = ?, u_role = ?, u_status = ? WHERE u_username = ?";
 
@@ -167,7 +166,7 @@ public class EditUserController implements Initializable {
                     pstmt.setString(3, lastName);
                     pstmt.setString(4, emailAddress);
                     pstmt.setString(5, phoneNumber);
-                    pstmt.setString(6, username);
+                    pstmt.setString(6, newUsername);
                     pstmt.setString(7, role);
                     pstmt.setString(8, status);
                     pstmt.setString(9, selectedUsername);
@@ -176,18 +175,24 @@ public class EditUserController implements Initializable {
                     String adminUsername = UserSession.getUsername();
                     if (rowsAffected > 0) {
                         logger.addLog(adminUsername, "Update", logDetails.toString());
-                        utilities.showAlert(Alert.AlertType.INFORMATION, "User updated!", "Update Completed!");
+                        utilities.showAlert(Alert.AlertType.INFORMATION, "User Updated!", "Update Completed!");
+
+                        // Update selectedUsername after successful edit
+                        selectedUsername = newUsername;
+
                         clearFields();
                     } else {
                         logger.addLog(adminUsername, "Update", "User update attempted but no changes were made.");
-                        utilities.showAlert(Alert.AlertType.ERROR, "Update failed!", "User update unsuccessful.");
+                        utilities.showAlert(Alert.AlertType.ERROR, "Update Failed!", "User update unsuccessful.");
                     }
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred while updating the user.");
         }
     }
+
 
 
     private void clearFields() {
@@ -233,13 +238,9 @@ public class EditUserController implements Initializable {
             statusSelect.getItems().add(menuItem);
         }
     }
-
+    
     @FXML
     private void returnHandler(MouseEvent event) {
-         try {
-            utilities.switchScene(getClass(), event, "/prospectus/admin/fxml/AdminDashboard.fxml");
-        } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open return page: " + ex.getMessage());
-        }
+        utilities.closeOverlay(overlayPane);
     }
 }

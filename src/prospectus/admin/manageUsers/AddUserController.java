@@ -1,10 +1,11 @@
-package prospectus.admin.controller;
+package prospectus.admin.manageUsers;
 
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,8 +23,10 @@ import prospectus.auth.controller.RegisterPageController;
 import prospectus.auth.controller.RegisterPageController;
 import javafx.scene.control.MenuButton;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 import prospectus.models.UserSession;
 import prospectus.utilities.logger;
+import prospectus.utilities.passwordHasher;
 /**
  * FXML Controller class
  *
@@ -70,18 +73,19 @@ public class AddUserController implements Initializable {
         String phoneNumber = contactF.getText();
         String username = userFF.getText();
         String password = pwF.getText();
-        
+        String hashedEnteredPassword = passwordHasher.hashPassword(password);
+
         String query = "INSERT INTO user (u_fname, u_mname, u_lname, u_email, u_contact_number,u_username, u_password, u_role, u_status,enrollment_status) "
                 + "VALUES ( ?, ?, ?, ?, ?, ? ,? , 'Student' , 'Inactive', 'Not Enrolled')";
         
         if(!rp.verifyUser(currentStage, query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
-           if(db.insertData(query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
+           if(db.insertData(query, firstName, middleName, lastName, emailAddress, phoneNumber, username, hashedEnteredPassword)) {
                 System.out.println("User added to database!");
                 String usernamelog = UserSession.getUsername(); 
                 logger.addLog(usernamelog, "User Added", "Admin added a user " + username);
                 utilities.showAlert(Alert.AlertType.INFORMATION, "User successfully added!", "Added Completed!");
                 clearFields();
-                utilities.switchScene(getClass(), event,  "/prospectus/admin/fxml/AdminDashboard.fxml");
+                utilities.switchScene(getClass(), event,  "/prospectus/admin/manageUsers/manageUsers.fxml");
             } 
         }  
     }
@@ -95,13 +99,18 @@ public class AddUserController implements Initializable {
         pwF.clear();
         middleF.clear();
     }
-
+     private void closeOverlay() {
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(300), overlayPane);
+        fadeOut.setFromValue(1);
+        fadeOut.setToValue(0);
+        fadeOut.setOnFinished(event -> overlayPane.setVisible(false));
+        fadeOut.play();
+    }
     @FXML
     private void returnHandler(MouseEvent event) {
-         try {
-            utilities.switchScene(getClass(), event, "/prospectus/admin/fxml/AdminDashboard.fxml");
-        } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open return page: " + ex.getMessage());
-        }
+         closeOverlay();
     }
+
+    
+    
 }

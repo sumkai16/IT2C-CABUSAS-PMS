@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="550.0" prefWidth="715.0" stylesheets="@../../../css/enrollmentForm.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.controller.EditUserController">
+<AnchorPane id="AnchorPane" fx:id="overlayPane" prefHeight="550.0" prefWidth="715.0" style="-fx-background-color: rgba(0, 0, 0, 0.5);" stylesheets="@../../../css/enrollmentForm.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.manageUsers.EditUserController">
    <children>
-      <Pane fx:id="backgroundPane" layoutX="101.0" layoutY="66.0" prefHeight="354.0" prefWidth="513.0" style="-fx-background-color: white; -fx-border-color: black; -fx-background-radius: 20; -fx-border-radius: 20;">
+      <Pane fx:id="backgroundPane" layoutX="101.0" layoutY="98.0" prefHeight="354.0" prefWidth="513.0" style="-fx-background-color: white; -fx-border-color: black; -fx-background-radius: 20; -fx-border-radius: 20;">
          <children>
             <Group layoutX="64.0" layoutY="-54.0" />
             <Button fx:id="editUser" layoutX="151.0" layoutY="291.0" mnemonicParsing="false" onAction="#editUserButtonHandler" prefHeight="33.0" prefWidth="211.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 4); -fx-cursor: hand;" stylesheets="@../../../css/enrollmentForm.css" text="Edit">
