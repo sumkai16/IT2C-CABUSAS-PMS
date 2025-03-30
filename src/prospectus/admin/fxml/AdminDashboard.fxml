@@ -124,6 +124,16 @@
                            </image>
                         </ImageView>
                         <Line endX="87.5" layoutX="99.0" layoutY="363.0" startX="-100.0" stroke="#fffdfd" />
+                        <Button alignment="BASELINE_LEFT" layoutX="10.0" layoutY="325.0" mnemonicParsing="false" onMouseClicked="#profileOnClickHandler" prefHeight="33.0" prefWidth="185.0" styleClass="nav-button" text="Profile">
+                           <font>
+                              <Font name="Cambria" size="14.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="13.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/studentsIcon.gif" />
+                           </image>
+                        </ImageView>
                      </children>
                   </Pane>
                </children>

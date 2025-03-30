@@ -9,7 +9,9 @@ public class UserSession {
     private static String en_status;
     private static String userStatus;
     private static String userName;
-    public static void createSession(int id, String fName, String lName, String role,String u_status, String enrollment_status, String username) {
+    private static String profileImagePath;  
+
+    public static void createSession(int id, String fName, String lName, String role, String u_status, String enrollment_status, String username, String imagePath) {
         userId = id;
         firstName = fName;
         lastName = lName;
@@ -17,6 +19,10 @@ public class UserSession {
         en_status = enrollment_status;
         userStatus = u_status;
         userName = username;
+        profileImagePath = imagePath;  
+
+       
+        System.out.println("Session Profile Path Set: " + profileImagePath);
     }
 
     public static String getFirstName() {
@@ -31,7 +37,7 @@ public class UserSession {
     public static String getRole() {
         return userRole;
     }
-     public static String getEnrollmentStatus() {
+    public static String getEnrollmentStatus() {
         return en_status;
     }
     public static String getUsername() {
@@ -40,20 +46,23 @@ public class UserSession {
     public static int getUserId() {
         return userId;
     }
+    public static String getProfileImage() {
+        return profileImagePath;  
+    }
 
     public static void clearSession() {
-    userId = 0;
-    firstName = null;
-    lastName = null;
-    userRole = null;
-    en_status = null;
-    userStatus = null;
-    userName = null;
-    name = null;
-}
+        userId = 0;
+        firstName = null;
+        lastName = null;
+        userRole = null;
+        en_status = null;
+        userStatus = null;
+        userName = null;
+        name = null;
+        profileImagePath = null;  
+    }
 
     public static String name() {
         return name;
     }
-    
 }

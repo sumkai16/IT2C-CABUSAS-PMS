@@ -1,7 +1,14 @@
 package prospectus.admin.manageUsers;
 
+
+import java.io.File;
+import java.io.IOException;
 import prospectus.auth.controller.RegisterPageController;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,14 +19,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.dbConnector;
@@ -52,18 +63,19 @@ public class EditUserController implements Initializable {
     @FXML
     private TextField middleF;
     @FXML
-    private Button editUser;
-    @FXML
     private MenuButton roleSelect;
     @FXML
     private MenuButton statusSelect;
     @FXML
     private AnchorPane overlayPane;
-
+    @FXML
+    private ImageView profileImage;
+    private String photoFilePath;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         db = new dbConnector();
         userList = FXCollections.observableArrayList();     
+        
     }
     
     public void setUserData(User user) {
@@ -72,19 +84,31 @@ public class EditUserController implements Initializable {
         lastnameF.setText(user.getLastName());
         emailF.setText(user.getEmail());  
         contactF.setText(user.getContact());  
-        userFF.setText(user.getUserName());  
-        selectedUsername = user.getUserName();
+        userFF.setText(user.getUsername());  
+        selectedUsername = user.getUsername();
         selectedRole = user.getRole();
         selectedStatus = user.getStatus();
 
         roleSelect.setText(selectedRole != null ? selectedRole : "Select Role");
         statusSelect.setText(selectedStatus != null ? selectedStatus : "Select Status");
+
+        // Load user profile image
+        if (user.getProfileImagePath() != null && !user.getProfileImagePath().isEmpty()) {
+            File imageFile = new File(user.getProfileImagePath());
+            if (imageFile.exists()) {
+                profileImage.setImage(new Image(imageFile.toURI().toString()));
+            } else {
+                profileImage.setImage(new Image("/prospectus/images/users/default-user.png")); // Default image
+            }
+        } else {
+            profileImage.setImage(new Image("/prospectus/images/users/default-user.png")); 
+        }
     }
 
-    //load details sa mga textfield
+    // Load user details from the database, including the profile image
     private void loadUserDetails(String username) {
-        String query = "SELECT u_fname, u_mname, u_lname, u_email, u_contact_number,u_username, u_role, u_status FROM user WHERE u_username = ?";
-        
+        String query = "SELECT u_fname, u_mname, u_lname, u_email, u_contact_number, u_username, u_role, u_status, u_profile_img FROM user WHERE u_username = ?";
+
         try (PreparedStatement pstmt = db.getConnection().prepareStatement(query)) {
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
@@ -102,10 +126,37 @@ public class EditUserController implements Initializable {
                 // Set the role and status dropdown text
                 roleSelect.setText(selectedRole != null ? selectedRole : "Select Role");
                 statusSelect.setText(selectedStatus != null ? selectedStatus : "Select Status");
+
+                // Load user profile image
+                String imagePath = rs.getString("u_image");
+                if (imagePath != null && !imagePath.isEmpty()) {
+                    File imageFile = new File(imagePath);
+                    if (imageFile.exists()) {
+                        profileImage.setImage(new Image(imageFile.toURI().toString()));
+                    } else {
+                        profileImage.setImage(new Image("/prospectus/images/users/default-user.png")); // Default image
+                    }
+                } else {
+                    profileImage.setImage(new Image("/prospectus/images/users/default-user.png")); 
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    private String getExistingProfileImage(String username) {
+        String query = "SELECT u_image FROM user WHERE u_username = ?";
+        try (Connection conn = db.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, username);
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("u_image");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "src/prospectus/images/users/default-user.png"; 
     }
 
     @FXML
@@ -114,86 +165,60 @@ public class EditUserController implements Initializable {
             utilities.showAlert(Alert.AlertType.WARNING, "No user selected!", "Please select a user to update.");
             return;
         }
-        if (selectedRole == null) {
-            utilities.showAlert(Alert.AlertType.WARNING, "No role selected!", "Please select a role to update.");
-            return;
-        }
-        if (selectedStatus == null) {
-            utilities.showAlert(Alert.AlertType.WARNING, "No status selected!", "Please select a status to update.");
-            return;
-        }
 
-        // Get updated user details
-        String firstName = firstnameF.getText().trim();
-        String middleName = middleF.getText().trim();
-        String lastName = lastnameF.getText().trim();
-        String emailAddress = emailF.getText().trim();
-        String phoneNumber = contactF.getText().trim();
-        String newUsername = userFF.getText().trim(); // Updated username
-        String role = selectedRole;
-        String status = selectedStatus;
-
-        // Validation: Ensure required fields are filled
-        if (firstName.isEmpty() || lastName.isEmpty() || emailAddress.isEmpty() || phoneNumber.isEmpty() || newUsername.isEmpty()) {
+        if (firstnameF.getText().trim().isEmpty() || lastnameF.getText().trim().isEmpty() ||
+            emailF.getText().trim().isEmpty() || contactF.getText().trim().isEmpty() || userFF.getText().trim().isEmpty()) {
             utilities.showAlert(Alert.AlertType.WARNING, "Missing Fields!", "All fields must be filled.");
             return;
         }
 
-        String fetchQuery = "SELECT u_fname, u_mname, u_lname, u_email, u_contact_number, u_username, u_role, u_status FROM user WHERE u_username = ?";
+        
+        if (photoFilePath == null || photoFilePath.isEmpty()) {
+            photoFilePath = getExistingProfileImage(selectedUsername); 
+        }
 
-        try (PreparedStatement fetchStmt = db.getConnection().prepareStatement(fetchQuery)) {
-            fetchStmt.setString(1, selectedUsername); // Use selected user for fetching
-            ResultSet rs = fetchStmt.executeQuery();
+        
+        if (photoFilePath == null || photoFilePath.isEmpty()) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Please select a profile photo.");
+            return;
+        }
 
-            if (rs.next()) {
-                StringBuilder logDetails = new StringBuilder();
-                logDetails.append("Updated user: ").append(selectedUsername).append(". Changes: ");
+        
+        String destinationPath = "src/prospectus/images/users/" + new File(photoFilePath).getName();
+        try {
+            Files.copy(Paths.get(photoFilePath), Paths.get(destinationPath), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to save photo.");
+            return;
+        }
 
-                if (!firstName.equals(rs.getString("u_fname"))) logDetails.append("[First Name: ").append(rs.getString("u_fname")).append(" -> ").append(firstName).append("] ");
-                if (!middleName.equals(rs.getString("u_mname"))) logDetails.append("[Middle Name: ").append(rs.getString("u_mname")).append(" -> ").append(middleName).append("] ");
-                if (!lastName.equals(rs.getString("u_lname"))) logDetails.append("[Last Name: ").append(rs.getString("u_lname")).append(" -> ").append(lastName).append("] ");
-                if (!emailAddress.equals(rs.getString("u_email"))) logDetails.append("[Email: ").append(rs.getString("u_email")).append(" -> ").append(emailAddress).append("] ");
-                if (!phoneNumber.equals(rs.getString("u_contact_number"))) logDetails.append("[Phone: ").append(rs.getString("u_contact_number")).append(" -> ").append(phoneNumber).append("] ");
-                if (!newUsername.equals(rs.getString("u_username"))) logDetails.append("[Username: ").append(rs.getString("u_username")).append(" -> ").append(newUsername).append("] ");
-                if (!role.equals(rs.getString("u_role"))) logDetails.append("[Role: ").append(rs.getString("u_role")).append(" -> ").append(role).append("] ");
-                if (!status.equals(rs.getString("u_status"))) logDetails.append("[Status: ").append(rs.getString("u_status")).append(" -> ").append(status).append("] ");
+        
+        String updateQuery = "UPDATE user SET u_fname = ?, u_mname = ?, u_lname = ?, u_email = ?, u_contact_number = ?, u_username = ?, u_role = ?, u_status = ?, u_image = ? WHERE u_username = ?";
 
-                String updateQuery = "UPDATE user SET u_fname = ?, u_mname = ?, u_lname = ?, u_email = ?, u_contact_number = ?, u_username = ?, u_role = ?, u_status = ? WHERE u_username = ?";
+        try (PreparedStatement pstmt = db.getConnection().prepareStatement(updateQuery)) {
+            pstmt.setString(1, firstnameF.getText().trim());
+            pstmt.setString(2, middleF.getText().trim());
+            pstmt.setString(3, lastnameF.getText().trim());
+            pstmt.setString(4, emailF.getText().trim());
+            pstmt.setString(5, contactF.getText().trim());
+            pstmt.setString(6, userFF.getText().trim());
+            pstmt.setString(7, selectedRole);
+            pstmt.setString(8, selectedStatus);
+            pstmt.setString(9, destinationPath);  
+            pstmt.setString(10, selectedUsername);
 
-                try (PreparedStatement pstmt = db.getConnection().prepareStatement(updateQuery)) {
-                    pstmt.setString(1, firstName);
-                    pstmt.setString(2, middleName);
-                    pstmt.setString(3, lastName);
-                    pstmt.setString(4, emailAddress);
-                    pstmt.setString(5, phoneNumber);
-                    pstmt.setString(6, newUsername);
-                    pstmt.setString(7, role);
-                    pstmt.setString(8, status);
-                    pstmt.setString(9, selectedUsername);
-
-                    int rowsAffected = pstmt.executeUpdate();
-                    String adminUsername = UserSession.getUsername();
-                    if (rowsAffected > 0) {
-                        logger.addLog(adminUsername, "Update", logDetails.toString());
-                        utilities.showAlert(Alert.AlertType.INFORMATION, "User Updated!", "Update Completed!");
-
-                        // Update selectedUsername after successful edit
-                        selectedUsername = newUsername;
-
-                        clearFields();
-                    } else {
-                        logger.addLog(adminUsername, "Update", "User update attempted but no changes were made.");
-                        utilities.showAlert(Alert.AlertType.ERROR, "Update Failed!", "User update unsuccessful.");
-                    }
-                }
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                utilities.showAlert(Alert.AlertType.INFORMATION, "User Updated!", "Profile updated successfully!");
+                clearFields();
+            } else {
+                utilities.showAlert(Alert.AlertType.ERROR, "Update Failed!", "User update unsuccessful.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
             utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred while updating the user.");
         }
     }
-
-
 
     private void clearFields() {
         firstnameF.clear();
@@ -208,6 +233,8 @@ public class EditUserController implements Initializable {
         selectedRole = null;
         statusSelect.setText("Select Status");
         selectedStatus = null;
+        profileImage.setImage(null);
+        photoFilePath = null;
     }
 
     @FXML
@@ -242,5 +269,54 @@ public class EditUserController implements Initializable {
     @FXML
     private void returnHandler(MouseEvent event) {
         utilities.closeOverlay(overlayPane);
+    }
+
+    @FXML
+    private void selectProfileHandler(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose Profile Photo");
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+
+        if (selectedFile != null) {
+            try {
+                // Define the destination folder path relative to your project
+                String destinationFolder = "src/prospectus/images/users/";
+                File destDir = new File(destinationFolder);
+
+                if (!destDir.exists()) {
+                    destDir.mkdirs(); // Create directory if it doesn't exist
+                }
+
+                // Create the destination file with the original file's name
+                File destinationFile = new File(destDir, selectedFile.getName());
+
+                // Copy the selected image to the destination folder
+                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // Load and display the image
+                Image image = new Image(destinationFile.toURI().toString());
+                profileImage.setImage(image);
+
+                // Store the relative path for database update
+                 photoFilePath = destinationFolder + destinationFile.getName();
+
+                // Log image selection (optional)
+                System.out.println("Profile image saved at: " + photoFilePath);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to save profile photo.");
+            }
+        }
+    }
+
+    @FXML
+    private void removeProfileHandler(MouseEvent event) {
+        profileImage.setImage(null);
+        photoFilePath = null;
     }
 }

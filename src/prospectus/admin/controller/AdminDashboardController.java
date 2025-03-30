@@ -77,4 +77,9 @@ public class AdminDashboardController implements Initializable {
         utilities.switchScene(getClass(), event, "/prospectus/auth/fxml/LoginPage.fxml");
     }
 
+    @FXML
+    private void profileOnClickHandler(MouseEvent event) {
+         loadPage("/prospectus/user/fxml/UserProfile.fxml");
+    }
+
 }

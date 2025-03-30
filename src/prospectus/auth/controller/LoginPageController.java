@@ -4,6 +4,7 @@ import main.dbConnector;
 import prospectus.utilities.utilities;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,15 +77,15 @@ public class LoginPageController implements Initializable {
             } else {
                 utilities.showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
             }
-        } catch (SQLException ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Database connection failed: " + ex.getMessage());
         } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
+            ex.printStackTrace();
+            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load user dashboard: " + ex.getMessage());
         }
     }
 
     public String[] authenticateUser(String username, String password) throws SQLException {
-        String sql = "SELECT u_id, u_fname, u_lname, u_role, u_status, enrollment_status, u_username FROM user WHERE u_username = ? AND u_password = ?";
+        String sql = "SELECT u_id, u_fname, u_lname, u_role, u_status, enrollment_status, u_username, u_image FROM user WHERE u_username = ? AND u_password = ?";
+
         try (PreparedStatement pst = db.getConnection().prepareStatement(sql)) {
             pst.setString(1, username);
             pst.setString(2, password);
@@ -98,8 +99,18 @@ public class LoginPageController implements Initializable {
                     String u_status = rs.getString("u_status"); 
                     String enrollment_status = rs.getString("enrollment_status"); 
                     String userName = rs.getString("u_username");
-                    // Store session
-                    UserSession.createSession(userId, firstName, lastName, role, u_status, enrollment_status, userName);
+                    String profilePath = rs.getString("u_image"); 
+
+                    // ✅ Debug: Print profile path from database
+                    System.out.println("Profile path from DB: " + profilePath);
+
+                    // ✅ Set default image if null
+                    if (profilePath == null || profilePath.trim().isEmpty()) {
+                        profilePath = "/prospectus/images/users/default-user.png";  
+                    }
+
+                    // ✅ Save in UserSession
+                    UserSession.createSession(userId, firstName, lastName, role, u_status, enrollment_status, userName, profilePath);
 
                     return new String[]{role, u_status, enrollment_status}; 
                 }
@@ -107,6 +118,7 @@ public class LoginPageController implements Initializable {
         }
         return null; 
     }
+
 
 
 

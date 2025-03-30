@@ -73,7 +73,7 @@ public class manageUsers implements Initializable {
     }
 
     private void loadDataFromDatabase() {
-        String query = "SELECT u_id, u_fname, u_mname, u_lname, u_email, u_username, u_password, u_role, u_status, u_contact_number FROM user";
+        String query = "SELECT u_id, u_fname, u_mname, u_lname, u_email, u_username, u_password, u_role, u_status, u_contact_number, u_image FROM user";
 
         try {
             ResultSet rs = db.getData(query);
@@ -95,9 +95,14 @@ public class manageUsers implements Initializable {
                 String role = rs.getString("u_role");
                 String status = rs.getString("u_status");
                 String contact = rs.getString("u_contact_number");
+                String profileImagePath = rs.getString("u_image"); // Fetch image path
 
-                
-                userList.add(new User(id, firstName, middleName, lastName, email, username, password, role, status, contact));
+                // Ensure profileImagePath is not null, else use default
+                if (profileImagePath == null || profileImagePath.isEmpty()) {
+                    profileImagePath = "/prospectus/images/default-user.png"; // Default profile image
+                }
+
+                userList.add(new User(id, firstName, middleName, lastName, email, username, password, role, status, contact, profileImagePath));
             }
 
             if (tableView != null) {
@@ -110,6 +115,7 @@ public class manageUsers implements Initializable {
             e.printStackTrace();
         }
     }
+
 
 
     

@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="550.0" prefWidth="715.0" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.user.controller.UserProfileController">
    <children>
       <Pane prefHeight="550.0" prefWidth="715.0">
          <children>
-            <Pane layoutX="20.0" layoutY="22.0" prefHeight="138.0" prefWidth="676.0" styleClass="cards">
+            <Pane layoutX="20.0" layoutY="21.0" prefHeight="153.0" prefWidth="676.0" styleClass="cards">
                <children>
-                  <Label fx:id="name" layoutX="139.0" layoutY="24.0" text="Name">
+                  <Label fx:id="name" layoutX="174.0" layoutY="25.0" text="Name">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="id" layoutX="139.0" layoutY="44.0" text="ID">
+                  <Label fx:id="id" layoutX="174.0" layoutY="45.0" text="User ID:">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
@@ -38,11 +41,21 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Label fx:id="role" layoutX="139.0" layoutY="61.0" text="Role">
+                  <Label fx:id="role" layoutX="174.0" layoutY="65.0" text="Role">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
                   </Label>
+                  <Group layoutX="27.0" layoutY="12.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="SILVER" height="125.0" stroke="BLACK" strokeType="INSIDE" width="125.0" />
+                        <ImageView fx:id="profileImage" disable="true" fitHeight="120.0" fitWidth="120.0" layoutX="3.0" layoutY="3.0" onMouseClicked="#profilechangeHandler" pickOnBounds="true" preserveRatio="true">
+                           <effect>
+                              <ColorAdjust />
+                           </effect>
+                        </ImageView>
+                     </children>
+                  </Group>
                </children>
             </Pane>
             <Pane layoutX="17.0" layoutY="185.0" prefHeight="358.0" prefWidth="676.0" style="-fx-background-radius: 15;" styleClass="container">
