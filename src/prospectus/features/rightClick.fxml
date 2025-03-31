@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="50.0" prefWidth="129.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="prospectus.features.RightClickUserController">
+   <children>
+      <Pane layoutX="-50.0" layoutY="-57.0" prefHeight="50.0" prefWidth="129.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button mnemonicParsing="false" onMouseClicked="#viewUserHandler" prefHeight="25.0" prefWidth="129.0" text="View User" />
+            <Button layoutY="25.0" mnemonicParsing="false" onMouseClicked="#editUserHandler" prefHeight="25.0" prefWidth="129.0" text="Edit User" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

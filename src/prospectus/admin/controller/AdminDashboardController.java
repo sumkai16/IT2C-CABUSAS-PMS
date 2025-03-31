@@ -21,6 +21,8 @@ public class AdminDashboardController implements Initializable {
     private BorderPane bgPane;
     @FXML
     private Button userManageOnClick;
+    @FXML
+    private Button courses;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -54,10 +56,7 @@ public class AdminDashboardController implements Initializable {
         loadPage("/prospectus/admin/fxml/settings.fxml");
     }
 
-    @FXML
-    private void manageStudentOnClick(MouseEvent event) {
-        loadPage("/prospectus/admin/fxml/manageStudents.fxml");
-    }
+   
 
     @FXML
     private void auditLogsHandler(MouseEvent event) {
@@ -80,6 +79,16 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private void profileOnClickHandler(MouseEvent event) {
          loadPage("/prospectus/user/fxml/UserProfile.fxml");
+    }
+
+    @FXML
+    private void studentHandler(MouseEvent event) {
+          loadPage("/prospectus/admin/fxml/manageStudents.fxml");
+    }
+
+    @FXML
+    private void coursesHandler(MouseEvent event) {
+        loadPage("/prospectus/admin/courses/manageCourses.fxml");
     }
 
 }

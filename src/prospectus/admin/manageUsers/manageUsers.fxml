@@ -14,12 +14,12 @@
          <children>
             <TableView fx:id="tableView" layoutX="36.0" layoutY="68.0" prefHeight="468.0" prefWidth="644.0" stylesheets="@../../../css/usersTable.css">
               <columns>
-                  <TableColumn fx:id="idColumn" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="User ID" />
-                  <TableColumn fx:id="firstNameColumn" editable="false" prefWidth="126.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="First Name" />
-                  <TableColumn fx:id="middleNameColumn" editable="false" prefWidth="146.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="Middle Name" />
-                  <TableColumn fx:id="lastNameColumn" editable="false" prefWidth="133.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="Last Name" />
-                  <TableColumn fx:id="roleColumn" editable="false" prefWidth="128.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="Role" />
-                  <TableColumn fx:id="statusColumn" editable="false" prefWidth="110.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="Status" />
+                  <TableColumn fx:id="idColumn" editable="false" maxWidth="93.0" minWidth="-1.0" prefWidth="93.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="User ID" />
+                  <TableColumn fx:id="firstNameColumn" editable="false" prefWidth="117.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="First Name" />
+                  <TableColumn fx:id="middleNameColumn" editable="false" prefWidth="106.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="Middle Name" />
+                  <TableColumn fx:id="lastNameColumn" editable="false" prefWidth="125.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="Last Name" />
+                  <TableColumn fx:id="roleColumn" editable="false" prefWidth="111.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="Role" />
+                  <TableColumn fx:id="statusColumn" editable="false" prefWidth="91.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="Status" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

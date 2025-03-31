@@ -45,7 +45,7 @@ public class StudentDashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
       
         try {
-            loadPage("/user/fxml/UserHome.fxml");
+            loadPage("/prospectus/user/fxml/UserHome.fxml");
         } catch (IOException ex) {
              utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
         }
@@ -58,7 +58,7 @@ public class StudentDashboardController implements Initializable {
     @FXML
     private void homeOnClick(MouseEvent event) {
         try {
-            loadPage("/user/fxml/UserHome.fxml");
+            loadPage("/prospectus/user/fxml/UserHome.fxml");
         } catch (IOException ex) {
              utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
         }
@@ -71,7 +71,7 @@ public class StudentDashboardController implements Initializable {
     @FXML
     private void studentDetailsOnClick(MouseEvent event) {
          try {
-            loadPage("/user/fxml/UserProfile.fxml");
+            loadPage("/prospectus/user/fxml/UserProfile.fxml");
         } catch (IOException ex) {
              utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
         }
@@ -83,7 +83,7 @@ public class StudentDashboardController implements Initializable {
 
     @FXML
     private void logoutOnClick(MouseEvent event) {
-         utilities.switchScene(getClass(), event,  "/auth/fxml/LoginPage.fxml");  
+         utilities.switchScene(getClass(), event,  "/prospectus/auth/fxml/LoginPage.fxml");  
     }
     
 }

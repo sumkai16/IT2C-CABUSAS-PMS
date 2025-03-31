@@ -95,11 +95,11 @@ public class manageUsers implements Initializable {
                 String role = rs.getString("u_role");
                 String status = rs.getString("u_status");
                 String contact = rs.getString("u_contact_number");
-                String profileImagePath = rs.getString("u_image"); // Fetch image path
+                String profileImagePath = rs.getString("u_image");
 
-                // Ensure profileImagePath is not null, else use default
+                // check if image is dili null
                 if (profileImagePath == null || profileImagePath.isEmpty()) {
-                    profileImagePath = "/prospectus/images/default-user.png"; // Default profile image
+                    profileImagePath = "/prospectus/images/default-user.png"; 
                 }
 
                 userList.add(new User(id, firstName, middleName, lastName, email, username, password, role, status, contact, profileImagePath));

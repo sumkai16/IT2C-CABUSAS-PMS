@@ -65,12 +65,12 @@
                               <Image url="@../../images/homIcon.gif" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="15.0" layoutY="429.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="429.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../images/settingsIcon.gif" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="15.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../images/logoutIcon.gif" />
                            </image>

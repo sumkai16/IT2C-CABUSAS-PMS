@@ -19,7 +19,7 @@
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="44.0" layoutY="20.0" style="-fx-text-fill: #C0C0C0;" text="#" textFill="#110e0e">
+                        <Label fx:id="numberOfPrograms" layoutX="44.0" layoutY="20.0" style="-fx-text-fill: #C0C0C0;" text="#" textFill="#110e0e">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
@@ -32,12 +32,12 @@
                <children>
                   <Group layoutX="19.0" layoutY="14.0">
                      <children>
-                        <Label style="-fx-text-fill: #C0C0C0;" text="Active Courses">
+                        <Label style="-fx-text-fill: #C0C0C0;" text="Total Courses">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="37.0" layoutY="21.0" style="-fx-text-fill: #C0C0C0;" text="#" textFill="#110e0e">
+                        <Label fx:id="numberOfCourses" layoutX="37.0" layoutY="21.0" style="-fx-text-fill: #C0C0C0;" text="#" textFill="#110e0e">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
@@ -55,7 +55,7 @@
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="35.0" layoutY="20.0" style="-fx-text-fill: #C0C0C0;" text="#" textFill="#110e0e">
+                        <Label fx:id="numberOfStudents" layoutX="35.0" layoutY="20.0" style="-fx-text-fill: #C0C0C0;" text="#" textFill="#110e0e">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>

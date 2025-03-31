@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.courses.AddCourseController">
+    <children>
+        <VBox alignment="CENTER" spacing="10" prefWidth="600.0" prefHeight="400.0" styleClass="container">
+            <Label text="Add Course" styleClass="title" />
+            
+            <GridPane hgap="10" vgap="10" alignment="CENTER" styleClass="form-grid">
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" minWidth="100.0" />
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" />
+                </columnConstraints>
+                
+                <Label text="Course Code:" />
+                <TextField fx:id="courseCodeField" promptText="Enter course code" />
+                
+                <Label text="Course Description:" />
+                <TextField fx:id="courseDescField" promptText="Enter course description" />
+                
+                <Label text="Course Units:" />
+                <TextField fx:id="courseUnitsField" promptText="Enter number of units" />
+                
+                <Label text="Prerequisite:" />
+                <ComboBox fx:id="prerequisiteComboBox" promptText="Select prerequisite" />
+                
+                <Label text="Program:" />
+                <ComboBox fx:id="programComboBox" promptText="Select program" />
+            </GridPane>
+            
+            <HBox spacing="10" alignment="CENTER" styleClass="button-container">
+                <Button fx:id="addButton" text="Add Course" styleClass="primary-button" />
+                <Button fx:id="cancelButton" text="Cancel" styleClass="secondary-button" />
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

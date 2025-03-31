@@ -62,16 +62,10 @@ public class Welcome_sectionController implements Initializable {
         }
        
     }
-     private void closeOverlay() {
-        FadeTransition fadeOut = new FadeTransition(Duration.millis(300), overlayPane);
-        fadeOut.setFromValue(1);
-        fadeOut.setToValue(0);
-        fadeOut.setOnFinished(event -> overlayPane.setVisible(false));
-        fadeOut.play();
-    }
+     
     @FXML
     private void closeClickHandler(MouseEvent event) {
-        closeOverlay();
+        utilities.closeOverlay(overlayPane);
     }
     
 }

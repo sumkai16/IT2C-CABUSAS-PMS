@@ -72,6 +72,7 @@ public class AddUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         db = new dbConnector();
+        
     }
     RegisterPageController rp = new RegisterPageController();
     @FXML
@@ -119,16 +120,10 @@ public class AddUserController implements Initializable {
         profileImage.setImage(null);
         photoFilePath = null;
     }
-     private void closeOverlay() {
-        FadeTransition fadeOut = new FadeTransition(Duration.millis(300), overlayPane);
-        fadeOut.setFromValue(1);
-        fadeOut.setToValue(0);
-        fadeOut.setOnFinished(event -> overlayPane.setVisible(false));
-        fadeOut.play();
-    }
+     
     @FXML
     private void returnHandler(MouseEvent event) {
-         closeOverlay();
+         utilities.closeOverlay(overlayPane);
     }
 
     @FXML
