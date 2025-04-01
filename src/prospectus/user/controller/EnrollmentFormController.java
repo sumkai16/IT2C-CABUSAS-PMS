@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prospectus.user.controller;
 
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -24,15 +20,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import main.dbConnector;
-import prospectus.models.Programs;
 import prospectus.models.UserSession;
 import prospectus.utilities.utilities;
 
-/**
- * FXML Controller class
- *
- * @author axcee
- */
 public class EnrollmentFormController implements Initializable {
 
     @FXML
@@ -55,105 +45,98 @@ public class EnrollmentFormController implements Initializable {
     private Button submitButton;
     @FXML
     private Pane bgPane;
-     private static dbConnector db = new dbConnector();
+    private static dbConnector db = new dbConnector();
     @FXML
     private AnchorPane overlayPane;
-    /**
-     * Initializes the controller class.
-     */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         // Add items to the Sex Menu
+        loadPrograms();
+
         MenuItem male = new MenuItem("Male");
         MenuItem female = new MenuItem("Female");
-
         male.setOnAction(this::selectSex);
         female.setOnAction(this::selectSex);
-
         sexMenu.getItems().addAll(male, female);
+    }
 
-        // Add items to the Program Menu (Example Programs)
-        MenuItem bsit = new MenuItem("BSIT");
-        MenuItem bscs = new MenuItem("BSCS");
-        MenuItem beed = new MenuItem("BEED");
+    private void loadPrograms() {
+        String query = "SELECT p_id, p_program_name FROM program WHERE p_status = 'active'";
+        try (Connection conn = db.getConnection();
+             PreparedStatement pst = conn.prepareStatement(query);
+             ResultSet rs = pst.executeQuery()) {
 
-        bsit.setOnAction(this::selectProgram);
-        bscs.setOnAction(this::selectProgram);
-        beed.setOnAction(this::selectProgram);
-
-        programMenu.getItems().addAll(bsit, bscs, beed);
-    }    
+            programMenu.getItems().clear();
+            while (rs.next()) {
+                int programId = rs.getInt("p_id");
+                String programName = rs.getString("p_program_name");
+                MenuItem programItem = new MenuItem(programName);
+                programItem.setOnAction(event -> {
+                    programMenu.setText(programName);
+                    programMenu.setUserData(programId);
+                });
+                programMenu.getItems().add(programItem);
+            }
+        } catch (SQLException ex) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to load programs: " + ex.getMessage());
+        }
+    }
 
     private void selectSex(ActionEvent event) {
         MenuItem selectedItem = (MenuItem) event.getSource();
-        sexMenu.setText(selectedItem.getText()); // Set the selected value to MenuButton
+        sexMenu.setText(selectedItem.getText());
     }
-
-    private void selectProgram(ActionEvent event) {
-        MenuItem selectedItem = (MenuItem) event.getSource();
-        programMenu.setText(selectedItem.getText()); // Set the selected value to MenuButton
-    }
-
 
     @FXML
     private void returnHandler(MouseEvent event) {
-         utilities.closeOverlay(overlayPane);
+        utilities.closeOverlay(overlayPane);
     }
 
     @FXML
     private void submitEnrollmentHandler(MouseEvent event) {
-                // Validate input fields
         if (fnameField.getText().isEmpty() || lnameField.getText().isEmpty() ||
             bdateField.getValue() == null || addressField.getText().isEmpty() || 
             yearField.getText().isEmpty()) {
-
             utilities.showAlert(Alert.AlertType.WARNING, "Validation Error", "Please fill out all fields.");
             return;
         }
 
-        // Get input values
         String fname = fnameField.getText();
         String mname = mnameField.getText();
         String lname = lnameField.getText();
         String birthdate = bdateField.getValue().toString();
         String address = addressField.getText();
         String year = yearField.getText();
-        int userId = UserSession.getUserId(); // Fetch the logged-in user ID
+        int userId = UserSession.getUserId();
 
-        // Assuming program_id is retrieved correctly
-        int programId = Programs.getDepartment(programMenu); 
+        Integer programId = (Integer) programMenu.getUserData();
+        if (programId == null) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Selection Error", "Please select a valid program.");
+            return;
+        }
 
-        // Correct SQL Queries
         String enrollQuery = "INSERT INTO enrollment (userID, prog_id, enrollment_date) VALUES (?, ?, CURRENT_TIMESTAMP)";
-        String updateRoleQuery = "UPDATE user SET u_role = 'Student',enrollment_status = 'Enrolled'  WHERE u_id = ?";
+        String updateRoleQuery = "UPDATE user SET u_role = 'Student', enrollment_status = 'Enrolled' WHERE u_id = ?";
 
-        try {
-            db = new dbConnector(); // Ensure `dbConnector` has `getConnection()`
-            Connection conn = db.getConnection();
-            conn.setAutoCommit(false); // Start transaction
+        try (Connection conn = db.getConnection();
+             PreparedStatement pstEnroll = conn.prepareStatement(enrollQuery);
+             PreparedStatement pstUpdate = conn.prepareStatement(updateRoleQuery)) {
 
-            // Insert Enrollment Record
-            PreparedStatement pstEnroll = conn.prepareStatement(enrollQuery);
+            conn.setAutoCommit(false);
+
             pstEnroll.setInt(1, userId);
             pstEnroll.setInt(2, programId);
             pstEnroll.executeUpdate();
 
-            // Update User Role to Student
-            PreparedStatement pstUpdate = conn.prepareStatement(updateRoleQuery);
             pstUpdate.setInt(1, userId);
             pstUpdate.executeUpdate();
 
-            conn.commit(); // Commit transaction
-            conn.close();
-
+            conn.commit();
             utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Enrollment Successful! You are now Enrolled.");
-            utilities.switchScene(getClass(), event, "/prospectus/student/fxml/StudentDashboard.fxml"); // Redirect to Dashboard
+            utilities.switchScene(getClass(), event, "/prospectus/student/fxml/StudentDashboard.fxml");
 
         } catch (SQLException ex) {
             utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Enrollment failed: " + ex.getMessage());
         }
-
     }
-
-    
 }

@@ -19,9 +19,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import main.dbConnector;
+import prospectus.models.Programs;
+import prospectus.models.Course;
 import prospectus.utilities.utilities;
-import javafx.scene.control.ListCell;
-import javafx.util.StringConverter;
 
 public class AddCourseController implements Initializable {
 
@@ -36,143 +36,88 @@ public class AddCourseController implements Initializable {
     @FXML
     private TextField courseUnitsField;
     @FXML
-    private ComboBox<String> prerequisiteComboBox;
+    private ComboBox<Course> prerequisiteComboBox; // Now handles Course objects
     @FXML
-    private ComboBox<ProgramEntry> programComboBox;
+    private ComboBox<Programs> programComboBox;
     @FXML
     private Button addCourseButton;
 
-    private dbConnector db;
     private Connection conn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        db = new dbConnector();
-        conn = db.getConnection();
+        conn = new dbConnector().getConnection();
         loadPrerequisites();
         loadPrograms();
     }
 
     private void loadPrerequisites() {
-        ObservableList<String> prerequisiteList = FXCollections.observableArrayList();
-        String query = "SELECT c_code FROM course";
+        ObservableList<Course> prerequisiteList = FXCollections.observableArrayList();
+        String query = "SELECT c_id, c_code FROM course";
 
         try (PreparedStatement pst = conn.prepareStatement(query);
              ResultSet rs = pst.executeQuery()) {
             while (rs.next()) {
-                prerequisiteList.add(rs.getString("c_code"));
+                prerequisiteList.add(new Course(rs.getInt("c_id"), rs.getString("c_code"), "", 0, null, 0));
             }
             prerequisiteComboBox.setItems(prerequisiteList);
         } catch (SQLException e) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to load prerequisites: " + e.getMessage());
+            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to load prerequisites.");
         }
     }
+
 
     private void loadPrograms() {
-        ObservableList<ProgramEntry> programList = FXCollections.observableArrayList();
+        ObservableList<Programs> programList = FXCollections.observableArrayList();
         String query = "SELECT p_id, p_department FROM program";
 
-        try {
-            if (db == null || db.getConnection() == null) {
-                System.out.println("Database connection is null!");
-                return;
-            }
-
-            Connection conn = db.getConnection();
-            PreparedStatement pst = conn.prepareStatement(query);
-            ResultSet rs = pst.executeQuery();
-
+        try (PreparedStatement pst = conn.prepareStatement(query);
+             ResultSet rs = pst.executeQuery()) {
             while (rs.next()) {
-                int id = rs.getInt("p_id");
-                String department = rs.getString("p_department");
-                programList.add(new ProgramEntry(id, department));
+                programList.add(new Programs(rs.getInt("p_id"), rs.getString("p_department"), "", "", ""));
             }
-
             programComboBox.setItems(programList);
-
-            programComboBox.setCellFactory(lv -> new ListCell<ProgramEntry>() {
-                @Override
-                protected void updateItem(ProgramEntry item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (item == null || empty) {
-                        setText(null);
-                    } else {
-                        setText(item.getDepartment());
-                    }
-                }
-            });
-
-            programComboBox.setConverter(new StringConverter<ProgramEntry>() {
-                @Override
-                public String toString(ProgramEntry programEntry) {
-                    if (programEntry == null) {
-                        return null;
-                    } else {
-                        return programEntry.getDepartment();
-                    }
-                }
-
-                @Override
-                public ProgramEntry fromString(String string) {
-                    return null;
-                }
-            });
-
-            System.out.println("Programs loaded: " + programList.size());
         } catch (SQLException e) {
-            e.printStackTrace();
-            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to load programs: " + e.getMessage());
+            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to load programs.");
         }
     }
+
+
 
     @FXML
     private void addCourseHandler(ActionEvent event) {
-        String courseCode = courseCodeField.getText().trim();
-        String courseDesc = courseDescField.getText().trim();
-        String courseUnitsText = courseUnitsField.getText().trim();
-        String prerequisite = prerequisiteComboBox.getSelectionModel().getSelectedItem();
-        ProgramEntry selectedProgram = programComboBox.getSelectionModel().getSelectedItem();
-
-        if (courseCode.isEmpty() || courseDesc.isEmpty() || courseUnitsText.isEmpty() || selectedProgram == null) {
-            utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Please fill in all required fields.");
+        if (courseCodeField.getText().isEmpty() || courseDescField.getText().isEmpty() || courseUnitsField.getText().isEmpty() || programComboBox.getValue() == null) {
+            utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Please fill in all fields.");
             return;
         }
 
         int courseUnits;
         try {
-            courseUnits = Integer.parseInt(courseUnitsText);
-            if (courseUnits <= 0) {
-                utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Course units must be a positive number.");
-                return;
-            }
+            courseUnits = Integer.parseInt(courseUnitsField.getText());
+            if (courseUnits <= 0) throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Invalid number format for course units.");
+            utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Course units must be a positive number.");
             return;
         }
+
+        Course prerequisite = prerequisiteComboBox.getValue();
+        int prerequisiteId = (prerequisite != null) ? prerequisite.getC_id() : 0;
 
         String query = "INSERT INTO course (c_code, c_desc, c_units, prerequisite_id, program_id) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement pst = conn.prepareStatement(query)) {
-            pst.setString(1, courseCode);
-            pst.setString(2, courseDesc);
+            pst.setString(1, courseCodeField.getText());
+            pst.setString(2, courseDescField.getText());
             pst.setInt(3, courseUnits);
+            pst.setObject(4, prerequisiteId == 0 ? null : prerequisiteId);
+            pst.setInt(5, programComboBox.getValue().getId());
 
-            if (prerequisite == null || prerequisite.trim().isEmpty()) {
-                pst.setNull(4, java.sql.Types.VARCHAR);
-            } else {
-                pst.setString(4, prerequisite);
-            }
-
-            pst.setInt(5, selectedProgram.getId());
-
-            int result = pst.executeUpdate();
-            if (result > 0) {
+            if (pst.executeUpdate() > 0) {
                 utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Course added successfully!");
                 clearFields();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to add course: " + e.getMessage());
+            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to add course.");
         }
     }
 
@@ -187,28 +132,5 @@ public class AddCourseController implements Initializable {
         courseUnitsField.clear();
         prerequisiteComboBox.getSelectionModel().clearSelection();
         programComboBox.getSelectionModel().clearSelection();
-    }
-
-    public class ProgramEntry {
-        private int id;
-        private String department;
-
-        public ProgramEntry(int id, String department) {
-            this.id = id;
-            this.department = department;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public String getDepartment() {
-            return department;
-        }
-
-        @Override
-        public String toString() {
-            return department;
-        }
     }
 }

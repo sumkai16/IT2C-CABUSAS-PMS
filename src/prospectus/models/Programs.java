@@ -1,6 +1,11 @@
 package prospectus.models;
 
 import javafx.scene.control.MenuButton;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import main.dbConnector;
 
 public class Programs {
     private int id;
@@ -60,25 +65,52 @@ public class Programs {
         this.status = status;
     }
 
+    // Retrieve Program ID from MenuButton selection
     public static int getProgramIdFromName(MenuButton menuButton) {
         if (menuButton.getText() == null || menuButton.getText().isEmpty()) {
             System.out.println("No program selected!");
             return -1; // Return -1 if no selection
         }
 
-        // Assuming menu text holds the program name
         String programName = menuButton.getText();
+        return fetchProgramIdFromDatabase(programName);
+    }
 
-        // Convert the program name to an ID (Example: Fetch from DB)
-        int programId = fetchProgramIdFromDatabase(programName);
+    // Fetch Program ID from Database
+    private static int fetchProgramIdFromDatabase(String programName) {
+        int programId = -1;
+        dbConnector db = new dbConnector();
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            String query = "SELECT id FROM programs WHERE program_name = ?";
+            pst = conn.prepareStatement(query);
+            pst.setString(1, programName);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                programId = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pst != null) pst.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
 
         return programId;
     }
-
-    private static int fetchProgramIdFromDatabase(String programName) {
-        // Placeholder: Replace with actual database query
-        if (programName.equals("BSIT")) return 1;
-        if (programName.equals("BSCS")) return 2;
-        return -1; // Default if not found
+    @Override
+    public String toString() {
+        return programName; // Ensure ComboBox displays only the program name
     }
+
 }
