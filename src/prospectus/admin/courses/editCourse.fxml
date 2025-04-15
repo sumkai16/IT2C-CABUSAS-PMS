@@ -1,40 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.courses.AddCourseController">
+<AnchorPane id="AnchorPane" fx:id="overlayPane" prefHeight="550.0" prefWidth="715.0" style="-fx-background-color: rgba(0, 0, 0, 0.5);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.courses.EditCourseController">
     <children>
-        <VBox alignment="CENTER" spacing="10" prefWidth="600.0" prefHeight="400.0" styleClass="container">
-            <Label text="Add Course" styleClass="title" />
-            
-            <GridPane hgap="10" vgap="10" alignment="CENTER" styleClass="form-grid">
-                <columnConstraints>
-                    <ColumnConstraints halignment="RIGHT" minWidth="100.0" />
-                    <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" />
-                </columnConstraints>
+        <Pane layoutX="78.0" layoutY="74.0" prefHeight="403.0" prefWidth="560" style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-color: black;" styleClass="container" stylesheets="@../../../css/enrollmentForm.css">
+            <children>
+                <Label layoutX="233.0" layoutY="14.0" style="-fx-font-size: 18;" styleClass="title" text="Edit Course" />
                 
-                <Label text="Course Code:" />
-                <TextField fx:id="courseCodeField" promptText="Enter course code" />
-                
-                <Label text="Course Description:" />
-                <TextField fx:id="courseDescField" promptText="Enter course description" />
-                
-                <Label text="Course Units:" />
-                <TextField fx:id="courseUnitsField" promptText="Enter number of units" />
-                
-                <Label text="Prerequisite:" />
-                <ComboBox fx:id="prerequisiteComboBox" promptText="Select prerequisite" />
-                
-                <Label text="Program:" />
-                <ComboBox fx:id="programComboBox" promptText="Select program" />
-            </GridPane>
-            
-            <HBox spacing="10" alignment="CENTER" styleClass="button-container">
-                <Button fx:id="addButton" text="Add Course" styleClass="primary-button" />
-                <Button fx:id="cancelButton" text="Cancel" styleClass="secondary-button" />
-            </HBox>
-        </VBox>
+                <GridPane hgap="10" layoutX="86.0" layoutY="60.0" styleClass="form-grid" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="LEFT" minWidth="120.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="250.0" />
+                    </columnConstraints>
+                    
+                    <Label text="Course ID:" />
+                    <TextField fx:id="courseIdField" editable="false" prefHeight="30.0" GridPane.columnIndex="1" />
+                    
+                    <Label text="Course Code:" GridPane.rowIndex="1" />
+                    <TextField fx:id="courseCodeField" prefHeight="30.0" promptText="Enter course code" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    
+                    <Label text="Course Description:" GridPane.rowIndex="2" />
+                    <TextField fx:id="courseDescField" prefHeight="30.0" promptText="Enter course description" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    
+                    <Label text="Course Units:" GridPane.rowIndex="3" />
+                    <TextField fx:id="courseUnitsField" prefHeight="30.0" promptText="Enter number of units" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    
+                    <Label text="Prerequisite:" GridPane.rowIndex="4" />
+                    <ComboBox fx:id="prerequisiteComboBox" onMouseClicked="#selectPrerequisiteHandler" prefHeight="30.0" prefWidth="250.0" promptText="Select prerequisite" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                    
+                    <Label text="Program:" GridPane.rowIndex="5" />
+                    <ComboBox fx:id="programComboBox" onMouseClicked="#selectProgramHandler" prefHeight="30.0" prefWidth="250.0" promptText="Select program" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
+                 <Button fx:id="updateButton" layoutX="181.0" layoutY="331.0" onMouseClicked="#updateCourseHandler" prefWidth="200.0" styleClass="primary-button" text="Update Course" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#returnHandler" pickOnBounds="true">
+               <image>
+                  <Image url="@../../images/returnButton.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            </children>
+        </Pane>
     </children>
 </AnchorPane>

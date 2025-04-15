@@ -7,13 +7,17 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -42,14 +46,19 @@ public class manageUsers implements Initializable {
     @FXML
     private TableColumn<User, String> statusColumn;
     
-    @FXML
-    private ImageView addIcon;
-    
-    @FXML
-    private ImageView editIcon;
     private User selectedUser;
     @FXML
     private AnchorPane rootPane;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private ComboBox<?> filterByRole;
+    @FXML
+    private ComboBox<?> sortBy;
+    @FXML
+    private Button refreshBtn;
+    @FXML
+    private Button searchButton;
 
 
     @Override
@@ -66,6 +75,13 @@ public class manageUsers implements Initializable {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         tableView.setOnMouseClicked(event -> handleRowSelection());
         loadDataFromDatabase();
+        
+         //realtime search
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            String searchText = newValue.trim().toLowerCase();
+            ObservableList<User> filteredList = searchUsers(userList, searchText);
+            tableView.setItems(filteredList);
+        });
         
     }
     private void handleRowSelection() {
@@ -117,11 +133,29 @@ public class manageUsers implements Initializable {
     }
 
 
-
-    
+//    private void clearSearch(ActionEvent event) {
+//        searchField.clear(); 
+//        tableView.setItems(userList); 
+//    }
 
     @FXML
-    private void editIconHandler(MouseEvent event) {
+    private void refreshTable(ActionEvent event) {
+        loadDataFromDatabase(); 
+    }
+
+
+    @FXML
+    private void addUserHandler(MouseEvent event) {
+        try {
+            System.out.println("Add User Test");
+           utilities.loadFXMLWithFade(rootPane, "/prospectus/admin/manageUsers/addUser.fxml");
+        } catch (Exception ex) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void editUserHandler(MouseEvent event) {
         User selectedUser = tableView.getSelectionModel().getSelectedItem();
 
         if (selectedUser == null) {
@@ -136,14 +170,54 @@ public class manageUsers implements Initializable {
     }
 
     @FXML
-    private void addUser(MouseEvent event) {
-       
-        try {
-            System.out.println("Add User Test");
-           utilities.loadFXMLWithFade(rootPane, "/prospectus/admin/manageUsers/addUser.fxml");
-        } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load login page: " + ex.getMessage());
+    private void filterByHandler(MouseEvent event) {
+        String selectedRole = (String) filterByRole.getValue();
+
+        if (selectedRole == null || selectedRole.equals("All")) {
+              tableView.setItems(userList);
+        } else {
+            ObservableList<User> filteredList = userList.filtered(user -> user.getRole().equalsIgnoreCase(selectedRole));
+            tableView.setItems(filteredList);
         }
+    }
+
+    @FXML
+    private void sortByHandler(MouseEvent event) {
+        String selectedSort = (String) sortBy.getValue();
+
+        if (selectedSort == null) return;
+
+        userList.sort((u1, u2) -> {
+            switch (selectedSort) {
+                case "First Name": return u1.getFirstName().compareToIgnoreCase(u2.getFirstName());
+                case "Last Name": return u1.getLastName().compareToIgnoreCase(u2.getLastName());
+                case "Role": return u1.getRole().compareToIgnoreCase(u2.getRole());
+                case "Status": return u1.getStatus().compareToIgnoreCase(u2.getStatus());
+                default: return 0;
+            }
+        });
+
+        tableView.setItems(userList);
+    }
+
+    @FXML
+    private void searchButtonHandler(MouseEvent event) {
+        String searchText = searchField.getText().trim().toLowerCase();
+        ObservableList<User> filteredList = searchUsers(userList, searchText);
+        tableView.setItems(filteredList);
+    }
+    private ObservableList<User> searchUsers(ObservableList<User> users, String searchText) {
+        if (searchText.isEmpty()) {
+            return users;
+        }
+
+        return users.filtered(user -> 
+            user.getFirstName().toLowerCase().contains(searchText) ||
+            user.getLastName().toLowerCase().contains(searchText) ||
+            user.getUsername().toLowerCase().contains(searchText) ||
+            user.getRole().toLowerCase().contains(searchText) ||
+            user.getStatus().toLowerCase().contains(searchText)
+        );
     }
 
 

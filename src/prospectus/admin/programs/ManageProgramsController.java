@@ -6,16 +6,19 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import main.dbConnector;
+import prospectus.models.Course;
 import prospectus.models.Programs;
 import prospectus.utilities.utilities;
 
@@ -25,10 +28,10 @@ import prospectus.utilities.utilities;
 public class ManageProgramsController implements Initializable {
 
     @FXML
-    private TableView<Programs> tableView; // ✅ FIX: Explicit type
+    private TableView<Programs> tableView; 
 
     @FXML
-    private TableColumn<Programs, Integer> programId; // ✅ FIX: Correct type
+    private TableColumn<Programs, Integer> programId; 
     @FXML
     private TableColumn<Programs, String> programName;
     @FXML
@@ -39,15 +42,13 @@ public class ManageProgramsController implements Initializable {
     private TableColumn<Programs, String> statusColumn;
 
     @FXML
-    private ImageView addIcon;
-    @FXML
-    private ImageView editIcon;
-    @FXML
     private AnchorPane rootPane;
 
     private ObservableList<Programs> programsList;
     private dbConnector db;
     private Programs selectedProgram;
+    @FXML
+    private TextField searchField;
 
     /**
      * Initializes the controller class.
@@ -62,16 +63,32 @@ public class ManageProgramsController implements Initializable {
         programName.setCellValueFactory(new PropertyValueFactory<>("programName"));
         programDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         programDepartment.setCellValueFactory(new PropertyValueFactory<>("department"));
-        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-
-        
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));      
         tableView.setOnMouseClicked(event -> handleRowSelection());
-
-        
         loadDataFromDatabase();
+        setupSearchListener();
+        
     }
+    private void setupSearchListener() {
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            String searchText = newValue.trim().toLowerCase();
+            ObservableList<Programs> filteredList = searchPrograms(programsList, searchText);
+            tableView.setItems(filteredList);
+        });
+    }
+    private ObservableList<Programs> searchPrograms(ObservableList<Programs> programs, String searchText) {
+        if (searchText.isEmpty()) {
+            return programs; // Return the full list if the search text is empty
+        }
 
-    
+        return programs.filtered(program -> 
+            String.valueOf(program.getId()).toLowerCase().contains(searchText) || 
+            (program.getProgramName() != null && program.getProgramName().toLowerCase().contains(searchText)) || 
+            (program.getDescription() != null && program.getDescription().toLowerCase().contains(searchText)) || 
+            (program.getDepartment() != null && program.getDepartment().toLowerCase().contains(searchText)) || 
+            (program.getStatus() != null && program.getStatus().toLowerCase().contains(searchText))
+        );
+    }
     private void handleRowSelection() {
         selectedProgram = tableView.getSelectionModel().getSelectedItem();
         if (selectedProgram != null) {
@@ -127,5 +144,13 @@ public class ManageProgramsController implements Initializable {
 
         System.out.println("Editing: " + selectedProgram.getProgramName());
        
+    }
+
+    @FXML
+    private void handleSearch(ActionEvent event) {
+    }
+
+    @FXML
+    private void handleRefresh(ActionEvent event) {
     }
 }

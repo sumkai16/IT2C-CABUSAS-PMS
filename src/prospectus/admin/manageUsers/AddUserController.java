@@ -88,7 +88,7 @@ public class AddUserController implements Initializable {
         String hashedEnteredPassword = passwordHasher.hashPassword(password);
         RecoveryPhraseGenerator generator = new RecoveryPhraseGenerator();
         String recoveryPhrase = generator.generateUniqueRecoveryPhrase();
-        // Ensure a default profile image is used if none is selected
+       
         String profileImagePath = (photoFilePath != null) ? photoFilePath : "src/prospectus/images/users/default-user.png";
 
         // Updated query to include the profile image path

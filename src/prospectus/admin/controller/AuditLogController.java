@@ -77,7 +77,7 @@ public class AuditLogController implements Initializable {
         String searchText = searchField.getText().trim().toLowerCase();
 
         if (searchText.isEmpty()) {
-            loadLogs(); // Reload full logs if search is empty
+            loadLogs(); 
             return;
         }
 

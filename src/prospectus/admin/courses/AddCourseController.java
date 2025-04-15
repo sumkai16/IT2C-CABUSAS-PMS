@@ -51,7 +51,7 @@ public class AddCourseController implements Initializable {
         loadPrograms();
     }
 
-    private void loadPrerequisites() {
+    public void loadPrerequisites() {
         ObservableList<Course> prerequisiteList = FXCollections.observableArrayList();
         String query = "SELECT c_id, c_code FROM course";
 
@@ -67,7 +67,7 @@ public class AddCourseController implements Initializable {
     }
 
 
-    private void loadPrograms() {
+    public void loadPrograms() {
         ObservableList<Programs> programList = FXCollections.observableArrayList();
         String query = "SELECT p_id, p_department FROM program";
 

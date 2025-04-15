@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="715.0" styleClass="mainFxmlClass" stylesheets="@../courses/managecourses.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.students.ManageStudentsController">
+   <children>
+      <Pane prefHeight="550.0" prefWidth="715.0" style="-fx-background-color: #FBFCF8;" stylesheets="@../courses/managecourses.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TableView fx:id="tableView" layoutX="23.0" layoutY="150.0" prefHeight="380.0" prefWidth="670.0" stylesheets="@../../../css/usersTable.css">
+               <columns>
+                  <TableColumn fx:id="idColumn" prefWidth="90.0" text="Student ID" />
+                  <TableColumn fx:id="firstNameColumn" prefWidth="127.0" text="First Name" />
+                  <TableColumn fx:id="middleNameColumn" prefWidth="124.0" text="Middle Name" />
+                  <TableColumn fx:id="lastNameColumn" prefWidth="124.0" text="Last Name" />
+                  <TableColumn fx:id="yearColumn" prefWidth="95.0" text="Year" />
+                  <TableColumn fx:id="programColumn" prefWidth="90.0" text="Program" />
+               </columns>
+            </TableView>
+            <Button layoutX="509.0" layoutY="120.0" onMouseClicked="#addStudentHandler" prefWidth="85.0" style="-fx-font-size: 12;" text="Add Student" />
+            <Button layoutX="598.0" layoutY="120.0" onMouseClicked="#editStudentHandler" prefWidth="85.0" style="-fx-font-size: 12;" text="Edit Student" />
+            <HBox layoutX="27.0" layoutY="128.0" spacing="20">
+               <children>
+                  <Label text="🧑🏻‍🎓Total Students: " />
+                  <Label fx:id="totalStudentsLabel" text="0" />
+                  <Label fx:id="withPrereqLabel" />
+               </children>
+            </HBox>
+            <TextField fx:id="searchField" layoutX="63.0" layoutY="34.0" prefHeight="32.0" prefWidth="410.0" promptText="Search Student..." />
+            <ComboBox fx:id="filterProgram" layoutX="63.0" layoutY="76.0" onMouseClicked="#filterProgramHandler" prefHeight="37.0" prefWidth="150.0" promptText="Filter by Program" style="hei: 32;" styleClass="combo-box" />
+            <ComboBox fx:id="filterYear" layoutX="227.0" layoutY="76.0" onMouseClicked="#filterYearHandler" prefHeight="37.0" prefWidth="150.0" promptText="Filter by Year" styleClass="combo-box" />
+            <Button fx:id="resetFilters" layoutX="388.0" layoutY="80.0" onMouseClicked="#resetFilterHandler" text="Reset Filters" />
+            <Button fx:id="resetFilters1" layoutX="483.0" layoutY="35.0" onMouseClicked="#searchHandler" prefHeight="25.0" prefWidth="85.0" text="Search" />
+         </children>
+      </Pane>
+      <Label layoutX="30.0" layoutY="527.0" text=" Tip: Use filters and sorting to find courses quickly!" />
+   </children>
+</AnchorPane>

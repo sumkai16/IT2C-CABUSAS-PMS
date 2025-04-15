@@ -12,6 +12,7 @@ public class User {
     private String status;
     private String contact;
     private String profileImagePath;
+//    private String enrollmentStatus;
 
     // Constructor
     public User(int id, String firstName, String middleName, String lastName, String email, 
@@ -28,6 +29,7 @@ public class User {
         this.status = status;
         this.contact = contact;
         this.profileImagePath = profileImagePath;
+//        this.enrollmentStatus = enrollStatus;
     }
 
     // Getters and Setters (Add these if needed)
@@ -46,6 +48,9 @@ public class User {
     public void setProfileImagePath(String profileImagePath) {
         this.profileImagePath = profileImagePath;
     }
+//    public String getEnrollmentStatus() {
+//        return enrollmentStatus;
+//    }
 }
 
 

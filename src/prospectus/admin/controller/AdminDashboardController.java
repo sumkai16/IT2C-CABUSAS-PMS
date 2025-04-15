@@ -53,7 +53,7 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     private void settingsOnClick(MouseEvent event) {
-        loadPage("/prospectus/admin/fxml/settings.fxml");
+        loadPage("/prospectus/user/fxml/UserProfile.fxml");
     }
 
    
@@ -76,14 +76,11 @@ public class AdminDashboardController implements Initializable {
         utilities.switchScene(getClass(), event, "/prospectus/auth/fxml/LoginPage.fxml");
     }
 
-    @FXML
-    private void profileOnClickHandler(MouseEvent event) {
-         loadPage("/prospectus/user/fxml/UserProfile.fxml");
-    }
+  
 
     @FXML
     private void studentHandler(MouseEvent event) {
-          loadPage("/prospectus/admin/fxml/manageStudents.fxml");
+          loadPage("/prospectus/admin/students/manageStudents.fxml");
     }
 
     @FXML

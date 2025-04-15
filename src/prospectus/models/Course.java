@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prospectus.models;
 
-/**
- *
- * @author axcee
- */
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public class Course {
     private int c_id;
     private String c_code;
@@ -16,6 +10,8 @@ public class Course {
     private int c_units;
     private Integer prerequisite_id; // Can be null
     private int program_id;
+    private String programDepartment; // Added field for program department name
+    private String prerequisiteCode; // New field for prerequisite course code
 
     // Constructor
     public Course(int c_id, String c_code, String c_desc, int c_units, Integer prerequisite_id, int program_id) {
@@ -25,6 +21,8 @@ public class Course {
         this.c_units = c_units;
         this.prerequisite_id = prerequisite_id;
         this.program_id = program_id;
+        this.programDepartment = ""; // Default empty string
+        this.prerequisiteCode = ""; // Default empty string
     }
 
     // Getters and Setters
@@ -75,9 +73,28 @@ public class Course {
     public void setProgram_id(int program_id) {
         this.program_id = program_id;
     }
+    
+    // New getter and setter for program department
+    public String getProgramDepartment() {
+        return programDepartment;
+    }
+    
+    public void setProgramDepartment(String programDepartment) {
+        this.programDepartment = programDepartment;
+    }
 
     @Override
     public String toString() {
         return c_code + " - " + c_desc;
     }
+    public String getPrerequisiteCode() {
+        return (prerequisiteCode == null || prerequisiteCode.isEmpty()) ? "None" : prerequisiteCode;
+    }
+
+    public void setPrerequisiteCode(String prerequisiteCode) {
+        this.prerequisiteCode = prerequisiteCode;
+    }
+
+    
 }
+

@@ -18,14 +18,10 @@
     <children>
         <Pane layoutX="7.0" layoutY="7.0" prefHeight="550.0" prefWidth="715.0" style="-fx-background-color: #FBFCF8;">
             <children>
-                 <TextField fx:id="searchField" layoutX="51.0" layoutY="15.0" prefWidth="200" promptText="Search Course..." />
-                 <ComboBox fx:id="filterProgram" layoutX="261.0" layoutY="10.0" onMouseClicked="#filterProgramHandler" promptText="Filter by Program" style="hei: 32;" styleClass="combo-box" />
-                 <ComboBox fx:id="filterUnits" layoutX="439.0" layoutY="10.0" onMouseClicked="#filterUnitsHandler" promptText="Filter by Units" styleClass="combo-box" />
-                 <Button fx:id="resetFilters" layoutX="595.0" layoutY="16.0" onMouseClicked="#resetFilterHandler" text="Reset Filters" />
-                 <Label layoutX="48.0" layoutY="75.0" text="Sort by:" />
-                 <Button layoutX="102.0" layoutY="69.0" onMouseClicked="#sortByCourseCodeHandler" text="Course Code ⬆⬇" />
-                 <Button layoutX="234.0" layoutY="69.0" onMouseClicked="#sortByUnitsHandler" text="Units ⬆⬇" />
-                 <Button layoutX="318.0" layoutY="69.0" onMouseClicked="#sortByProgramHandler" text="Program ⬆⬇" />
+                 <TextField fx:id="searchField" layoutX="51.0" layoutY="15.0" prefHeight="32.0" prefWidth="410.0" promptText="Search Course..." />
+                 <ComboBox fx:id="filterProgram" layoutX="51.0" layoutY="57.0" onMouseClicked="#filterProgramHandler" prefHeight="37.0" prefWidth="150.0" promptText="Filter by Program" style="hei: 32;" styleClass="combo-box" />
+                 <ComboBox fx:id="filterUnits" layoutX="215.0" layoutY="57.0" onMouseClicked="#filterUnitsHandler" prefHeight="37.0" prefWidth="150.0" promptText="Filter by Units" styleClass="combo-box" />
+                 <Button fx:id="resetFilters" layoutX="376.0" layoutY="61.0" onMouseClicked="#resetFilterHandler" text="Reset Filters" />
 
                 <!-- Course Summary Stats -->
                 <HBox layoutX="28.0" layoutY="112.0" spacing="20">
