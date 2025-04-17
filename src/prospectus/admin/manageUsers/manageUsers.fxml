@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="550.0" prefWidth="750.0" styleClass="mainFxmlClass" stylesheets="@../courses/managecourses.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.manageUsers.manageUsers">
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="550.0" prefWidth="715.0" styleClass="mainFxmlClass" stylesheets="@../courses/managecourses.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.manageUsers.manageUsers">
    <children>
-      <Pane layoutX="0.0" layoutY="0.0" prefHeight="550.0" prefWidth="750.0" style="-fx-background-color: #FBFCF8;">
+      <Pane layoutX="0.0" layoutY="0.0" prefHeight="550.0" prefWidth="715.0" style="-fx-background-color: #FBFCF8;">
          <children>
             <!-- Search Bar -->
             <TextField fx:id="searchField" layoutX="35.0" layoutY="30.0" prefHeight="32.0" prefWidth="394.0" promptText="Search user..." />
@@ -27,14 +27,15 @@
             <Button fx:id="refreshBtn" layoutX="442.0" layoutY="87.0" onAction="#refreshTable" prefWidth="81.0" text="Refresh" />
             
             <!-- TableView with updated columns -->
-            <TableView fx:id="tableView" layoutX="40.0" layoutY="140.0" prefHeight="380.0" prefWidth="670.0" stylesheets="@../../../css/usersTable.css">
+            <TableView fx:id="tableView" layoutX="8.0" layoutY="145.0" prefHeight="380.0" prefWidth="700.0" stylesheets="@../../../css/usersTable.css">
               <columns>
-                  <TableColumn fx:id="idColumn" prefWidth="90.0" text="User ID" />
-                  <TableColumn fx:id="firstNameColumn" prefWidth="120.0" text="First Name" />
+                  <TableColumn fx:id="idColumn" prefWidth="84.0" text="User ID" />
+                  <TableColumn fx:id="firstNameColumn" prefWidth="111.0" text="First Name" />
                   <TableColumn fx:id="middleNameColumn" prefWidth="110.0" text="Middle Name" />
-                  <TableColumn fx:id="lastNameColumn" prefWidth="130.0" text="Last Name" />
-                  <TableColumn fx:id="roleColumn" prefWidth="110.0" text="Role" />
-                  <TableColumn fx:id="statusColumn" prefWidth="90.0" text="Status" />
+                  <TableColumn fx:id="lastNameColumn" prefWidth="103.0" text="Last Name" />
+                  <TableColumn fx:id="roleColumn" text="Role" />
+                  <TableColumn fx:id="statusColumn" minWidth="5.0" prefWidth="51.0" text="Status" />
+                  <TableColumn fx:id="e_status" prefWidth="181.0" text="Enrollment Status" />
               </columns>
             </TableView>
             

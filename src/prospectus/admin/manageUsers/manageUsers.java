@@ -59,6 +59,8 @@ public class manageUsers implements Initializable {
     private Button refreshBtn;
     @FXML
     private Button searchButton;
+    @FXML
+    private TableColumn<?, ?> e_status;
 
 
     @Override
@@ -67,12 +69,13 @@ public class manageUsers implements Initializable {
        
         userList = FXCollections.observableArrayList();
         
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         middleNameColumn.setCellValueFactory(new PropertyValueFactory<>("middleName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        e_status.setCellValueFactory(new PropertyValueFactory<>("enrollmentStatus"));
         tableView.setOnMouseClicked(event -> handleRowSelection());
         loadDataFromDatabase();
         
@@ -89,7 +92,7 @@ public class manageUsers implements Initializable {
     }
 
     private void loadDataFromDatabase() {
-        String query = "SELECT u_id, u_fname, u_mname, u_lname, u_email, u_username, u_password, u_role, u_status, u_contact_number, u_image FROM user";
+        String query = "SELECT u_id, u_fname, u_mname, u_lname, u_email, u_username, u_password, u_role, u_status, u_contact_number, u_image, enrollment_status FROM user";
 
         try {
             ResultSet rs = db.getData(query);
@@ -112,13 +115,14 @@ public class manageUsers implements Initializable {
                 String status = rs.getString("u_status");
                 String contact = rs.getString("u_contact_number");
                 String profileImagePath = rs.getString("u_image");
+                String enrollmentStatus = rs.getString("enrollment_status");
 
-                // check if image is dili null
+                // Check if image is null
                 if (profileImagePath == null || profileImagePath.isEmpty()) {
                     profileImagePath = "/prospectus/images/default-user.png"; 
                 }
 
-                userList.add(new User(id, firstName, middleName, lastName, email, username, password, role, status, contact, profileImagePath));
+                userList.add(new User(id, firstName, middleName, lastName, email, username, password, role, status, contact, profileImagePath, enrollmentStatus)); // Pass enrollment status
             }
 
             if (tableView != null) {
@@ -216,7 +220,8 @@ public class manageUsers implements Initializable {
             user.getLastName().toLowerCase().contains(searchText) ||
             user.getUsername().toLowerCase().contains(searchText) ||
             user.getRole().toLowerCase().contains(searchText) ||
-            user.getStatus().toLowerCase().contains(searchText)
+            user.getStatus().toLowerCase().contains(searchText)||
+            user.getEnrollmentStatus().toLowerCase().contains(searchText)
         );
     }
 

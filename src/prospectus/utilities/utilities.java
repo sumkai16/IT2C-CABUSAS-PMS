@@ -15,6 +15,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -210,7 +212,14 @@ public class utilities {
         fadeOut.setOnFinished(event -> overlay.setVisible(false));
         fadeOut.play();
     }
-
+    //enter feature
+    public static void setupEnterKeyHandler(TextField textField, Runnable action) {
+        textField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                action.run(); // Execute the provided action
+            }
+        });
+    }
 
 
 }

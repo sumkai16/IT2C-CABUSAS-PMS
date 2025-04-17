@@ -12,12 +12,12 @@ public class User {
     private String status;
     private String contact;
     private String profileImagePath;
-//    private String enrollmentStatus;
+    private String enrollmentStatus;
 
     // Constructor
     public User(int id, String firstName, String middleName, String lastName, String email, 
                 String username, String password, String role, String status, 
-                String contact, String profileImagePath) {
+                String contact, String profileImagePath,String enrollmentStatus) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -29,7 +29,8 @@ public class User {
         this.status = status;
         this.contact = contact;
         this.profileImagePath = profileImagePath;
-//        this.enrollmentStatus = enrollStatus;
+        this.enrollmentStatus = enrollmentStatus; 
+
     }
 
     // Getters and Setters (Add these if needed)
@@ -44,13 +45,15 @@ public class User {
     public String getStatus() { return status; }
     public String getContact() { return contact; }
     public String getProfileImagePath() { return profileImagePath; }
+    public String getEnrollmentStatus() {return enrollmentStatus;}
 
+    public void setEnrollmentStatus(String enrollmentStatus) {
+        this.enrollmentStatus = enrollmentStatus;
+    }
     public void setProfileImagePath(String profileImagePath) {
         this.profileImagePath = profileImagePath;
     }
-//    public String getEnrollmentStatus() {
-//        return enrollmentStatus;
-//    }
+
 }
 
 

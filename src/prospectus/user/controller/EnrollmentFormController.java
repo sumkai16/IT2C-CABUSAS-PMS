@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -58,6 +59,7 @@ public class EnrollmentFormController implements Initializable {
         male.setOnAction(this::selectSex);
         female.setOnAction(this::selectSex);
         sexMenu.getItems().addAll(male, female);
+        
     }
 
     private void loadPrograms() {
@@ -104,9 +106,9 @@ public class EnrollmentFormController implements Initializable {
         String fname = fnameField.getText();
         String mname = mnameField.getText();
         String lname = lnameField.getText();
-        String birthdate = bdateField.getValue().toString();
+        LocalDate birthdate = bdateField.getValue(); // Use LocalDate directly
         String address = addressField.getText();
-        String year = yearField.getText();
+        int year = Integer.parseInt(yearField.getText()); // Convert to int
         int userId = UserSession.getUserId();
 
         Integer programId = (Integer) programMenu.getUserData();
@@ -117,26 +119,66 @@ public class EnrollmentFormController implements Initializable {
 
         String enrollQuery = "INSERT INTO enrollment (userID, prog_id, enrollment_date) VALUES (?, ?, CURRENT_TIMESTAMP)";
         String updateRoleQuery = "UPDATE user SET u_role = 'Student', enrollment_status = 'Enrolled' WHERE u_id = ?";
+        String insertStudentQuery = "INSERT INTO student (u_id, s_fname, s_mname, s_lname, s_bdate, s_address, s_year, s_program) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = db.getConnection();
-             PreparedStatement pstEnroll = conn.prepareStatement(enrollQuery);
-             PreparedStatement pstUpdate = conn.prepareStatement(updateRoleQuery)) {
+        Connection conn = null; // Declare conn outside the try block
 
-            conn.setAutoCommit(false);
+        try {
+            conn = db.getConnection(); // Initialize the connection
+            conn.setAutoCommit(false); // Set auto-commit to false
 
-            pstEnroll.setInt(1, userId);
-            pstEnroll.setInt(2, programId);
-            pstEnroll.executeUpdate();
+            try (PreparedStatement pstEnroll = conn.prepareStatement(enrollQuery);
+                 PreparedStatement pstUpdate = conn.prepareStatement(updateRoleQuery);
+                 PreparedStatement pstInsertStudent = conn.prepareStatement(insertStudentQuery)) {
 
-            pstUpdate.setInt(1, userId);
-            pstUpdate.executeUpdate();
+                // Insert into enrollment table
+                pstEnroll.setInt(1, userId);
+                pstEnroll.setInt(2, programId);
+                pstEnroll.executeUpdate();
 
-            conn.commit();
-            utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Enrollment Successful! You are now Enrolled.");
-            utilities.switchScene(getClass(), event, "/prospectus/student/fxml/StudentDashboard.fxml");
+                // Update user role and enrollment status
+                pstUpdate.setInt(1, userId);
+                pstUpdate.executeUpdate();
 
-        } catch (SQLException ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Enrollment failed: " + ex.getMessage());
+                // Insert into students table
+                pstInsertStudent.setInt(1, userId);
+                pstInsertStudent.setString(2, fname);
+                pstInsertStudent.setString(3, mname);
+                pstInsertStudent.setString(4, lname);
+                pstInsertStudent.setDate(5, java.sql.Date.valueOf(birthdate)); // Convert LocalDate to java.sql.Date
+                pstInsertStudent.setString(6, address);
+                pstInsertStudent.setInt(7, year);
+                pstInsertStudent.setInt(8, programId); // Assuming programId corresponds to s_program
+                pstInsertStudent.executeUpdate();
+
+                // Commit the transaction
+                conn.commit();
+                utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Enrollment Successful! You are now Enrolled.");
+                utilities.switchScene(getClass(), event, "/prospectus/student/fxml/StudentDashboard.fxml");
+
+            } catch (SQLException ex) {
+                // Handle the exception and roll back the transaction
+                if (conn != null) {
+                    try {
+                        conn.rollback(); // Roll back the transaction
+                    } catch (SQLException rollbackEx) {
+                        utilities.showAlert(Alert.AlertType.ERROR, "Rollback Error", "Rollback failed: " + rollbackEx.getMessage());
+                    }
+                }
+                utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Enrollment failed: " + ex.getMessage());
+            }
+
+        } catch (SQLException e) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Database Connection Error", "Could not connect to the database: " + e.getMessage());
+        } finally {
+            // Close the connection if it was opened
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException closeEx) {
+                    utilities.showAlert(Alert.AlertType.ERROR, "Connection Close Error", "Could not close the connection: " + closeEx.getMessage());
+                }
+            }
         }
     }
 }

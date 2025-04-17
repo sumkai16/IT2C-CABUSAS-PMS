@@ -38,6 +38,7 @@ public class LoginPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         db = new dbConnector();
+        
     }
 
     @FXML
@@ -45,7 +46,7 @@ public class LoginPageController implements Initializable {
         String username = userF.getText().trim();
         String password = passF.getText().trim();
         String hashedEnteredPassword = passwordHasher.hashPassword(password);
-
+        
         if (username.isEmpty() || password.isEmpty()) {
             utilities.showAlert(Alert.AlertType.ERROR, "Validation Error", "Username and password cannot be empty.");
             return;

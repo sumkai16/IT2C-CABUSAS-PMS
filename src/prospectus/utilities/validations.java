@@ -18,7 +18,7 @@ public class validations {
     private static final String PHONE_NUMBER_REGEX = "^(09\\d{9}|\\+639\\d{9})$";
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile(PHONE_NUMBER_REGEX);
-    
+    private static final  dbConnector db = new dbConnector();
     public static boolean validateInputs(String firstname, String lastname, String email, String contact, String username, String password) {
         if (firstname.isEmpty() ||
                 lastname.isEmpty() ||
@@ -52,7 +52,7 @@ public class validations {
     }
     
     public boolean isDuplicated(String column, String value) throws SQLException {
-        dbConnector db = new dbConnector();
+      
         
         try(ResultSet result = db.getData("SELECT " + column + " FROM user")) {    
             while(result.next()) {
@@ -62,6 +62,22 @@ public class validations {
         }
         return false;
     }
-    
+    public static boolean isStudentEnrolled(String username) {
+        String query = "SELECT enrollment_status FROM user WHERE u_username = ?";
+        try (Connection conn = db.getConnection(); 
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, username);
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                if (resultSet.next()) {
+                    String enrollmentStatus = resultSet.getString("enrollment_status");
+                    return "Enrolled".equalsIgnoreCase(enrollmentStatus); // Adjust based on your actual enrollment status values
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("SQL Exception: " + e.getMessage());
+        }
+        return false;
+    }
     
 }

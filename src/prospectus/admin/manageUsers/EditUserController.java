@@ -39,6 +39,7 @@ import prospectus.models.UserSession;
 import prospectus.utilities.logger;
 import prospectus.utilities.passwordHasher;
 import prospectus.utilities.utilities;
+import prospectus.utilities.validations;
 
 public class EditUserController implements Initializable {
     private dbConnector db;
@@ -159,7 +160,7 @@ public class EditUserController implements Initializable {
         return "src/prospectus/images/users/default-user.png"; 
     }
 
-    @FXML
+   @FXML
     private void editUserButtonHandler(ActionEvent event) {
         if (selectedUsername == null) {
             utilities.showAlert(Alert.AlertType.WARNING, "No user selected!", "Please select a user to update.");
@@ -172,18 +173,25 @@ public class EditUserController implements Initializable {
             return;
         }
 
-        
-        if (photoFilePath == null || photoFilePath.isEmpty()) {
-            photoFilePath = getExistingProfileImage(selectedUsername); 
+        // Check if the role is changed to "Student" and validate enrollment
+        boolean isStudentRole = "Student".equals(selectedRole);
+        boolean isEnrolled = validations.isStudentEnrolled(selectedUsername); // Use the provided method
+
+        if (isStudentRole && !isEnrolled) {
+            utilities.showAlert(Alert.AlertType.WARNING, "Enrollment Check", "The student is not enrolled!");
+            return; // Prevent further execution if the user is not enrolled
         }
 
-        
+        // Existing code for handling photo paths and updating user...
+        if (photoFilePath == null || photoFilePath.isEmpty()) {
+            photoFilePath = getExistingProfileImage(selectedUsername);
+        }
+
         if (photoFilePath == null || photoFilePath.isEmpty()) {
             utilities.showAlert(Alert.AlertType.ERROR, "Error", "Please select a profile photo.");
             return;
         }
 
-        
         String destinationPath = "src/prospectus/images/users/" + new File(photoFilePath).getName();
         try {
             Files.copy(Paths.get(photoFilePath), Paths.get(destinationPath), StandardCopyOption.REPLACE_EXISTING);
@@ -192,9 +200,8 @@ public class EditUserController implements Initializable {
             return;
         }
 
-        
+        // Prepare the update query
         String updateQuery = "UPDATE user SET u_fname = ?, u_mname = ?, u_lname = ?, u_email = ?, u_contact_number = ?, u_username = ?, u_role = ?, u_status = ?, u_image = ? WHERE u_username = ?";
-
         try (PreparedStatement pstmt = db.getConnection().prepareStatement(updateQuery)) {
             pstmt.setString(1, firstnameF.getText().trim());
             pstmt.setString(2, middleF.getText().trim());
@@ -202,17 +209,20 @@ public class EditUserController implements Initializable {
             pstmt.setString(4, emailF.getText().trim());
             pstmt.setString(5, contactF.getText().trim());
             pstmt.setString(6, userFF.getText().trim());
-            pstmt.setString(7, selectedRole);
+
+            // Set the role directly since the validation has already been done
+            pstmt.setString(7, selectedRole); 
+
             pstmt.setString(8, selectedStatus);
-            pstmt.setString(9, destinationPath);  
+            pstmt.setString(9, destinationPath);
             pstmt.setString(10, selectedUsername);
 
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {
-                utilities.showAlert(Alert.AlertType.INFORMATION, "User Updated!", "Profile updated successfully!");
+                utilities.showAlert(Alert.AlertType.INFORMATION, "User  Updated!", "Profile updated successfully!");
                 clearFields();
             } else {
-                utilities.showAlert(Alert.AlertType.ERROR, "Update Failed!", "User update unsuccessful.");
+                utilities.showAlert(Alert.AlertType.ERROR, "Update Failed!", "User  update unsuccessful.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -240,7 +250,7 @@ public class EditUserController implements Initializable {
     @FXML
     private void selectRoleClicked(MouseEvent event) {
         roleSelect.getItems().clear(); 
-        String[] roles = {"User", "Admin"}; 
+        String[] roles = {"User", "Admin", "Student"}; 
     
         for (String role : roles) {
             MenuItem menuItem = new MenuItem(role);
@@ -319,4 +329,7 @@ public class EditUserController implements Initializable {
         profileImage.setImage(null);
         photoFilePath = null;
     }
+    
+    
+    
 }

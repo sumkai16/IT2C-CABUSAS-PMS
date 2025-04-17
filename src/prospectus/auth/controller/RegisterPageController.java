@@ -44,7 +44,7 @@ public class RegisterPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {     
         db = new dbConnector();
-       
+      
       
     }
     validations vd = new validations();
