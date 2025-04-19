@@ -13,7 +13,7 @@
    <children>
       <Pane layoutX="7.0" layoutY="7.0" prefHeight="550.0" prefWidth="715.0" style="-fx-background-color: #FBFCF8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TableView fx:id="tableView" layoutX="23.0" layoutY="136.0" prefHeight="350.0" prefWidth="670.0" stylesheets="@../../../css/usersTable.css">
+            <TableView fx:id="tableView" layoutX="8.0" layoutY="145.0" prefHeight="380.0" prefWidth="700.0" stylesheets="@../../../css/usersTable.css">
                <columns>
                   <TableColumn fx:id="programId" editable="false" prefWidth="43.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="ID" />
                   <TableColumn fx:id="programName" editable="false" prefWidth="216.0" resizable="false" sortable="false" styleClass="\\@admindashboard.css" text="Program Name" />
@@ -25,16 +25,16 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <HBox alignment="CENTER" layoutX="41.0" layoutY="30.0" spacing="10">
+            <HBox alignment="CENTER" layoutX="76.0" layoutY="30.0" spacing="10">
                <children>
-                  <TextField fx:id="searchField" prefWidth="300" promptText="Search Program..." />
-                  <Button onAction="#handleSearch" prefHeight="29.0" text="Search" />
-                  <Button onAction="#handleRefresh" prefHeight="29.0" text="Refresh" />
+                  <TextField fx:id="searchField" prefWidth="394.0" promptText="Search Program..." />
+                  <Button onAction="#handleSearch" prefHeight="29.0" prefWidth="60.0" text="Search" />
                </children>
             </HBox>
-            <Button layoutX="490.0" layoutY="101.0" onMouseClicked="#addProgramsHandler" text="Add Program" />
-            <Button layoutX="596.0" layoutY="101.0" onMouseClicked="#editProgramsHandler" text="Edit Program" />
-            <Label layoutX="41.0" layoutY="528.0" text="Tip: Use search to find programs quickly!" />
+            <Button layoutX="504.0" layoutY="108.0" onMouseClicked="#addProgramsHandler" text="Add Program" />
+            <Button layoutX="610.0" layoutY="108.0" onMouseClicked="#editProgramsHandler" text="Edit Program" />
+            <Label layoutX="41.0" layoutY="525.0" text="Tip: Use search to find programs quickly!" />
+            <Button layoutX="550.0" layoutY="31.0" onAction="#handleRefresh" prefHeight="29.0" prefWidth="60.0" text="Refresh" />
          </children></Pane>
    </children>
 </AnchorPane>

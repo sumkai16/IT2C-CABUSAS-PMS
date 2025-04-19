@@ -1,7 +1,4 @@
-
 package prospectus.models;
-
-
 
 import java.time.LocalDate;
 
@@ -15,9 +12,12 @@ public class Student {
     private String address; 
     private int year; 
     private String program; 
+    private String previousSchool; 
+    private String gender; 
+    private String profileImagePath; 
 
     // Constructor
-    public Student(int id, int userId, String firstName, String middleName, String lastName, LocalDate birthDate, String address, int year, String program) {
+    public Student(int id, int userId, String firstName, String middleName, String lastName, LocalDate birthDate, String address, int year, String program, String previousSchool, String gender, String profileImagePath) {
         this.id = id;
         this.userId = userId;
         this.firstName = firstName;
@@ -27,6 +27,9 @@ public class Student {
         this.address = address;
         this.year = year;
         this.program = program;
+        this.previousSchool = previousSchool; 
+        this.gender = gender; 
+        this.profileImagePath = profileImagePath; 
     }
 
     // Getters and Setters
@@ -39,4 +42,7 @@ public class Student {
     public String getAddress() { return address; }
     public int getYear() { return year; }
     public String getProgram() { return program; }
+    public String getPreviousSchool() { return previousSchool; } 
+    public String getGender() { return gender; } 
+    public String getProfileImagePath() { return profileImagePath; } 
 }

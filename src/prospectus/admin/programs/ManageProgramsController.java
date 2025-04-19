@@ -18,8 +18,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import main.dbConnector;
+import prospectus.admin.manageUsers.EditUserController;
 import prospectus.models.Course;
 import prospectus.models.Programs;
+import prospectus.models.User;
 import prospectus.utilities.utilities;
 
 /**
@@ -137,13 +139,17 @@ public class ManageProgramsController implements Initializable {
 
     @FXML
     private void editProgramsHandler(MouseEvent event) {
+        Programs selectedProgram = tableView.getSelectionModel().getSelectedItem();
+
         if (selectedProgram == null) {
-            utilities.showAlert(Alert.AlertType.WARNING, "Selection Error", "Please select a program to edit.");
+            utilities.showAlert(Alert.AlertType.WARNING, "No program selected!", "Please select a program to edit.");
             return;
         }
 
-        System.out.println("Editing: " + selectedProgram.getProgramName());
-       
+        utilities.loadFXMLWithFadeEdit(rootPane, "/prospectus/admin/programs/editPrograms.fxml", controller -> {
+            EditProgramsController editController = (EditProgramsController) controller;
+            editController.setProgramData(selectedProgram);
+        });
     }
 
     @FXML

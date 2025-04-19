@@ -11,37 +11,33 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.control.DatePicker;
+import javafx.scene.layout.AnchorPane;
 import main.dbConnector;
 import prospectus.models.Student;
+import prospectus.utilities.utilities;
 
 public class ManageStudentsController implements Initializable {
+    
+    @FXML private TableView<Student> tableView;
+    @FXML private TableColumn<Student, Integer> idColumn;
+    @FXML private TableColumn<Student, String> firstNameColumn;
+    @FXML private TableColumn<Student, String> middleNameColumn;
+    @FXML private TableColumn<Student, String> lastNameColumn;
+    @FXML private TableColumn<Student, Integer> yearColumn;
+    @FXML private TableColumn<Student, String> programColumn;
+    @FXML private Label totalStudentsLabel;
+    private ObservableList<Student> studentList = FXCollections.observableArrayList();
+    private dbConnector db;
 
-    @FXML
-    private TableView<Student> tableView;
-    @FXML
-    private TableColumn<Student, Integer> idColumn;
-    @FXML
-    private TableColumn<Student, String> firstNameColumn;
-    @FXML
-    private TableColumn<Student, String> middleNameColumn;
-    @FXML
-    private TableColumn<Student, String> lastNameColumn;
-    @FXML
-    private TableColumn<Student, Integer> yearColumn;
-    @FXML
-    private TableColumn<Student, String> programColumn;
-    @FXML
-    private Label totalStudentsLabel;
-    @FXML
-    private Label withPrereqLabel;
     @FXML
     private TextField searchField;
     @FXML
@@ -51,73 +47,91 @@ public class ManageStudentsController implements Initializable {
     @FXML
     private Button resetFilters;
     @FXML
+    private AnchorPane overlayPane;
+    @FXML
+    private Label withPrereqLabel;
+    @FXML
     private Button resetFilters1;
-    private dbConnector db;
-    private ObservableList<Student> studentList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         db = new dbConnector();
-        idColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
-        firstNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName()));
-        middleNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMiddleName()));
-        lastNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
-        yearColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getYear()).asObject());
-        programColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProgram()));
 
+        // Set cell value factories
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        middleNameColumn.setCellValueFactory(new PropertyValueFactory<>("middleName"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
+        programColumn.setCellValueFactory(new PropertyValueFactory<>("program"));
+
+        // Load student data
         loadStudents();
+
+        // Debugging output
+        for (Student s : studentList) {
+            System.out.println("Student loaded: " + s.getFirstName());
+        }
     }
 
-    private void loadStudents() {
-     String query = "SELECT s.s_id, s.u_id, s.s_fname, s.s_mname, s.s_lname, s.s_bdate, s.s_address, s.s_year, p.p_department " +
-                    "FROM student s " +
-                    "JOIN program p ON s.s_program = p.p_id";  // Adjust the join condition as necessary
+    void loadStudents() {
+        studentList.clear();
 
-     try {
-         ResultSet rs = db.getData(query);
-         if (rs == null) {
-             System.out.println("ResultSet is null. Check database connection.");
-             return;
-         }
+        String query = "SELECT " +
+"                s.s_id, s.u_id, s.s_fname, s.s_mname, s.s_lname, s.s_bdate," +
+"                s.s_address, s.s_year, p.p_department, s.previous_school," +
+"                s.s_sex, s.s_image" +
+"            FROM student s" +
+"            JOIN program p ON s.s_program = p.p_id";
 
-         studentList.clear(); // Clear the existing list before loading new data
+        try (ResultSet rs = db.getData(query)) {
+            while (rs.next()) {
+                Student student = new Student(
+                    rs.getInt("s_id"),
+                    rs.getInt("u_id"),
+                    rs.getString("s_fname"),
+                    rs.getString("s_mname"),
+                    rs.getString("s_lname"),
+                    rs.getDate("s_bdate").toLocalDate(),
+                    rs.getString("s_address"),
+                    rs.getInt("s_year"),
+                    rs.getString("p_department"),
+                    rs.getString("previous_school"),
+                    rs.getString("s_sex"),
+                    rs.getString("s_image")
+                );
+                studentList.add(student);
+            }
 
-         while (rs.next()) {
-             int id = rs.getInt("s_id");
-             int userId = rs.getInt("u_id");
-             String firstName = rs.getString("s_fname");
-             String middleName = rs.getString("s_mname");
-             String lastName = rs.getString("s_lname");
-             LocalDate birthDate = rs.getDate("s_bdate").toLocalDate(); 
-             String address = rs.getString("s_address");
-             int year = rs.getInt("s_year");
-             String department = rs.getString("p_department"); // Get the department name instead of program ID
+            tableView.setItems(studentList);
+            totalStudentsLabel.setText(String.valueOf(studentList.size()));
+            System.out.println("Loaded students: " + studentList.size());
 
-             // Create a new Student object and add it to the list
-             studentList.add(new Student(id, userId, firstName, middleName, lastName, birthDate, address, year, department));
-         }
-
-         tableView.setItems(studentList);
-         totalStudentsLabel.setText("Total Students: " + studentList.size());
-
-     } catch (SQLException e) {
-         e.printStackTrace();
-     }
- }
-
-    @FXML
-    private void addStudentHandler(MouseEvent event) {
-        System.out.println("Add Student clicked");
-        
+        } catch (SQLException e) {
+            e.printStackTrace();
+            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to load students: " + e.getMessage());
+        }
     }
+
+
+
 
     @FXML
     private void editStudentHandler(MouseEvent event) {
         Student selectedStudent = tableView.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
-            System.out.println("Edit Student clicked for: " + selectedStudent.getFirstName());
+            try {
+                utilities.loadFXMLWithFadeEdit(overlayPane, "/prospectus/admin/students/editStudent.fxml", controller -> {
+                    if (controller instanceof EditStudentController) {
+                        EditStudentController editController = (EditStudentController) controller;
+                        editController.setStudentData(selectedStudent, this); // Pass the current instance
+                    }
+                });
+            } catch (Exception ex) {
+                utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open Edit Student page: " + ex.getMessage());
+            }
         } else {
-            System.out.println("No student selected for editing.");
+            utilities.showAlert(Alert.AlertType.WARNING, "No Selection", "Please select a student to edit.");
         }
     }
 
@@ -167,5 +181,14 @@ public class ManageStudentsController implements Initializable {
             }
         }
         tableView.setItems(searchResults);
+    }
+
+    @FXML
+    private void enrollStudentHandler(MouseEvent event) {
+        try {
+            utilities.loadFXMLWithFade(overlayPane, "/prospectus/user/fxml/enrollmentForm.fxml");
+        } catch (Exception ex) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open Enrollment page: " + ex.getMessage());
+        }
     }
 }

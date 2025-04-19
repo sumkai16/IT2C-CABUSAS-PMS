@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,7 +19,7 @@
             
          <children>
             <!-- Header Title -->
-            <Label layoutX="193.0" layoutY="31.0" style="-fx-font-weight: bold; -fx-font-size: 18;" text="Add Course">
+            <Label prefHeight="50.0" prefWidth="477.0" style="-fx-font-weight: bold; -fx-font-size: 18;" styleClass="header" stylesheets="@../students/managestudents.css" text="Add Course">
                <font>
                   <Font name="Cambria Bold" size="20.0" />
                </font>
@@ -71,13 +72,16 @@
                </font>
             </Button>
 
-            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#returnHandler" pickOnBounds="true">
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="10.0" onMouseClicked="#returnHandler" pickOnBounds="true">
                <image>
                   <Image url="@../../images/returnButton.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <effect>
+                  <ColorAdjust brightness="1.0" />
+               </effect>
             </ImageView>
 
          </children>

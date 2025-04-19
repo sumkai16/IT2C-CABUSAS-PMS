@@ -5,3 +5,17 @@
 .mainFxmlClass {
 
 }
+.header{
+    -fx-font-weight: bold;
+    -fx-background-color: #12192C;
+    -fx-font-size: 17;
+    -fx-font-family: Cambria;
+    -fx-label-padding: 15;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER;
+    -fx-background-radius: 0 0 20 20;
+   
+}
+.header-label{
+    
+}

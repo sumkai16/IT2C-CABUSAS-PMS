@@ -91,7 +91,7 @@ public class utilities {
             }
 
             Parent root = currentScene.getRoot();
-            if (!(root instanceof Pane)) {  // Works for VBox, AnchorPane, etc.
+            if (!(root instanceof Pane)) {  
                 System.out.println("Error: Root is not a Pane!");
                 return;
             }
@@ -102,8 +102,8 @@ public class utilities {
                 return;
             }
 
-            Node currentContent = layout.getChildren().get(0); // Get current content
-            layout.getChildren().add(newContent); // Add new content
+            Node currentContent = layout.getChildren().get(0); 
+            layout.getChildren().add(newContent); 
 
             // Set initial opacity to 0 (hidden)
             newContent.setOpacity(0);
@@ -118,7 +118,7 @@ public class utilities {
             fadeIn.setFromValue(0);
             fadeIn.setToValue(1);
 
-            fadeOut.setOnFinished(e -> layout.getChildren().remove(currentContent)); // Remove old content after fade out
+            fadeOut.setOnFinished(e -> layout.getChildren().remove(currentContent)); 
 
             fadeOut.play();
             fadeIn.play();
@@ -132,7 +132,7 @@ public class utilities {
 
 
     public static void animatePaneFadeTransition(Class<?> clazz, Event event, String fxmlPath) {
-        animatePaneTransition(clazz, event, fxmlPath); // Calls the fade animation method
+        animatePaneTransition(clazz, event, fxmlPath); 
     }
 
     
@@ -157,8 +157,8 @@ public class utilities {
     public static void loadFXMLWithFadeEdit(Pane rootPane, String fxmlPath, Consumer<Object> controllerInitializer) {
         try {
             FXMLLoader loader = new FXMLLoader(utilities.class.getResource(fxmlPath));
-            AnchorPane overlay = loader.load(); // ✅ Use AnchorPane like the normal method
-
+            AnchorPane overlay = loader.load(); 
+            
             // Initialize controller if needed
             if (controllerInitializer != null) {
                 controllerInitializer.accept(loader.getController());
@@ -166,7 +166,7 @@ public class utilities {
 
             // Set initial opacity before adding to rootPane
             overlay.setOpacity(0);
-            rootPane.getChildren().add(overlay); // ✅ Add it on top, instead of replacing children
+            rootPane.getChildren().add(overlay); 
 
             // Apply fade-in transition
             FadeTransition fadeIn = new FadeTransition(Duration.millis(300), overlay);
@@ -191,7 +191,7 @@ public class utilities {
 
             // Apply fade transition
             root.setOpacity(0);
-            rootPane.setCenter(root); // Set new FXML page
+            rootPane.setCenter(root); 
 
             FadeTransition fade = new FadeTransition(Duration.millis(300), root);
             fade.setFromValue(0);
@@ -204,7 +204,7 @@ public class utilities {
         }
     }
     public static void closeOverlay(Pane overlay) {
-        if (overlay == null) return; // Prevent null errors
+        if (overlay == null) return; 
 
         FadeTransition fadeOut = new FadeTransition(Duration.millis(300), overlay);
         fadeOut.setFromValue(1);
@@ -216,7 +216,7 @@ public class utilities {
     public static void setupEnterKeyHandler(TextField textField, Runnable action) {
         textField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                action.run(); // Execute the provided action
+                action.run(); 
             }
         });
     }

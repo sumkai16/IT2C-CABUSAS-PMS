@@ -17,7 +17,7 @@ import javafx.scene.control.TableView;
  *
  * @author axcee
  */
-public class ManageProspectusController implements Initializable {
+public class ProspectusController implements Initializable {
 
     @FXML
     private TableView<?> tableView;

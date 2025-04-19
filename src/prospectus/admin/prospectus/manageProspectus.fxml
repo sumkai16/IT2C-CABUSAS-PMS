@@ -1,103 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="795.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="prospectus.admin.prospectus.ManageProspectusController">
-    <stylesheets>
-        <URL value="@manageprospectus.css" />
-    </stylesheets>
-   <children>
-      <ScrollPane layoutX="68.0" layoutY="14.0" prefHeight="400.0" prefWidth="863.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="2000.0" prefWidth="795.0">
-               <children>
-                  <Pane layoutX="-6.0" layoutY="1.0" prefHeight="669.0" prefWidth="795.0" style="-fx-background-color: #FBFCF8;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="1.0">
-                     <children>
-                        <TableView fx:id="tableView" layoutX="39.0" layoutY="292.0" pickOnBounds="false" prefHeight="350.0" prefWidth="717.0" stylesheets="@../../../css/usersTable.css">
-                           <columns>
-                              <TableColumn fx:id="courseID" prefWidth="98.0" text="Course Code" />
-                              <TableColumn fx:id="courseCode" prefWidth="441.0" text="Course Description" />
-                              <TableColumn fx:id="courseDescription" prefWidth="44.0" text="Units" />
-                              <TableColumn fx:id="prerequisite" prefWidth="110.0" text="Prerequisite" />
-                           </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                        <Label layoutX="262.0" layoutY="29.0" text="AXCEE STATE UNIVERSITY">
-                           <font>
-                              <Font name="Times New Roman Bold" size="20.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutX="110.0" layoutY="52.0" prefHeight="20.0" prefWidth="575.0" text="Tunghaan, Minglanilla, 6046" textAlignment="CENTER">
-                           <font>
-                              <Font name="Times New Roman" size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutX="110.0" layoutY="72.0" prefHeight="20.0" prefWidth="575.0" text="Tel (032) 123-4567, www.axcee.edu.ph" textAlignment="CENTER">
-                           <font>
-                              <Font name="Times New Roman" size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutX="110.0" layoutY="138.0" prefHeight="20.0" prefWidth="575.0" text="College of Axcee" textAlignment="CENTER">
-                           <font>
-                              <Font name="Times New Roman" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutX="110.0" layoutY="158.0" prefHeight="20.0" prefWidth="575.0" text="PROSPECTUS" textAlignment="CENTER">
-                           <font>
-                              <Font name="Sitka Text" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutX="111.0" layoutY="180.0" prefHeight="20.0" prefWidth="575.0" text="BACHELOR OF AXCEE CABUSAS (BSAC)" textAlignment="CENTER">
-                           <font>
-                              <Font name="Georgia Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="89.0" layoutY="201.0" prefHeight="22.0" prefWidth="289.0" text="AXC 15, A. 2024" textAlignment="CENTER">
-                           <font>
-                              <Font name="Times New Roman" size="16.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="384.0" layoutY="201.0" prefHeight="22.0" prefWidth="324.0" text="Effective SY. 2025-2026">
-                           <font>
-                              <Font name="Times New Roman Italic" size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutX="254.0" layoutY="224.0" prefHeight="22.0" prefWidth="289.0" text="Resolution No. 1812, S. 2024" textAlignment="CENTER">
-                           <font>
-                              <Font name="Sitka Text" size="16.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="200.0" fitWidth="156.0" layoutX="33.0" layoutY="14.0">
-                           <image>
-                              <Image url="@../../images/Syllabus%20Concordia%20Icon.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="45.0" layoutY="270.0" prefHeight="22.0" prefWidth="238.0" text="FIRST SEMESTER" textAlignment="CENTER">
-                           <font>
-                              <Font name="Constantia Bold" size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="518.0" layoutY="270.0" prefHeight="22.0" prefWidth="238.0" text="FIRST YEAR" textAlignment="CENTER">
-                           <font>
-                              <Font name="Constantia Bold" size="16.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
-   </children>
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.prospectus.ManageProspectusController">
+    
 </AnchorPane>

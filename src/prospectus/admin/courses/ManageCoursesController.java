@@ -33,13 +33,12 @@ public class ManageCoursesController implements Initializable {
     @FXML private TableColumn<Course, Integer> courseUnits;
     @FXML private TableColumn<Course, Integer> prerequisite;
     @FXML private TableColumn<Course, String> program;
-    @FXML private Button deleteSelected;
-    @FXML private Button exportCSV;
-    @FXML private Button assignPrereq;
     
     private ObservableList<Course> courseList;
     private dbConnector db;
     @FXML private AnchorPane rootPane;
+    @FXML
+    private Button searchButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -209,17 +208,14 @@ public class ManageCoursesController implements Initializable {
             utilities.showAlert(Alert.AlertType.ERROR, "Error", "Error filtering courses: " + e.getMessage());
         }
     }
-    @FXML
     private void sortByCourseCodeHandler(MouseEvent event) {
         tableView.getSortOrder().setAll(courseCode);
     }
 
-    @FXML
     private void sortByUnitsHandler(MouseEvent event) {
         tableView.getSortOrder().setAll(courseUnits);
     }
 
-    @FXML
     private void sortByProgramHandler(MouseEvent event) {
         tableView.getSortOrder().setAll(program);
     }
@@ -255,10 +251,6 @@ public class ManageCoursesController implements Initializable {
 //        loadCourses();
     }
 
-    @FXML
-    private void deleteSelectedHandler(MouseEvent event) {
-        // Implementation for deleting selected course
-    }
 
     private ObservableList<Course> searchCourses(ObservableList<Course> courses, String searchText) {
         if (searchText.isEmpty()) {
@@ -273,5 +265,9 @@ public class ManageCoursesController implements Initializable {
             (course.getPrerequisiteCode() != null && course.getPrerequisiteCode().toLowerCase().contains(searchText)) || 
             (course.getProgramDepartment() != null && course.getProgramDepartment().toLowerCase().contains(searchText))
         );
+    }
+
+    @FXML
+    private void searchButtonHandler(MouseEvent event) {
     }
 }

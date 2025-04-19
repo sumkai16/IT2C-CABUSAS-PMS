@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,7 +18,7 @@
     <children>
         <Pane layoutX="78.0" layoutY="74.0" prefHeight="403.0" prefWidth="560" style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-color: black;" styleClass="container" stylesheets="@../../../css/enrollmentForm.css">
             <children>
-                <Label layoutX="233.0" layoutY="14.0" style="-fx-font-size: 18;" styleClass="title" text="Edit Course" />
+                <Label layoutX="1.0" prefHeight="50.0" prefWidth="560.0" style="-fx-font-size: 18;" styleClass="header" stylesheets="@../students/managestudents.css" text="Edit Course" />
                 
                 <GridPane hgap="10" layoutX="86.0" layoutY="60.0" styleClass="form-grid" vgap="10">
                     <columnConstraints>
@@ -25,24 +26,25 @@
                         <ColumnConstraints hgrow="ALWAYS" minWidth="250.0" />
                     </columnConstraints>
                     
-                    <Label text="Course ID:" />
-                    <TextField fx:id="courseIdField" editable="false" prefHeight="30.0" GridPane.columnIndex="1" />
+                    <Label text="Course ID:" GridPane.rowIndex="1" />
+                    <TextField fx:id="courseIdField" editable="false" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     
-                    <Label text="Course Code:" GridPane.rowIndex="1" />
-                    <TextField fx:id="courseCodeField" prefHeight="30.0" promptText="Enter course code" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <Label text="Course Code:" GridPane.rowIndex="2" />
+                    <TextField fx:id="courseCodeField" prefHeight="30.0" promptText="Enter course code" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     
-                    <Label text="Course Description:" GridPane.rowIndex="2" />
-                    <TextField fx:id="courseDescField" prefHeight="30.0" promptText="Enter course description" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <Label text="Course Description:" GridPane.rowIndex="3" />
+                    <TextField fx:id="courseDescField" prefHeight="30.0" promptText="Enter course description" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     
-                    <Label text="Course Units:" GridPane.rowIndex="3" />
-                    <TextField fx:id="courseUnitsField" prefHeight="30.0" promptText="Enter number of units" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <Label text="Course Units:" GridPane.rowIndex="4" />
+                    <TextField fx:id="courseUnitsField" prefHeight="30.0" promptText="Enter number of units" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     
-                    <Label text="Prerequisite:" GridPane.rowIndex="4" />
-                    <ComboBox fx:id="prerequisiteComboBox" onMouseClicked="#selectPrerequisiteHandler" prefHeight="30.0" prefWidth="250.0" promptText="Select prerequisite" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                    <Label text="Prerequisite:" GridPane.rowIndex="5" />
+                    <ComboBox fx:id="prerequisiteComboBox" onMouseClicked="#selectPrerequisiteHandler" prefHeight="30.0" prefWidth="250.0" promptText="Select prerequisite" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                     
-                    <Label text="Program:" GridPane.rowIndex="5" />
-                    <ComboBox fx:id="programComboBox" onMouseClicked="#selectProgramHandler" prefHeight="30.0" prefWidth="250.0" promptText="Select program" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <Label text="Program:" GridPane.rowIndex="6" />
+                    <ComboBox fx:id="programComboBox" onMouseClicked="#selectProgramHandler" prefHeight="30.0" prefWidth="250.0" promptText="Select program" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                <rowConstraints>
+                  <RowConstraints />
                   <RowConstraints />
                   <RowConstraints />
                   <RowConstraints />
@@ -51,14 +53,17 @@
                   <RowConstraints />
                </rowConstraints>
                 </GridPane>
-                 <Button fx:id="updateButton" layoutX="181.0" layoutY="331.0" onMouseClicked="#updateCourseHandler" prefWidth="200.0" styleClass="primary-button" text="Update Course" />
-            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#returnHandler" pickOnBounds="true">
+                 <Button fx:id="updateButton" layoutX="181.0" layoutY="343.0" onMouseClicked="#updateCourseHandler" prefWidth="200.0" styleClass="primary-button" text="Update Course" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="11.0" onMouseClicked="#returnHandler" pickOnBounds="true">
                <image>
                   <Image url="@../../images/returnButton.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <effect>
+                  <ColorAdjust brightness="1.0" />
+               </effect>
             </ImageView>
             </children>
         </Pane>

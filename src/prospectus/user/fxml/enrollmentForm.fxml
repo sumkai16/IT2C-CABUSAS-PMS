@@ -2,77 +2,94 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="overlayPane" prefHeight="600.0" prefWidth="900.0" stylesheets="@../../../css/enrollmentForm.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.user.controller.EnrollmentFormController">
+<AnchorPane fx:id="overlayPane" prefHeight="550.0" prefWidth="715.0" stylesheets="@../../../css/enrollmentForm.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.user.controller.EnrollmentFormController">
     
     <!-- Container -->
-    <Pane fx:id="bgPane" layoutX="192.0" layoutY="47.0" prefHeight="507.0" prefWidth="517.0" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 10; -fx-padding: 20;" styleClass="pane">
+    <Pane fx:id="bgPane" prefHeight="550.0" prefWidth="715.0" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 10; -fx-padding: 20;" styleClass="pane">
         
         <!-- Title -->
-        <Label layoutX="160.0" layoutY="28.0" style="-fx-font-weight: bold; -fx-font-size: 17; -fx-font-family: Cambria;" text="Student Enrollment Form">
+        <Label prefHeight="50.0" prefWidth="715.0" style="-fx-font-weight: bold; -fx-background-color: #12192C; -fx-font-size: 17; -fx-font-family: Cambria; -fx-label-padding: 15; -fx-text-fill: white; -fx-alignment: center; -fx-background-radius: 0 0 20 20;" text="Student Enrollment Form">
          <font>
             <Font name="Cambria Bold" size="14.0" />
          </font></Label>
 
         <!-- First Name -->
-        <Label layoutX="44.0" layoutY="84.0" text="First Name:" />
-        <TextField fx:id="fnameField" layoutX="174.0" layoutY="79.0" prefWidth="300" promptText="Enter first name" />
-
-        <!-- Middle Name -->
-        <Label layoutX="44.0" layoutY="124.0" text="Middle Name:" />
-        <TextField fx:id="mnameField" layoutX="174.0" layoutY="119.0" prefWidth="300" promptText="Enter middle name" />
-
-        <!-- Last Name -->
-        <Label layoutX="44.0" layoutY="164.0" text="Last Name:" />
-        <TextField fx:id="lnameField" layoutX="174.0" layoutY="159.0" prefWidth="300" promptText="Enter last name" />
+        <Label layoutX="40.0" layoutY="106.0" text="Student Name:" />
+        <TextField fx:id="fnameField" layoutX="149.0" layoutY="100.0" prefWidth="180.0" promptText="Enter first name" />
+        <TextField fx:id="mnameField" layoutX="335.0" layoutY="100.0" prefWidth="180.0" promptText="Enter middle name" />
+        <TextField fx:id="lnameField" layoutX="521.0" layoutY="100.0" prefWidth="180.0" promptText="Enter last name" />
+        <DatePicker fx:id="bdateField" layoutX="149.0" layoutY="147.0" prefHeight="45.0" prefWidth="180.0" />
+      <TextField fx:id="addressField" layoutX="146.0" layoutY="208.0" prefWidth="180.0" />
 
         <!-- Birthdate -->
-        <Label layoutX="44.0" layoutY="204.0" text="Birthdate:" />
-        <DatePicker fx:id="bdateField" layoutX="174.0" layoutY="193.0" prefWidth="300" />
-
-        <!-- Gender Selection -->
-        <Label layoutX="44.0" layoutY="244.0" text="Sex:" />
-        <MenuButton fx:id="sexMenu" layoutX="174.0" layoutY="239.0" prefWidth="300" text="Select Gender">
-            <items>
-                
-            </items>
-        </MenuButton>
+        <Label layoutX="40.0" layoutY="160.0" text="Birth Date:" />
+      <HBox layoutX="40.0" layoutY="253.0" style="-fx-spacing: 15;">
+         <children>
+      
+              <!-- Gender Selection -->
+              <Label text="Sex:" />
+            <RadioButton fx:id="maleRbtn" mnemonicParsing="false" text="Male" />
+            <RadioButton fx:id="femaleRbtn" mnemonicParsing="false" text="Female" />
+         </children>
+      </HBox>
 
         <!-- Address -->
-        <Label layoutX="44.0" layoutY="284.0" text="Address:" />
-        <TextArea fx:id="addressField" layoutX="174.0" layoutY="279.0" prefHeight="50" prefWidth="300" promptText="Enter address" />
+        <Label layoutX="40.0" layoutY="214.0" text="Address:" />
 
         <!-- Year Level -->
-        <Label layoutX="44.0" layoutY="344.0" text="Year Level:" />
-        <TextField fx:id="yearField" layoutX="174.0" layoutY="339.0" prefWidth="300" promptText="Enter year level (e.g., 1, 2, 3, 4)" />
+        <Label layoutX="40.0" layoutY="347.0" text="Year Level:" />
+        <TextField fx:id="yearField" layoutX="166.0" layoutY="339.0" prefWidth="200.0" promptText="Enter year level (e.g., 1, 2, 3, 4)" />
 
         <!-- Program Selection -->
-        <Label layoutX="44.0" layoutY="384.0" text="Program:" />
-        <MenuButton fx:id="programMenu" layoutX="174.0" layoutY="379.0" prefWidth="300" text="Select Program">
-            <items>
-                
-            </items>
-        </MenuButton>
-
-        <!-- Submit Button -->
-        <Button fx:id="submitButton" layoutX="170.0" layoutY="451.0" onMouseClicked="#submitEnrollmentHandler" prefHeight="30.0" prefWidth="179.0" text="Submit" />
-      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="20.0" layoutY="23.0" onMouseClicked="#returnHandler" pickOnBounds="true">
+        <Label layoutX="40.0" layoutY="401.0" text="Program:" />
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="13.0" layoutY="10.0" onMouseClicked="#returnHandler" pickOnBounds="true">
          <image>
             <Image url="@../../images/returnButton.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <effect>
+            <ColorAdjust brightness="1.0" />
+         </effect>
       </ImageView>
+      <Label layoutX="21.0" layoutY="64.0" style="-fx-text-fill: #219ebc; -fx-font-size: 18;" text="Student Information" />
+      <ComboBox fx:id="selectProgram" layoutX="166.0" layoutY="392.0" prefHeight="34.0" prefWidth="200.0" promptText="Select Program" />
+      <Label layoutX="21.0" layoutY="304.0" style="-fx-text-fill: #219ebc; -fx-font-size: 18;" text="Academic Information" />
+      <Label layoutX="40.0" layoutY="459.0" text="Previous School:" />
+      <TextField fx:id="prevSchool" layoutX="166.0" layoutY="451.0" prefWidth="200.0" promptText="Enter Previous School" />
+      <Label layoutX="514.0" layoutY="150.0" text="Select Photo (2x2 inches size)" textAlignment="JUSTIFY" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="150.0" layoutX="350.0" layoutY="151.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
+      <Button layoutX="522.0" layoutY="180.0" mnemonicParsing="false" onMouseClicked="#selectProfileHandler" prefHeight="33.0" prefWidth="150.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 4); -fx-cursor: hand; -fx-text-fill: green;" stylesheets="@../../../css/enrollmentForm.css" text="Select">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="522.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#removeProfileHandler" prefHeight="33.0" prefWidth="150.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 4); -fx-text-fill: red; -fx-cursor: hand;" stylesheets="@../../../css/enrollmentForm.css" text="Remove">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="profileImage" fitHeight="150.0" fitWidth="150.0" layoutX="350.0" layoutY="151.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="406.0" layoutY="304.0" style="-fx-text-fill: #219ebc; -fx-font-size: 18;" text="User Information" />
+      <Label layoutX="406.0" layoutY="345.0" text="User ID / Username:" />
+      <TextField fx:id="userIDField" layoutX="551.0" layoutY="339.0" prefWidth="150.0" promptText="Enter User ID" />
+
+        <!-- Submit Button -->
+        <Button fx:id="submitButton" layoutX="258.0" layoutY="505.0" onMouseClicked="#submitEnrollmentHandler" prefHeight="30.0" prefWidth="200.0" text="Submit" />
     </Pane>
 </AnchorPane>
