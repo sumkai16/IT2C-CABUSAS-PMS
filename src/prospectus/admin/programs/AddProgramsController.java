@@ -50,22 +50,29 @@ public class AddProgramsController implements Initializable {
     }    
     
     @FXML
-    private void addProgramHandler(MouseEvent event) {
-        Stage currentStage = (Stage)backgroundPane.getScene().getWindow();
+     private void addProgramHandler(MouseEvent event) {
+        Stage currentStage = (Stage) backgroundPane.getScene().getWindow();
         String programName = programNameF.getText();
         String programDescription = programDescriptionF.getText();
         String programDepartment = programDepartmentF.getText();
         String username = UserSession.getUsername();
-        String query = "INSERT INTO program (p_program_name, p_desc, p_department, p_status)"
-                +  "VALUES ( ?, ?, ?, 'Active')";
-        
-        if(db.insertData(query, programName, programDescription, programDepartment)) {
-                System.out.println("Program added to database!");
-                String usernamelog = UserSession.getUsername(); 
-                logger.addLog(usernamelog, "Program Added", "Admin added a Program " + username);
-                utilities.showAlert(Alert.AlertType.INFORMATION, "Program successfully added!", "Added Completed!");
-                clearFields();
-            } 
+
+        if (programName.isEmpty() || programDescription.isEmpty() || programDepartment.isEmpty()) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Error", "All fields must be filled!");
+            return;
+        }
+
+        String query = "INSERT INTO program (p_program_name, p_desc, p_department, p_status) VALUES (?, ?, ?, 'Active')";
+
+        if (db.insertData(query, programName, programDescription, programDepartment)) {
+            logger.addLog(username, "Program Added", "Admin added a program " + programName);
+
+            utilities.showAlert(Alert.AlertType.INFORMATION, "Program successfully added!", "Added Completed!");
+
+            clearFields();
+        } else {
+            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to add program!");
+        }
     }
 
     @FXML

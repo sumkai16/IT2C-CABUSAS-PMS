@@ -61,3 +61,69 @@
     -fx-text-fill: black;
     -fx-font-weight: bold;
 }
+/* ---------- Buttons ---------- */
+.button {
+    -fx-background-color: #3A86FF;
+    -fx-text-fill: #FBFCF8;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #265DDA;
+    -fx-cursor: hand;
+}
+
+/* ---------- Labels ---------- */
+.label {
+    
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* ---------- TextField ---------- */
+.text-field {
+    -fx-background-color: #FBFCF8;
+    -fx-border-color: #12192C;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.text-field:focused {
+    -fx-border-color: #3A86FF;
+}
+
+/* ---------- ComboBox ---------- */
+.combo-box {
+    -fx-background-color: #FBFCF8;
+    -fx-border-color: #12192C;
+    -fx-border-radius: 5px;
+    -fx-padding: 4px;
+}
+
+.combo-box:focused {
+    -fx-border-color: #3A86FF;
+}
+
+/* ---------- RadioButton ---------- */
+.radio-button {
+    -fx-font-size: 13px;
+    -fx-text-fill: #170101;
+}
+
+/* ---------- ListView ---------- */
+.list-view {
+    -fx-background-color: #FBFCF8;
+    -fx-border-color: #12192C;
+}
+
+/* ---------- Header Label ---------- */
+.header {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+    -fx-alignment: center;
+}

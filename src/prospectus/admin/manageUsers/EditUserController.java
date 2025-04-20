@@ -1,9 +1,7 @@
 package prospectus.admin.manageUsers;
 
-
 import java.io.File;
 import java.io.IOException;
-import prospectus.auth.controller.RegisterPageController;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -26,7 +24,6 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.*;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -72,11 +69,11 @@ public class EditUserController implements Initializable {
     @FXML
     private ImageView profileImage;
     private String photoFilePath;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         db = new dbConnector();
         userList = FXCollections.observableArrayList();     
-        
     }
     
     public void setUserData(User user) {
@@ -108,9 +105,10 @@ public class EditUserController implements Initializable {
 
     // Load user details from the database, including the profile image
     private void loadUserDetails(String username) {
-        String query = "SELECT u_fname, u_mname, u_lname, u_email, u_contact_number, u_username, u_role, u_status, u_profile_img FROM user WHERE u_username = ?";
+        String query = "SELECT u_fname, u_mname, u_lname, u_email, u_contact_number, u_username, u_role, u_status, u_image FROM user WHERE u_username = ?";
 
-        try (PreparedStatement pstmt = db.getConnection().prepareStatement(query)) {
+        try (Connection conn = db.getConnection(); 
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
 
@@ -145,6 +143,7 @@ public class EditUserController implements Initializable {
             e.printStackTrace();
         }
     }
+
     private String getExistingProfileImage(String username) {
         String query = "SELECT u_image FROM user WHERE u_username = ?";
         try (Connection conn = db.getConnection();
@@ -160,7 +159,7 @@ public class EditUserController implements Initializable {
         return "src/prospectus/images/users/default-user.png"; 
     }
 
-   @FXML
+    @FXML
     private void editUserButtonHandler(ActionEvent event) {
         if (selectedUsername == null) {
             utilities.showAlert(Alert.AlertType.WARNING, "No user selected!", "Please select a user to update.");
@@ -200,29 +199,28 @@ public class EditUserController implements Initializable {
             return;
         }
 
-        // Prepare the update query
+        // Prepare the update query using dbConnector's update method
         String updateQuery = "UPDATE user SET u_fname = ?, u_mname = ?, u_lname = ?, u_email = ?, u_contact_number = ?, u_username = ?, u_role = ?, u_status = ?, u_image = ? WHERE u_username = ?";
-        try (PreparedStatement pstmt = db.getConnection().prepareStatement(updateQuery)) {
+        
+        try (Connection conn = db.getConnection(); 
+             PreparedStatement pstmt = conn.prepareStatement(updateQuery)) {
             pstmt.setString(1, firstnameF.getText().trim());
             pstmt.setString(2, middleF.getText().trim());
             pstmt.setString(3, lastnameF.getText().trim());
             pstmt.setString(4, emailF.getText().trim());
             pstmt.setString(5, contactF.getText().trim());
             pstmt.setString(6, userFF.getText().trim());
-
-            // Set the role directly since the validation has already been done
             pstmt.setString(7, selectedRole); 
-
             pstmt.setString(8, selectedStatus);
             pstmt.setString(9, destinationPath);
             pstmt.setString(10, selectedUsername);
 
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {
-                utilities.showAlert(Alert.AlertType.INFORMATION, "User  Updated!", "Profile updated successfully!");
+                utilities.showAlert(Alert.AlertType.INFORMATION, "User Updated!", "Profile updated successfully!");
                 clearFields();
             } else {
-                utilities.showAlert(Alert.AlertType.ERROR, "Update Failed!", "User  update unsuccessful.");
+                utilities.showAlert(Alert.AlertType.ERROR, "Update Failed!", "User update unsuccessful.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -329,7 +327,4 @@ public class EditUserController implements Initializable {
         profileImage.setImage(null);
         photoFilePath = null;
     }
-    
-    
-    
 }

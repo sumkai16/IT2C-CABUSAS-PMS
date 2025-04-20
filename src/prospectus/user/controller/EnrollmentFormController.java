@@ -33,6 +33,9 @@ import javafx.stage.FileChooser;
 import main.dbConnector;
 import prospectus.models.UserSession;
 import prospectus.utilities.utilities;
+import prospectus.utilities.validations;
+
+import static prospectus.utilities.validations.isStudentEnrolledById;
 
 public class EnrollmentFormController implements Initializable {
 
@@ -102,6 +105,11 @@ public class EnrollmentFormController implements Initializable {
             utilities.showAlert(Alert.AlertType.ERROR, "User Not Found", "The provided User ID does not exist.");
             return;
         }
+        if (validations.isStudentEnrolledById(userId)) {
+            utilities.showAlert(Alert.AlertType.WARNING, "Already Enrolled", "This user is already enrolled.");
+            return;
+        }
+
 
         String fname = fnameField.getText();
         String mname = mnameField.getText();

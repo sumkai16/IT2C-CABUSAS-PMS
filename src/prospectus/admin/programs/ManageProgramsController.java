@@ -2,7 +2,6 @@ package prospectus.admin.programs;
 
 import java.net.URL;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,19 +13,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import main.dbConnector;
 import prospectus.admin.manageUsers.EditUserController;
-import prospectus.models.Course;
 import prospectus.models.Programs;
-import prospectus.models.User;
 import prospectus.utilities.utilities;
 
-/**
- * FXML Controller class
- */
 public class ManageProgramsController implements Initializable {
 
     @FXML
@@ -52,15 +45,11 @@ public class ManageProgramsController implements Initializable {
     @FXML
     private TextField searchField;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         db = new dbConnector();
         programsList = FXCollections.observableArrayList();
 
-        // ✅ FIX: PropertyValueFactory should match the exact field names in Programs model
         programId.setCellValueFactory(new PropertyValueFactory<>("id")); 
         programName.setCellValueFactory(new PropertyValueFactory<>("programName"));
         programDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -69,8 +58,8 @@ public class ManageProgramsController implements Initializable {
         tableView.setOnMouseClicked(event -> handleRowSelection());
         loadDataFromDatabase();
         setupSearchListener();
-        
     }
+
     private void setupSearchListener() {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             String searchText = newValue.trim().toLowerCase();
@@ -78,9 +67,10 @@ public class ManageProgramsController implements Initializable {
             tableView.setItems(filteredList);
         });
     }
+
     private ObservableList<Programs> searchPrograms(ObservableList<Programs> programs, String searchText) {
         if (searchText.isEmpty()) {
-            return programs; // Return the full list if the search text is empty
+            return programs; 
         }
 
         return programs.filtered(program -> 
@@ -91,6 +81,7 @@ public class ManageProgramsController implements Initializable {
             (program.getStatus() != null && program.getStatus().toLowerCase().contains(searchText))
         );
     }
+
     private void handleRowSelection() {
         selectedProgram = tableView.getSelectionModel().getSelectedItem();
         if (selectedProgram != null) {
@@ -117,13 +108,13 @@ public class ManageProgramsController implements Initializable {
                 String department = rs.getString("p_department");
                 String status = rs.getString("p_status");
 
-               
                 programsList.add(new Programs(id, programName, description, department, status));
             }
 
             tableView.setItems(programsList);
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Error fetching program data: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -158,5 +149,6 @@ public class ManageProgramsController implements Initializable {
 
     @FXML
     private void handleRefresh(ActionEvent event) {
+        loadDataFromDatabase(); 
     }
 }

@@ -48,7 +48,7 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     private void prospectusOnClick(MouseEvent event) {
-        loadPage("/prospectus/admin/fxml/prospectus.fxml");
+        loadPage("/prospectus/admin/prospectus/manageProspectus.fxml");
     }
 
     @FXML

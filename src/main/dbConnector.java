@@ -25,7 +25,7 @@ public class dbConnector {
     }
 
     // Ensure the connection is always open before using it
-    private void ensureConnection() throws SQLException {
+    public void ensureConnection() throws SQLException {
         if (connect == null || connect.isClosed()) {
             connect = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         }

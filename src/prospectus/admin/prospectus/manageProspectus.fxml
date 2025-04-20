@@ -1,11 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.prospectus.ManageProspectusController">
-    
+<AnchorPane id="AnchorPane" fx:id="overlayPane" prefHeight="550.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.prospectus.ManageProspectusController">
+   <children>
+      <Pane layoutX="10.0" layoutY="10.0" prefHeight="550.0" prefWidth="715.0" style="-fx-background-color: #FBFCF8;" stylesheets="@../courses/managecourses.css">
+         <children>
+            <TableView fx:id="tableView" layoutX="2.0" layoutY="150.0" prefHeight="380.0" prefWidth="700.0" stylesheets="@../../../css/usersTable.css">
+               <columns>
+                  <TableColumn fx:id="idColumn" prefWidth="90.0" text="ID" />
+                  <TableColumn fx:id="programColumn" prefWidth="127.0" text="Program" />
+                  <TableColumn fx:id="effectiveYear" prefWidth="124.0" text="Effective Year" />
+                  <TableColumn fx:id="status" prefWidth="124.0" text="Status" />
+                  <TableColumn fx:id="createdBy" prefWidth="95.0" text="Created By" />
+                  <TableColumn fx:id="createdAt" prefWidth="123.0" text="Created" />
+               </columns>
+            </TableView>
+            <HBox layoutX="482.0" layoutY="108.0" style="-fx-spacing: 10;">
+               <children>
+                  <Button fx:id="addProspectus" onMouseClicked="#addProspectus" prefHeight="30.0" prefWidth="100.0" style="-fx-font-size: 12;" text="Add Prospectus" />
+                  <Button fx:id="editProspectus" onMouseClicked="#editProspectus" prefHeight="30.0" prefWidth="100.0" style="-fx-font-size: 12;" text="Edit Prospectus" />
+               </children>
+            </HBox>
+            <HBox layoutX="27.0" layoutY="123.0" spacing="20">
+               <children>
+                  <Label text="📄 Total Prospectus: " />
+                  <Label fx:id="totalProspectusLabel" text="0" />
+               </children>
+            </HBox>
+            <HBox layoutX="27.0" layoutY="34.0" style="-fx-spacing: 15;">
+               <children>
+                  <TextField fx:id="searchField" prefHeight="32.0" prefWidth="410.0" promptText="Search Student..." />
+                  <Button fx:id="searchButton" onMouseClicked="#searchHandler" prefHeight="25.0" prefWidth="85.0" text="Search" />
+                  <Button fx:id="refreshButton" onMouseClicked="#refreshHandler" prefWidth="85.0" text="Refresh" />
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>

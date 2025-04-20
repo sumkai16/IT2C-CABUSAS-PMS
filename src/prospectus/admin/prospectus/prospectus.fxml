@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="795.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="prospectus.admin.prospectus.ProspectusController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="795.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.prospectus.ProspectusController">
     <stylesheets>
         <URL value="@manageprospectus.css" />
     </stylesheets>
@@ -20,7 +20,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="2000.0" prefWidth="795.0">
                <children>
-                  <Pane layoutX="-6.0" layoutY="1.0" prefHeight="669.0" prefWidth="795.0" style="-fx-background-color: #FBFCF8;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="1.0">
+                  <Pane layoutY="-452.0" prefHeight="669.0" prefWidth="795.0" style="-fx-background-color: #FBFCF8;" AnchorPane.bottomAnchor="452.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-452.0">
                      <children>
                         <TableView fx:id="tableView" layoutX="39.0" layoutY="292.0" pickOnBounds="false" prefHeight="350.0" prefWidth="717.0" stylesheets="@../../../css/usersTable.css">
                            <columns>

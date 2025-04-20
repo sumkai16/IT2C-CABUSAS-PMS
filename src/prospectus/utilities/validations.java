@@ -79,5 +79,22 @@ public class validations {
         }
         return false;
     }
-    
+    public static boolean isStudentEnrolledById(int userId) {
+    String query = "SELECT u_username FROM user WHERE u_id = ?";
+    try (Connection conn = db.getConnection(); 
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+        pstmt.setInt(1, userId);
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            String username = rs.getString("u_username");
+            return isStudentEnrolled(username); // reuse the existing method
+        }
+    } catch (SQLException e) {
+        System.err.println("SQL Exception: " + e.getMessage());
+    }
+    return false;
+}
+
 }
