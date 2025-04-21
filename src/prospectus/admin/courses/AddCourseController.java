@@ -38,8 +38,6 @@ public class AddCourseController implements Initializable {
     @FXML
     private ComboBox<Course> prerequisiteComboBox; // Now handles Course objects
     @FXML
-    private ComboBox<Programs> programComboBox;
-    @FXML
     private Button addCourseButton;
 
     private Connection conn;
@@ -58,8 +56,7 @@ public class AddCourseController implements Initializable {
         try (PreparedStatement pst = conn.prepareStatement(query);
              ResultSet rs = pst.executeQuery()) {
             while (rs.next()) {
-                prerequisiteList.add(new Course(rs.getInt("c_id"), rs.getString("c_code"), "", 0, null, 0));
-            }
+                prerequisiteList.add(new Course(rs.getInt("c_id"), rs.getString("c_code"), "", 0, null));            }
             prerequisiteComboBox.setItems(prerequisiteList);
         } catch (SQLException e) {
             utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to load prerequisites.");
@@ -76,7 +73,6 @@ public class AddCourseController implements Initializable {
             while (rs.next()) {
                 programList.add(new Programs(rs.getInt("p_id"), rs.getString("p_department"), "", "", ""));
             }
-            programComboBox.setItems(programList);
         } catch (SQLException e) {
             utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to load programs.");
         }
@@ -86,7 +82,7 @@ public class AddCourseController implements Initializable {
 
     @FXML
     private void addCourseHandler(ActionEvent event) {
-        if (courseCodeField.getText().isEmpty() || courseDescField.getText().isEmpty() || courseUnitsField.getText().isEmpty() || programComboBox.getValue() == null) {
+        if (courseCodeField.getText().isEmpty() || courseDescField.getText().isEmpty() || courseUnitsField.getText().isEmpty()) {
             utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Please fill in all fields.");
             return;
         }
@@ -103,14 +99,13 @@ public class AddCourseController implements Initializable {
         Course prerequisite = prerequisiteComboBox.getValue();
         int prerequisiteId = (prerequisite != null) ? prerequisite.getC_id() : 0;
 
-        String query = "INSERT INTO course (c_code, c_desc, c_units, prerequisite_id, program_id) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO course (c_code, c_desc, c_units, prerequisite_id) VALUES (?, ?, ?, ?)"; // Removed program_id
 
         try (PreparedStatement pst = conn.prepareStatement(query)) {
             pst.setString(1, courseCodeField.getText());
             pst.setString(2, courseDescField.getText());
             pst.setInt(3, courseUnits);
             pst.setObject(4, prerequisiteId == 0 ? null : prerequisiteId);
-            pst.setInt(5, programComboBox.getValue().getId());
 
             if (pst.executeUpdate() > 0) {
                 utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Course added successfully!");
@@ -131,6 +126,5 @@ public class AddCourseController implements Initializable {
         courseDescField.clear();
         courseUnitsField.clear();
         prerequisiteComboBox.getSelectionModel().clearSelection();
-        programComboBox.getSelectionModel().clearSelection();
     }
 }

@@ -41,7 +41,6 @@
                         <TableColumn fx:id="courseDescription" text="Description" />
                         <TableColumn fx:id="courseUnits" text="Units" />
                         <TableColumn fx:id="prerequisite" text="Prerequisite" />
-                        <TableColumn fx:id="program" text="Program" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

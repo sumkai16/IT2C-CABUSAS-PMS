@@ -11,17 +11,19 @@ public class Prospectus {
     private String prEffectiveYear;
     private String status;
     private String createdBy;
-    private String createdAt;
+    private String yearLevel; // New field
+    private String semester; // New field
 
     // Constructor
-    public Prospectus(int prId, String program, String course, String prEffectiveYear, String status, String createdBy, String createdAt) {
+    public Prospectus(int prId, String program, String course, String prEffectiveYear, String status, String createdBy, String yearLevel, String semester) {
         this.prId = prId;
         this.program = program;
         this.course = course;
         this.prEffectiveYear = prEffectiveYear;
         this.status = status;
         this.createdBy = createdBy;
-        this.createdAt = createdAt;
+        this.yearLevel = yearLevel; // Initialize new field
+        this.semester = semester; // Initialize new field
     }
 
     // Getters and Setters
@@ -73,11 +75,19 @@ public class Prospectus {
         this.createdBy = createdBy;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public String getYearLevel() { // New getter
+        return yearLevel;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setYearLevel(String yearLevel) { // New setter
+        this.yearLevel = yearLevel;
+    }
+
+    public String getSemester() { // New getter
+        return semester;
+    }
+
+    public void setSemester(String semester) { // New setter
+        this.semester = semester;
     }
 }

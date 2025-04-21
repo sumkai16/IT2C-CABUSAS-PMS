@@ -1,26 +1,21 @@
 package prospectus.models;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 public class Course {
     private int c_id;
     private String c_code;
     private String c_desc;
     private int c_units;
     private Integer prerequisite_id; // Can be null
-    private int program_id;
-    private String programDepartment; // Added field for program department name
-    private String prerequisiteCode; // New field for prerequisite course code
+    private String programDepartment; // Field for program department name
+    private String prerequisiteCode; // Field for prerequisite course code
 
     // Constructor
-    public Course(int c_id, String c_code, String c_desc, int c_units, Integer prerequisite_id, int program_id) {
+    public Course(int c_id, String c_code, String c_desc, int c_units, Integer prerequisite_id) {
         this.c_id = c_id;
         this.c_code = c_code;
         this.c_desc = c_desc;
         this.c_units = c_units;
         this.prerequisite_id = prerequisite_id;
-        this.program_id = program_id;
         this.programDepartment = ""; // Default empty string
         this.prerequisiteCode = ""; // Default empty string
     }
@@ -66,19 +61,11 @@ public class Course {
         this.prerequisite_id = prerequisite_id;
     }
 
-    public int getProgram_id() {
-        return program_id;
-    }
-
-    public void setProgram_id(int program_id) {
-        this.program_id = program_id;
-    }
-    
-    // New getter and setter for program department
+    // Getter and setter for program department
     public String getProgramDepartment() {
         return programDepartment;
     }
-    
+
     public void setProgramDepartment(String programDepartment) {
         this.programDepartment = programDepartment;
     }
@@ -87,6 +74,7 @@ public class Course {
     public String toString() {
         return c_code + " - " + c_desc;
     }
+
     public String getPrerequisiteCode() {
         return (prerequisiteCode == null || prerequisiteCode.isEmpty()) ? "None" : prerequisiteCode;
     }
@@ -94,7 +82,4 @@ public class Course {
     public void setPrerequisiteCode(String prerequisiteCode) {
         this.prerequisiteCode = prerequisiteCode;
     }
-
-    
 }
-

@@ -16,7 +16,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="overlayPane" prefHeight="550.0" prefWidth="715.0" style="-fx-background-color: rgba(0, 0, 0, 0.5);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.courses.EditCourseController">
     <children>
-        <Pane layoutX="78.0" layoutY="74.0" prefHeight="403.0" prefWidth="560" style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-color: black;" styleClass="container" stylesheets="@../../../css/enrollmentForm.css">
+        <Pane layoutX="78.0" layoutY="74.0" prefHeight="374.0" prefWidth="560" style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-color: black;" styleClass="container" stylesheets="@../../../css/enrollmentForm.css">
             <children>
                 <Label layoutX="1.0" prefHeight="50.0" prefWidth="560.0" style="-fx-font-size: 18;" styleClass="header" stylesheets="@../students/managestudents.css" text="Edit Course" />
                 
@@ -40,9 +40,6 @@
                     
                     <Label text="Prerequisite:" GridPane.rowIndex="5" />
                     <ComboBox fx:id="prerequisiteComboBox" onMouseClicked="#selectPrerequisiteHandler" prefHeight="30.0" prefWidth="250.0" promptText="Select prerequisite" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                    
-                    <Label text="Program:" GridPane.rowIndex="6" />
-                    <ComboBox fx:id="programComboBox" onMouseClicked="#selectProgramHandler" prefHeight="30.0" prefWidth="250.0" promptText="Select program" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                <rowConstraints>
                   <RowConstraints />
                   <RowConstraints />
@@ -53,7 +50,7 @@
                   <RowConstraints />
                </rowConstraints>
                 </GridPane>
-                 <Button fx:id="updateButton" layoutX="181.0" layoutY="343.0" onMouseClicked="#updateCourseHandler" prefWidth="200.0" styleClass="primary-button" text="Update Course" />
+                 <Button fx:id="updateButton" layoutX="180.0" layoutY="311.0" onMouseClicked="#updateCourseHandler" prefWidth="200.0" styleClass="primary-button" text="Update Course" />
             <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="11.0" onMouseClicked="#returnHandler" pickOnBounds="true">
                <image>
                   <Image url="@../../images/returnButton.png" />

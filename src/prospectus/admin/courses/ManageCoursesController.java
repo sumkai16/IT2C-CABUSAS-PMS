@@ -32,7 +32,6 @@ public class ManageCoursesController implements Initializable {
     @FXML private TableColumn<Course, String> courseDescription;
     @FXML private TableColumn<Course, Integer> courseUnits;
     @FXML private TableColumn<Course, Integer> prerequisite;
-    @FXML private TableColumn<Course, String> program;
     
     private ObservableList<Course> courseList;
     private dbConnector db;
@@ -75,8 +74,8 @@ public class ManageCoursesController implements Initializable {
             String searchText = newValue.trim().toLowerCase();
             ObservableList<Course> filteredList = searchCourses(courseList, searchText);
             tableView.setItems(filteredList);
-        });
-    }
+        }); 
+   }
 
     private void setupTableColumns() {
         courseID.setCellValueFactory(new PropertyValueFactory<>("c_id"));
@@ -84,14 +83,12 @@ public class ManageCoursesController implements Initializable {
         courseDescription.setCellValueFactory(new PropertyValueFactory<>("c_desc"));
         courseUnits.setCellValueFactory(new PropertyValueFactory<>("c_units"));
         prerequisite.setCellValueFactory(new PropertyValueFactory<>("prerequisiteCode"));
-        program.setCellValueFactory(new PropertyValueFactory<>("programDepartment"));
+       ;
     }
 
     private void loadCourses() {
-        String query = "SELECT c.*, p.p_department AS program_department, " +
-                       "prereq.c_code AS prerequisite_code " +
+        String query = "SELECT c.*, prereq.c_code AS prerequisite_code " +
                        "FROM course c " +
-                       "LEFT JOIN program p ON c.program_id = p.p_id " +
                        "LEFT JOIN course prereq ON c.prerequisite_id = prereq.c_id";
 
         try (ResultSet resultSet = db.getData(query)) {
@@ -101,11 +98,9 @@ public class ManageCoursesController implements Initializable {
                         resultSet.getString("c_code"),
                         resultSet.getString("c_desc"),
                         resultSet.getInt("c_units"),
-                        resultSet.getInt("prerequisite_id"),
-                        resultSet.getInt("program_id")
+                        resultSet.getInt("prerequisite_id")
                 );
 
-                course.setProgramDepartment(resultSet.getString("program_department"));
                 String prerequisiteCode = resultSet.getString("prerequisite_code");
                 course.setPrerequisiteCode(prerequisiteCode != null ? prerequisiteCode : ""); // Set to empty string if null
 
@@ -123,7 +118,7 @@ public class ManageCoursesController implements Initializable {
         ObservableList<String> units = FXCollections.observableArrayList();
         
         try {
-            ResultSet resultSet = db.getData("SELECT DISTINCT p.p_department FROM program p JOIN course c ON p.p_id = c.program_id");
+            ResultSet resultSet = db.getData("SELECT DISTINCT p.p_department FROM program p ");
             while (resultSet.next()) {
                 programs.add(resultSet.getString("p_department"));
             }
@@ -192,8 +187,8 @@ public class ManageCoursesController implements Initializable {
                         resultSet.getString("c_code"),
                         resultSet.getString("c_desc"),
                         resultSet.getInt("c_units"),
-                        resultSet.getInt("prerequisite_id"),
-                        resultSet.getInt("program_id")
+                        resultSet.getInt("prerequisite_id")
+                       
                 );
 
                 course.setProgramDepartment(resultSet.getString("program_department"));
@@ -216,9 +211,7 @@ public class ManageCoursesController implements Initializable {
         tableView.getSortOrder().setAll(courseUnits);
     }
 
-    private void sortByProgramHandler(MouseEvent event) {
-        tableView.getSortOrder().setAll(program);
-    }
+   
 
     @FXML
     private void addCourseHandler(MouseEvent event) {

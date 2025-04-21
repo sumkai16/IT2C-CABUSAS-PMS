@@ -41,8 +41,8 @@ public class ManageProspectusController implements Initializable {
     @FXML private TableColumn<Prospectus, String> programColumn;
     @FXML private TableColumn<Prospectus, String> effectiveYear;
     @FXML private TableColumn<Prospectus, String> status;
-    @FXML private TableColumn<Prospectus, String> createdBy; 
-    @FXML private TableColumn<Prospectus, String> createdAt;
+    
+   
 
     @FXML
     private Button addProspectus;
@@ -59,6 +59,10 @@ public class ManageProspectusController implements Initializable {
     private AnchorPane overlayPane;
     @FXML
     private Label totalProspectusLabel;
+   
+    @FXML private TableColumn<Prospectus, String> semesterColumn; // Add this line
+    @FXML
+    private TableColumn<Prospectus, String> yearLevel;
 
     /**
      * Initializes the controller class.
@@ -69,20 +73,20 @@ public class ManageProspectusController implements Initializable {
         programColumn.setCellValueFactory(new PropertyValueFactory<>("program"));
         effectiveYear.setCellValueFactory(new PropertyValueFactory<>("prEffectiveYear"));
         status.setCellValueFactory(new PropertyValueFactory<>("status"));
-        createdBy.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
-        createdAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+        yearLevel.setCellValueFactory(new PropertyValueFactory<>("yearLevel"));
+        semesterColumn.setCellValueFactory(new PropertyValueFactory<>("semester"));
         loadProspectusData();
 
 
     }    
-    private void loadProspectusData() {
+   private void loadProspectusData() {
         ObservableList<Prospectus> data = FXCollections.observableArrayList();
 
-        String query = "SELECT p.pr_id, prog.p_program_name, c.c_code, p.pr_effective_year, p.status, u.u_username, p.created_at " +
+        String query = "SELECT p.pr_id, prog.p_program_name, c.c_code, p.pr_effective_year, p.status, u.u_username, p.year_level, p.semester " +
                        "FROM prospectus p " +
                        "JOIN program prog ON p.program_id = prog.p_id " +
-                       "JOIN course c ON p.course_id = c.c_id " +  // <-- Added space at the end
-                       "JOIN user u ON p.created_by = u.u_id";     // <-- This now starts cleanly
+                       "JOIN course c ON p.course_id = c.c_id " +
+                       "JOIN user u ON p.created_by = u.u_id"; // Ensure there's a space before FROM
 
         try (PreparedStatement stmt = db.getConnection().prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
@@ -95,7 +99,9 @@ public class ManageProspectusController implements Initializable {
                     rs.getString("pr_effective_year"),
                     rs.getString("status"),
                     rs.getString("u_username"),
-                    rs.getString("created_at")
+                    rs.getString("year_level"),
+                    rs.getString("semester")
+                        
                 ));
             }
 
@@ -103,6 +109,7 @@ public class ManageProspectusController implements Initializable {
             totalProspectusLabel.setText(String.valueOf(data.size()));
         } catch (SQLException e) {
             e.printStackTrace();
+            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to load prospectus data.");
         }
     }
     @FXML

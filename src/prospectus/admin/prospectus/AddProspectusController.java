@@ -5,11 +5,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import java.sql.Connection;
@@ -19,32 +15,47 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import main.dbConnector;
+import prospectus.models.UserSession;
 import prospectus.utilities.utilities;
 
 public class AddProspectusController implements Initializable {
 
     @FXML
     private Pane backgroundPane;
+
     @FXML
     private ComboBox<String> selectProgramComboBox;
-    @FXML
-    private ListView<String> courseAddedList;
-    @FXML
-    private ComboBox<String> selectCoursesComboBox;
-    @FXML
-    private RadioButton active;
-    @FXML
-    private RadioButton inactive;
-    @FXML
-    private RadioButton archive;
+
     @FXML
     private TextField effectiveYearField;
-    @FXML
-    private TextField createdByField;
 
-    ObservableList<String> programList = FXCollections.observableArrayList();
-    ObservableList<String> courseList = FXCollections.observableArrayList();
-    ObservableList<String> selectedCourses = FXCollections.observableArrayList();
+    @FXML
+    private ComboBox<String> selectYearLevelComboBox;
+
+    @FXML
+    private ComboBox<String> selectSemesterComboBox;
+
+    @FXML
+    private TableView<Course> courseTableView;
+
+    @FXML
+    private TextField displayCourseInfoHere;
+  
+
+    
+    @FXML
+    private ComboBox<String> selectCoursesCodeComboBox;
+
+    @FXML
+    private TableColumn<Course, String> courseCodeColumn; // Specify the type for better type safety
+    @FXML
+    private TableColumn<Course, String> courseTitleColumn;
+    @FXML
+    private TableColumn<Course, Integer> unitsColumn;
+
+    private ObservableList<String> programList = FXCollections.observableArrayList();
+    private ObservableList<String> courseList = FXCollections.observableArrayList();
+    private ObservableList<Course> selectedCourses = FXCollections.observableArrayList();
 
     private dbConnector db = new dbConnector();
 
@@ -52,7 +63,9 @@ public class AddProspectusController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         loadPrograms();
         loadCourses();
-        courseAddedList.setItems(selectedCourses);
+        loadYearLevels();
+        loadSemesters();  
+        selectCoursesCodeComboBox.setItems(courseList);
     }
 
     private void loadPrograms() {
@@ -69,87 +82,115 @@ public class AddProspectusController implements Initializable {
 
     private void loadCourses() {
         try (Connection conn = db.getConnection();
-             ResultSet rs = conn.createStatement().executeQuery("SELECT c_code FROM course")) {
+             ResultSet rs = conn.createStatement().executeQuery("SELECT c_code, c_desc FROM course")) {
             while (rs.next()) {
-                courseList.add(rs.getString("c_code"));
+                String courseCode = rs.getString("c_code");
+                courseList.add(courseCode);
             }
-            selectCoursesComboBox.setItems(courseList);
         } catch (SQLException e) {
             utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to load courses.");
         }
     }
 
-    @FXML
+    private void loadYearLevels() {
+        ObservableList<String> yearLevels = FXCollections.observableArrayList("1st Year", "2nd Year", "3rd Year", "4th Year");
+        selectYearLevelComboBox.setItems(yearLevels);
+    }
+
+    private void loadSemesters() {
+        ObservableList<String> semesters = FXCollections.observableArrayList("1st Semester", "2nd Semester");
+        selectSemesterComboBox.setItems(semesters);
+    }
+
+
+   @FXML
     private void addCourseHandler(MouseEvent event) {
-        String course = selectCoursesComboBox.getValue();
-        if (course != null && !selectedCourses.contains(course)) {
-            selectedCourses.add(course);
+        String courseCode = selectCoursesCodeComboBox.getValue();
+
+        if (courseCode != null) {
+            // Find the course in the selectedCourses list to get the units
+            Course selectedCourse = null;
+            for (Course course : selectedCourses) {
+                if (course.getCode().equals(courseCode)) {
+                    selectedCourse = course;
+                    break;
+                }
+            }
+
+            if (selectedCourse != null) {
+                // Use the units from the selected course
+                int units = selectedCourse.getUnits();
+                Course courseToAdd = new Course(courseCode, displayCourseInfoHere.getText(), units);
+                selectedCourses.add(courseToAdd);
+                courseTableView.getItems().add(courseToAdd);
+                clearCourseSelection(); // Clear selection after adding
+                System.out.println("Course added!");
+            } else {
+                utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Selected course not found in the list.");
+            }
+        } else {
+            utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Please select a course.");
         }
     }
 
+    private void clearCourseSelection() {
+        selectCoursesCodeComboBox.getSelectionModel().clearSelection();
+        displayCourseInfoHere.clear();
+      
+    }
+
     @FXML
-    private void returnHandler(MouseEvent event) {
-        // Add your navigation logic here (e.g., return to previous page)
+    private void removeSelectedHandler(MouseEvent event) {
+        Course selectedCourse = courseTableView.getSelectionModel().getSelectedItem();
+        if (selectedCourse != null) {
+            selectedCourses.remove(selectedCourse);
+            courseTableView.getItems().remove(selectedCourse);
+        }
     }
 
     @FXML
     private void addProspectusHandler(MouseEvent event) {
-        // Check for null or invalid input before proceeding
-        if (selectProgramComboBox == null || selectProgramComboBox.getValue() == null) {
+        String program = selectProgramComboBox.getValue();
+        if (program == null) {
             utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Program selection is required.");
             return;
         }
 
-        String program = selectProgramComboBox.getValue();
         String year = effectiveYearField.getText().trim();
-
-        // Ensure effective year is not empty
-        if (year.isEmpty()) {
-            utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Effective Year is required.");
+        if (!year.matches("\\d{4} - \\d{4}")) {
+            utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Effective Year must be in the format 'YYYY - YYYY'.");
             return;
         }
 
-        String status = active.isSelected() ? "Active" :
-                        inactive.isSelected() ? "Inactive" :
-                        archive.isSelected() ? "Archive" : "";
-
-        if (status.isEmpty()) {
-            utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Status must be selected.");
+        // Assuming you have ComboBoxes or TextFields for year level and semester
+        String yearLevel = selectYearLevelComboBox.getValue(); // Replace with your actual UI component
+        if (yearLevel == null) {
+            utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Year Level selection is required.");
             return;
         }
 
-        String createdByText = createdByField.getText().trim();
-
-        // Validate createdByField
-        if (createdByText.isEmpty()) {
-            utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Created By is required.");
+        String semester = selectSemesterComboBox.getValue(); // Replace with your actual UI component
+        if (semester == null) {
+            utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Semester selection is required.");
             return;
         }
 
-        // Convert createdByText to integer, ensure it's valid
-        int createdBy;
-        try {
-            createdBy = Integer.parseInt(createdByText);
-        } catch (NumberFormatException e) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Input Error", "Created By must be a valid number.");
+        if (selectedCourses.isEmpty()) {
+            utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Please add at least one course.");
             return;
         }
 
-        // Validate selected courses
-        if (selectedCourses == null || selectedCourses.isEmpty()) {
-            utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Please fill all fields and add at least one course.");
-            return;
-        }
+        // Assuming you have a method to get the current user's ID
+        int currentUserId = UserSession.getUserId(); // Implement this method to retrieve the current user's ID
 
-        // Proceed with database insertions
-        for (String course : selectedCourses) {
-            String insertQuery = "INSERT INTO prospectus (program_id, course_id, pr_effective_year, status, created_by, created_at, updated_at) " +
+        for (Course course : selectedCourses) {
+            String insertQuery = "INSERT INTO prospectus (program_id, course_id, pr_effective_year, status, created_by, year_level, semester) " +
                                  "VALUES ((SELECT p_id FROM program WHERE p_program_name = ?), " +
-                                 "(SELECT c_id FROM course WHERE c_code = ?), ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+                                 "(SELECT c_id FROM course WHERE c_code = ?), ?, ?, ?, ?, ?)";
 
-            boolean success = db.insertData(insertQuery, program, course, year, status, createdBy);
+            boolean success = db.insertData(insertQuery, program, course.getCode(), year, "Active", currentUserId, yearLevel, semester);
             if (!success) {
-                utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to add course: " + course);
+                utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to add course: " + course.getCode());
                 return;
             }
         }
@@ -158,15 +199,67 @@ public class AddProspectusController implements Initializable {
         clearFields();
     }
 
-    private void clearFields(){
+    private void clearFields() {
         selectedCourses.clear();
-        courseAddedList.setItems(selectedCourses);
+        courseTableView.getItems().clear();
         effectiveYearField.clear();
-        createdByField.clear();
         selectProgramComboBox.getSelectionModel().clearSelection();
-        selectCoursesComboBox.getSelectionModel().clearSelection();
-        active.setSelected(false);
-        inactive.setSelected(false);
-        archive.setSelected(false);
+        selectCoursesCodeComboBox.getSelectionModel().clearSelection();
+        displayCourseInfoHere.clear();
+       
+    }
+
+    @FXML
+    private void returnHandler(MouseEvent event) {
+        // Implement return logic if needed
+    }
+
+    @FXML
+    private void onCourseSelection(ActionEvent event) {
+        String selectedCourseCode = selectCoursesCodeComboBox.getValue();
+        if (selectedCourseCode != null) {
+            try (Connection conn = db.getConnection();
+                 ResultSet rs = conn.createStatement().executeQuery("SELECT c_desc, c_units FROM course WHERE c_code = '" + selectedCourseCode + "'")) {
+                if (rs.next()) {
+                    String courseTitle = rs.getString("c_desc");
+                    int units = rs.getInt("c_units"); // Retrieve units as an integer
+                    // Set the TextField with formatted string
+                    displayCourseInfoHere.setText("Course: " + courseTitle + " | Units: " + String.valueOf(units));
+
+                    // Create a Course object and add it to selectedCourses
+                    Course course = new Course(selectedCourseCode, courseTitle, units);
+                    // Check if the course is already in the list to avoid duplicates
+                    if (!selectedCourses.contains(course)) {
+                        selectedCourses.add(course); // Add the course to the list
+                    }
+                }
+            } catch (SQLException e) {
+                utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to retrieve course info.");
+            }
+        }
+    }
+
+    public class Course {
+        private String code;
+        private String info;
+        private int units;
+
+        public Course(String code, String info, int units) {
+            this.code = code;
+            this.info = info;
+            this.units = units;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+
+        public int getUnits() {
+            return units;
+        }
     }
 }

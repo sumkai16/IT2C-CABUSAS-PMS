@@ -37,7 +37,6 @@ public class EditCourseController implements Initializable {
     private TextField courseUnitsField;
     @FXML
     private ComboBox<String> prerequisiteComboBox;
-    @FXML
     private ComboBox<String> programComboBox;
     @FXML
     private AnchorPane overlayPane;
@@ -127,11 +126,10 @@ public class EditCourseController implements Initializable {
             return;
         }
 
-        String query = "SELECT c.*, p.p_department, pre.c_code as prereq_code " +
-                      "FROM course c " +
-                      "LEFT JOIN program p ON c.program_id = p.p_id " +  
-                      "LEFT JOIN course pre ON c.prerequisite_id = pre.c_id " +
-                      "WHERE c.c_code = ?";
+        String query = "SELECT c.*, pre.c_code as prereq_code " +
+                       "FROM course c " +
+                       "LEFT JOIN course pre ON c.prerequisite_id = pre.c_id " +
+                       "WHERE c.c_code = ?";
 
         try (PreparedStatement pstmt = db.getConnection().prepareStatement(query)) {
             pstmt.setString(1, courseCode);
@@ -151,9 +149,6 @@ public class EditCourseController implements Initializable {
                     prerequisiteComboBox.setValue(prereqCode);
                 }
 
-                String programName = rs.getString("p_department");
-                programComboBox.setValue(programName);
-
                 System.out.println("Course details loaded successfully for: " + courseCode);
             } else {
                 System.out.println("No course found with code: " + courseCode);
@@ -163,15 +158,13 @@ public class EditCourseController implements Initializable {
             utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Error loading course details.");
         }
     }
-    
-    
+
     @FXML
     private void updateCourseHandler(MouseEvent event) {
         String courseCode = courseCodeField.getText().trim();
         String courseDesc = courseDescField.getText().trim();
         int courseUnits;
         Integer prerequisiteId; // Changed from int to Integer to allow NULL
-        int programId;
 
         try {
             courseUnits = Integer.parseInt(courseUnitsField.getText().trim());
@@ -180,7 +173,7 @@ public class EditCourseController implements Initializable {
                 return;
             }
         } catch (NumberFormatException e) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Invalid Input", "Course units must be a number.");
+            utilities.showAlert(Alert.AlertType.ERROR, " Invalid Input", "Course units must be a number.");
             return;
         }
 
@@ -189,28 +182,15 @@ public class EditCourseController implements Initializable {
             utilities.showAlert(Alert.AlertType.ERROR, "Invalid Input", "Prerequisite must be selected.");
             return;
         }
-        
+
         // Set prerequisiteId to NULL if "None" is selected
         prerequisiteId = "None".equals(prereqValue) ? null : prereqMap.get(prereqValue);
-        
-        String programValue = programComboBox.getValue();
-        if (programValue == null) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Invalid Input", "Program must be selected.");
-            return;
-        }
-        
-        Integer progId = programMap.get(programValue);
-        if (progId == null) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Invalid Input", "Selected program is not valid.");
-            return;
-        }
-        programId = progId;
 
         if (courseCode.isEmpty() || courseDesc.isEmpty()) {
             utilities.showAlert(Alert.AlertType.WARNING, "Missing Information", "Please fill in all required fields.");
             return;
         }
-        
+
         if (prerequisiteId != null && prerequisiteId == selectedCourseId) {
             utilities.showAlert(Alert.AlertType.ERROR, "Invalid Prerequisite", 
                           "A course cannot be a prerequisite for itself.");
@@ -218,8 +198,8 @@ public class EditCourseController implements Initializable {
         }
 
         // Update the query to handle NULL prerequisite
-        String query = "UPDATE course SET c_code = ?, c_desc = ?, c_units = ?, prerequisite_id = ?, program_id = ? WHERE c_id = ?";
-        boolean success = db.updateData(query, courseCode, courseDesc, courseUnits, prerequisiteId, programId, selectedCourseId);
+        String query = "UPDATE course SET c_code = ?, c_desc = ?, c_units = ?, prerequisite_id = ? WHERE c_id = ?";
+        boolean success = db.updateData(query, courseCode, courseDesc, courseUnits, prerequisiteId, selectedCourseId);
 
         if (success) {
             utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Course updated successfully.");
@@ -242,9 +222,5 @@ public class EditCourseController implements Initializable {
     }
 
    
-    @FXML
-    private void selectProgramHandler(MouseEvent event) {
-       
-    }
 }
 
