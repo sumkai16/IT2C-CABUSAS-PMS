@@ -1,0 +1,137 @@
+/*
+ * Simple and Clean TableView Styling
+ */
+
+.root {
+    -fx-background-color: white;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Table View */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 1px;
+}
+
+/* Column Header */
+.table-view .column-header-background {
+    -fx-background-color: #12192C;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-padding: 10px 5px;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 0 1px 0 0;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+/* Table Cells */
+.table-cell {
+    -fx-padding: 8px;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 0 1px 1px 0;
+    -fx-alignment: CENTER-LEFT;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f8f9fa;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #e6e6e6;
+    -fx-text-fill: #12192C;
+}
+
+/* Course Code Column */
+#courseID {
+    -fx-alignment: CENTER;
+}
+
+/* Units Column */
+#units {
+    -fx-alignment: CENTER;
+}
+
+/* Prerequisite Column */
+#prerequisite {
+    -fx-alignment: CENTER;
+}
+
+/* Labels */
+.label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #12192C;
+}
+
+/* Total Units Label */
+.units-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #12192C;
+}
+
+/* Tab Pane */
+.tab-pane {
+    -fx-background-color: white;
+}
+
+.tab {
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 8px 15px;
+}
+
+.tab:selected {
+    -fx-background-color: #12192C;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.tab-label {
+    -fx-text-fill: #12192C;
+    -fx-font-size: 12px;
+}
+
+/* Scroll Bar - Simple Design */
+.scroll-bar:horizontal,
+.scroll-bar:vertical {
+    -fx-background-color: #f0f0f0;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #12192C;
+}
+
+/* Headers */
+#program, #effectiveYear {
+    -fx-font-size: 12px;
+   
+    -fx-text-fill: #12192C;
+    -fx-padding: 5px;
+}
+
+/* Total Units Section */
+.total-units {
+    -fx-padding: 8px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #12192C;
+}
+

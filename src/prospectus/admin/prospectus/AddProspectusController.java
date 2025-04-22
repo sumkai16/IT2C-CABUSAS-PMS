@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
@@ -148,7 +149,7 @@ public class AddProspectusController implements Initializable {
         }
     }
 
-    @FXML
+  @FXML
     private void addProspectusHandler(MouseEvent event) {
         String program = selectProgramComboBox.getValue();
         if (program == null) {
@@ -157,19 +158,18 @@ public class AddProspectusController implements Initializable {
         }
 
         String year = effectiveYearField.getText().trim();
-        if (!year.matches("\\d{4} - \\d{4}")) {
-            utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Effective Year must be in the format 'YYYY - YYYY'.");
+        if (!year.matches("\\d{4}[- ]\\d{4}")) { // Accepts "2023-2024" or "2023 - 2024"
+            utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Effective Year must be in the format 'YYYY-YYYY' or 'YYYY - YYYY'.");
             return;
         }
 
-        // Assuming you have ComboBoxes or TextFields for year level and semester
-        String yearLevel = selectYearLevelComboBox.getValue(); // Replace with your actual UI component
+        String yearLevel = selectYearLevelComboBox.getValue();
         if (yearLevel == null) {
             utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Year Level selection is required.");
             return;
         }
 
-        String semester = selectSemesterComboBox.getValue(); // Replace with your actual UI component
+        String semester = selectSemesterComboBox.getValue();
         if (semester == null) {
             utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Semester selection is required.");
             return;
@@ -180,23 +180,45 @@ public class AddProspectusController implements Initializable {
             return;
         }
 
-        // Assuming you have a method to get the current user's ID
-        int currentUserId = UserSession.getUserId(); // Implement this method to retrieve the current user's ID
+        int currentUserId = UserSession.getUserId(); // Get the current user's ID
 
-        for (Course course : selectedCourses) {
-            String insertQuery = "INSERT INTO prospectus (program_id, course_id, pr_effective_year, status, created_by, year_level, semester) " +
-                                 "VALUES ((SELECT p_id FROM program WHERE p_program_name = ?), " +
-                                 "(SELECT c_id FROM course WHERE c_code = ?), ?, ?, ?, ?, ?)";
+        // Step 1: Insert into the prospectus table
+        String insertProspectusQuery = "INSERT INTO prospectus (program_id, pr_effective_year, status, created_by) " +
+                                        "VALUES ((SELECT p_id FROM program WHERE p_program_name = ?), ?, 'Active', ?)";
 
-            boolean success = db.insertData(insertQuery, program, course.getCode(), year, "Active", currentUserId, yearLevel, semester);
-            if (!success) {
-                utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to add course: " + course.getCode());
-                return;
+        try (Connection conn = db.getConnection();
+             PreparedStatement pst = conn.prepareStatement(insertProspectusQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+            pst.setString(1, program);
+            pst.setString(2, year);
+            pst.setInt(3, currentUserId); // Set the created_by value
+            pst.executeUpdate();
+
+            // Get the generated pr_id
+            ResultSet generatedKeys = pst.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int prId = generatedKeys.getInt(1); // Get the generated pr_id
+
+                // Step 2: Insert into the prospectus_details table
+                String insertDetailsQuery = "INSERT INTO prospectus_details (pr_id, course_id, year_level, semester) " +
+                                             "VALUES (?, (SELECT c_id FROM course WHERE c_code = ?), ?, ?)";
+                try (PreparedStatement detailsPst = conn.prepareStatement(insertDetailsQuery)) {
+                    for (Course course : selectedCourses) {
+                        detailsPst.setInt(1, prId); // Set the pr_id
+                        detailsPst.setString(2, course.getCode()); // Set the course code
+                        detailsPst.setString(3, yearLevel); // Set the year level
+                        detailsPst.setString(4, semester); 
+                        detailsPst.addBatch(); // Add to batch
+                    }
+                    detailsPst.executeBatch(); // Execute batch insert for details
+                }
+
+                utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Prospectus added successfully!");
+                clearFields(); // Clear fields after successful insertion
             }
+        } catch (SQLException e) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to add prospectus: " + e.getMessage());
         }
-
-        utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Prospectus added successfully!");
-        clearFields();
     }
 
     private void clearFields() {

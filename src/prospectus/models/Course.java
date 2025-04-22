@@ -20,6 +20,8 @@ public class Course {
         this.prerequisiteCode = ""; // Default empty string
     }
 
+   
+
     // Getters and Setters
     public int getC_id() {
         return c_id;

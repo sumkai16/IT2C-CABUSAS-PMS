@@ -20,6 +20,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javax.swing.text.Utilities;
 
 /**
  * Utility class for JavaFX scene management and animations.
@@ -177,6 +179,46 @@ public class utilities {
         } catch (IOException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load page: " + e.getMessage());
+        }
+    }
+    @FunctionalInterface
+    public interface FXMLControllerConsumer{
+        void accept(Object controller);
+    }
+    public static void loadFXMLWithFadeView(Pane overlayPane, String fxmlPath, FXMLControllerConsumer controllerConsumer) {
+        try {
+            // Load the FXML file
+            FXMLLoader loader = new FXMLLoader(Utilities.class.getResource(fxmlPath));
+            Parent newRoot = loader.load();
+
+            // Get the controller
+            Object controller = loader.getController();
+
+            // Apply the controller consumer if provided
+            if (controllerConsumer != null) {
+                controllerConsumer.accept(controller);
+            }
+
+            // Create a fade transition for the overlayPane
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(300), overlayPane);
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+            fadeOut.setOnFinished(event -> {
+                // Set the new scene after fade out
+                overlayPane.getChildren().setAll(newRoot);
+                
+                // Create a fade-in transition for the overlayPane
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(300), overlayPane);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+
+            // Start the fade-out transition
+            fadeOut.play();
+        } catch (Exception ex) {
+            ex.printStackTrace(); // Log the exception
+            // Optionally, show an alert for the error
         }
     }
     public static void loadPageWithFade(BorderPane rootPane, String fxmlPath, Consumer<Object> controllerInitializer) {

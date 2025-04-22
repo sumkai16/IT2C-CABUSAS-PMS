@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javax.swing.text.Utilities;
 import main.dbConnector;
 import prospectus.models.Prospectus;
 import prospectus.utilities.utilities;
@@ -42,8 +43,6 @@ public class ManageProspectusController implements Initializable {
     @FXML private TableColumn<Prospectus, String> effectiveYear;
     @FXML private TableColumn<Prospectus, String> status;
     
-   
-
     @FXML
     private Button addProspectus;
     @FXML
@@ -69,42 +68,45 @@ public class ManageProspectusController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Set up the columns in the table
         idColumn.setCellValueFactory(new PropertyValueFactory<>("prId"));
-        programColumn.setCellValueFactory(new PropertyValueFactory<>("program"));
+        programColumn.setCellValueFactory(new PropertyValueFactory<>("pDepartment")); // Changed from PDepartment to pDepartment
         effectiveYear.setCellValueFactory(new PropertyValueFactory<>("prEffectiveYear"));
         status.setCellValueFactory(new PropertyValueFactory<>("status"));
         yearLevel.setCellValueFactory(new PropertyValueFactory<>("yearLevel"));
         semesterColumn.setCellValueFactory(new PropertyValueFactory<>("semester"));
+
+        // Load the prospectus data into the table
         loadProspectusData();
+    }
 
-
-    }    
-   private void loadProspectusData() {
+    private void loadProspectusData() {
         ObservableList<Prospectus> data = FXCollections.observableArrayList();
 
-        String query = "SELECT p.pr_id, prog.p_program_name, c.c_code, p.pr_effective_year, p.status, u.u_username, p.year_level, p.semester " +
+        // SQL query to fetch distinct prospectus entries
+        String query = "SELECT p.pr_id, prog.p_department, p.pr_effective_year, p.status, " +
+                       "pd.year_level, pd.semester " +
                        "FROM prospectus p " +
                        "JOIN program prog ON p.program_id = prog.p_id " +
-                       "JOIN course c ON p.course_id = c.c_id " +
-                       "JOIN user u ON p.created_by = u.u_id"; // Ensure there's a space before FROM
+                       "JOIN prospectus_details pd ON p.pr_id = pd.pr_id " +
+                       "GROUP BY p.pr_id, prog.p_department, p.pr_effective_year, p.status, pd.year_level, pd.semester";
 
         try (PreparedStatement stmt = db.getConnection().prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
+            // Populate the ObservableList with Prospectus objects
             while (rs.next()) {
                 data.add(new Prospectus(
                     rs.getInt("pr_id"),
-                    rs.getString("p_program_name"),
-                    rs.getString("c_code"),
+                    rs.getString("p_department"), // Department name
                     rs.getString("pr_effective_year"),
                     rs.getString("status"),
-                    rs.getString("u_username"),
                     rs.getString("year_level"),
                     rs.getString("semester")
-                        
                 ));
             }
 
+            // Set the items in the table view
             tableView.setItems(data);
             totalProspectusLabel.setText(String.valueOf(data.size()));
         } catch (SQLException e) {
@@ -127,10 +129,37 @@ public class ManageProspectusController implements Initializable {
 
     @FXML
     private void editProspectus(MouseEvent event) {
+//        Prospectus selectedProspectus = getSelectedProspectus(); // Implement this method to get the selected prospectus
+//        if (selectedProspectus != null) {
+//            EditProspectusController controller = new EditProspectusController();
+//            controller.setProspectus(selectedProspectus);
+//            utilities.loadFXMLWithController("/prospectus/admin/prospectus/editProspectus.fxml", controller);
+//        } else {
+//            utilities.showAlert(Alert.AlertType.WARNING, "Warning", "No prospectus selected.");
+//        }
     }
 
     @FXML
     private void refreshHandler(MouseEvent event) {
+    }
+
+    @FXML
+    private void viewProspectus(MouseEvent event) {
+          Prospectus selectedProspectus = tableView.getSelectionModel().getSelectedItem();
+            if (selectedProspectus != null) {
+                try {
+                    utilities.loadFXMLWithFadeView(overlayPane, "/prospectus/admin/prospectus/viewProspectus.fxml", controller -> {
+                        if (controller instanceof ViewProspectusController) {
+                            ViewProspectusController viewController = (ViewProspectusController) controller;
+                            viewController.setProspectus(selectedProspectus); // Pass the selected prospectus
+                        }
+                    });
+                } catch (Exception ex) {
+                    utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open View Prospectus page: " + ex.getMessage());
+                }
+            } else {
+                utilities.showAlert(Alert.AlertType.WARNING, "No Selection", "Please select a prospectus to view.");
+            }
     }
     
 }

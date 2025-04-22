@@ -23,10 +23,11 @@
                   <TableColumn fx:id="semesterColumn" prefWidth="100.0" text="Semester" />
                </columns>
             </TableView>
-            <HBox layoutX="482.0" layoutY="108.0" style="-fx-spacing: 10;">
+            <HBox layoutX="363.0" layoutY="108.0" style="-fx-spacing: 10;">
                <children>
                   <Button fx:id="addProspectus" onMouseClicked="#addProspectus" prefHeight="30.0" prefWidth="100.0" style="-fx-font-size: 12;" text="Add Prospectus" />
                   <Button fx:id="editProspectus" onMouseClicked="#editProspectus" prefHeight="30.0" prefWidth="100.0" style="-fx-font-size: 12;" text="Edit Prospectus" />
+                  <Button onMouseClicked="#viewProspectus" prefHeight="30.0" prefWidth="106.0" style="-fx-font-size: 12;" text="View Prospectus" />
                </children>
             </HBox>
             <HBox layoutX="27.0" layoutY="123.0" spacing="20">

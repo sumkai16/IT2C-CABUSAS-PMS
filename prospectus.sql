@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2025 at 05:36 PM
+-- Generation Time: Apr 22, 2025 at 06:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -526,7 +526,61 @@ INSERT INTO `logs` (`log_id`, `user_id`, `action`, `description`, `date_time`) V
 (427, 20251001, 'Login', 'User logged in: axcee', '2025-04-21 15:22:40'),
 (428, 20251001, 'Login', 'User logged in: axcee', '2025-04-21 15:23:30'),
 (429, 20251001, 'Login', 'User logged in: axcee', '2025-04-21 15:24:01'),
-(430, 20251001, 'Login', 'User logged in: axcee', '2025-04-21 15:26:39');
+(430, 20251001, 'Login', 'User logged in: axcee', '2025-04-21 15:26:39'),
+(431, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 11:28:38'),
+(432, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 11:47:08'),
+(433, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 11:48:05'),
+(434, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 11:51:10'),
+(435, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 11:54:12'),
+(436, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 11:55:15'),
+(437, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 12:18:24'),
+(438, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 12:24:47'),
+(439, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 12:26:21'),
+(440, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 12:26:50'),
+(441, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 12:36:41'),
+(442, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 12:37:33'),
+(443, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 12:38:08'),
+(444, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 12:50:38'),
+(445, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 12:52:44'),
+(446, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 14:05:28'),
+(447, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:02:24'),
+(448, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:06:20'),
+(449, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:06:41'),
+(450, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:08:56'),
+(451, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:14:14'),
+(452, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:16:59'),
+(453, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:26:06'),
+(454, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:28:15'),
+(455, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:31:36'),
+(456, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:36:31'),
+(457, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:38:17'),
+(458, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:39:30'),
+(459, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:41:35'),
+(460, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:42:32'),
+(461, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:44:34'),
+(462, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:47:15'),
+(463, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:49:48'),
+(464, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:51:18'),
+(465, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:53:40'),
+(466, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:54:22'),
+(467, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 15:57:33'),
+(468, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:00:07'),
+(469, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:02:27'),
+(470, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:05:43'),
+(471, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:06:28'),
+(472, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:09:01'),
+(473, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:11:46'),
+(474, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:12:14'),
+(475, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:15:20'),
+(476, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:16:29'),
+(477, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:16:56'),
+(478, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:19:19'),
+(479, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:21:38'),
+(480, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:24:04'),
+(481, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:25:37'),
+(482, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:26:28'),
+(483, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:28:35'),
+(484, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:30:47');
 
 -- --------------------------------------------------------
 
@@ -561,43 +615,51 @@ INSERT INTO `program` (`p_id`, `p_program_name`, `p_desc`, `p_department`, `p_st
 CREATE TABLE `prospectus` (
   `pr_id` int(11) NOT NULL,
   `program_id` int(11) NOT NULL,
-  `course_id` int(11) NOT NULL,
-  `year_level` varchar(225) DEFAULT NULL,
-  `semester` varchar(225) DEFAULT NULL,
   `pr_effective_year` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
-  `created_by` int(11) NOT NULL
+  `created_by` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `prospectus`
 --
 
-INSERT INTO `prospectus` (`pr_id`, `program_id`, `course_id`, `year_level`, `semester`, `pr_effective_year`, `status`, `created_by`) VALUES
-(6, 1, 3, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(7, 1, 3, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(8, 1, 4, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(9, 1, 4, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(10, 1, 5, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(11, 1, 5, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(12, 1, 6, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(13, 1, 6, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(14, 1, 7, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(15, 1, 7, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(16, 1, 8, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(17, 1, 8, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(18, 1, 9, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(19, 1, 9, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(20, 1, 10, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(21, 1, 10, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(22, 1, 11, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(23, 1, 11, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(24, 1, 12, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(25, 1, 12, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(26, 1, 13, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(27, 1, 13, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(28, 1, 14, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001),
-(29, 1, 14, '1st Year', '1st Semester', '2023 - 2024', 'Active', 20251001);
+INSERT INTO `prospectus` (`pr_id`, `program_id`, `pr_effective_year`, `status`, `created_by`, `created_at`, `updated_at`) VALUES
+(2, 1, '2023-2024', 'Active', 20251001, '2025-04-22 12:18:53', '2025-04-22 12:18:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `prospectus_details`
+--
+
+CREATE TABLE `prospectus_details` (
+  `pd_id` int(11) NOT NULL,
+  `pr_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `year_level` varchar(225) DEFAULT NULL,
+  `semester` varchar(225) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `prospectus_details`
+--
+
+INSERT INTO `prospectus_details` (`pd_id`, `pr_id`, `course_id`, `year_level`, `semester`) VALUES
+(2, 2, 3, '1st Year', '1st Semester'),
+(4, 2, 4, '1st Year', '1st Semester'),
+(6, 2, 5, '1st Year', '1st Semester'),
+(8, 2, 6, '1st Year', '1st Semester'),
+(10, 2, 7, '1st Year', '1st Semester'),
+(12, 2, 8, '1st Year', '1st Semester'),
+(14, 2, 9, '1st Year', '1st Semester'),
+(16, 2, 10, '1st Year', '1st Semester'),
+(18, 2, 11, '1st Year', '1st Semester'),
+(20, 2, 12, '1st Year', '1st Semester'),
+(22, 2, 13, '1st Year', '1st Semester'),
+(24, 2, 14, '1st Year', '1st Semester');
 
 -- --------------------------------------------------------
 
@@ -699,8 +761,15 @@ ALTER TABLE `program`
 ALTER TABLE `prospectus`
   ADD PRIMARY KEY (`pr_id`),
   ADD KEY `program_id` (`program_id`),
-  ADD KEY `course_id` (`course_id`) USING BTREE,
   ADD KEY `created_by` (`created_by`);
+
+--
+-- Indexes for table `prospectus_details`
+--
+ALTER TABLE `prospectus_details`
+  ADD PRIMARY KEY (`pd_id`),
+  ADD KEY `pr_id` (`pr_id`),
+  ADD KEY `course_id` (`course_id`);
 
 --
 -- Indexes for table `student`
@@ -736,7 +805,7 @@ ALTER TABLE `enrollment`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=431;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=485;
 
 --
 -- AUTO_INCREMENT for table `program`
@@ -748,7 +817,13 @@ ALTER TABLE `program`
 -- AUTO_INCREMENT for table `prospectus`
 --
 ALTER TABLE `prospectus`
-  MODIFY `pr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `pr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `prospectus_details`
+--
+ALTER TABLE `prospectus_details`
+  MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `student`
@@ -789,9 +864,14 @@ ALTER TABLE `logs`
 -- Constraints for table `prospectus`
 --
 ALTER TABLE `prospectus`
-  ADD CONSTRAINT `prospectus_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`c_id`),
-  ADD CONSTRAINT `prospectus_ibfk_2` FOREIGN KEY (`program_id`) REFERENCES `program` (`p_id`),
-  ADD CONSTRAINT `prospectus_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `user` (`u_id`);
+  ADD CONSTRAINT `prospectus_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `program` (`p_id`),
+  ADD CONSTRAINT `prospectus_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`u_id`);
+
+--
+-- Constraints for table `prospectus_details`
+--
+ALTER TABLE `prospectus_details`
+  ADD CONSTRAINT `prospectus_details_ibfk_1` FOREIGN KEY (`pr_id`) REFERENCES `prospectus` (`pr_id`);
 
 --
 -- Constraints for table `student`
