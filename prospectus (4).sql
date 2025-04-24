@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2025 at 04:29 PM
+-- Generation Time: Apr 24, 2025 at 06:25 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -691,7 +691,54 @@ INSERT INTO `logs` (`log_id`, `user_id`, `action`, `description`, `date_time`) V
 (545, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 13:44:09'),
 (546, 20251001, 'Logout', 'Admin logged out: axcee', '2025-04-24 14:20:09'),
 (547, 20251017, 'Login', 'User logged in: rashed', '2025-04-24 14:20:14'),
-(548, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 14:27:02');
+(548, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 14:27:02'),
+(549, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 14:42:16'),
+(550, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 14:44:38'),
+(551, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 14:45:44'),
+(552, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 14:48:57'),
+(553, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 14:52:25'),
+(554, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 14:55:13'),
+(555, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 14:58:43'),
+(556, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:01:17'),
+(557, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:04:23'),
+(558, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:05:26'),
+(559, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:06:07'),
+(560, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:09:05'),
+(561, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:11:43'),
+(562, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:12:22'),
+(563, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:14:35'),
+(564, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:23:24'),
+(565, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:28:13'),
+(566, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:29:18'),
+(567, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:36:50'),
+(568, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:39:21'),
+(569, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:40:38'),
+(570, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:42:33'),
+(571, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:44:17'),
+(572, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:46:40'),
+(573, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:48:26'),
+(574, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:49:26'),
+(575, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:50:48'),
+(576, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:53:28'),
+(577, 20251017, 'Login', 'User logged in: rashed', '2025-04-24 15:54:13'),
+(578, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:55:04'),
+(579, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:55:25'),
+(580, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:57:27'),
+(581, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:57:42'),
+(582, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 15:59:50'),
+(583, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 16:02:36'),
+(584, 20251001, 'Logout', 'Admin logged out: axcee', '2025-04-24 16:02:48'),
+(585, 20251017, 'Login', 'User logged in: rashed', '2025-04-24 16:02:56'),
+(586, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 16:14:11'),
+(587, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 16:14:45'),
+(588, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 16:15:57'),
+(589, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 16:18:34'),
+(590, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 16:19:35'),
+(591, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 16:19:57'),
+(592, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 16:22:00'),
+(593, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 16:22:53'),
+(594, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 16:23:55'),
+(595, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 16:25:27');
 
 -- --------------------------------------------------------
 
@@ -824,17 +871,6 @@ INSERT INTO `prospectus_details` (`pd_id`, `pr_id`, `course_id`, `year_level`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `prospectus_final`
---
-
-CREATE TABLE `prospectus_final` (
-  `pf_id` int(11) NOT NULL,
-  `prospectus_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `student`
 --
 
@@ -942,13 +978,6 @@ ALTER TABLE `prospectus_details`
   ADD KEY `course_id` (`course_id`);
 
 --
--- Indexes for table `prospectus_final`
---
-ALTER TABLE `prospectus_final`
-  ADD PRIMARY KEY (`pf_id`),
-  ADD KEY `prospectus_id` (`prospectus_id`);
-
---
 -- Indexes for table `student`
 --
 ALTER TABLE `student`
@@ -982,7 +1011,7 @@ ALTER TABLE `enrollment`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=549;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=596;
 
 --
 -- AUTO_INCREMENT for table `program`
@@ -1001,12 +1030,6 @@ ALTER TABLE `prospectus`
 --
 ALTER TABLE `prospectus_details`
   MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
-
---
--- AUTO_INCREMENT for table `prospectus_final`
---
-ALTER TABLE `prospectus_final`
-  MODIFY `pf_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `student`
@@ -1047,20 +1070,14 @@ ALTER TABLE `logs`
 -- Constraints for table `prospectus`
 --
 ALTER TABLE `prospectus`
-  ADD CONSTRAINT `prospectus_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `program` (`p_id`),
-  ADD CONSTRAINT `prospectus_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`u_id`);
+  ADD CONSTRAINT `prospectus_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`u_id`),
+  ADD CONSTRAINT `prospectus_ibfk_3` FOREIGN KEY (`program_id`) REFERENCES `program` (`p_id`);
 
 --
 -- Constraints for table `prospectus_details`
 --
 ALTER TABLE `prospectus_details`
   ADD CONSTRAINT `prospectus_details_ibfk_1` FOREIGN KEY (`pr_id`) REFERENCES `prospectus` (`pr_id`);
-
---
--- Constraints for table `prospectus_final`
---
-ALTER TABLE `prospectus_final`
-  ADD CONSTRAINT `prospectus_final_ibfk_1` FOREIGN KEY (`prospectus_id`) REFERENCES `prospectus` (`pr_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `student`
