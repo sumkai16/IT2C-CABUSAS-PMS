@@ -6,20 +6,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="550.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.controller.HomeDashboardController">
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="550.0" prefWidth="715.0" stylesheets="@../../student/styles/studentDashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.controller.HomeDashboardController">
    <children>
-      <Pane prefHeight="550.0" prefWidth="715.0" styleClass="container" stylesheets="@../../../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane prefHeight="550.0" prefWidth="715.0" styleClass="container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Pane layoutX="14.0" layoutY="41.0" prefHeight="100.0" prefWidth="220.0" styleClass="secontainer" stylesheets="@../../../css/style.css">
+            <Pane layoutX="14.0" layoutY="41.0" prefHeight="100.0" prefWidth="220.0" styleClass="dashboard-card">
                <children>
-                  <Group layoutX="24.0" layoutY="14.0" styleClass="labeltainer">
+                  <Group layoutX="24.0" layoutY="14.0" styleClass="card-title">
                      <children>
-                        <Label prefHeight="20.0" prefWidth="106.0" style="-fx-text-fill: #C0C0C0;" text="Total Programs" textFill="#f8f6f6">
+                        <Label prefHeight="23.0" prefWidth="144.0" styleClass="card-title" text="Total Programs" textFill="#f8f6f6">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="numberOfPrograms" layoutX="44.0" layoutY="20.0" style="-fx-text-fill: #C0C0C0;" text="#" textFill="#110e0e">
+                        <Label fx:id="numberOfPrograms" layoutX="44.0" layoutY="27.0" text="#" textFill="#110e0e">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
@@ -28,16 +28,16 @@
                   </Group>
                </children>
             </Pane>
-            <Pane layoutX="481.0" layoutY="41.0" prefHeight="100.0" prefWidth="220.0" styleClass="secontainer" stylesheets="@../../../css/style.css">
+            <Pane layoutX="481.0" layoutY="41.0" prefHeight="100.0" prefWidth="220.0" styleClass="dashboard-card">
                <children>
-                  <Group layoutX="19.0" layoutY="14.0">
+                  <Group layoutX="19.0" layoutY="14.0" styleClass="card-title">
                      <children>
-                        <Label style="-fx-text-fill: #C0C0C0;" text="Total Courses">
+                        <Label styleClass="card-title" text="Total Courses">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="numberOfCourses" layoutX="37.0" layoutY="21.0" style="-fx-text-fill: #C0C0C0;" text="#" textFill="#110e0e">
+                        <Label fx:id="numberOfCourses" layoutX="37.0" layoutY="27.0" text="#" textFill="#110e0e">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
@@ -46,16 +46,16 @@
                   </Group>
                </children>
             </Pane>
-            <Pane layoutX="244.0" layoutY="41.0" prefHeight="100.0" prefWidth="220.0" styleClass="secontainer" stylesheets="@../../../css/style.css">
+            <Pane layoutX="244.0" layoutY="41.0" prefHeight="100.0" prefWidth="220.0" styleClass="dashboard-card">
                <children>
                   <Group layoutX="21.0" layoutY="14.0">
                      <children>
-                        <Label style="-fx-text-fill: #C0C0C0;" text="Total Students">
+                        <Label styleClass="card-title" text="Total Students">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="numberOfStudents" layoutX="35.0" layoutY="20.0" style="-fx-text-fill: #C0C0C0;" text="#" textFill="#110e0e">
+                        <Label fx:id="numberOfStudents" layoutX="35.0" layoutY="27.0" text="#" textFill="#110e0e">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>

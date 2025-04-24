@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2025 at 06:32 PM
+-- Generation Time: Apr 24, 2025 at 06:16 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,20 +63,8 @@ CREATE TABLE `enrollment` (
   `enrollment_id` int(11) NOT NULL,
   `userID` int(11) NOT NULL,
   `prog_id` int(11) NOT NULL,
-  `enrollment_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `enrollment_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `enrollment`
---
-
-INSERT INTO `enrollment` (`enrollment_id`, `userID`, `prog_id`, `enrollment_date`) VALUES
-(6, 20251018, 2, '2025-04-17 12:44:11'),
-(7, 20251001, 1, '2025-04-18 03:56:54'),
-(14, 20251019, 1, '2025-04-18 04:33:51'),
-(15, 20251001, 1, '2025-04-19 11:12:05'),
-(16, 20251020, 3, '2025-04-20 12:32:40'),
-(17, 20251020, 3, '2025-04-20 12:33:19');
 
 -- --------------------------------------------------------
 
@@ -580,7 +568,53 @@ INSERT INTO `logs` (`log_id`, `user_id`, `action`, `description`, `date_time`) V
 (481, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:25:37'),
 (482, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:26:28'),
 (483, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:28:35'),
-(484, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:30:47');
+(484, 20251001, 'Login', 'User logged in: axcee', '2025-04-22 16:30:47'),
+(485, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 14:14:03'),
+(486, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 14:16:52'),
+(487, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 14:17:37'),
+(488, 20251017, 'Logout', 'User logged out: rashed', '2025-04-23 14:18:29'),
+(489, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 14:18:35'),
+(490, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 14:22:07'),
+(491, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 14:24:31'),
+(492, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 14:27:15'),
+(493, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 14:30:34'),
+(494, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 14:36:02'),
+(495, 20251020, 'Login', 'User logged in: mica', '2025-04-23 14:37:14'),
+(496, 20251001, 'Login', 'User logged in: axcee', '2025-04-23 14:37:43'),
+(497, 20251020, 'Login', 'User logged in: mica', '2025-04-23 14:41:33'),
+(498, 20251001, 'Login', 'User logged in: axcee', '2025-04-23 14:42:32'),
+(499, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 14:44:34'),
+(500, 20251001, 'Login', 'User logged in: axcee', '2025-04-23 14:44:45'),
+(501, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:05:22'),
+(502, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:06:17'),
+(503, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:07:53'),
+(504, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:20:58'),
+(505, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:22:09'),
+(506, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:23:33'),
+(507, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:25:09'),
+(508, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:29:37'),
+(509, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:34:35'),
+(510, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:42:04'),
+(511, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:42:46'),
+(512, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:43:57'),
+(513, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:44:17'),
+(514, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:45:05'),
+(515, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:46:08'),
+(516, 20251017, 'Login', 'User logged in: rashed', '2025-04-23 15:57:43'),
+(517, 20251001, 'Login', 'User logged in: axcee', '2025-04-23 15:59:03'),
+(518, 20251017, 'Login', 'User logged in: rashed', '2025-04-24 03:15:49'),
+(519, 20251017, 'Login', 'User logged in: rashed', '2025-04-24 03:19:37'),
+(520, 20251017, 'Login', 'User logged in: rashed', '2025-04-24 03:40:21'),
+(521, 20251017, 'Login', 'User logged in: rashed', '2025-04-24 03:40:51'),
+(522, 20251017, 'Login', 'User logged in: rashed', '2025-04-24 03:44:03'),
+(523, 20251017, 'Login', 'User logged in: rashed', '2025-04-24 03:45:51'),
+(524, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 03:47:31'),
+(525, 20251017, 'Login', 'User logged in: rashed', '2025-04-24 03:50:29'),
+(526, 20251017, 'Login', 'User logged in: rashed', '2025-04-24 03:52:20'),
+(527, 20251001, 'Login', 'User logged in: axcee', '2025-04-24 03:54:40'),
+(528, 20251017, 'Login', 'User logged in: rashed', '2025-04-24 03:55:20'),
+(529, 20251017, 'Login', 'User logged in: rashed', '2025-04-24 03:56:25'),
+(530, 20251017, 'Login', 'User logged in: rashed', '2025-04-24 04:06:42');
 
 -- --------------------------------------------------------
 
@@ -601,9 +635,9 @@ CREATE TABLE `program` (
 --
 
 INSERT INTO `program` (`p_id`, `p_program_name`, `p_desc`, `p_department`, `p_status`) VALUES
-(1, 'Bachelor of Science in Information Technology', 'College of Information Technology', 'BSIT', 'Inactive'),
+(1, 'Bachelor of Science in Information Technology', 'College of Information Technology', 'BSIT', 'Active'),
 (2, 'Bachelor of Science in Hospitality Management', 'College of Hospitality Management', 'BSHM', 'Active'),
-(3, 'Bachelor of Science in Education', 'College of Education', 'BSED', 'Inactive'),
+(3, 'Bachelor of Science in Education', 'College of Education', 'BSED', 'Active'),
 (4, 'Bachelor of Science in Criminology', ' College of Criminology', 'BSCRIM', 'Active');
 
 -- --------------------------------------------------------
@@ -688,7 +722,8 @@ CREATE TABLE `student` (
 
 INSERT INTO `student` (`s_id`, `u_id`, `s_fname`, `s_mname`, `s_lname`, `s_bdate`, `s_address`, `s_sex`, `s_year`, `s_program`, `previous_school`, `s_image`) VALUES
 (4, 20251001, 'Axcee', 'Filisilda', 'Cabusas', '2004-09-06', 'Tunghaan', 'Male', 4, 1, 'SCC23', 'src/prospectus/images/students/default-user.png'),
-(5, 20251020, 'Mica', '', 'Lariosa', '1990-01-05', 'Minglanilla', 'Female', 4, 3, 'SCC', 'src/prospectus/images/student/default-user.png');
+(5, 20251020, 'Mica', '', 'Lariosa', '1990-01-05', 'Minglanilla', 'Female', 4, 3, 'SCC', 'src/prospectus/images/student/default-user.png'),
+(7, 20251017, 'Rasheed', '', 'Tapales', '2004-06-28', 'San Fernando', 'Male', 2, 1, 'SCC', 'src/prospectus/images/student/default-user.png');
 
 -- --------------------------------------------------------
 
@@ -718,10 +753,10 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`u_id`, `u_fname`, `u_mname`, `u_lname`, `u_email`, `u_contact_number`, `u_username`, `u_password`, `u_role`, `u_status`, `enrollment_status`, `recovery_phrase`, `u_image`) VALUES
 (20251001, 'Axcee', 'Felisilda', 'Cabusas', 'axceelfelis03@gmail.com', '99140820611', 'axcee', 'fRm8kPPm6HMqAiRuWC3AzkiYLvVFYqLcpR/PK71tMww=', 'Admin', 'Active', 'Enrolled', '1234', 'src/prospectus/images/users/default-user.png'),
-(20251017, 'Rasheed', '', 'Tapales', 'rashed@gmail.com', '98273645671', 'rashed', 'fRm8kPPm6HMqAiRuWC3AzkiYLvVFYqLcpR/PK71tMww=', 'User', 'Active', 'Not Enrolled', 'jungle sunflower waterfall grape volcano sunflower umbrella tiger apple banana grape mountain', 'src/prospectus/images/users/default-user.png'),
+(20251017, 'Rasheed', '', 'Tapales', 'rashed@gmail.com', '98273645671', 'rashed', 'fRm8kPPm6HMqAiRuWC3AzkiYLvVFYqLcpR/PK71tMww=', 'Student', 'Active', 'Enrolled', 'jungle sunflower waterfall grape volcano sunflower umbrella tiger apple banana grape mountain', 'src/prospectus/images/users/default-user.png'),
 (20251018, 'Adrianne Lhoue', '', 'Inso', 'inso12@gmail.com', '99872635678', 'inso', 'ZMI04LI4wpHFQpAFMuXoV2yxsvqk4QMRbYUIAql7DWI=', 'User', 'Active', 'Not Enrolled', 'elephant waterfall jungle kangaroo banana jungle dog flower waterfall grape waterfall queen', 'src/prospectus/images/users/received_178815621514415.jpg'),
 (20251019, 'Aljon', '', 'Paragoso', 'aljon@gmail.com', '9872634567', 'aljon', '4Sbb5S0/5dD/PgMPKbxnvhdqH4oUlAoorkqbhnsOiVY=', 'Student', 'Active', 'Not Enrolled', 'jungle banana volcano tiger zebra grape house queen xylophone flower xylophone waterfall', 'src/prospectus/images/users/Screenshot_1.png'),
-(20251020, 'Mica', '', 'Lariosa', 'mica@gmail.com', '9876153789', 'qwerty', 'TU8mNpFxmU86Rndu4tiElPuZVYAKW7YmHAFsS7nzC1Y=', 'Student', 'Active', 'Enrolled', 'zebra jungle xylophone queen kangaroo umbrella yellow mountain penguin tiger cherry apple', 'src/prospectus/images/users/default-user.png');
+(20251020, 'Mica', '', 'Lariosa', 'mica@gmail.com', '9876153789', 'mica', 'fRm8kPPm6HMqAiRuWC3AzkiYLvVFYqLcpR/PK71tMww=', 'Student', 'Active', 'Enrolled', 'zebra jungle xylophone queen kangaroo umbrella yellow mountain penguin tiger cherry apple', 'src/prospectus/images/users/default-user.png');
 
 --
 -- Indexes for dumped tables
@@ -799,13 +834,13 @@ ALTER TABLE `course`
 -- AUTO_INCREMENT for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=485;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=531;
 
 --
 -- AUTO_INCREMENT for table `program`
@@ -829,7 +864,7 @@ ALTER TABLE `prospectus_details`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -851,8 +886,8 @@ ALTER TABLE `course`
 -- Constraints for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  ADD CONSTRAINT `enrollment_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`u_id`),
-  ADD CONSTRAINT `enrollment_ibfk_2` FOREIGN KEY (`prog_id`) REFERENCES `program` (`p_id`);
+  ADD CONSTRAINT `enrollment_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`u_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `enrollment_ibfk_2` FOREIGN KEY (`prog_id`) REFERENCES `program` (`p_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `logs`

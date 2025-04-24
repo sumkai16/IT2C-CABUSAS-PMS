@@ -11,9 +11,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.controller.AdminDashboardController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" stylesheets="@../../student/styles/studentDashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.controller.AdminDashboardController">
    <children>
-      <Pane prefHeight="610.0" prefWidth="910.0" style="-fx-background-color: #FBFCF8;" stylesheets="@../../../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Pane prefHeight="610.0" prefWidth="910.0" style="-fx-background-color: #FBFCF8;" stylesheets="@../../student/styles/studentDashboard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <BorderPane fx:id="bgPane" prefHeight="600.0" prefWidth="900.0">
          <top>
             <Pane prefHeight="46.0" prefWidth="900.0" styleClass="topbar" stylesheets="@../../../css/style.css" BorderPane.alignment="CENTER">
@@ -38,7 +38,7 @@
          <left>
             <Pane prefHeight="560.0" prefWidth="185.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane prefHeight="550.0" prefWidth="185.0" styleClass="nav-bar" stylesheets="@../../../css/navbar.css">
+                  <Pane prefHeight="550.0" prefWidth="185.0" styleClass="nav-bar">
                      <children>
                         <Button fx:id="home" alignment="BASELINE_LEFT" contentDisplay="CENTER" layoutX="10.0" layoutY="55.0" lineSpacing="45.0" mnemonicParsing="false" onMouseClicked="#homeOnClick" prefHeight="33.0" prefWidth="185.0" styleClass="nav-button" stylesheets="@../../../css/navbar.css" text="Home">
                            <font>

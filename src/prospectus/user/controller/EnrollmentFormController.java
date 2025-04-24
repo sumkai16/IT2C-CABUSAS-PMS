@@ -67,7 +67,7 @@ public class EnrollmentFormController implements Initializable {
     }
 
     private void loadPrograms() {
-        String query = "SELECT p_id, p_department FROM program WHERE p_status = 'active'";
+        String query = "SELECT p_id, p_program_name, p_department FROM program WHERE p_status = 'active'";
         ObservableList<String> programList = FXCollections.observableArrayList();
 
         try (Connection conn = db.getConnection();
@@ -75,7 +75,10 @@ public class EnrollmentFormController implements Initializable {
              ResultSet rs = pst.executeQuery()) {
 
             while (rs.next()) {
-                programList.add(rs.getString("p_department"));
+                String programName = rs.getString("p_program_name");
+                String department = rs.getString("p_department");
+                // Format: "Program Name (Department)"
+                programList.add(programName + " (" + department + ")");
             }
             selectProgram.setItems(programList);
         } catch (SQLException ex) {
@@ -168,8 +171,11 @@ public class EnrollmentFormController implements Initializable {
         return selectedRadioButton != null ? selectedRadioButton.getText() : null;
     }
 
-    private int getProgramId(String programName) {
-        String query = "SELECT p_id FROM program WHERE p_department = ?";
+    private int getProgramId(String programDisplay) {
+        // Extract program name from the display format "Program Name (Department)"
+        String programName = programDisplay.split("\\s*\\(")[0].trim();
+        
+        String query = "SELECT p_id FROM program WHERE p_program_name = ?";
         try (Connection conn = db.getConnection();
              PreparedStatement pst = conn.prepareStatement(query)) {
             pst.setString(1, programName);

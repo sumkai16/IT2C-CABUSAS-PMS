@@ -7,16 +7,36 @@ package prospectus.student.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import prospectus.utilities.utilities;
+import prospectus.models.Prospectus;
+import prospectus.models.UserSession;
+import main.dbConnector;
 
 /**
  * FXML Controller class
@@ -25,65 +45,58 @@ import prospectus.utilities.utilities;
  */
 public class StudentDashboardController implements Initializable {
 
+    private static final Logger logger = Logger.getLogger(StudentDashboardController.class.getName());
+    private final dbConnector db = new dbConnector();
+    
     @FXML
     private BorderPane bgPane;
     @FXML
     private Button home;
-    @FXML
-    private Button prospectus;
     @FXML
     private Button studentDetails;
     @FXML
     private Button settings;
     @FXML
     private Button logout;
-    private Button selectedButton = null;
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private Pane overlayPane;
+    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      
-        try {
-            loadPage("/prospectus/user/fxml/UserHome.fxml");
-        } catch (IOException ex) {
-             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
-        }
-    }    
-     private void loadPage(String targetFXML) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource(targetFXML));
-        bgPane.setCenter(root);
+        
+    }
+
+     private void loadPage(String fxmlPath) {
+        utilities.loadPageWithFade(bgPane, fxmlPath, null);
     }
 
     @FXML
     private void homeOnClick(MouseEvent event) {
-        try {
-            loadPage("/prospectus/user/fxml/UserHome.fxml");
-        } catch (IOException ex) {
-             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
-        }
-    }
-
-    @FXML
-    private void prospectusOnClick(MouseEvent event) {
+        loadPage("/prospectus/student/fxml/studentHome.fxml");
     }
 
     @FXML
     private void studentDetailsOnClick(MouseEvent event) {
-         try {
-            loadPage("/prospectus/user/fxml/UserProfile.fxml");
-        } catch (IOException ex) {
-             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
-        }
+        loadPage("/prospectus/user/fxml/UserProfile.fxml");
     }
 
     @FXML
     private void settingsOnClick(MouseEvent event) {
+        logger.log(Level.INFO, "Settings button clicked");
     }
 
     @FXML
     private void logoutOnClick(MouseEvent event) {
-         utilities.switchScene(getClass(), event,  "/prospectus/auth/fxml/LoginPage.fxml");  
+        utilities.switchScene(getClass(), event, "/prospectus/auth/fxml/LoginPage.fxml");
     }
+
+    @FXML
+    private void prospectusViewHandler(MouseEvent event) {
+        loadPage("/prospectus/admin/prospectus/viewProspectus.fxml");
+    }
+
+   
+
     
 }

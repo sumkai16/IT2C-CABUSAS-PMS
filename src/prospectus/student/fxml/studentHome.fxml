@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" fx:id="overlayPane" prefHeight="550.0" prefWidth="715.0" stylesheets="@../styles/studentDashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.student.controller.StudentHomeController">
+   <children>
+      <Pane layoutX="71.0" layoutY="46.0" prefHeight="550.0" prefWidth="715.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="550.0" prefWidth="715.0">
+               <content>
+                  <VBox spacing="20">
+                     <padding>
+                        <Insets bottom="20" left="20" right="20" top="20" />
+                     </padding>
+                     <children>
+                        <HBox spacing="20" styleClass="welcome-section">
+                           <padding>
+                              <Insets bottom="20" left="20" right="20" top="20" />
+                           </padding>
+                           <children>
+                              <VBox spacing="5">
+                                 <children>
+                                    <Label styleClass="welcome-text" text="Welcome," />
+                                    <Label fx:id="studentName" prefHeight="29.0" prefWidth="279.0" styleClass="student-name" text="Student Name" />
+                                 </children>
+                              </VBox>
+                              <Region HBox.hgrow="ALWAYS" />
+                              <VBox alignment="CENTER_RIGHT" spacing="5">
+                                 <children>
+                                    <Label fx:id="programName" prefHeight="23.0" prefWidth="430.0" styleClass="program-text" text="Program Name" />
+                                    <Label fx:id="yearLevel" styleClass="year-level" text="Year Level" />
+                                    <Label fx:id="enrollmentStatus" styleClass="status-badge" text="Enrolled" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <GridPane hgap="20" vgap="20">
+                           <columnConstraints>
+                              <ColumnConstraints />
+                              <ColumnConstraints />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints />
+                              <RowConstraints />
+                           </rowConstraints>
+                           <children>
+                              <VBox styleClass="dashboard-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                 <padding>
+                                    <Insets bottom="20" left="20" right="20" top="20" />
+                                 </padding>
+                                 <children>
+                                    <Label styleClass="card-title" text="My Prospectus Summary" />
+                                    <ProgressBar fx:id="progressBar" progress="0.75" styleClass="progress-bar" />
+                                    <Label styleClass="progress-text" text="75% Completed" />
+                                    <Button onMouseClicked="#prospectusViewHandler" styleClass="card-button" text="View Full Prospectus" />
+                                 </children>
+                              </VBox>
+                              <VBox styleClass="dashboard-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                 <padding>
+                                    <Insets bottom="20" left="20" right="20" top="20" />
+                                 </padding>
+                                 <children>
+                                    <Label styleClass="card-title" text="Current Subjects" />
+                                    <TableView fx:id="currentSubjectsTable" styleClass="subjects-table">
+                                       <columns>
+                                          <TableColumn fx:id="subjectCodeColumn" text="Subject Code" />
+                                          <TableColumn fx:id="subjectNameColumn" text="Subject Name" />
+                                          <TableColumn fx:id="unitsColumn" text="Units" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                              <VBox styleClass="dashboard-card" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                 <padding>
+                                    <Insets bottom="20" left="20" right="20" top="20" />
+                                 </padding>
+                                 <children>
+                                    <Label styleClass="card-title" text="Academic Timeline" />
+                                    <VBox fx:id="timelineContainer" spacing="10" />
+                                 </children>
+                              </VBox>
+                              <VBox styleClass="dashboard-card" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <padding>
+                                    <Insets bottom="20" left="20" right="20" top="20" />
+                                 </padding>
+                                 <children>
+                                    <Label styleClass="card-title" text="Quick Links" />
+                                    <VBox spacing="10">
+                                       <children>
+                                          <Button onMouseClicked="#prospectusViewHandler" styleClass="quick-link-button" text="View Prospectus" />
+                                          <Button onMouseClicked="#studentDetailsOnClick" styleClass="quick-link-button" text="Edit Profile" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </GridPane>
+                        <VBox styleClass="announcements-section">
+                           <padding>
+                              <Insets bottom="20" left="20" right="20" top="20" />
+                           </padding>
+                           <children>
+                              <Label styleClass="section-title" text="Recent Announcements" />
+                              <VBox fx:id="announcementsContainer" spacing="10" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
