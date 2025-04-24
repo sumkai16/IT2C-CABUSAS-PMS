@@ -57,6 +57,9 @@ public class EnrollmentFormController implements Initializable {
     private ToggleGroup sexToggleGroup;
     private String photoFilePath;
     private static final dbConnector db = new dbConnector();
+    @FXML private TextField semesterField;
+   
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -188,9 +191,12 @@ public class EnrollmentFormController implements Initializable {
     }
 
     private void enrollStudent(int userId, String fname, String mname, String lname, LocalDate birthdate, String address, String sex, int year, int programId, String previousSchool) {
-        String enrollQuery = "INSERT INTO enrollment (userID, prog_id, enrollment_date) VALUES (?, ?, CURRENT_TIMESTAMP)";
+        String enrollQuery = "INSERT INTO enrollment (userID, prog_id, enrollment_date, semester) VALUES (?, ?, CURRENT_TIMESTAMP, ?)";
         String updateUserQuery = "UPDATE user SET u_role = ?, enrollment_status = ? WHERE u_id = ?";
         String studentQuery = "INSERT INTO student (u_id, s_fname, s_mname, s_lname, s_bdate, s_address, s_sex, s_year, s_program, previous_school, s_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        // Get the semester value from the semesterField
+        String semester = semesterField.getText();
 
         try (Connection conn = db.getConnection()) {
             conn.setAutoCommit(false);
@@ -210,6 +216,7 @@ public class EnrollmentFormController implements Initializable {
 
                 pstEnroll.setInt(1, userId);
                 pstEnroll.setInt(2, programId);
+                pstEnroll.setString(3, semester); // Set the semester value
                 pstEnroll.executeUpdate();
 
                 pstUpdate.setString(1, currentRole);

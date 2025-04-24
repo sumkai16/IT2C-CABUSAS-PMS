@@ -111,12 +111,12 @@
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" layoutX="470.0" layoutY="928.0" prefHeight="22.0" prefWidth="90.0" text="Total:" textAlignment="CENTER">
+                              <Label alignment="CENTER" layoutX="358.0" layoutY="926.0" prefHeight="22.0" prefWidth="90.0" text="Total:" textAlignment="CENTER">
                                  <font>
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="units1st2ndSem" alignment="CENTER" layoutX="552.0" layoutY="928.0" prefHeight="22.0" prefWidth="34.0" text="0" textAlignment="CENTER">
+                              <Label fx:id="units1st2ndSem" alignment="CENTER" layoutX="440.0" layoutY="926.0" prefHeight="22.0" prefWidth="34.0" text="0" textAlignment="CENTER">
                                  <font>
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
@@ -193,12 +193,12 @@
                                     </Label>
                                  </children>
                               </Pane>
-                              <Label alignment="CENTER" layoutX="470.0" layoutY="471.0" prefHeight="22.0" prefWidth="90.0" text="Total:" textAlignment="CENTER">
+                              <Label alignment="CENTER" layoutX="358.0" layoutY="471.0" prefHeight="22.0" prefWidth="90.0" text="Total:" textAlignment="CENTER">
                                  <font>
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="units2nd1stSem" alignment="CENTER" layoutX="552.0" layoutY="471.0" prefHeight="22.0" prefWidth="34.0" text="0" textAlignment="CENTER">
+                              <Label fx:id="units2nd1stSem" alignment="CENTER" layoutX="440.0" layoutY="471.0" prefHeight="22.0" prefWidth="34.0" text="0" textAlignment="CENTER">
                                  <font>
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
@@ -224,12 +224,12 @@
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" layoutX="470.0" layoutY="928.0" prefHeight="22.0" prefWidth="90.0" text="Total:" textAlignment="CENTER">
+                              <Label alignment="CENTER" layoutX="358.0" layoutY="928.0" prefHeight="22.0" prefWidth="90.0" text="Total:" textAlignment="CENTER">
                                  <font>
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="units2nd2ndSem" alignment="CENTER" layoutX="552.0" layoutY="928.0" prefHeight="22.0" prefWidth="34.0" text="0" textAlignment="CENTER">
+                              <Label fx:id="units2nd2ndSem" alignment="CENTER" layoutX="440.0" layoutY="928.0" prefHeight="22.0" prefWidth="34.0" text="0" textAlignment="CENTER">
                                  <font>
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
@@ -306,12 +306,12 @@
                                     </Label>
                                  </children>
                               </Pane>
-                              <Label alignment="CENTER" layoutX="470.0" layoutY="471.0" prefHeight="22.0" prefWidth="90.0" text="Total:" textAlignment="CENTER">
+                              <Label alignment="CENTER" layoutX="358.0" layoutY="471.0" prefHeight="22.0" prefWidth="90.0" text="Total:" textAlignment="CENTER">
                                  <font>
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="units3rd1stSem" alignment="CENTER" layoutX="552.0" layoutY="471.0" prefHeight="22.0" prefWidth="34.0" text="0" textAlignment="CENTER">
+                              <Label fx:id="units3rd1stSem" alignment="CENTER" layoutX="440.0" layoutY="471.0" prefHeight="22.0" prefWidth="34.0" text="0" textAlignment="CENTER">
                                  <font>
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
@@ -337,12 +337,12 @@
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" layoutX="470.0" layoutY="928.0" prefHeight="22.0" prefWidth="90.0" text="Total:" textAlignment="CENTER">
+                              <Label alignment="CENTER" layoutX="358.0" layoutY="928.0" prefHeight="22.0" prefWidth="90.0" text="Total:" textAlignment="CENTER">
                                  <font>
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="units3rd2ndSem" alignment="CENTER" layoutX="552.0" layoutY="928.0" prefHeight="22.0" prefWidth="34.0" text="0" textAlignment="CENTER">
+                              <Label fx:id="units3rd2ndSem" alignment="CENTER" layoutX="440.0" layoutY="928.0" prefHeight="22.0" prefWidth="34.0" text="0" textAlignment="CENTER">
                                  <font>
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
@@ -419,12 +419,12 @@
                                     </Label>
                                  </children>
                               </Pane>
-                              <Label alignment="CENTER" layoutX="470.0" layoutY="471.0" prefHeight="22.0" prefWidth="90.0" text="Total:" textAlignment="CENTER">
+                              <Label alignment="CENTER" layoutX="358.0" layoutY="471.0" prefHeight="22.0" prefWidth="90.0" text="Total:" textAlignment="CENTER">
                                  <font>
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="units4th1stSem" alignment="CENTER" layoutX="552.0" layoutY="471.0" prefHeight="22.0" prefWidth="34.0" text="0" textAlignment="CENTER">
+                              <Label fx:id="units4th1stSem" alignment="CENTER" layoutX="440.0" layoutY="471.0" prefHeight="22.0" prefWidth="34.0" text="0" textAlignment="CENTER">
                                  <font>
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
@@ -450,12 +450,12 @@
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" layoutX="483.0" layoutY="928.0" prefHeight="22.0" prefWidth="90.0" text="Total:" textAlignment="CENTER">
+                              <Label alignment="CENTER" layoutX="358.0" layoutY="928.0" prefHeight="22.0" prefWidth="90.0" text="Total:" textAlignment="CENTER">
                                  <font>
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="units4th2ndSem" alignment="CENTER" layoutX="565.0" layoutY="928.0" prefHeight="22.0" prefWidth="34.0" text="0" textAlignment="CENTER">
+                              <Label fx:id="units4th2ndSem" alignment="CENTER" layoutX="440.0" layoutY="928.0" prefHeight="22.0" prefWidth="34.0" text="0" textAlignment="CENTER">
                                  <font>
                                     <Font name="Constantia Bold" size="16.0" />
                                  </font>

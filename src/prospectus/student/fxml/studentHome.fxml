@@ -77,8 +77,8 @@
                                     <Label styleClass="card-title" text="Current Subjects" />
                                     <TableView fx:id="currentSubjectsTable" styleClass="subjects-table">
                                        <columns>
-                                          <TableColumn fx:id="subjectCodeColumn" text="Subject Code" />
-                                          <TableColumn fx:id="subjectNameColumn" text="Subject Name" />
+                                          <TableColumn fx:id="subjectCodeColumn" editable="false" sortable="false" text="Course Code" />
+                                          <TableColumn fx:id="subjectNameColumn" text="Course Name" />
                                           <TableColumn fx:id="unitsColumn" text="Units" />
                                        </columns>
                                     </TableView>

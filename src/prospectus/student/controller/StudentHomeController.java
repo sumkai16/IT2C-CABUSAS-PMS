@@ -106,18 +106,21 @@ public class StudentHomeController implements Initializable {
     }
 
     private void loadCurrentSubjects() throws SQLException {
+        int userId = UserSession.getUserId();
+        logger.log(Level.INFO, "Loading current subjects for user ID: {0}", userId);
 
         String query = "SELECT c.c_code, c.c_desc, c.c_units " +
                        "FROM course c " +
-                       "JOIN enrollment e ON c.c_id = e.prog_id " + // Ensure this matches your actual column names
-                       "WHERE e.userID = ?";
+                       "JOIN prospectus_details pd ON pd.course_id = c.c_id " + // Join course with prospectus_details
+                       "JOIN enrollment e ON e.prog_id = pd.pr_id " + // Join enrollment with prospectus_details
+                       "WHERE e.userID = ? AND pd.semester = e.semester"; // Ensure semester matches
 
         try (Connection conn = db.getConnection();
              PreparedStatement pst = conn.prepareStatement(query)) {
-            pst.setInt(1, UserSession.getUserId());
+            pst.setInt(1, userId); // Set the user ID
             ResultSet rs = pst.executeQuery();
 
-            currentSubjects.clear();
+            currentSubjects.clear(); // Clear the existing subjects
             while (rs.next()) {
                 currentSubjects.add(new Subject(
                     rs.getString("c_code"),
@@ -126,6 +129,10 @@ public class StudentHomeController implements Initializable {
                 ));
             }
 
+            logger.log(Level.INFO, "Loaded {0} current subjects", currentSubjects.size());
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "Error loading current subjects: {0}", ex.getMessage());
+            throw ex; // Rethrow to handle in the calling method
         }
     }
 

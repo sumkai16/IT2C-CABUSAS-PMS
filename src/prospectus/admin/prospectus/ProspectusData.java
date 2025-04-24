@@ -49,24 +49,12 @@ public class ProspectusData {
 
     public List<ProspectusDetails> getProspectusDetails(int prId) {
         List<ProspectusDetails> detailsList = new ArrayList<>();
-        
         String query = "SELECT pd.pd_id, pd.pr_id, pd.course_id, pd.year_level, pd.semester, " +
-                      "c.c_code AS courseCode, c.c_desc AS courseDesc, c.c_units AS units, " +
-                      "COALESCE(prereq.c_code, '') AS prerequisite " +
+                      "c.c_code as courseCode, c.c_desc as courseDesc, c.c_units as units, " +
+                      "(SELECT c2.c_code FROM course c2 WHERE c2.c_id = c.prerequisite_id) as prerequisite " +
                       "FROM prospectus_details pd " +
                       "JOIN course c ON pd.course_id = c.c_id " +
-                      "LEFT JOIN course prereq ON c.prerequisite_id = prereq.c_id " +
-                      "WHERE pd.pr_id = ? " +
-                      "ORDER BY CASE " +
-                      "    WHEN pd.year_level = '1st Year' THEN 1 " +
-                      "    WHEN pd.year_level = '2nd Year' THEN 2 " +
-                      "    WHEN pd.year_level = '3rd Year' THEN 3 " +
-                      "    WHEN pd.year_level = '4th Year' THEN 4 " +
-                      "    ELSE 5 END, " +
-                      "CASE " +
-                      "    WHEN pd.semester = '1st Semester' THEN 1 " +
-                      "    WHEN pd.semester = '2nd Semester' THEN 2 " +
-                      "    ELSE 3 END";
+                      "WHERE pd.pr_id = ?";
 
         try (Connection conn = db.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -74,33 +62,26 @@ public class ProspectusData {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int pdId = rs.getInt("pd_id");
-                int courseId = rs.getInt("course_id");
-                String yearLevel = rs.getString("year_level");
-                String semester = rs.getString("semester");
-                String courseCode = rs.getString("courseCode");
-                String courseDesc = rs.getString("courseDesc");
-                int units = rs.getInt("units");
-                String prerequisite = rs.getString("prerequisite");
-
-                // Create a new ProspectusDetails object
-                ProspectusDetails details = new ProspectusDetails(pdId, prId, courseId, yearLevel, semester);
-                details.setCourseCode(courseCode);
-                details.setCourseDesc(courseDesc);
-                details.setUnits(units);
-                details.setPrerequisite(prerequisite);
-
+                ProspectusDetails details = new ProspectusDetails(
+                    rs.getInt("pd_id"),
+                    rs.getInt("pr_id"),
+                    rs.getInt("course_id"),
+                    rs.getString("year_level"),
+                    rs.getString("semester")
+                );
+                details.setCourseCode(rs.getString("courseCode"));
+                details.setCourseDesc(rs.getString("courseDesc"));
+                details.setUnits(rs.getInt("units"));
+                details.setPrerequisite(rs.getString("prerequisite"));
                 detailsList.add(details);
-                
-                // Log the details for debugging
-                LOGGER.info(String.format("Loaded detail: %s - %s, %s, %s", 
-                    courseCode, courseDesc, yearLevel, semester));
+
+                System.out.println("Loaded course: " + details.getCourseCode() + " - " + details.getCourseDesc());
             }
-            
-            LOGGER.info("Retrieved " + detailsList.size() + " prospectus details for prId: " + prId);
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error retrieving prospectus details: " + e.getMessage(), e);
+            e.printStackTrace();
         }
         return detailsList;
     }
+
+  
 } 

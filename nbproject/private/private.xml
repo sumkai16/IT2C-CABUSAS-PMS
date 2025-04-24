@@ -4,11 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/student/controller/StudentHomeController.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/admin/controller/HomeDashboardController.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/student/fxml/studentHome.fxml</file>
             <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/student/controller/StudentDashboardController.java</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/student/fxml/StudentDashboard.fxml</file>
-            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/admin/controller/AdminDashboardController.java</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/admin/prospectus/ViewProspectusController.java</file>
+            <file>file:/C:/Users/axcee/Documents/NBProjects/IT2C-CABUSAS-PMS/src/prospectus/user/controller/EnrollmentFormController.java</file>
         </group>
     </open-files>
 </project-private>

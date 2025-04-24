@@ -92,4 +92,5 @@ public class ProspectusDetails {
     public void setPrerequisite(String prerequisite) {
         this.prerequisite = prerequisite;
     }
+    
 }

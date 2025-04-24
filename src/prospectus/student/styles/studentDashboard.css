@@ -15,7 +15,7 @@
     -fx-background-color: #12192C;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);
 }
-
+ 
 .nav-button {
     -fx-background-color: transparent;
     -fx-text-fill: white;
@@ -131,11 +131,12 @@
     -fx-background-color: white;
     -fx-border-color: #e0e0e0;
     -fx-border-width: 1px;
+    -fx-text-fill: white;
 }
 
 .subjects-table .column-header {
     -fx-background-color: #12192C;
-    -fx-text-fill: white;
+    -fx-text-fill: whitesmoke;
     -fx-font-weight: bold;
     -fx-padding: 10px;
 }

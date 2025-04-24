@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Group?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="550.0" prefWidth="715.0" stylesheets="@../../student/styles/studentDashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.admin.controller.HomeDashboardController">
    <children>
       <Pane prefHeight="550.0" prefWidth="715.0" styleClass="container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
+            <!-- Header Section -->
+            <HBox layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="687.0" spacing="10.0">
+               <children>
+                  <Label text="Welcome, " styleClass="welcome-text">
+                     <font>
+                        <Font name="Cambria" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="adminNameLabel" text="Admin" styleClass="welcome-text">
+                     <font>
+                        <Font name="Cambria" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="timeLabel" text="00:00:00" HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT" styleClass="welcome-text">
+                     <font>
+                        <Font name="Cambria" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+
+            <!-- Overview Cards -->
             <Pane layoutX="14.0" layoutY="41.0" prefHeight="100.0" prefWidth="220.0" styleClass="dashboard-card">
                <children>
                   <Group layoutX="24.0" layoutY="14.0" styleClass="card-title">
@@ -62,6 +83,56 @@
                         </Label>
                      </children>
                   </Group>
+               </children>
+            </Pane>
+
+            <!-- Additional Cards -->
+            <Pane layoutX="14.0" layoutY="161.0" prefHeight="100.0" prefWidth="220.0" styleClass="dashboard-card">
+               <children>
+                  <Group layoutX="24.0" layoutY="14.0" styleClass="card-title">
+                     <children>
+                        <Label styleClass="card-title" text="Total Users">
+                           <font>
+                              <Font name="Cambria" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="numberOfUsers" layoutX="44.0" layoutY="27.0" text="#" textFill="#110e0e">
+                           <font>
+                              <Font name="Cambria" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Group>
+               </children>
+            </Pane>
+            <Pane layoutX="244.0" layoutY="161.0" prefHeight="100.0" prefWidth="220.0" styleClass="dashboard-card">
+               <children>
+                  <Group layoutX="21.0" layoutY="14.0">
+                     <children>
+                        <Label styleClass="card-title" text="Prospectus Entries">
+                           <font>
+                              <Font name="Cambria" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="numberOfProspectus" layoutX="35.0" layoutY="27.0" text="#" textFill="#110e0e">
+                           <font>
+                              <Font name="Cambria" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Group>
+               </children>
+            </Pane>
+
+            <!-- Activity Feed -->
+            <Pane layoutX="14.0" layoutY="281.0" prefHeight="249.0" prefWidth="687.0" styleClass="dashboard-card">
+               <children>
+                  <Label layoutX="24.0" layoutY="14.0" text="Recent Activities" styleClass="card-title">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Label>
+                  <ListView fx:id="activityListView" layoutX="24.0" layoutY="44.0" prefHeight="185.0" prefWidth="639.0" styleClass="activity-list"/>
                </children>
             </Pane>
          </children>

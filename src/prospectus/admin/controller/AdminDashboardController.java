@@ -2,13 +2,20 @@ package prospectus.admin.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Duration;
 import prospectus.models.UserSession;
 import prospectus.utilities.logger;
 import prospectus.utilities.utilities;
@@ -23,11 +30,14 @@ public class AdminDashboardController implements Initializable {
     private Button userManageOnClick;
     @FXML
     private Button courses;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initialization logic if needed
+       
     }
+
+   
 
     /**
      * Loads an FXML page with fade-in effect.
@@ -56,8 +66,6 @@ public class AdminDashboardController implements Initializable {
         loadPage("/prospectus/user/fxml/UserProfile.fxml");
     }
 
-   
-
     @FXML
     private void auditLogsHandler(MouseEvent event) {
         loadPage("/prospectus/admin/fxml/AuditLog.fxml");
@@ -76,16 +84,13 @@ public class AdminDashboardController implements Initializable {
         utilities.switchScene(getClass(), event, "/prospectus/auth/fxml/LoginPage.fxml");
     }
 
-  
-
     @FXML
     private void studentHandler(MouseEvent event) {
-          loadPage("/prospectus/admin/students/manageStudents.fxml");
+        loadPage("/prospectus/admin/students/manageStudents.fxml");
     }
 
     @FXML
     private void coursesHandler(MouseEvent event) {
         loadPage("/prospectus/admin/courses/manageCourses.fxml");
     }
-
 }

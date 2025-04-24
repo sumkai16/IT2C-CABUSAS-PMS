@@ -59,7 +59,8 @@ public class ManageProspectusController implements Initializable {
     @FXML
     private Label totalProspectusLabel;
    
-    @FXML private TableColumn<Prospectus, String> semesterColumn; // Add this line
+    @FXML
+    private TableColumn<Prospectus, String> semesterColumn; // Add this line
     @FXML
     private TableColumn<Prospectus, String> yearLevel;
 
@@ -80,39 +81,42 @@ public class ManageProspectusController implements Initializable {
         loadProspectusData();
     }
 
-    private void loadProspectusData() {
-        ObservableList<Prospectus> data = FXCollections.observableArrayList();
+        private void loadProspectusData() {
+            ObservableList<Prospectus> data = FXCollections.observableArrayList();
 
-        // SQL query to fetch distinct prospectus entries
-        String query = "SELECT p.pr_id, prog.p_department, p.pr_effective_year, p.status, " +
-                       "pd.year_level, pd.semester " +
-                       "FROM prospectus p " +
-                       "JOIN program prog ON p.program_id = prog.p_id " +
-                       "JOIN prospectus_details pd ON p.pr_id = pd.pr_id " +
-                       "GROUP BY p.pr_id, prog.p_department, p.pr_effective_year, p.status, pd.year_level, pd.semester";
+            // SQL query to get one row per effective year (using the first ID)
+            String query = "SELECT p.pr_id, prog.p_program_name, prog.p_department, p.pr_effective_year, p.status " +
+                          "FROM prospectus p " +
+                          "JOIN program prog ON p.program_id = prog.p_id " +
+                          "WHERE p.pr_id IN (SELECT MIN(pr_id) FROM prospectus GROUP BY pr_effective_year) " +
+                          "ORDER BY p.pr_effective_year DESC";
 
-        try (PreparedStatement stmt = db.getConnection().prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
+            try (PreparedStatement stmt = db.getConnection().prepareStatement(query);
+                 ResultSet rs = stmt.executeQuery()) {
 
-            // Populate the ObservableList with Prospectus objects
-            while (rs.next()) {
-                data.add(new Prospectus(
-                    rs.getInt("pr_id"),
-                    rs.getString("p_department"), // Department name
-                    rs.getString("pr_effective_year"),
-                    rs.getString("status"),
-                    rs.getString("year_level"),
-                    rs.getString("semester")
-                ));
+                // Populate the ObservableList with Prospectus objects
+                while (rs.next()) {
+                    String programName = rs.getString("p_program_name");
+                    String department = rs.getString("p_department");
+                    String displayName = programName + " (" + department + ")";
+
+                    data.add(new Prospectus(
+                        rs.getInt("pr_id"),
+                        displayName,
+                        rs.getString("pr_effective_year"),
+                        rs.getString("status"),
+                        "", // Empty year level since we're not using it here
+                        ""  // Empty semester since we're not using it here
+                    ));
+                }
+
+                // Set the items in the table view
+                tableView.setItems(data);
+                totalProspectusLabel.setText(String.valueOf(data.size()));
+            } catch (SQLException e) {
+                e.printStackTrace();
+                utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to load prospectus data.");
             }
-
-            // Set the items in the table view
-            tableView.setItems(data);
-            totalProspectusLabel.setText(String.valueOf(data.size()));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to load prospectus data.");
-        }
     }
     @FXML
     private void searchHandler(MouseEvent event) {

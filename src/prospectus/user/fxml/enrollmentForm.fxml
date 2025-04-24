@@ -51,11 +51,11 @@
         <Label layoutX="40.0" layoutY="214.0" text="Address:" />
 
         <!-- Year Level -->
-        <Label layoutX="40.0" layoutY="347.0" text="Year Level:" />
-        <TextField fx:id="yearField" layoutX="166.0" layoutY="339.0" prefWidth="200.0" promptText="Enter year level (e.g., 1, 2, 3, 4)" />
+        <Label layoutX="40.0" layoutY="321.0" text="Year:" />
+        <TextField fx:id="yearField" layoutX="161.0" layoutY="313.0" prefWidth="200.0" promptText="e.g, 1,2,3,4" />
 
         <!-- Program Selection -->
-        <Label layoutX="40.0" layoutY="401.0" text="Program:" />
+        <Label layoutX="40.0" layoutY="369.0" text="Program:" />
       <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="13.0" layoutY="10.0" onMouseClicked="#returnHandler" pickOnBounds="true">
          <image>
             <Image url="@../../images/returnButton.png" />
@@ -68,10 +68,10 @@
          </effect>
       </ImageView>
       <Label layoutX="21.0" layoutY="64.0" style="-fx-text-fill: #219ebc; -fx-font-size: 18;" text="Student Information" />
-      <ComboBox fx:id="selectProgram" layoutX="166.0" layoutY="392.0" prefHeight="34.0" prefWidth="200.0" promptText="Select Program" />
-      <Label layoutX="21.0" layoutY="304.0" style="-fx-text-fill: #219ebc; -fx-font-size: 18;" text="Academic Information" />
-      <Label layoutX="40.0" layoutY="459.0" text="Previous School:" />
-      <TextField fx:id="prevSchool" layoutX="166.0" layoutY="451.0" prefWidth="200.0" promptText="Enter Previous School" />
+      <ComboBox fx:id="selectProgram" layoutX="161.0" layoutY="360.0" prefHeight="34.0" prefWidth="200.0" promptText="Select Program" />
+      <Label layoutX="16.0" layoutY="278.0" style="-fx-text-fill: #219ebc; -fx-font-size: 18;" text="Academic Information" />
+      <Label layoutX="40.0" layoutY="466.0" text="Previous School:" />
+      <TextField fx:id="prevSchool" layoutX="161.0" layoutY="458.0" prefWidth="200.0" promptText="Enter Previous School" />
       <Label layoutX="514.0" layoutY="150.0" text="Select Photo (2x2 inches size)" textAlignment="JUSTIFY" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="150.0" layoutX="350.0" layoutY="151.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
       <Button layoutX="522.0" layoutY="180.0" mnemonicParsing="false" onMouseClicked="#selectProfileHandler" prefHeight="33.0" prefWidth="150.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 4); -fx-cursor: hand; -fx-text-fill: green;" stylesheets="@../../../css/enrollmentForm.css" text="Select">
@@ -91,5 +91,7 @@
 
         <!-- Submit Button -->
         <Button fx:id="submitButton" layoutX="258.0" layoutY="505.0" onMouseClicked="#submitEnrollmentHandler" prefHeight="30.0" prefWidth="200.0" text="Submit" />
+      <Label layoutX="40.0" layoutY="414.0" text="Semester" />
+      <TextField fx:id="semesterField" layoutX="161.0" layoutY="408.0" prefWidth="200.0" promptText="e.g., 1st, 2nd" />
     </Pane>
 </AnchorPane>

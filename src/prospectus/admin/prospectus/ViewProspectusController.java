@@ -1,16 +1,23 @@
 package prospectus.admin.prospectus;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import main.dbConnector;
 import prospectus.models.Prospectus;
 import prospectus.models.ProspectusDetails;
 
@@ -84,61 +91,65 @@ public class ViewProspectusController implements Initializable {
 
     private final ProspectusData prospectusData = new ProspectusData();
     private Prospectus prospectus;
+    private dbConnector db = new dbConnector();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("Initializing ViewProspectusController...");
         setupTableColumns();
+        System.out.println("Table columns initialized");
         loadProspectus();
+        System.out.println("Prospectus loaded");
     }
 
     private void setupTableColumns() {
         // First Year, First Semester
-        initializeColumn(courseID1st1st, "courseCode");
-        initializeColumn(courseCode1st1st, "courseDesc");
-        initializeColumn(units1st1st, "units");
-        initializeColumn(prerequisite1st1st, "prerequisite");
+        courseID1st1st.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
+        courseCode1st1st.setCellValueFactory(new PropertyValueFactory<>("courseDesc"));
+        units1st1st.setCellValueFactory(new PropertyValueFactory<>("units"));
+        prerequisite1st1st.setCellValueFactory(new PropertyValueFactory<>("prerequisite"));
 
         // First Year, Second Semester
-        initializeColumn(courseID1st2nd, "courseCode");
-        initializeColumn(courseCode1st2nd, "courseDesc");
-        initializeColumn(units1st2nd, "units");
-        initializeColumn(prerequisite1st2nd, "prerequisite");
+        courseID1st2nd.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
+        courseCode1st2nd.setCellValueFactory(new PropertyValueFactory<>("courseDesc"));
+        units1st2nd.setCellValueFactory(new PropertyValueFactory<>("units"));
+        prerequisite1st2nd.setCellValueFactory(new PropertyValueFactory<>("prerequisite"));
 
         // Second Year, First Semester
-        initializeColumn(courseID2nd1st, "courseCode");
-        initializeColumn(courseCode2nd1st, "courseDesc");
-        initializeColumn(units2nd1st, "units");
-        initializeColumn(prerequisite2nd1st, "prerequisite");
+        courseID2nd1st.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
+        courseCode2nd1st.setCellValueFactory(new PropertyValueFactory<>("courseDesc"));
+        units2nd1st.setCellValueFactory(new PropertyValueFactory<>("units"));
+        prerequisite2nd1st.setCellValueFactory(new PropertyValueFactory<>("prerequisite"));
 
         // Second Year, Second Semester
-        initializeColumn(courseID2nd2nd, "courseCode");
-        initializeColumn(courseCode2nd2nd, "courseDesc");
-        initializeColumn(units2nd2nd, "units");
-        initializeColumn(prerequisite2nd2nd, "prerequisite");
+        courseID2nd2nd.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
+        courseCode2nd2nd.setCellValueFactory(new PropertyValueFactory<>("courseDesc"));
+        units2nd2nd.setCellValueFactory(new PropertyValueFactory<>("units"));
+        prerequisite2nd2nd.setCellValueFactory(new PropertyValueFactory<>("prerequisite"));
 
         // Third Year, First Semester
-        initializeColumn(courseID3rd1st, "courseCode");
-        initializeColumn(courseCode3rd1st, "courseDesc");
-        initializeColumn(units3rd1st, "units");
-        initializeColumn(prerequisite3rd1st, "prerequisite");
+        courseID3rd1st.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
+        courseCode3rd1st.setCellValueFactory(new PropertyValueFactory<>("courseDesc"));
+        units3rd1st.setCellValueFactory(new PropertyValueFactory<>("units"));
+        prerequisite3rd1st.setCellValueFactory(new PropertyValueFactory<>("prerequisite"));
 
         // Third Year, Second Semester
-        initializeColumn(courseID3rd2nd, "courseCode");
-        initializeColumn(courseCode3rd2nd, "courseDesc");
-        initializeColumn(units3rd2nd, "units");
-        initializeColumn(prerequisite3rd2nd, "prerequisite");
+        courseID3rd2nd.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
+        courseCode3rd2nd.setCellValueFactory(new PropertyValueFactory<>("courseDesc"));
+        units3rd2nd.setCellValueFactory(new PropertyValueFactory<>("units"));
+        prerequisite3rd2nd.setCellValueFactory(new PropertyValueFactory<>("prerequisite"));
 
         // Fourth Year, First Semester
-        initializeColumn(courseID4th1st, "courseCode");
-        initializeColumn(courseCode4th1st, "courseDesc");
-        initializeColumn(units4th1st, "units");
-        initializeColumn(prerequisite4th1st, "prerequisite");
+        courseID4th1st.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
+        courseCode4th1st.setCellValueFactory(new PropertyValueFactory<>("courseDesc"));
+        units4th1st.setCellValueFactory(new PropertyValueFactory<>("units"));
+        prerequisite4th1st.setCellValueFactory(new PropertyValueFactory<>("prerequisite"));
 
         // Fourth Year, Second Semester
-        initializeColumn(courseID4th2nd, "courseCode");
-        initializeColumn(courseCode4th2nd, "courseDesc");
-        initializeColumn(units4th2nd, "units");
-        initializeColumn(prerequisite4th2nd, "prerequisite");
+        courseID4th2nd.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
+        courseCode4th2nd.setCellValueFactory(new PropertyValueFactory<>("courseDesc"));
+        units4th2nd.setCellValueFactory(new PropertyValueFactory<>("units"));
+        prerequisite4th2nd.setCellValueFactory(new PropertyValueFactory<>("prerequisite"));
     }
 
     private <T> void initializeColumn(TableColumn<ProspectusDetails, T> column, String property) {
@@ -159,7 +170,7 @@ public class ViewProspectusController implements Initializable {
         this.prospectus = prospectus;
         String programText = prospectus.getPDepartment();
         String yearText = prospectus.getPrEffectiveYear();
-        
+
         // Set program and effective year for all tabs
         program1stYear.setText(programText);
         effectiveYear1stYear.setText(yearText);
@@ -169,18 +180,58 @@ public class ViewProspectusController implements Initializable {
         effectiveYear3rdYear.setText(yearText);
         program4thYear.setText(programText);
         effectiveYear4thYear.setText(yearText);
-        
-        loadProspectusDetails(prospectus.getPrId());
+
+        loadAllProspectusDetails(prospectus.getPrId()); // Load all details
     }
 
-    private void loadProspectusDetails(int prId) {
-        List<ProspectusDetails> details = prospectusData.getProspectusDetails(prId);
-        System.out.println("Loaded details for prospectus ID " + prId + ": " + details.size() + " records found.");
-        loadFirstYearTables(details);
-        loadSecondYearTables(details);
-        loadThirdYearTables(details);
-        loadFourthYearTables(details);
+       private void loadAllProspectusDetails(int prId) {
+        // Get all prospectus details for the given effective year
+        String query = "SELECT pd.*, c.c_code, c.c_desc, c.c_units, " +
+                      "prereq.c_code as prereq_code " +
+                      "FROM prospectus p " +
+                      "JOIN prospectus_details pd ON p.pr_id = pd.pr_id " +
+                      "JOIN course c ON pd.course_id = c.c_id " +
+                      "LEFT JOIN course prereq ON c.prerequisite_id = prereq.c_id " +
+                      "WHERE p.pr_effective_year = (SELECT pr_effective_year FROM prospectus WHERE pr_id = ?) " +
+                      "ORDER BY pd.year_level, pd.semester, c.c_code";
+
+        List<ProspectusDetails> details = new ArrayList<>();
+        
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            
+            stmt.setInt(1, prId);
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                ProspectusDetails detail = new ProspectusDetails(
+                    rs.getInt("pd_id"),
+                    rs.getInt("pr_id"),
+                    rs.getInt("course_id"),
+                    rs.getString("year_level"),
+                    rs.getString("semester")
+                );
+                
+                // Set additional fields
+                detail.setCourseCode(rs.getString("c_code"));
+                detail.setCourseDesc(rs.getString("c_desc"));
+                detail.setUnits(rs.getInt("c_units"));
+                detail.setPrerequisite(rs.getString("prereq_code") != null ? rs.getString("prereq_code") : "None");
+                
+                details.add(detail);
+            }
+            
+            // Load all year levels at once
+            loadFirstYearTables(details);
+            loadSecondYearTables(details);
+            loadThirdYearTables(details);
+            loadFourthYearTables(details);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
     private void loadFirstYearTables(List<ProspectusDetails> details) {
         setSemesterTable(tableView1st1st, units1st1stSem, details, "1st Year", "1st Semester");
         setSemesterTable(tableView1st2nd, units1st2ndSem, details, "1st Year", "2nd Semester");
@@ -201,27 +252,39 @@ public class ViewProspectusController implements Initializable {
         setSemesterTable(tableView4th2nd, units4th2ndSem, details, "4th Year", "2nd Semester");
     }
 
-    private void setSemesterTable(TableView<ProspectusDetails> table, Label label, List<ProspectusDetails> allDetails, String year, String sem) {
+    private void setSemesterTable(TableView<ProspectusDetails> table, Label label, 
+                                List<ProspectusDetails> allDetails, String year, String sem) {
+        System.out.println("Setting table for " + year + " " + sem);
+
         List<ProspectusDetails> filtered = allDetails.stream()
                 .filter(d -> {
-                    String detailYear = d.getYear_level().trim();
-                    String detailSem = d.getSemester().trim();
-                    
-                    // Debug print
-                    System.out.println("Comparing - Detail: [" + detailYear + ", " + detailSem + 
-                                     "] with Expected: [" + year + ", " + sem + "]");
-                    
-                    return detailYear.equalsIgnoreCase(year) && detailSem.equalsIgnoreCase(sem);
+                    boolean matches = d.getYear_level().trim().equalsIgnoreCase(year) && 
+                                    d.getSemester().trim().equalsIgnoreCase(sem);
+                    if (matches) {
+                        System.out.println("Found match: " + d.getCourseCode() + " - " + d.getCourseDesc());
+                    }
+                    return matches;
                 })
                 .collect(Collectors.toList());
 
         System.out.println("Filtered " + year + " " + sem + ": " + filtered.size() + " courses");
-        filtered.forEach(d -> System.out.println("Filtered course: " + d.getCourseCode() + " - " + d.getCourseDesc()));
 
-        table.setItems(FXCollections.observableArrayList(filtered));
+        // Clear the table first
+        table.getItems().clear();
 
-        int totalUnits = filtered.stream().mapToInt(ProspectusDetails::getUnits).sum();
-        label.setText(totalUnits + "");
+        // Add the filtered items
+        ObservableList<ProspectusDetails> observableList = FXCollections.observableArrayList(filtered);
+        table.setItems(observableList);
+
+        // Force the table to refresh
+        table.refresh();
+
+        // Calculate total units
+        int totalUnits = filtered.stream()
+                .mapToInt(ProspectusDetails::getUnits)
+                .sum();
+        label.setText(String.valueOf(totalUnits));
     }
+    
    
 }
