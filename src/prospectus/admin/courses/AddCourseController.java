@@ -21,6 +21,8 @@ import javafx.scene.layout.Pane;
 import main.dbConnector;
 import prospectus.models.Programs;
 import prospectus.models.Course;
+import prospectus.models.UserSession;
+import prospectus.utilities.logger;
 import prospectus.utilities.utilities;
 
 public class AddCourseController implements Initializable {
@@ -108,10 +110,12 @@ public class AddCourseController implements Initializable {
             pst.setObject(4, prerequisiteId == 0 ? null : prerequisiteId);
 
             if (pst.executeUpdate() > 0) {
+                logger.addLog(UserSession.getUsername(), "Course", "Course Added Successfully: " + UserSession.getUsername());       
                 utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Course added successfully!");
                 clearFields();
             }
         } catch (SQLException e) {
+            logger.addLog(UserSession.getUsername(), "Course", "Attempted to add course.: " + UserSession.getUsername());
             utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to add course.");
         }
     }

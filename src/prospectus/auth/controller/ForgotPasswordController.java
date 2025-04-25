@@ -22,6 +22,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import main.dbConnector;
+import prospectus.models.UserSession;
+import prospectus.utilities.logger;
 import prospectus.utilities.utilities;
 
 /**
@@ -83,6 +85,7 @@ public class ForgotPasswordController implements Initializable {
             String username = rs.getString("u_username");
             System.out.println("✅ Verification successful for user: " + username);
             proceedToPasswordReset();
+            logger.addLog(username, "Forgot Password", "Verification successful for user: .: " + username);
         } else {
              utilities.showAlert(Alert.AlertType.ERROR, "Verify Failed", "Recovery phrase or email doesn't exist.");
         }

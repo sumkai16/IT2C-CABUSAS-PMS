@@ -22,6 +22,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import main.dbConnector;
+import prospectus.models.UserSession;
+import prospectus.utilities.logger;
 import prospectus.utilities.passwordHasher;
 import prospectus.utilities.utilities;
 
@@ -88,10 +90,12 @@ public class PasswordResetController implements Initializable {
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected > 0) {
+                logger.addLog(UserSession.getUsername(), "Password", "Password changed successfully!.: " + UserSession.getUsername());
                 utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Password reset successfully!" );
                 closeOverlay();
                 backToLogin(null);
             } else {
+                logger.addLog(UserSession.getUsername(), "Password", "User not found!.: " + UserSession.getUsername());
                 utilities.showAlert(Alert.AlertType.ERROR, "Error", "User not found!" );
             }
         } catch (SQLException e) {

@@ -217,9 +217,11 @@ public class EditUserController implements Initializable {
 
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {
+                logger.addLog(UserSession.getUsername(), "User", "User updated Successfully!: " + UserSession.getUsername());
                 utilities.showAlert(Alert.AlertType.INFORMATION, "User Updated!", "Profile updated successfully!");
                 clearFields();
             } else {
+                logger.addLog(UserSession.getUsername(), "User", "Attempted to update User.: " + UserSession.getUsername());
                 utilities.showAlert(Alert.AlertType.ERROR, "Update Failed!", "User update unsuccessful.");
             }
         } catch (SQLException e) {

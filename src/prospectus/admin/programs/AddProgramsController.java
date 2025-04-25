@@ -65,12 +65,12 @@ public class AddProgramsController implements Initializable {
         String query = "INSERT INTO program (p_program_name, p_desc, p_department, p_status) VALUES (?, ?, ?, 'Active')";
 
         if (db.insertData(query, programName, programDescription, programDepartment)) {
-            logger.addLog(username, "Program Added", "Admin added a program " + programName);
-
+            logger.addLog(UserSession.getUsername(), "Program", "Program added successfully!: " + UserSession.getUsername());
             utilities.showAlert(Alert.AlertType.INFORMATION, "Program successfully added!", "Added Completed!");
 
             clearFields();
         } else {
+            logger.addLog(UserSession.getUsername(), "Program", "Attempted to add Program.: " + UserSession.getUsername());
             utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to add program!");
         }
     }

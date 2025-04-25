@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import main.dbConnector;
 import prospectus.models.UserSession;
+import prospectus.utilities.logger;
 import prospectus.utilities.utilities;
 
 public class AddProspectusController implements Initializable {
@@ -94,13 +95,30 @@ public class AddProspectusController implements Initializable {
     }
 
     private void loadYearLevels() {
-        ObservableList<String> yearLevels = FXCollections.observableArrayList("1st Year", "2nd Year", "3rd Year", "4th Year");
+        ObservableList<String> yearLevels = FXCollections.observableArrayList(
+            "1st Year", "2nd Year", "3rd Year", "4th Year", "Summer"
+        );
         selectYearLevelComboBox.setItems(yearLevels);
     }
 
     private void loadSemesters() {
-        ObservableList<String> semesters = FXCollections.observableArrayList("1st Semester", "2nd Semester");
+        ObservableList<String> semesters = FXCollections.observableArrayList(
+            "1st Semester", "2nd Semester", "Summer"
+        );
         selectSemesterComboBox.setItems(semesters);
+
+        // Add listener to handle summer semester selection
+        selectYearLevelComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if ("Summer".equals(newVal)) {
+                selectSemesterComboBox.setValue("Summer");
+                selectSemesterComboBox.setDisable(true);
+            } else {
+                selectSemesterComboBox.setDisable(false);
+                if ("Summer".equals(selectSemesterComboBox.getValue())) {
+                    selectSemesterComboBox.setValue("1st Semester");
+                }
+            }
+        });
     }
 
 
@@ -124,7 +142,7 @@ public class AddProspectusController implements Initializable {
                 Course courseToAdd = new Course(courseCode, displayCourseInfoHere.getText(), units);
                 selectedCourses.add(courseToAdd);
                 courseTableView.getItems().add(courseToAdd);
-                clearCourseSelection(); // Clear selection after adding
+                clearCourseSelection(); 
                 System.out.println("Course added!");
             } else {
                 utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Selected course not found in the list.");
@@ -212,11 +230,12 @@ public class AddProspectusController implements Initializable {
                     }
                     detailsPst.executeBatch(); // Execute batch insert for details
                 }
-
+                logger.addLog(UserSession.getUsername(), "Prospectus", "Prospectus added successfully!: " + UserSession.getUsername());
                 utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Prospectus added successfully!");
                 clearFields(); // Clear fields after successful insertion
             }
         } catch (SQLException e) {
+            logger.addLog(UserSession.getUsername(), "Prospectus", "Attempted to add prospectus.: " + UserSession.getUsername());
             utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to add prospectus: " + e.getMessage());
         }
     }

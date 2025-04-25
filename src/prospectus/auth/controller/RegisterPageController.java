@@ -22,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import prospectus.models.UserSession;
 import prospectus.utilities.logger;
 import prospectus.utilities.passwordHasher;
 import prospectus.utilities.validations;
@@ -73,12 +74,10 @@ public class RegisterPageController implements Initializable {
         if (!verifyUser(currentStage, query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
             if (db.insertData(query, firstName, middleName, lastName, emailAddress, phoneNumber, username, hashedPassword, recoveryPhrase)) {
                 System.out.println("User added to database!");
-                logger.addLog(username, "User Registration", "New user registered: " + username);          
+               logger.addLog(UserSession.getUsername(), "User Registration", "New user registered: " + UserSession.getUsername());       
                 utilities.showAlert(Alert.AlertType.INFORMATION, "User successfully registered!", 
                     "Register Completed!" + "\n\nNOTE: Please save your recovery phrase, check it in your profile");
-                // Load SecretRecoveryPhrase.fxml as an overlay with fade effect
                 utilities.loadFXMLWithFade(rootPane, "/prospectus/auth/fxml/SecretRecoveryPhrase.fxml");
-                // Clear input fields after registration
                 clearFields();
                 utilities.switchScene(getClass(), event, "/prospectus/auth/fxml/LoginPage.fxml");
             }

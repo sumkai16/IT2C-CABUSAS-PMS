@@ -100,8 +100,7 @@ public class AddUserController implements Initializable {
                 System.out.println("User added to database!");
 
                 String usernamelog = UserSession.getUsername();
-                logger.addLog(usernamelog, "User Added", "Admin added a user " + username);
-
+                logger.addLog(UserSession.getUsername(), "User", "User addedd Successfully!.: " + UserSession.getUsername());
                 utilities.showAlert(Alert.AlertType.INFORMATION, "User successfully added!", "Added Completed!");
                 clearFields();
                 

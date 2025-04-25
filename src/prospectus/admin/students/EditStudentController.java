@@ -35,6 +35,8 @@ import javafx.stage.FileChooser;
 import prospectus.utilities.utilities;
 import main.dbConnector;
 import prospectus.models.Student;
+import prospectus.models.UserSession;
+import prospectus.utilities.logger;
 
 public class EditStudentController implements Initializable {
 
@@ -250,10 +252,12 @@ public class EditStudentController implements Initializable {
 
             int rowsUpdated = preparedStatement.executeUpdate();
             if (rowsUpdated > 0) {
+                logger.addLog(UserSession.getUsername(), "Student", "Student Updated Successfully.: " + UserSession.getUsername());
                 utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Student information updated successfully.");
                 manageStudentsController.loadStudents(); 
                 clearFields();
             } else {
+                logger.addLog(UserSession.getUsername(), "Student", "Attempted to updated student information.: " + UserSession.getUsername());
                 utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to update student information.");
             }
         } catch (SQLException e) {

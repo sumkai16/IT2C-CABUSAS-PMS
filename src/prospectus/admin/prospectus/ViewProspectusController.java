@@ -20,6 +20,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import main.dbConnector;
 import prospectus.models.Prospectus;
 import prospectus.models.ProspectusDetails;
+import prospectus.models.UserSession;
+import prospectus.utilities.logger;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
+import javafx.print.*;
+import javafx.scene.transform.Scale;
+import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.event.ActionEvent;
+import javafx.scene.layout.AnchorPane;
 
 public class ViewProspectusController implements Initializable {
 
@@ -80,18 +90,29 @@ public class ViewProspectusController implements Initializable {
     @FXML private TableColumn<ProspectusDetails, String> prerequisite4th2nd;
     @FXML private Label units4th2ndSem;
 
+    @FXML private TableView<ProspectusDetails> tableviewSummer;
+    @FXML private TableColumn<ProspectusDetails, String> courseCodeSummer;
+    @FXML private TableColumn<ProspectusDetails, String> courseDescSummer;
+    @FXML private TableColumn<ProspectusDetails, Integer> unitsSummer;
+    @FXML private TableColumn<ProspectusDetails, String> prerequisiteSummer;
+    @FXML private Label totalUnitsSummer;
+
     @FXML private Label program1stYear;
     @FXML private Label effectiveYear1stYear;
-    @FXML private Label program2nd;
-    @FXML private Label effectiveYear2nd;
-    @FXML private Label program3rdYear;
-    @FXML private Label effectiveYear3rdYear;
-    @FXML private Label program4thYear;
-    @FXML private Label effectiveYear4thYear;
+    private Label program2nd;
+    private Label effectiveYear2nd;
+    private Label program3rdYear;
+    private Label effectiveYear3rdYear;
+    private Label program4thYear;
+    private Label effectiveYear4thYear;
+
+    @FXML private TabPane tabPane;
 
     private final ProspectusData prospectusData = new ProspectusData();
     private Prospectus prospectus;
     private dbConnector db = new dbConnector();
+   
+   
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -100,6 +121,7 @@ public class ViewProspectusController implements Initializable {
         System.out.println("Table columns initialized");
         loadProspectus();
         System.out.println("Prospectus loaded");
+        logger.addLog(UserSession.getUsername(), "Prospectus", "Viewed Prospectus.: " + UserSession.getUsername());
     }
 
     private void setupTableColumns() {
@@ -150,6 +172,12 @@ public class ViewProspectusController implements Initializable {
         courseCode4th2nd.setCellValueFactory(new PropertyValueFactory<>("courseDesc"));
         units4th2nd.setCellValueFactory(new PropertyValueFactory<>("units"));
         prerequisite4th2nd.setCellValueFactory(new PropertyValueFactory<>("prerequisite"));
+
+        // Setup Summer columns
+        if (courseCodeSummer != null) courseCodeSummer.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
+        if (courseDescSummer != null) courseDescSummer.setCellValueFactory(new PropertyValueFactory<>("courseDesc"));
+        if (unitsSummer != null) unitsSummer.setCellValueFactory(new PropertyValueFactory<>("units"));
+        if (prerequisiteSummer != null) prerequisiteSummer.setCellValueFactory(new PropertyValueFactory<>("prerequisite"));
     }
 
     private <T> void initializeColumn(TableColumn<ProspectusDetails, T> column, String property) {
@@ -163,28 +191,49 @@ public class ViewProspectusController implements Initializable {
             setProspectus(prospectusList.get(0));
         } else {
             System.out.println("No prospectus data found.");
+            // Set default values if no data is found
+            setEmptyProspectus();
         }
     }
 
+    private void setEmptyProspectus() {
+        String defaultProgram = "No Program Selected";
+        String defaultYear = "----";
+        
+        program1stYear.setText(defaultProgram);
+        effectiveYear1stYear.setText(defaultYear);
+        program2nd.setText(defaultProgram);
+        effectiveYear2nd.setText(defaultYear);
+        program3rdYear.setText(defaultProgram);
+        effectiveYear3rdYear.setText(defaultYear);
+        program4thYear.setText(defaultProgram);
+        effectiveYear4thYear.setText(defaultYear);
+    }
+
     public void setProspectus(Prospectus prospectus) {
+        if (prospectus == null) {
+            setEmptyProspectus();
+            return;
+        }
+
         this.prospectus = prospectus;
-        String programText = prospectus.getPDepartment();
-        String yearText = prospectus.getPrEffectiveYear();
+        String programText = prospectus.getPDepartment() != null ? prospectus.getPDepartment() : "No Program";
+        String yearText = prospectus.getPrEffectiveYear() != null ? prospectus.getPrEffectiveYear() : "----";
 
         // Set program and effective year for all tabs
-        program1stYear.setText(programText);
-        effectiveYear1stYear.setText(yearText);
-        program2nd.setText(programText);
-        effectiveYear2nd.setText(yearText);
-        program3rdYear.setText(programText);
-        effectiveYear3rdYear.setText(yearText);
-        program4thYear.setText(programText);
-        effectiveYear4thYear.setText(yearText);
+        if (program1stYear != null) program1stYear.setText(programText);
+        if (effectiveYear1stYear != null) effectiveYear1stYear.setText(yearText);
+        if (program2nd != null) program2nd.setText(programText);
+        if (effectiveYear2nd != null) effectiveYear2nd.setText(yearText);
+        if (program3rdYear != null) program3rdYear.setText(programText);
+        if (effectiveYear3rdYear != null) effectiveYear3rdYear.setText(yearText);
+        if (program4thYear != null) program4thYear.setText(programText);
+        if (effectiveYear4thYear != null) effectiveYear4thYear.setText(yearText);
 
         loadAllProspectusDetails(prospectus.getPrId()); // Load all details
     }
 
-       private void loadAllProspectusDetails(int prId) {
+    private void loadAllProspectusDetails(int prId) {
         // Get all prospectus details for the given effective year
         String query = "SELECT pd.*, c.c_code, c.c_desc, c.c_units, " +
                       "prereq.c_code as prereq_code " +
@@ -226,9 +275,11 @@ public class ViewProspectusController implements Initializable {
             loadSecondYearTables(details);
             loadThirdYearTables(details);
             loadFourthYearTables(details);
+            loadSummerTable(details); // Add this line to load summer courses
             
         } catch (SQLException e) {
             e.printStackTrace();
+            showAlert("Database Error", "Failed to load prospectus details: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -250,6 +301,27 @@ public class ViewProspectusController implements Initializable {
     private void loadFourthYearTables(List<ProspectusDetails> details) {
         setSemesterTable(tableView4th1st, units4th1stSem, details, "4th Year", "1st Semester");
         setSemesterTable(tableView4th2nd, units4th2ndSem, details, "4th Year", "2nd Semester");
+    }
+
+    private void loadSummerTable(List<ProspectusDetails> details) {
+        // Filter for summer courses
+        List<ProspectusDetails> summerCourses = details.stream()
+                .filter(d -> "Summer".equals(d.getYear_level()) || "Summer".equals(d.getSemester()))
+                .collect(Collectors.toList());
+
+        if (tableviewSummer != null) {
+            tableviewSummer.getItems().clear();
+            ObservableList<ProspectusDetails> observableList = FXCollections.observableArrayList(summerCourses);
+            tableviewSummer.setItems(observableList);
+            
+            // Calculate total units for summer
+            int totalUnits = summerCourses.stream()
+                    .mapToInt(ProspectusDetails::getUnits)
+                    .sum();
+            if (totalUnitsSummer != null) {
+                totalUnitsSummer.setText(String.valueOf(totalUnits));
+            }
+        }
     }
 
     private void setSemesterTable(TableView<ProspectusDetails> table, Label label, 
@@ -286,5 +358,52 @@ public class ViewProspectusController implements Initializable {
         label.setText(String.valueOf(totalUnits));
     }
     
-   
+    @FXML
+    private void handlePrint(ActionEvent event) {
+        PrinterJob job = PrinterJob.createPrinterJob();
+        if (job != null) {
+            // Show printer dialog
+            boolean proceed = job.showPrintDialog(tabPane.getScene().getWindow());
+            
+            if (proceed) {
+                // Get current tab content
+                Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
+                ScrollPane scrollPane = (ScrollPane) selectedTab.getContent();
+                Node content = scrollPane.getContent();
+
+                // Calculate the scale to fit content to page
+                PageLayout pageLayout = job.getJobSettings().getPageLayout();
+                double scaleX = pageLayout.getPrintableWidth() / content.getBoundsInParent().getWidth();
+                double scaleY = pageLayout.getPrintableHeight() / content.getBoundsInParent().getHeight();
+                double scale = Math.min(scaleX, scaleY);
+
+                // Apply scaling
+                Scale scaling = new Scale(scale, scale);
+                content.getTransforms().add(scaling);
+
+                // Print the content
+                boolean success = job.printPage(content);
+                
+                // Remove scaling after printing
+                content.getTransforms().remove(scaling);
+
+                if (success) {
+                    job.endJob();
+                    showAlert("Print Success", "The prospectus has been sent to the printer.", Alert.AlertType.INFORMATION);
+                } else {
+                    showAlert("Print Failed", "Failed to print the prospectus.", Alert.AlertType.ERROR);
+                }
+            }
+        } else {
+            showAlert("Printer Error", "No printer found or printer system not available.", Alert.AlertType.ERROR);
+        }
+    }
+
+    private void showAlert(String title, String content, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }

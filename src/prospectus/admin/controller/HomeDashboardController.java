@@ -145,7 +145,7 @@ public class HomeDashboardController implements Initializable {
     }
 
     private void loadRecentActivities() {
-        String query = "SELECT * FROM audit_logs ORDER BY timestamp DESC LIMIT 10";
+        String query = "SELECT * FROM logs ORDER BY date_time DESC LIMIT 10";
         try {
             Connection conn = db.getConnection();
             PreparedStatement pst = conn.prepareStatement(query);
@@ -153,7 +153,7 @@ public class HomeDashboardController implements Initializable {
 
             while (rs.next()) {
                 String activity = String.format("[%s] %s - %s",
-                    rs.getTimestamp("timestamp").toLocalDateTime().format(DateTimeFormatter.ofPattern("MM/dd HH:mm")),
+                    rs.getTimestamp("date_time").toLocalDateTime().format(DateTimeFormatter.ofPattern("MM/dd HH:mm")),
                     rs.getString("action"),
                     rs.getString("description")
                 );

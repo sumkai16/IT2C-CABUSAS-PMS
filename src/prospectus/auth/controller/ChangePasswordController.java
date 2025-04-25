@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import prospectus.utilities.logger;
 import prospectus.utilities.passwordHasher;
 
 public class ChangePasswordController implements Initializable {
@@ -86,9 +87,11 @@ public class ChangePasswordController implements Initializable {
 
             int affectedRows = pst.executeUpdate();
             if (affectedRows > 0) {
+                logger.addLog(UserSession.getUsername(), "Password", "Password changed successfully!.: " + UserSession.getUsername());
                 utils.showAlert(Alert.AlertType.INFORMATION, "Success", "Password changed successfully.");
                 closeOverlay();
             } else {
+                logger.addLog(UserSession.getUsername(), "Password", "Incorrect old password.: " + UserSession.getUsername());
                 utils.showAlert(Alert.AlertType.ERROR, "Error", "Incorrect old password.");
             }
         }

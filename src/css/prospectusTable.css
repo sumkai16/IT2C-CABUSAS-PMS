@@ -1,0 +1,15 @@
+.print-button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.print-button:hover {
+    -fx-background-color: #0056b3;
+}
+
+.print-button:pressed {
+    -fx-background-color: #004085;
+} 

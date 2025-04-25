@@ -1,94 +1,86 @@
-/* Root Background */
+/* Root styles */
 .root {
-    -fx-background-color: #FBFCF8; /* Light background */
-    -fx-font-family: "Poppins";
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
 }
 
-/* Top Bar Styling */
-.topbar {
-    -fx-background-color: #12192C; /* Dark blue */
-    -fx-padding: 10px 20px;
-    -fx-text-fill: white;
-    -fx-min-height: 50px;
-    -fx-alignment: center-left;
+/* Header section styles */
+.header-section {
+    -fx-padding: 10px 0;
 }
 
-/* Main Log Container */
-.container {
-    -fx-background-color: #FBFCF8;
-    -fx-padding: 20px;
-    -fx-border-radius: 10px;
-}
-
-.audit-log-container {
-    -fx-background-color: #12192C; /* Dark background for logs */
-    -fx-text-fill: #FBFCF8; /* White text */
-    -fx-padding: 20px;
-    -fx-border-radius: 10px;
-}
-
-/* Table Styling */
-.table-view {
-    -fx-background-color: #FBFCF8;
-}
-
-.table-view .column-header-background {
-    -fx-background-color: transparent; /* Blue header */
-}
-
-.table-view .column-header {
-    -fx-background-color: transparent;
-    -fx-text-fill: #FBFCF8; /* Light text */
+.title-label {
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
+    -fx-text-fill: #333333;
 }
 
-.table-row-cell {
-    -fx-background-color: #FBFCF8; /* Light row background */
-    -fx-text-fill: black;
-    -fx-font-size: 12px;
-}
-
-.table-row-cell:selected {
-    -fx-background-color: #12192C; /* Darker blue */
-    -fx-text-fill: white;
-}
-
-/* Search Bar Styling */
+/* Search field styles */
 .text-field {
-    -fx-background-color: #FBFCF8;
-    -fx-border-color: #12192C;
-    -fx-border-radius: 5px;
-    -fx-padding: 5px;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 4px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
 }
 
 .text-field:focused {
-    -fx-border-color: #3A86FF;
+    -fx-border-color: #007AFF;
 }
 
-/* Buttons */
+/* Button styles */
 .button {
     -fx-background-color: #12192C;
-    -fx-text-fill: #FBFCF8;
+    -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-padding: 10px 20px;
-    -fx-border-radius: 8px;
-    -fx-font-weight: bold;
-}
-
-.button:hover {
-    -fx-background-color: #265DDA;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 4px;
     -fx-cursor: hand;
 }
 
-/* Title Bar */
-.title-bar {
-    -fx-background-color: #12192C;
-    -fx-alignment: center-left;
+.button:hover {
+    -fx-background-color: #1F2A44;
 }
 
-/* Title Bar Text */
-.title-bar-label {
-    -fx-text-fill: #FBFCF8;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
+/* ListView styles */
+.logs-list {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 4px;
+}
+
+.logs-list .list-cell {
+    -fx-padding: 15px;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: transparent transparent #E0E0E0 transparent;
+}
+
+.logs-list .list-cell:hover {
+    -fx-background-color: #F8F9FA;
+}
+
+.logs-list .list-cell:selected {
+    -fx-background-color: #F0F7FF;
+    -fx-text-fill: #333333;
+}
+
+/* Labels in header */
+#totalLogsLabel, #dateRangeLabel {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666666;
+}
+
+/* Scrollbar styling */
+.scroll-bar:vertical {
+    -fx-background-color: #F8F9FA;
+    -fx-pref-width: 12px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #CED4DA;
+    -fx-background-radius: 6px;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #ADB5BD;
 }

@@ -23,6 +23,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import main.dbConnector;
 import prospectus.models.Course;
+import prospectus.models.UserSession;
+import prospectus.utilities.logger;
 import prospectus.utilities.utilities;
 
 public class EditCourseController implements Initializable {
@@ -202,9 +204,11 @@ public class EditCourseController implements Initializable {
         boolean success = db.updateData(query, courseCode, courseDesc, courseUnits, prerequisiteId, selectedCourseId);
 
         if (success) {
+            logger.addLog(UserSession.getUsername(), "Course", "Course Updated Successfully!.: " + UserSession.getUsername());
             utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Course updated successfully.");
             utilities.closeOverlay(overlayPane); 
         } else {
+            logger.addLog(UserSession.getUsername(), "Course", "Attempted to update course.: " + UserSession.getUsername());
             utilities.showAlert(Alert.AlertType.ERROR, "Update Failed", "Error updating the course.");
         }
     }
