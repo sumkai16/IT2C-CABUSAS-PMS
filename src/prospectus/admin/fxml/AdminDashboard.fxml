@@ -134,6 +134,16 @@
                               <Image url="@../../images/logoutIcon.gif" />
                            </image>
                         </ImageView>
+                        <Button fx:id="profile" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="373.0" mnemonicParsing="false" onMouseClicked="#profileHandler" prefHeight="40.0" prefWidth="185.0" styleClass="nav-button" text="Profile">
+                           <font>
+                              <Font name="Poppins" size="14.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="13.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/profileIcon.gif" />
+                           </image>
+                        </ImageView>
                      </children>
                   </Pane>
                </children>

@@ -15,7 +15,7 @@
            <Label layoutX="64.0" layoutY="92.0" maxWidth="400" prefHeight="40.0" prefWidth="371.0" styleClass="label-subtext" text="You're not yet enrolled. Complete your enrollment to access full features." wrapText="true" />
       
            <!-- Buttons -->
-           <Button fx:id="proceedEnrollmentBtn" layoutX="159.0" layoutY="177.0" onMouseClicked="#handleProceedToEnrollment" styleClass="button-green" text="Proceed to Enrollment" />
+           <Button fx:id="okay" layoutX="174.0" layoutY="175.0" onMouseClicked="#handleProceedToEnrollment" prefWidth="150.0" styleClass="button-green" text="OK" />
          <Label fx:id="closeBtn" layoutX="466.0" layoutY="14.0" onMouseClicked="#closeClickHandler" style="-fx-font-size: 18px; -fx-cursor: hand;" text="✖" />
       </children>
    </Pane>

@@ -48,17 +48,13 @@ public class UserDashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         utilities.loadFXMLWithFade(rootPane, "/prospectus/user/fxml/WelcomeSection.fxml");
-        try {
-            loadPage("/prospectus/user/fxml/UserHome.fxml");
-        } catch (IOException ex) {
-             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
-        }
+        loadPage("/prospectus/user/fxml/UserHome.fxml");
     }
    
-    private void loadPage(String targetFXML) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource(targetFXML));
-        bgPane.setCenter(root);
+     private void loadPage(String fxmlPath) {
+        utilities.loadPageWithFade(bgPane, fxmlPath, null);
     }
+
 
 
     @FXML
@@ -71,33 +67,22 @@ public class UserDashboardController implements Initializable {
 
     @FXML
     private void homeOnClick(MouseEvent event) throws IOException {
-         try {
-            loadPage("/prospectus/user/fxml/UserHome.fxml");
-        } catch (IOException ex) {
-             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
-        }
+        loadPage("/prospectus/user/fxml/UserHome.fxml");
     }
 
 
     @FXML
     private void studentDetailsOnClick(MouseEvent event) throws IOException {
-       try {
-            loadPage("/prospectus/user/fxml/UserProfile.fxml");
-        } catch (IOException ex) {
-             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
-        }
+        loadPage("/prospectus/user/fxml/UserProfile.fxml");
     }
 
     @FXML
     private void settingsOnClick(MouseEvent event) {
+        loadPage("/prospectus/user/fxml/SettingsPage.fxml");
     }
 
     @FXML
     private void enrollmentOnClickHandler(MouseEvent event) {
-        try {
-            loadPage("/prospectus/user/fxml/enrollmentForm.fxml");
-        } catch (IOException ex) {
-             utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load dashboard: " + ex.getMessage());
-        }
+        loadPage("/prospectus/user/fxml/enrollmentForm.fxml");
     }
 }

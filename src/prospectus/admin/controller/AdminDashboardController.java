@@ -30,6 +30,8 @@ public class AdminDashboardController implements Initializable {
     private Button userManageOnClick;
     @FXML
     private Button courses;
+    @FXML
+    private Button profile;
     
 
     @Override
@@ -63,7 +65,7 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     private void settingsOnClick(MouseEvent event) {
-        loadPage("/prospectus/user/fxml/UserProfile.fxml");
+       loadPage("/prospectus/user/fxml/SettingsPage.fxml");
     }
 
     @FXML
@@ -92,5 +94,10 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private void coursesHandler(MouseEvent event) {
         loadPage("/prospectus/admin/courses/manageCourses.fxml");
+    }
+
+    @FXML
+    private void profileHandler(MouseEvent event) {
+         loadPage("/prospectus/user/fxml/UserProfile.fxml");
     }
 }

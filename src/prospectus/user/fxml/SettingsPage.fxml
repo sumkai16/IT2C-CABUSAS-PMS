@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="550.0" prefWidth="715.0" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prospectus.user.controller.SettingsPageController">
+   <children>
+      <ScrollPane layoutX="-3.0" layoutY="-3.0" prefHeight="550.0" prefWidth="717.0">
+         <content>
+            <Pane prefHeight="600.0" prefWidth="715.0" styleClass="container">
+               <children>
+                  <!-- Settings Header -->
+                  <Label layoutX="20.0" layoutY="20.0" text="⚙️ Settings">
+                     <font>
+                        <Font name="Poppins Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  
+                                    <!-- Account Settings Section -->
+                  <Pane layoutX="20.0" layoutY="47.0" prefHeight="200.0" prefWidth="675.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                     <children>
+                        <Label layoutX="20.0" layoutY="20.0" text="🔐 Account Settings">
+                           <font>
+                              <Font name="Poppins Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        
+                                          <Button fx:id="changePasswordBtn" layoutX="20.0" layoutY="60.0" mnemonicParsing="false" onAction="#changePasswordHandler" prefHeight="40.0" prefWidth="635.0" styleClass="settings-button" text="Change Password">
+                           <font>
+                              <Font name="Poppins" size="14.0" />
+                           </font>
+                        </Button>
+                        
+                                          <Button fx:id="updateContactBtn" layoutX="20.0" layoutY="110.0" mnemonicParsing="false" onAction="#updateContactHandler" prefHeight="40.0" prefWidth="635.0" styleClass="settings-button" text="Update Email / Contact Number">
+                           <font>
+                              <Font name="Poppins" size="14.0" />
+                           </font>
+                        </Button>
+                        
+                                          <Button fx:id="updateProfilePicBtn" layoutX="20.0" layoutY="160.0" mnemonicParsing="false" onAction="#updateProfilePicHandler" prefHeight="40.0" prefWidth="635.0" styleClass="settings-button" text="Update Profile Picture">
+                           <font>
+                              <Font name="Poppins" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
+                  
+                                    <!-- Profile Information Section -->
+                  <Pane layoutX="20.0" layoutY="267.0" prefHeight="150.0" prefWidth="675.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                     <children>
+                        <Label layoutX="20.0" layoutY="20.0" text="👤 Profile Information">
+                           <font>
+                              <Font name="Poppins Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        
+                                          <Label fx:id="userInfoLabel" layoutX="20.0" layoutY="60.0" text="Full Name: [Name] | Role: [Role] | Status: [Status]">
+                           <font>
+                              <Font name="Poppins" size="14.0" />
+                           </font>
+                        </Label>
+                        
+                                          <Button fx:id="editPersonalInfoBtn" layoutX="20.0" layoutY="100.0" mnemonicParsing="false" onAction="#editPersonalInfoHandler" prefHeight="40.0" prefWidth="635.0" styleClass="settings-button" text="Edit Personal Information">
+                           <font>
+                              <Font name="Poppins" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
+                  
+                                    <!-- Security Options Section -->
+                  <Pane layoutX="20.0" layoutY="437.0" prefHeight="150.0" prefWidth="675.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                     <children>
+                        <Label layoutX="20.0" layoutY="20.0" text="🔓 Security Options">
+                           <font>
+                              <Font name="Poppins Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        
+                                          <Button fx:id="twoFactorBtn" layoutX="20.0" layoutY="60.0" mnemonicParsing="false" onAction="#twoFactorHandler" prefHeight="40.0" prefWidth="635.0" styleClass="settings-button" text="Enable/Disable Two-Factor Authentication">
+                           <font>
+                              <Font name="Poppins" size="14.0" />
+                           </font>
+                        </Button>
+                        
+                                          <Button fx:id="sessionSettingsBtn" layoutX="20.0" layoutY="110.0" mnemonicParsing="false" onAction="#sessionSettingsHandler" prefHeight="40.0" prefWidth="635.0" styleClass="settings-button" text="Session Timeout Settings">
+                           <font>
+                              <Font name="Poppins" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
+                  
+                                    <!-- Admin Settings Section (Initially Hidden) -->
+                  <Pane fx:id="adminSettingsPane" layoutX="20.0" layoutY="620.0" prefHeight="200.0" prefWidth="675.0" style="-fx-background-color: white; -fx-background-radius: 10;" visible="false">
+                     <children>
+                        <Label layoutX="20.0" layoutY="20.0" text="👑 Admin Settings">
+                           <font>
+                              <Font name="Poppins Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        
+                                          <Button fx:id="manageRolesBtn" layoutX="20.0" layoutY="60.0" mnemonicParsing="false" onAction="#manageRolesHandler" prefHeight="40.0" prefWidth="635.0" styleClass="settings-button" text="Manage Roles &amp; Access Control">
+                           <font>
+                              <Font name="Poppins" size="14.0" />
+                           </font>
+                        </Button>
+                        
+                                          <Button fx:id="userManagementBtn" layoutX="20.0" layoutY="110.0" mnemonicParsing="false" onAction="#userManagementHandler" prefHeight="40.0" prefWidth="635.0" styleClass="settings-button" text="User Management">
+                           <font>
+                              <Font name="Poppins" size="14.0" />
+                           </font>
+                        </Button>
+                        
+                                          <Button fx:id="globalSettingsBtn" layoutX="20.0" layoutY="160.0" mnemonicParsing="false" onAction="#globalSettingsHandler" prefHeight="40.0" prefWidth="635.0" styleClass="settings-button" text="Global Settings">
+                           <font>
+                              <Font name="Poppins" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

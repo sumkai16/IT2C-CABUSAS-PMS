@@ -83,7 +83,7 @@ public class StudentDashboardController implements Initializable {
 
     @FXML
     private void settingsOnClick(MouseEvent event) {
-        logger.log(Level.INFO, "Settings button clicked");
+       loadPage("/prospectus/user/fxml/SettingsPage.fxml");
     }
 
     @FXML

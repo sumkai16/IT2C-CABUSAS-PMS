@@ -19,7 +19,6 @@
     -fx-border-radius: 10px;
 }
 
-
 /* Primary Containers */
 .container {
     -fx-background-color: #FBFCF8;
@@ -35,9 +34,31 @@
     -fx-border-radius: 10px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0.5, 0, 4);
 }
+
+/* Settings Page Styles */
+.settings-button {
+    -fx-background-color: #12192C;
+    -fx-text-fill: #12192C;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-alignment: center-left;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 2, 2);
+}
+
+.settings-button:hover {
+    -fx-background-color: #E0E0E0;
+    -fx-cursor: hand;
+}
+
+.settings-button:pressed {
+    -fx-background-color: #D0D0D0;
+}
+
 /* Buttons */
 .button {
-    -fx-background-color: #3A86FF;
+    -fx-background-color: #12192C;
     -fx-text-fill: #FBFCF8;
     -fx-font-size: 14px;
     -fx-padding: 10px 20px;

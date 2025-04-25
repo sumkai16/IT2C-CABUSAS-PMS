@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import prospectus.utilities.utilities;
@@ -27,14 +28,14 @@ import prospectus.utilities.utilities;
 public class Welcome_sectionController implements Initializable {
 
     @FXML
-    private Button proceedEnrollmentBtn;
-    @FXML
-    private Button proceedtoDashboard;
-    @FXML
     private Label closeBtn;
     @FXML
     private AnchorPane overlayPane;
     private static UserProfileController instance;
+    @FXML
+    private Pane bgPane;
+    @FXML
+    private Button okay;
     /**
      * Initializes the controller class.
      */
@@ -45,24 +46,9 @@ public class Welcome_sectionController implements Initializable {
     
     @FXML
     private void handleProceedToEnrollment(MouseEvent event) {
-        
-         try {
-             utilities.loadFXMLWithFade(overlayPane, "/prospectus/user/fxml/enrollmentForm.fxml");
-        } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open Enrollment page: " + ex.getMessage());
-        }
+         utilities.closeOverlay(overlayPane);
     }
-
-    @FXML
-    private void proceedToDashboardHandler(MouseEvent event) {
-        try {
-            utilities.switchScene(getClass(), event, "/prospectus/user/fxml/UserDashboard.fxml"); 
-        } catch (Exception ex) {
-            utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open User Dashboard: " + ex.getMessage());
-        }
-       
-    }
-     
+   
     @FXML
     private void closeClickHandler(MouseEvent event) {
         utilities.closeOverlay(overlayPane);
