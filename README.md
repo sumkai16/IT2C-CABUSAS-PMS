@@ -24,5 +24,5 @@ java -cp path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml Main
 
 ## Project By
 - Name: Axcee Cabusas
-- Course: IT-2C
-- School: University of Cebu - Main Campus 
+- Course: IT-2A
+- School: St. Cecilia's College - Cebu, Inc.
