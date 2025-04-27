@@ -84,12 +84,16 @@ public class ManageProspectusController implements Initializable {
         private void loadProspectusData() {
             ObservableList<Prospectus> data = FXCollections.observableArrayList();
 
-            // SQL query to get one row per effective year (using the first ID)
+            // SQL query to get one row per program per effective year (using the first ID)
             String query = "SELECT p.pr_id, prog.p_program_name, prog.p_department, p.pr_effective_year, p.status " +
                           "FROM prospectus p " +
                           "JOIN program prog ON p.program_id = prog.p_id " +
-                          "WHERE p.pr_id IN (SELECT MIN(pr_id) FROM prospectus GROUP BY pr_effective_year) " +
-                          "ORDER BY p.pr_effective_year DESC";
+                          "WHERE (p.program_id, p.pr_effective_year, p.pr_id) IN (" +
+                          "    SELECT program_id, pr_effective_year, MIN(pr_id) " +
+                          "    FROM prospectus " +
+                          "    GROUP BY program_id, pr_effective_year" +
+                          ") " +
+                          "ORDER BY prog.p_program_name, p.pr_effective_year DESC";
 
             try (PreparedStatement stmt = db.getConnection().prepareStatement(query);
                  ResultSet rs = stmt.executeQuery()) {

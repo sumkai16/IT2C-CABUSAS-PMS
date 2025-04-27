@@ -102,7 +102,7 @@
                                     <VBox spacing="10">
                                        <children>
                                           <Button onMouseClicked="#prospectusViewHandler" styleClass="quick-link-button" text="View Prospectus" />
-                                          <Button onMouseClicked="#studentDetailsOnClick" styleClass="quick-link-button" text="Edit Profile" />
+                                          <Button onMouseClicked="#studentDetailsOnClick" prefHeight="33.0" prefWidth="119.0" styleClass="quick-link-button" text="Edit Profile" />
                                        </children>
                                     </VBox>
                                  </children>

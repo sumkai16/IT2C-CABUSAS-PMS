@@ -19,6 +19,7 @@ import main.dbConnector;
 import prospectus.models.UserSession;
 import prospectus.utilities.logger;
 import prospectus.utilities.utilities;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class AddProspectusController implements Initializable {
 
@@ -68,6 +69,14 @@ public class AddProspectusController implements Initializable {
         loadYearLevels();
         loadSemesters();  
         selectCoursesCodeComboBox.setItems(courseList);
+        
+        // Set up table columns
+        courseCodeColumn.setCellValueFactory(new PropertyValueFactory<>("code"));
+        courseTitleColumn.setCellValueFactory(new PropertyValueFactory<>("info"));
+        unitsColumn.setCellValueFactory(new PropertyValueFactory<>("units"));
+        
+        // Set the items for the table
+        courseTableView.setItems(selectedCourses);
     }
 
     private void loadPrograms() {
@@ -123,29 +132,46 @@ public class AddProspectusController implements Initializable {
 
 
    @FXML
+    private void onCourseSelection(ActionEvent event) {
+        String selectedCourseCode = selectCoursesCodeComboBox.getValue();
+        if (selectedCourseCode != null) {
+            try (Connection conn = db.getConnection();
+                 ResultSet rs = conn.createStatement().executeQuery("SELECT c_desc, c_units FROM course WHERE c_code = '" + selectedCourseCode + "'")) {
+                if (rs.next()) {
+                    String courseTitle = rs.getString("c_desc");
+                    int units = rs.getInt("c_units"); // Retrieve units as an integer
+                    // Set the TextField with formatted string
+                    displayCourseInfoHere.setText("Course: " + courseTitle + " | Units: " + String.valueOf(units));
+                }
+            } catch (SQLException e) {
+                utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to retrieve course info.");
+            }
+        }
+    }
+
+    @FXML
     private void addCourseHandler(MouseEvent event) {
         String courseCode = selectCoursesCodeComboBox.getValue();
-
         if (courseCode != null) {
-            // Find the course in the selectedCourses list to get the units
-            Course selectedCourse = null;
-            for (Course course : selectedCourses) {
-                if (course.getCode().equals(courseCode)) {
-                    selectedCourse = course;
-                    break;
+            try (Connection conn = db.getConnection();
+                 ResultSet rs = conn.createStatement().executeQuery("SELECT c_desc, c_units FROM course WHERE c_code = '" + courseCode + "'")) {
+                if (rs.next()) {
+                    String courseTitle = rs.getString("c_desc");
+                    int units = rs.getInt("c_units");
+                    
+                    // Create and add the course
+                    Course courseToAdd = new Course(courseCode, courseTitle, units);
+                    if (!selectedCourses.contains(courseToAdd)) {
+                        
+                        courseTableView.getItems().add(courseToAdd);
+                        clearCourseSelection();
+                        System.out.println("Course added!");
+                    } else {
+                        utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Course already added to the list.");
+                    }
                 }
-            }
-
-            if (selectedCourse != null) {
-                // Use the units from the selected course
-                int units = selectedCourse.getUnits();
-                Course courseToAdd = new Course(courseCode, displayCourseInfoHere.getText(), units);
-                selectedCourses.add(courseToAdd);
-                courseTableView.getItems().add(courseToAdd);
-                clearCourseSelection(); 
-                System.out.println("Course added!");
-            } else {
-                utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Selected course not found in the list.");
+            } catch (SQLException e) {
+                utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to add course: " + e.getMessage());
             }
         } else {
             utilities.showAlert(Alert.AlertType.WARNING, "Input Error", "Please select a course.");
@@ -253,31 +279,6 @@ public class AddProspectusController implements Initializable {
     @FXML
     private void returnHandler(MouseEvent event) {
         // Implement return logic if needed
-    }
-
-    @FXML
-    private void onCourseSelection(ActionEvent event) {
-        String selectedCourseCode = selectCoursesCodeComboBox.getValue();
-        if (selectedCourseCode != null) {
-            try (Connection conn = db.getConnection();
-                 ResultSet rs = conn.createStatement().executeQuery("SELECT c_desc, c_units FROM course WHERE c_code = '" + selectedCourseCode + "'")) {
-                if (rs.next()) {
-                    String courseTitle = rs.getString("c_desc");
-                    int units = rs.getInt("c_units"); // Retrieve units as an integer
-                    // Set the TextField with formatted string
-                    displayCourseInfoHere.setText("Course: " + courseTitle + " | Units: " + String.valueOf(units));
-
-                    // Create a Course object and add it to selectedCourses
-                    Course course = new Course(selectedCourseCode, courseTitle, units);
-                    // Check if the course is already in the list to avoid duplicates
-                    if (!selectedCourses.contains(course)) {
-                        selectedCourses.add(course); // Add the course to the list
-                    }
-                }
-            } catch (SQLException e) {
-                utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to retrieve course info.");
-            }
-        }
     }
 
     public class Course {

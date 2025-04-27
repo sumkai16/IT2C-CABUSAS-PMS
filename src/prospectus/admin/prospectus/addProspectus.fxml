@@ -63,7 +63,7 @@
                </children>
             </HBox>
 
-            <TableView fx:id="courseTableView" layoutX="41.0" layoutY="345.0" prefHeight="172.0" prefWidth="633.0" stylesheets="@../../../css/usersTable.css">
+            <TableView fx:id="courseTableView" layoutX="41.0" layoutY="345.0" prefHeight="172.0" prefWidth="633.0" stylesheets="@prospectusTable.css">
                <columns>
                   <TableColumn fx:id="courseCodeColumn" prefWidth="141.0" text="Course Code" />
                   <TableColumn fx:id="courseTitleColumn" prefWidth="339.0" text="Course Title" />

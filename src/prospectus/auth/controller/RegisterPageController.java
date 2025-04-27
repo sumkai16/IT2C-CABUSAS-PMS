@@ -68,21 +68,21 @@ public class RegisterPageController implements Initializable {
         RecoveryPhraseGenerator generator = new RecoveryPhraseGenerator();
         String recoveryPhrase = generator.generateUniqueRecoveryPhrase(); // Get unique phrase
 
-        String query = "INSERT INTO user (u_fname, u_mname, u_lname, u_email, u_contact_number, u_username, u_password, u_role, u_status, enrollment_status, recovery_phrase) "
-                     + "VALUES (?, ?, ?, ?, ?, ?, ?, 'User', 'Inactive', 'Not Enrolled', ?)";
+        String query = "INSERT INTO user (u_fname, u_mname, u_lname, u_email, u_contact_number, u_username, u_password, u_role, u_status, enrollment_status, recovery_phrase, u_image) "
+                     + "VALUES (?, ?, ?, ?, ?, ?, ?, 'User ', 'Inactive', 'Not Enrolled', ?, 'src/prospectus/images/users/default-user.png')";
 
-        if (!verifyUser(currentStage, query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
+        if (!verifyUser (currentStage, query, firstName, middleName, lastName, emailAddress, phoneNumber, username, password)) {
             if (db.insertData(query, firstName, middleName, lastName, emailAddress, phoneNumber, username, hashedPassword, recoveryPhrase)) {
-                System.out.println("User added to database!");
-               logger.addLog(UserSession.getUsername(), "User Registration", "New user registered: " + UserSession.getUsername());       
-                utilities.showAlert(Alert.AlertType.INFORMATION, "User successfully registered!", 
+                System.out.println("User  added to database!");
+                
+                utilities.showAlert(Alert.AlertType.INFORMATION, "User  successfully registered!", 
                     "Register Completed!" + "\n\nNOTE: Please save your recovery phrase, check it in your profile");
                 utilities.loadFXMLWithFade(rootPane, "/prospectus/auth/fxml/SecretRecoveryPhrase.fxml");
                 clearFields();
                 utilities.switchScene(getClass(), event, "/prospectus/auth/fxml/LoginPage.fxml");
+                logger.addLog(username, "User  Registration", "New user registered: " + username);       
             }
         }
-
     }
     public boolean verifyUser(Stage currentStage, String query, String firstName, String middleName, String lastName, String emailAddress, String phoneNumber, String username, String password) throws Exception {
         if(firstName.isEmpty()) {

@@ -166,7 +166,7 @@ public class StudentHomeController implements Initializable {
 
     @FXML
     private void studentDetailsOnClick(MouseEvent event) {
-        utilities.loadFXMLWithFade(overlayPane, "/prospectus/admin/prospectus/studentProfile.fxml");
+        utilities.loadFXMLWithFade(overlayPane, "/prospectus/student/fxml/StudentProfile.fxml");
     }
     
     // Inner class for Subject data
