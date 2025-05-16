@@ -24,7 +24,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javax.swing.text.Utilities;
 import main.dbConnector;
 import prospectus.models.Prospectus;
 import prospectus.utilities.utilities;
@@ -84,15 +83,11 @@ public class ManageProspectusController implements Initializable {
         private void loadProspectusData() {
             ObservableList<Prospectus> data = FXCollections.observableArrayList();
 
-            // SQL query to get one row per program per effective year (using the first ID)
+            // SQL query to get all distinct program and effective year combinations
             String query = "SELECT p.pr_id, prog.p_program_name, prog.p_department, p.pr_effective_year, p.status " +
                           "FROM prospectus p " +
                           "JOIN program prog ON p.program_id = prog.p_id " +
-                          "WHERE (p.program_id, p.pr_effective_year, p.pr_id) IN (" +
-                          "    SELECT program_id, pr_effective_year, MIN(pr_id) " +
-                          "    FROM prospectus " +
-                          "    GROUP BY program_id, pr_effective_year" +
-                          ") " +
+                          "WHERE p.status = 'Active' " +
                           "ORDER BY prog.p_program_name, p.pr_effective_year DESC";
 
             try (PreparedStatement stmt = db.getConnection().prepareStatement(query);
@@ -102,11 +97,11 @@ public class ManageProspectusController implements Initializable {
                 while (rs.next()) {
                     String programName = rs.getString("p_program_name");
                     String department = rs.getString("p_department");
-                    String displayName = programName + " (" + department + ")";
 
                     data.add(new Prospectus(
                         rs.getInt("pr_id"),
-                        displayName,
+                        department,
+                        programName,
                         rs.getString("pr_effective_year"),
                         rs.getString("status"),
                         "", // Empty year level since we're not using it here
@@ -153,16 +148,22 @@ public class ManageProspectusController implements Initializable {
 
     @FXML
     private void viewProspectus(MouseEvent event) {
-          Prospectus selectedProspectus = tableView.getSelectionModel().getSelectedItem();
+          final Prospectus selectedProspectus = tableView.getSelectionModel().getSelectedItem();
             if (selectedProspectus != null) {
                 try {
+                    System.out.println("Selected Prospectus: prId=" + selectedProspectus.getPrId() +
+                                       ", pDepartment=" + selectedProspectus.getPDepartment() +
+                                       ", prEffectiveYear=" + selectedProspectus.getPrEffectiveYear());
+
+                    // Use pr_id directly to load the prospectus
                     utilities.loadFXMLWithFadeView(overlayPane, "/prospectus/admin/prospectus/viewProspectus.fxml", controller -> {
                         if (controller instanceof ViewProspectusController) {
                             ViewProspectusController viewController = (ViewProspectusController) controller;
-                            viewController.setProspectus(selectedProspectus); // Pass the selected prospectus
+                            viewController.setProspectus(selectedProspectus);
                         }
                     });
                 } catch (Exception ex) {
+                    System.out.println("Exception during viewProspectus: " + ex.getMessage());
                     utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open View Prospectus page: " + ex.getMessage());
                 }
             } else {

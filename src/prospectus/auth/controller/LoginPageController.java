@@ -69,7 +69,7 @@ public class LoginPageController implements Initializable {
                 logger.addLog(username, "Login", "User logged in: " + username);
                 if (role.equalsIgnoreCase("Admin")) {
                     utilities.switchScene(getClass(), event, "/prospectus/admin/fxml/AdminDashboard.fxml");
-                } else if (e_status.equalsIgnoreCase("Not Enrolled")) {
+                } else if (e_status.equalsIgnoreCase("Not Enrolled") || e_status.equalsIgnoreCase("Pending")) {
                     utilities.switchScene(getClass(), event, "/prospectus/user/fxml/UserDashboard.fxml"); 
                     
                 } else {

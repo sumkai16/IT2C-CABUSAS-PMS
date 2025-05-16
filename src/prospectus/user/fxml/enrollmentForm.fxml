@@ -85,13 +85,15 @@
          </font>
       </Button>
       <ImageView fx:id="profileImage" fitHeight="150.0" fitWidth="150.0" layoutX="350.0" layoutY="151.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="406.0" layoutY="304.0" style="-fx-text-fill: #219ebc; -fx-font-size: 18;" text="User Information" />
-      <Label layoutX="406.0" layoutY="345.0" text="User ID / Username:" />
-      <TextField fx:id="userIDField" layoutX="551.0" layoutY="339.0" prefWidth="150.0" promptText="Enter User ID" />
+      <Label layoutX="387.0" layoutY="308.0" style="-fx-text-fill: #219ebc; -fx-font-size: 18;" text="User Information" />
+      <Label layoutX="394.0" layoutY="350.0" text="User ID / Username:" />
+      <TextField fx:id="userIDField" layoutX="537.0" layoutY="344.0" prefWidth="150.0" promptText="Enter User ID" />
 
         <!-- Submit Button -->
         <Button fx:id="submitButton" layoutX="258.0" layoutY="505.0" onMouseClicked="#submitEnrollmentHandler" prefHeight="30.0" prefWidth="200.0" text="Submit" />
       <Label layoutX="40.0" layoutY="414.0" text="Semester" />
       <TextField fx:id="semesterField" layoutX="161.0" layoutY="408.0" prefWidth="200.0" promptText="e.g., 1st, 2nd" />
+      <Label layoutX="397.0" layoutY="430.0" text="Academic Settings" />
+      <ComboBox fx:id="selectAcademicSettings" layoutX="397.0" layoutY="457.0" prefHeight="34.0" prefWidth="200.0" promptText="Select Academic Settings" />
     </Pane>
 </AnchorPane>

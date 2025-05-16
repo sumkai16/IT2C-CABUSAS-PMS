@@ -91,11 +91,18 @@ public class ViewProspectusController implements Initializable {
     @FXML private Label units4th2ndSem;
 
     @FXML private TableView<ProspectusDetails> tableviewSummer;
-    @FXML private TableColumn<ProspectusDetails, String> courseCodeSummer;
+    private TableColumn<ProspectusDetails, String> courseCodeSummer;
     @FXML private TableColumn<ProspectusDetails, String> courseDescSummer;
     @FXML private TableColumn<ProspectusDetails, Integer> unitsSummer;
     @FXML private TableColumn<ProspectusDetails, String> prerequisiteSummer;
     @FXML private Label totalUnitsSummer;
+
+    @FXML private TableView<ProspectusDetails> tableViewAllCourses;
+    @FXML private TableColumn<ProspectusDetails, String> courseCodeAllCourses;
+    @FXML private TableColumn<ProspectusDetails, String> courseDescAllCourses;
+    @FXML private TableColumn<ProspectusDetails, Integer> unitsAllCourses;
+    @FXML private TableColumn<ProspectusDetails, String> prerequisiteAllCourses;
+    private Label totalUnitsAllCourses;
 
     @FXML private Label program1stYear;
     @FXML private Label effectiveYear1stYear;
@@ -111,6 +118,8 @@ public class ViewProspectusController implements Initializable {
     private final ProspectusData prospectusData = new ProspectusData();
     private Prospectus prospectus;
     private dbConnector db = new dbConnector();
+    @FXML
+    private TableColumn<?, ?> courseCodeSUmmer;
    
    
 
@@ -178,6 +187,12 @@ public class ViewProspectusController implements Initializable {
         if (courseDescSummer != null) courseDescSummer.setCellValueFactory(new PropertyValueFactory<>("courseDesc"));
         if (unitsSummer != null) unitsSummer.setCellValueFactory(new PropertyValueFactory<>("units"));
         if (prerequisiteSummer != null) prerequisiteSummer.setCellValueFactory(new PropertyValueFactory<>("prerequisite"));
+
+        // Setup All Courses columns
+        if (courseCodeAllCourses != null) courseCodeAllCourses.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
+        if (courseDescAllCourses != null) courseDescAllCourses.setCellValueFactory(new PropertyValueFactory<>("courseDesc"));
+        if (unitsAllCourses != null) unitsAllCourses.setCellValueFactory(new PropertyValueFactory<>("units"));
+        if (prerequisiteAllCourses != null) prerequisiteAllCourses.setCellValueFactory(new PropertyValueFactory<>("prerequisite"));
     }
 
     private <T> void initializeColumn(TableColumn<ProspectusDetails, T> column, String property) {
@@ -233,62 +248,51 @@ public class ViewProspectusController implements Initializable {
         loadAllProspectusDetails(prospectus.getPrId()); // Load all details
     }
 
-    private void loadAllProspectusDetails(int prId) {
-        // Get all prospectus details for the given effective year
-        String query = "SELECT pd.*, c.c_code, c.c_desc, c.c_units, " +
-                      "prereq.c_code as prereq_code " +
-                      "FROM prospectus p " +
-                      "JOIN prospectus_details pd ON p.pr_id = pd.pr_id " +
-                      "JOIN course c ON pd.course_id = c.c_id " +
-                      "LEFT JOIN course prereq ON c.prerequisite_id = prereq.c_id " +
-                      "WHERE p.pr_effective_year = (SELECT pr_effective_year FROM prospectus WHERE pr_id = ?) " +
-                      "ORDER BY pd.year_level, pd.semester, c.c_code";
+private void loadAllProspectusDetails(int prId) {
+        List<ProspectusDetails> details = prospectusData.getProspectusDetails(prId);
 
-        List<ProspectusDetails> details = new ArrayList<>();
-        
-        try (Connection conn = db.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            
-            stmt.setInt(1, prId);
-            ResultSet rs = stmt.executeQuery();
-            
-            while (rs.next()) {
-                ProspectusDetails detail = new ProspectusDetails(
-                    rs.getInt("pd_id"),
-                    rs.getInt("pr_id"),
-                    rs.getInt("course_id"),
-                    rs.getString("year_level"),
-                    rs.getString("semester")
-                );
-                
-                // Set additional fields
-                detail.setCourseCode(rs.getString("c_code"));
-                detail.setCourseDesc(rs.getString("c_desc"));
-                detail.setUnits(rs.getInt("c_units"));
-                detail.setPrerequisite(rs.getString("prereq_code") != null ? rs.getString("prereq_code") : "None");
-                
-                details.add(detail);
+        // Normalize year_level and semester values to match expected filter strings
+        for (ProspectusDetails detail : details) {
+            String normalizedYearLevel = detail.getYear_level().trim().toLowerCase();
+            String normalizedSemester = detail.getSemester().trim().toLowerCase();
+
+            if (normalizedYearLevel.equals("1st year") || normalizedYearLevel.equals("first year")) {
+                detail.setYear_level("1st Year");
+            } else if (normalizedYearLevel.equals("2nd year") || normalizedYearLevel.equals("second year")) {
+                detail.setYear_level("2nd Year");
+            } else if (normalizedYearLevel.equals("3rd year") || normalizedYearLevel.equals("third year")) {
+                detail.setYear_level("3rd Year");
+            } else if (normalizedYearLevel.equals("4th year") || normalizedYearLevel.equals("fourth year")) {
+                detail.setYear_level("4th Year");
+            } else if (normalizedYearLevel.equals("summer")) {
+                detail.setYear_level("Summer");
             }
-            
-            // Load all year levels at once
-            loadFirstYearTables(details);
-            loadSecondYearTables(details);
-            loadThirdYearTables(details);
-            loadFourthYearTables(details);
-            loadSummerTable(details); // Add this line to load summer courses
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Database Error", "Failed to load prospectus details: " + e.getMessage(), Alert.AlertType.ERROR);
+
+            if (normalizedSemester.equals("1st semester") || normalizedSemester.equals("first semester")) {
+                detail.setSemester("1st Semester");
+            } else if (normalizedSemester.equals("2nd semester") || normalizedSemester.equals("second semester")) {
+                detail.setSemester("2nd Semester");
+            } else if (normalizedSemester.equals("summer")) {
+                detail.setSemester("Summer");
+            }
         }
+
+        loadFirstYearTables(details);
+        loadSecondYearTables(details);
+        loadThirdYearTables(details);
+        loadFourthYearTables(details);
+        loadSummerTable(details);
+        loadAllCoursesTable(details);
     }
 
-    private void loadFirstYearTables(List<ProspectusDetails> details) {
+private void loadFirstYearTables(List<ProspectusDetails> details) {
+        System.out.println("Loading First Year Tables");
         setSemesterTable(tableView1st1st, units1st1stSem, details, "1st Year", "1st Semester");
         setSemesterTable(tableView1st2nd, units1st2ndSem, details, "1st Year", "2nd Semester");
     }
 
     private void loadSecondYearTables(List<ProspectusDetails> details) {
+        System.out.println("Loading Second Year Tables");
         setSemesterTable(tableView2nd1st, units2nd1stSem, details, "2nd Year", "1st Semester");
         setSemesterTable(tableView2nd2nd, units2nd2ndSem, details, "2nd Year", "2nd Semester");
     }
@@ -324,16 +328,23 @@ public class ViewProspectusController implements Initializable {
         }
     }
 
-    private void setSemesterTable(TableView<ProspectusDetails> table, Label label, 
+private void setSemesterTable(TableView<ProspectusDetails> table, Label label, 
                                 List<ProspectusDetails> allDetails, String year, String sem) {
         System.out.println("Setting table for " + year + " " + sem);
 
+        // Debug print all year_level and semester values
+        System.out.println("All courses year_level and semester values:");
+        for (ProspectusDetails d : allDetails) {
+            System.out.println("Year Level: '" + d.getYear_level() + "', Semester: '" + d.getSemester() + "'");
+        }
+
         List<ProspectusDetails> filtered = allDetails.stream()
                 .filter(d -> {
-                    boolean matches = d.getYear_level().trim().equalsIgnoreCase(year) && 
-                                    d.getSemester().trim().equalsIgnoreCase(sem);
+                    String normalizedYear = d.getYear_level() != null ? d.getYear_level().trim().toLowerCase() : "";
+                    String normalizedSem = d.getSemester() != null ? d.getSemester().trim().toLowerCase() : "";
+                    boolean matches = normalizedYear.equals(year.toLowerCase()) && normalizedSem.equals(sem.toLowerCase());
                     if (matches) {
-                        System.out.println("Found match: " + d.getCourseCode() + " - " + d.getCourseDesc());
+                        System.out.println("Found match: " + d.getCourseCode() + " - " + d.getCourseDesc() + " with normalized year: '" + normalizedYear + "' and semester: '" + normalizedSem + "'");
                     }
                     return matches;
                 })
@@ -356,6 +367,22 @@ public class ViewProspectusController implements Initializable {
                 .mapToInt(ProspectusDetails::getUnits)
                 .sum();
         label.setText(String.valueOf(totalUnits));
+    }
+
+    private void loadAllCoursesTable(List<ProspectusDetails> details) {
+        if (tableViewAllCourses != null) {
+            tableViewAllCourses.getItems().clear();
+            ObservableList<ProspectusDetails> observableList = FXCollections.observableArrayList(details);
+            tableViewAllCourses.setItems(observableList);
+
+            // Calculate total units for all courses
+            int totalUnits = details.stream()
+                    .mapToInt(ProspectusDetails::getUnits)
+                    .sum();
+            if (totalUnitsAllCourses != null) {
+                totalUnitsAllCourses.setText(String.valueOf(totalUnits));
+            }
+        }
     }
     
     @FXML

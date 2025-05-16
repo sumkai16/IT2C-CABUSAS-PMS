@@ -43,8 +43,6 @@ public class AddProspectusController implements Initializable {
 
     @FXML
     private TextField displayCourseInfoHere;
-  
-
     
     @FXML
     private ComboBox<String> selectCoursesCodeComboBox;
@@ -193,7 +191,7 @@ public class AddProspectusController implements Initializable {
         }
     }
 
-  @FXML
+    @FXML
     private void addProspectusHandler(MouseEvent event) {
         String program = selectProgramComboBox.getValue();
         if (program == null) {
@@ -226,43 +224,66 @@ public class AddProspectusController implements Initializable {
 
         int currentUserId = UserSession.getUserId(); // Get the current user's ID
 
-        // Step 1: Insert into the prospectus table
-        String insertProspectusQuery = "INSERT INTO prospectus (program_id, pr_effective_year, status, created_by) " +
-                                        "VALUES ((SELECT p_id FROM program WHERE p_program_name = ?), ?, 'Active', ?)";
+        try (Connection conn = db.getConnection()) {
+            // Step 1: Check if prospectus exists for program and year
+            String selectProspectusQuery = "SELECT pr_id FROM prospectus WHERE program_id = (SELECT p_id FROM program WHERE p_program_name = ?) AND pr_effective_year = ? AND status = 'Active'";
 
-        try (Connection conn = db.getConnection();
-             PreparedStatement pst = conn.prepareStatement(insertProspectusQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            PreparedStatement selectPst = conn.prepareStatement(selectProspectusQuery);
+            selectPst.setString(1, program);
+            selectPst.setString(2, year);
+            ResultSet rs = selectPst.executeQuery();
 
-            pst.setString(1, program);
-            pst.setString(2, year);
-            pst.setInt(3, currentUserId); // Set the created_by value
-            pst.executeUpdate();
+            int prId;
+            if (rs.next()) {
+                // Prospectus exists, get pr_id
+                prId = rs.getInt("pr_id");
 
-            // Get the generated pr_id
-            ResultSet generatedKeys = pst.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                int prId = generatedKeys.getInt(1); // Get the generated pr_id
+                // Delete existing prospectus_details for this pr_id and yearLevel and semester to avoid duplicates
+                String deleteDetailsQuery = "DELETE FROM prospectus_details WHERE pr_id = ? AND year_level = ? AND semester = ?";
+                PreparedStatement deletePst = conn.prepareStatement(deleteDetailsQuery);
+                deletePst.setInt(1, prId);
+                deletePst.setString(2, yearLevel);
+                deletePst.setString(3, semester);
+                deletePst.executeUpdate();
+            } else {
+                // Prospectus does not exist, insert new
+                String insertProspectusQuery = "INSERT INTO prospectus (program_id, pr_effective_year, status, created_by) " +
+                                              "VALUES ((SELECT p_id FROM program WHERE p_program_name = ?), ?, 'Active', ?)";
+                PreparedStatement insertPst = conn.prepareStatement(insertProspectusQuery, PreparedStatement.RETURN_GENERATED_KEYS);
+                insertPst.setString(1, program);
+                insertPst.setString(2, year);
+                insertPst.setInt(3, currentUserId);
+                insertPst.executeUpdate();
 
-                // Step 2: Insert into the prospectus_details table
-                String insertDetailsQuery = "INSERT INTO prospectus_details (pr_id, course_id, year_level, semester) " +
-                                             "VALUES (?, (SELECT c_id FROM course WHERE c_code = ?), ?, ?)";
-                try (PreparedStatement detailsPst = conn.prepareStatement(insertDetailsQuery)) {
-                    for (Course course : selectedCourses) {
-                        detailsPst.setInt(1, prId); // Set the pr_id
-                        detailsPst.setString(2, course.getCode()); // Set the course code
-                        detailsPst.setString(3, yearLevel); // Set the year level
-                        detailsPst.setString(4, semester); 
-                        detailsPst.addBatch(); // Add to batch
-                    }
-                    detailsPst.executeBatch(); // Execute batch insert for details
+                ResultSet generatedKeys = insertPst.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    prId = generatedKeys.getInt(1);
+                } else {
+                    utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to retrieve generated pr_id.");
+                    return;
                 }
-                logger.addLog(UserSession.getUsername(), "Prospectus", "Prospectus added successfully!: " + UserSession.getUsername());
-                utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Prospectus added successfully!");
-                clearFields(); // Clear fields after successful insertion
             }
+
+            // Step 2: Insert into the prospectus_details table
+            String insertDetailsQuery = "INSERT INTO prospectus_details (pr_id, course_id, year_level, semester) " +
+                                        "VALUES (?, (SELECT c_id FROM course WHERE c_code = ?), ?, ?)";
+            PreparedStatement detailsPst = conn.prepareStatement(insertDetailsQuery);
+            for (Course course : selectedCourses) {
+                detailsPst.setInt(1, prId); // Set the pr_id
+                detailsPst.setString(2, course.getCode()); // Set the course code
+                detailsPst.setString(3, yearLevel); // Set the year level
+                detailsPst.setString(4, semester);
+                detailsPst.addBatch(); // Add to batch
+            }
+            detailsPst.executeBatch(); // Execute batch insert for details
+
+            logger.addLog(UserSession.getUsername(), "Prospectus", "Prospectus added/updated successfully!: " + UserSession.getUsername());
+            utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Prospectus added/updated successfully!");
+            clearFields(); // Clear fields after successful insertion
+
         } catch (SQLException e) {
-            logger.addLog(UserSession.getUsername(), "Prospectus", "Attempted to add prospectus.: " + UserSession.getUsername());
-            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to add prospectus: " + e.getMessage());
+            logger.addLog(UserSession.getUsername(), "Prospectus", "Attempted to add/update prospectus.: " + UserSession.getUsername());
+            utilities.showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to add/update prospectus: " + e.getMessage());
         }
     }
 

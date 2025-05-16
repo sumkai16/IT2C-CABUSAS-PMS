@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2025 at 05:17 PM
+-- Generation Time: May 16, 2025 at 06:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -102,7 +102,8 @@ INSERT INTO `course` (`c_id`, `c_code`, `c_desc`, `c_units`, `prerequisite_id`) 
 (67, 'IT404', 'Seminars in IT Trends / Updates - Elective', 3, NULL),
 (68, 'SA405', 'System Administration and Maintenance', 3, NULL),
 (69, 'SP403', 'Social and Professional Issues', 3, NULL),
-(70, 'OJT', 'Internship / OJT / Practicum', 9, NULL);
+(70, 'OJT', 'Internship / OJT / Practicum', 9, NULL),
+(71, 'PATHFIT3', 'Individual and Dual Sports', 2, 23);
 
 -- --------------------------------------------------------
 
@@ -115,16 +116,19 @@ CREATE TABLE `enrollment` (
   `userID` int(11) NOT NULL,
   `prog_id` int(11) NOT NULL,
   `enrollment_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `semester` text NOT NULL
+  `semester` text NOT NULL,
+  `enrollment_status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `enrollment`
 --
 
-INSERT INTO `enrollment` (`enrollment_id`, `userID`, `prog_id`, `enrollment_date`, `semester`) VALUES
-(1, 20251017, 1, '2025-04-24 12:41:59', '1st'),
-(2, 20251020, 1, '2025-04-27 15:17:17', '1st');
+INSERT INTO `enrollment` (`enrollment_id`, `userID`, `prog_id`, `enrollment_date`, `semester`, `enrollment_status`) VALUES
+(1, 20251017, 1, '2025-04-24 12:41:59', '1st', ''),
+(2, 20251020, 1, '2025-04-27 15:17:17', '1st', ''),
+(3, 20251019, 1, '2025-05-15 02:13:19', '1st', 'Regular'),
+(4, 20251019, 1, '2025-05-15 13:04:55', '1st', 'Regular');
 
 -- --------------------------------------------------------
 
@@ -239,7 +243,102 @@ INSERT INTO `logs` (`log_id`, `user_id`, `action`, `description`, `date_time`) V
 (696, 20251020, 'Login', 'User logged in: mica', '2025-04-27 15:16:10'),
 (697, 20251020, 'Logout', 'User logged out: mica', '2025-04-27 15:17:20'),
 (698, 20251020, 'Login', 'User logged in: mica', '2025-04-27 15:17:24'),
-(699, 20251020, 'Prospectus', 'Viewed Prospectus.: mica', '2025-04-27 15:17:28');
+(699, 20251020, 'Prospectus', 'Viewed Prospectus.: mica', '2025-04-27 15:17:28'),
+(700, 20251019, 'Login', 'User logged in: aljon', '2025-05-15 02:12:29'),
+(701, 20251019, 'Logout', 'User logged out: aljon', '2025-05-15 02:13:26'),
+(702, 20251019, 'Login', 'User logged in: aljon', '2025-05-15 02:13:31'),
+(703, 20251019, 'Logout', 'User logged out: aljon', '2025-05-15 02:13:55'),
+(704, 20251001, 'Login', 'User logged in: axcee', '2025-05-15 02:14:20'),
+(705, 20251001, 'Logout', 'Admin logged out: axcee', '2025-05-15 02:14:43'),
+(706, 20251019, 'Login', 'User logged in: aljon', '2025-05-15 13:04:33'),
+(707, 20251019, 'Logout', 'User logged out: aljon', '2025-05-15 13:04:59'),
+(708, 20251019, 'Login', 'User logged in: aljon', '2025-05-15 13:05:04'),
+(709, 20251019, 'Login', 'User logged in: aljon', '2025-05-15 13:07:22'),
+(710, 20251001, 'Login', 'User logged in: axcee', '2025-05-15 13:14:09'),
+(711, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-15 13:14:12'),
+(712, 20251001, 'Prospectus', 'Prospectus added successfully!: axcee', '2025-05-15 13:15:09'),
+(713, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-15 13:15:16'),
+(714, 20251001, 'Login', 'User logged in: axcee', '2025-05-15 13:23:04'),
+(715, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-15 13:23:08'),
+(716, 20251001, 'Prospectus', 'Prospectus added successfully!: axcee', '2025-05-15 13:23:33'),
+(717, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-15 13:23:36'),
+(718, 20251001, 'Prospectus', 'Prospectus added successfully!: axcee', '2025-05-15 13:25:41'),
+(719, 20251001, 'Prospectus', 'Prospectus added successfully!: axcee', '2025-05-15 13:26:11'),
+(720, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-15 13:26:15'),
+(721, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-15 13:26:21'),
+(722, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 11:56:13'),
+(723, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 12:17:00'),
+(724, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 12:19:44'),
+(725, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 12:21:21'),
+(726, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 12:21:24'),
+(727, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 12:21:44'),
+(728, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 12:21:50'),
+(729, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 12:26:14'),
+(730, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 12:26:23'),
+(731, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 13:51:51'),
+(732, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 13:51:55'),
+(733, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 13:54:28'),
+(734, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 13:54:34'),
+(735, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 13:55:19'),
+(736, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 13:57:23'),
+(737, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 13:57:26'),
+(738, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 14:01:21'),
+(739, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 14:01:25'),
+(740, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 14:04:23'),
+(741, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 14:04:26'),
+(742, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 14:08:52'),
+(743, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 14:08:54'),
+(744, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 14:09:15'),
+(745, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 14:12:46'),
+(746, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 14:12:49'),
+(747, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 14:15:24'),
+(748, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 14:15:27'),
+(749, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 14:15:50'),
+(750, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 14:17:58'),
+(751, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 14:18:00'),
+(752, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 14:18:57'),
+(753, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 14:19:00'),
+(754, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 14:23:42'),
+(755, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 14:23:44'),
+(756, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 15:47:10'),
+(757, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 15:47:12'),
+(758, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 15:49:05'),
+(759, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 15:49:07'),
+(760, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 15:57:48'),
+(761, 20251001, 'Prospectus', 'Prospectus added/updated successfully!: axcee', '2025-05-16 15:58:57'),
+(762, 20251001, 'Prospectus', 'Prospectus added/updated successfully!: axcee', '2025-05-16 16:00:01'),
+(763, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 16:06:18'),
+(764, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:06:22'),
+(765, 20251001, 'Prospectus', 'Prospectus added/updated successfully!: axcee', '2025-05-16 16:07:14'),
+(766, 20251001, 'Prospectus', 'Prospectus added/updated successfully!: axcee', '2025-05-16 16:07:42'),
+(767, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:07:53'),
+(768, 20251001, 'Prospectus', 'Prospectus added/updated successfully!: axcee', '2025-05-16 16:10:12'),
+(769, 20251001, 'Course', 'Course Added Successfully: axcee', '2025-05-16 16:10:51'),
+(770, 20251001, 'Prospectus', 'Prospectus added/updated successfully!: axcee', '2025-05-16 16:11:12'),
+(771, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:11:20'),
+(772, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:12:04'),
+(773, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:13:23'),
+(774, 20251001, 'Prospectus', 'Prospectus added/updated successfully!: axcee', '2025-05-16 16:13:56'),
+(775, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:14:00'),
+(776, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:14:09'),
+(777, 20251001, 'Prospectus', 'Prospectus added/updated successfully!: axcee', '2025-05-16 16:14:27'),
+(778, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:14:33'),
+(779, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 16:14:54'),
+(780, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:14:58'),
+(781, 20251001, 'Prospectus', 'Prospectus added/updated successfully!: axcee', '2025-05-16 16:15:28'),
+(782, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:15:30'),
+(783, 20251001, 'Prospectus', 'Prospectus added/updated successfully!: axcee', '2025-05-16 16:16:09'),
+(784, 20251001, 'Prospectus', 'Prospectus added/updated successfully!: axcee', '2025-05-16 16:16:56'),
+(785, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:17:00'),
+(786, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 16:22:41'),
+(787, 20251001, 'Prospectus', 'Prospectus added/updated successfully!: axcee', '2025-05-16 16:22:58'),
+(788, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:23:06'),
+(789, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:23:19'),
+(790, 20251001, 'Login', 'User logged in: axcee', '2025-05-16 16:25:07'),
+(791, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:25:09'),
+(792, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:25:16'),
+(793, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:25:24'),
+(794, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:25:32');
 
 -- --------------------------------------------------------
 
@@ -286,15 +385,9 @@ CREATE TABLE `prospectus` (
 --
 
 INSERT INTO `prospectus` (`pr_id`, `program_id`, `pr_effective_year`, `status`, `created_by`, `created_at`, `updated_at`) VALUES
-(2, 1, '2023-2024', 'Active', 20251001, '2025-04-22 12:18:53', '2025-04-22 12:18:53'),
-(3, 1, '2023-2024', 'Active', 20251001, '2025-04-24 14:01:37', '2025-04-24 14:01:37'),
-(4, 1, '2023-2024', 'Active', 20251001, '2025-04-24 14:03:56', '2025-04-24 14:03:56'),
-(5, 1, '2023-2024', 'Active', 20251001, '2025-04-24 14:04:27', '2025-04-24 14:04:27'),
-(6, 1, '2023-2024', 'Active', 20251001, '2025-04-24 14:05:11', '2025-04-24 14:05:11'),
-(7, 1, '2023-2024', 'Active', 20251001, '2025-04-24 14:07:05', '2025-04-24 14:07:05'),
-(9, 1, '2023-2024', 'Active', 20251001, '2025-04-25 05:32:53', '2025-04-25 05:32:53'),
-(10, 1, '2023-2024', 'Active', 20251001, '2025-04-25 05:33:10', '2025-04-25 05:33:10'),
-(11, 1, '2023-2024', 'Active', 20251001, '2025-04-25 11:36:50', '2025-04-25 11:36:50');
+(25, 1, '2023-2024', 'Active', 20251001, '2025-05-16 16:07:14', '2025-05-16 16:07:14'),
+(26, 2, '2023-2024', 'Active', 20251001, '2025-05-16 16:16:56', '2025-05-16 16:16:56'),
+(27, 1, '2024-2025', 'Active', 20251001, '2025-05-16 16:22:58', '2025-05-16 16:22:58');
 
 -- --------------------------------------------------------
 
@@ -315,67 +408,47 @@ CREATE TABLE `prospectus_details` (
 --
 
 INSERT INTO `prospectus_details` (`pd_id`, `pr_id`, `course_id`, `year_level`, `semester`) VALUES
-(2, 2, 3, '1st Year', '1st Semester'),
-(4, 2, 4, '1st Year', '1st Semester'),
-(6, 2, 5, '1st Year', '1st Semester'),
-(8, 2, 6, '1st Year', '1st Semester'),
-(10, 2, 7, '1st Year', '1st Semester'),
-(12, 2, 8, '1st Year', '1st Semester'),
-(14, 2, 9, '1st Year', '1st Semester'),
-(16, 2, 10, '1st Year', '1st Semester'),
-(18, 2, 11, '1st Year', '1st Semester'),
-(20, 2, 12, '1st Year', '1st Semester'),
-(22, 2, 13, '1st Year', '1st Semester'),
-(24, 2, 14, '1st Year', '1st Semester'),
-(26, 3, 15, '1st Year', '2nd Semester'),
-(28, 3, 16, '1st Year', '2nd Semester'),
-(30, 3, 17, '1st Year', '2nd Semester'),
-(32, 3, 18, '1st Year', '2nd Semester'),
-(34, 3, 19, '1st Year', '2nd Semester'),
-(36, 3, 20, '1st Year', '2nd Semester'),
-(38, 3, 21, '1st Year', '2nd Semester'),
-(40, 3, 22, '1st Year', '2nd Semester'),
-(42, 3, 23, '1st Year', '2nd Semester'),
-(44, 4, 24, '2nd Year', '1st Semester'),
-(46, 4, 25, '2nd Year', '1st Semester'),
-(48, 4, 26, '2nd Year', '1st Semester'),
-(50, 4, 27, '2nd Year', '1st Semester'),
-(52, 4, 33, '2nd Year', '1st Semester'),
-(54, 4, 34, '2nd Year', '1st Semester'),
-(56, 4, 35, '2nd Year', '1st Semester'),
-(58, 4, 36, '2nd Year', '1st Semester'),
-(60, 4, 37, '2nd Year', '1st Semester'),
-(62, 5, 38, '2nd Year', '2nd Semester'),
-(64, 5, 39, '2nd Year', '2nd Semester'),
-(66, 5, 40, '2nd Year', '2nd Semester'),
-(68, 5, 41, '2nd Year', '2nd Semester'),
-(70, 5, 42, '2nd Year', '2nd Semester'),
-(72, 5, 43, '2nd Year', '2nd Semester'),
-(74, 5, 44, '2nd Year', '2nd Semester'),
-(76, 5, 45, '2nd Year', '2nd Semester'),
-(78, 5, 46, '2nd Year', '2nd Semester'),
-(80, 6, 47, '3rd Year', '1st Semester'),
-(82, 6, 48, '3rd Year', '1st Semester'),
-(84, 6, 49, '3rd Year', '1st Semester'),
-(86, 6, 50, '3rd Year', '1st Semester'),
-(88, 6, 51, '3rd Year', '1st Semester'),
-(90, 6, 52, '3rd Year', '1st Semester'),
-(92, 6, 53, '3rd Year', '1st Semester'),
-(94, 6, 54, '3rd Year', '1st Semester'),
-(96, 6, 55, '3rd Year', '1st Semester'),
-(98, 7, 56, '3rd Year', '2nd Semester'),
-(100, 7, 57, '3rd Year', '2nd Semester'),
-(102, 7, 58, '3rd Year', '2nd Semester'),
-(104, 7, 59, '3rd Year', '2nd Semester'),
-(106, 7, 60, '3rd Year', '2nd Semester'),
-(108, 7, 61, '3rd Year', '2nd Semester'),
-(110, 7, 62, '3rd Year', '2nd Semester'),
-(117, 9, 65, '4th Year', '1st Semester'),
-(119, 9, 66, '4th Year', '1st Semester'),
-(121, 9, 67, '4th Year', '1st Semester'),
-(123, 9, 69, '4th Year', '1st Semester'),
-(125, 9, 68, '4th Year', '1st Semester'),
-(127, 10, 70, '4th Year', '2nd Semester');
+(190, 25, 3, '1st Year', '1st Semester'),
+(191, 25, 4, '1st Year', '1st Semester'),
+(192, 25, 5, '1st Year', '1st Semester'),
+(193, 25, 6, '1st Year', '1st Semester'),
+(194, 25, 7, '1st Year', '1st Semester'),
+(195, 25, 8, '1st Year', '1st Semester'),
+(196, 25, 9, '1st Year', '1st Semester'),
+(197, 25, 10, '1st Year', '1st Semester'),
+(198, 25, 11, '1st Year', '1st Semester'),
+(199, 25, 12, '1st Year', '1st Semester'),
+(200, 25, 13, '1st Year', '1st Semester'),
+(201, 25, 14, '1st Year', '1st Semester'),
+(202, 25, 15, '1st Year', '2nd Semester'),
+(203, 25, 16, '1st Year', '2nd Semester'),
+(204, 25, 17, '1st Year', '2nd Semester'),
+(205, 25, 18, '1st Year', '2nd Semester'),
+(206, 25, 19, '1st Year', '2nd Semester'),
+(207, 25, 20, '1st Year', '2nd Semester'),
+(208, 25, 21, '1st Year', '2nd Semester'),
+(209, 25, 22, '1st Year', '2nd Semester'),
+(210, 25, 23, '1st Year', '2nd Semester'),
+(240, 25, 24, '2nd Year', '1st Semester'),
+(241, 25, 25, '2nd Year', '1st Semester'),
+(242, 25, 26, '2nd Year', '1st Semester'),
+(243, 25, 27, '2nd Year', '1st Semester'),
+(244, 25, 33, '2nd Year', '1st Semester'),
+(245, 25, 34, '2nd Year', '1st Semester'),
+(246, 25, 35, '2nd Year', '1st Semester'),
+(247, 25, 36, '2nd Year', '1st Semester'),
+(248, 25, 37, '2nd Year', '1st Semester'),
+(249, 25, 71, '2nd Year', '1st Semester'),
+(250, 26, 4, '1st Year', '1st Semester'),
+(251, 26, 7, '1st Year', '1st Semester'),
+(252, 26, 10, '1st Year', '1st Semester'),
+(253, 26, 11, '1st Year', '1st Semester'),
+(254, 26, 12, '1st Year', '1st Semester'),
+(255, 27, 3, '1st Year', '1st Semester'),
+(256, 27, 4, '1st Year', '1st Semester'),
+(257, 27, 5, '1st Year', '1st Semester'),
+(258, 27, 6, '1st Year', '1st Semester'),
+(259, 27, 7, '1st Year', '1st Semester');
 
 -- --------------------------------------------------------
 
@@ -404,7 +477,9 @@ CREATE TABLE `student` (
 
 INSERT INTO `student` (`s_id`, `u_id`, `s_fname`, `s_mname`, `s_lname`, `s_bdate`, `s_address`, `s_sex`, `s_year`, `s_program`, `previous_school`, `s_image`) VALUES
 (8, 20251017, 'Rashed', '', 'Tapales', '2004-06-28', 'San Fernando', 'Male', 1, 1, 'SCC', 'src/prospectus/images/student/default-user.png'),
-(9, 20251020, 'Myca', '', 'Lariosa', '1560-04-08', 'Vito, Minglanilla', 'Female', 3, 1, 'SCC', 'src/prospectus/images/student/default-user.png');
+(9, 20251020, 'Myca', '', 'Lariosa', '1560-04-08', 'Vito, Minglanilla', 'Female', 3, 1, 'SCC', 'src/prospectus/images/student/default-user.png'),
+(10, 20251019, 'Aljon', '', 'Paragoso', '2000-01-02', 'Inayagan', 'Male', 3, 1, 'SCC', 'src/prospectus/images/student/default-user.png'),
+(11, 20251019, 'Aljon', '', 'Paragoso', '2002-01-02', 'Inayagan', 'Male', 4, 1, 'SCC', 'src/prospectus/images/student/default-user.png');
 
 -- --------------------------------------------------------
 
@@ -436,7 +511,7 @@ INSERT INTO `user` (`u_id`, `u_fname`, `u_mname`, `u_lname`, `u_email`, `u_conta
 (20251001, 'Axcee', 'Felisilda', 'Cabusas', 'axceelfelis03@gmail.com', '99140820611', 'axcee', 'fRm8kPPm6HMqAiRuWC3AzkiYLvVFYqLcpR/PK71tMww=', 'Admin', 'Active', 'Not Enrolled', '1234', 'src/prospectus/images/users/default-user.png'),
 (20251017, 'Rasheed', '', 'Tapales', 'rashed@gmail.com', '98273645671', 'rashed', 'fRm8kPPm6HMqAiRuWC3AzkiYLvVFYqLcpR/PK71tMww=', 'Student', 'Active', 'Enrolled', 'jungle sunflower waterfall grape volcano sunflower umbrella tiger apple banana grape mountain', 'src/prospectus/images/users/default-user.png'),
 (20251018, 'Adrianne Lhoue', '', 'Inso', 'inso12@gmail.com', '99872635678', 'inso', 'ZMI04LI4wpHFQpAFMuXoV2yxsvqk4QMRbYUIAql7DWI=', 'User', 'Active', 'Not Enrolled', 'elephant waterfall jungle kangaroo banana jungle dog flower waterfall grape waterfall queen', 'src/prospectus/images/users/received_178815621514415.jpg'),
-(20251019, 'Aljon', '', 'Paragoso', 'aljon@gmail.com', '9872634567', 'aljon', '4Sbb5S0/5dD/PgMPKbxnvhdqH4oUlAoorkqbhnsOiVY=', 'User', 'Active', 'Not Enrolled', 'jungle banana volcano tiger zebra grape house queen xylophone flower xylophone waterfall', 'src/prospectus/images/users/Screenshot_1.png'),
+(20251019, 'Aljon', '', 'Paragoso', 'aljon@gmail.com', '9872634567', 'aljon', '4Sbb5S0/5dD/PgMPKbxnvhdqH4oUlAoorkqbhnsOiVY=', 'Student', 'Active', 'Pending', 'jungle banana volcano tiger zebra grape house queen xylophone flower xylophone waterfall', 'src/prospectus/images/users/Screenshot_1.png'),
 (20251020, 'Mica', '', 'Lariosa', 'mica@gmail.com', '9876153789', 'mica', 'fRm8kPPm6HMqAiRuWC3AzkiYLvVFYqLcpR/PK71tMww=', 'Student', 'Active', 'Enrolled', 'zebra jungle xylophone queen kangaroo umbrella yellow mountain penguin tiger cherry apple', 'src/prospectus/images/users/default-user.png'),
 (20251021, 'Alessandra Nayeli', '', 'Crispin', 'alenaye@gmail.com', '9827364512', 'ale', 'fRm8kPPm6HMqAiRuWC3AzkiYLvVFYqLcpR/PK71tMww=', 'User ', 'Active', 'Not Enrolled', 'zebra orange elephant house house waterfall volcano jungle rainbow sunflower notebook rainbow', 'src/prospectus/images/users/default-user.png');
 
@@ -510,19 +585,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=700;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=795;
 
 --
 -- AUTO_INCREMENT for table `program`
@@ -534,19 +609,19 @@ ALTER TABLE `program`
 -- AUTO_INCREMENT for table `prospectus`
 --
 ALTER TABLE `prospectus`
-  MODIFY `pr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `pr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `prospectus_details`
 --
 ALTER TABLE `prospectus_details`
-  MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=260;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -588,8 +663,8 @@ ALTER TABLE `prospectus`
 -- Constraints for table `prospectus_details`
 --
 ALTER TABLE `prospectus_details`
-  ADD CONSTRAINT `prospectus_details_ibfk_1` FOREIGN KEY (`pr_id`) REFERENCES `prospectus` (`pr_id`),
-  ADD CONSTRAINT `prospectus_details_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`c_id`);
+  ADD CONSTRAINT `prospectus_details_ibfk_1` FOREIGN KEY (`pr_id`) REFERENCES `prospectus` (`pr_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `prospectus_details_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`c_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `student`

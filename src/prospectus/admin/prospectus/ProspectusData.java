@@ -28,11 +28,11 @@ public class ProspectusData {
             while (rs.next()) {
                 String programName = rs.getString("p_program_name");
                 String department = rs.getString("p_department");
-                String displayName = programName + " (" + department + ")";
                 
                 prospectusList.add(new Prospectus(
                     rs.getInt("pr_id"),
-                    displayName,
+                    department,
+                    programName,
                     rs.getString("pr_effective_year"),
                     rs.getString("status"),
                     "", // Empty year level since we're not using it here
@@ -61,13 +61,16 @@ public class ProspectusData {
             stmt.setInt(1, prId);
             ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
+while (rs.next()) {
+                String yearLevel = rs.getString("year_level");
+                String semester = rs.getString("semester");
+                System.out.println("DB row year_level: '" + yearLevel + "', semester: '" + semester + "'");
                 ProspectusDetails details = new ProspectusDetails(
                     rs.getInt("pd_id"),
                     rs.getInt("pr_id"),
                     rs.getInt("course_id"),
-                    rs.getString("year_level"),
-                    rs.getString("semester")
+                    yearLevel,
+                    semester
                 );
                 details.setCourseCode(rs.getString("courseCode"));
                 details.setCourseDesc(rs.getString("courseDesc"));

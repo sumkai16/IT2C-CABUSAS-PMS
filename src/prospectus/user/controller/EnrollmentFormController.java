@@ -20,6 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -58,8 +59,8 @@ public class EnrollmentFormController implements Initializable {
     private String photoFilePath;
     private static final dbConnector db = new dbConnector();
     @FXML private TextField semesterField;
-   
-    
+
+    @FXML private ComboBox<String> selectAcademicSettings;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -67,6 +68,14 @@ public class EnrollmentFormController implements Initializable {
         sexToggleGroup = new ToggleGroup();
         maleRbtn.setToggleGroup(sexToggleGroup);
         femaleRbtn.setToggleGroup(sexToggleGroup);
+
+        // Initialize academic settings ComboBox
+        selectAcademicSettings.setItems(FXCollections.observableArrayList("Regular", "Irregular"));
+
+        // Auto-fill userIDField from UserSession and disable editing
+        int currentUserId = UserSession.getUserId(); // Assuming this method exists
+        userIDField.setText(String.valueOf(currentUserId));
+        userIDField.setDisable(true);
     }
 
     private void loadPrograms() {
@@ -78,10 +87,8 @@ public class EnrollmentFormController implements Initializable {
              ResultSet rs = pst.executeQuery()) {
 
             while (rs.next()) {
-                String programName = rs.getString("p_program_name");
                 String department = rs.getString("p_department");
-                // Format: "Program Name (Department)"
-                programList.add(programName + " (" + department + ")");
+                programList.add(department);
             }
             selectProgram.setItems(programList);
         } catch (SQLException ex) {
@@ -116,6 +123,11 @@ public class EnrollmentFormController implements Initializable {
             return;
         }
 
+        String academicStatus = selectAcademicSettings.getValue();
+        if (academicStatus == null) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Selection Error", "Please select an academic setting (Regular or Irregular).");
+            return;
+        }
 
         String fname = fnameField.getText();
         String mname = mnameField.getText();
@@ -147,7 +159,7 @@ public class EnrollmentFormController implements Initializable {
             photoFilePath = "src/prospectus/images/student/default-user.png";
         }
 
-        enrollStudent(userId, fname, mname, lname, birthdate, address, sex, year, programId, previousSchool);
+        enrollStudent(userId, fname, mname, lname, birthdate, address, sex, year, programId, previousSchool, academicStatus);
     }
 
     private boolean userExists(int userId) {
@@ -175,13 +187,12 @@ public class EnrollmentFormController implements Initializable {
     }
 
     private int getProgramId(String programDisplay) {
-        // Extract program name from the display format "Program Name (Department)"
-        String programName = programDisplay.split("\\s*\\(")[0].trim();
+        String department = programDisplay.trim();
         
-        String query = "SELECT p_id FROM program WHERE p_program_name = ?";
+        String query = "SELECT p_id FROM program WHERE p_department = ?";
         try (Connection conn = db.getConnection();
              PreparedStatement pst = conn.prepareStatement(query)) {
-            pst.setString(1, programName);
+            pst.setString(1, department);
             ResultSet rs = pst.executeQuery();
             return rs.next() ? rs.getInt("p_id") : -1;
         } catch (SQLException ex) {
@@ -190,8 +201,8 @@ public class EnrollmentFormController implements Initializable {
         }
     }
 
-    private void enrollStudent(int userId, String fname, String mname, String lname, LocalDate birthdate, String address, String sex, int year, int programId, String previousSchool) {
-        String enrollQuery = "INSERT INTO enrollment (userID, prog_id, enrollment_date, semester) VALUES (?, ?, CURRENT_TIMESTAMP, ?)";
+    private void enrollStudent(int userId, String fname, String mname, String lname, LocalDate birthdate, String address, String sex, int year, int programId, String previousSchool, String academicStatus) {
+        String enrollQuery = "INSERT INTO enrollment (userID, prog_id, enrollment_date, semester, enrollment_status) VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?)";
         String updateUserQuery = "UPDATE user SET u_role = ?, enrollment_status = ? WHERE u_id = ?";
         String studentQuery = "INSERT INTO student (u_id, s_fname, s_mname, s_lname, s_bdate, s_address, s_sex, s_year, s_program, previous_school, s_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -217,10 +228,11 @@ public class EnrollmentFormController implements Initializable {
                 pstEnroll.setInt(1, userId);
                 pstEnroll.setInt(2, programId);
                 pstEnroll.setString(3, semester); // Set the semester value
+                pstEnroll.setString(4, academicStatus); // Set the enrollment status (Regular/Irregular)
                 pstEnroll.executeUpdate();
 
                 pstUpdate.setString(1, currentRole);
-                pstUpdate.setString(2, "Enrolled");
+                pstUpdate.setString(2, "Pending");
                 pstUpdate.setInt(3, userId);
                 pstUpdate.executeUpdate();
 
