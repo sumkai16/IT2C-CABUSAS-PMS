@@ -15,9 +15,10 @@ public class Student {
     private String previousSchool; 
     private String gender; 
     private String profileImagePath; 
+    private String enrollmentStatus;
 
     // Constructor
-    public Student(int id, int userId, String firstName, String middleName, String lastName, LocalDate birthDate, String address, int year, String program, String previousSchool, String gender, String profileImagePath) {
+    public Student(int id, int userId, String firstName, String middleName, String lastName, LocalDate birthDate, String address, int year, String program, String previousSchool, String gender, String profileImagePath, String enrollmentStatus) {
         this.id = id;
         this.userId = userId;
         this.firstName = firstName;
@@ -30,6 +31,7 @@ public class Student {
         this.previousSchool = previousSchool; 
         this.gender = gender; 
         this.profileImagePath = profileImagePath; 
+        this.enrollmentStatus = enrollmentStatus;
     }
 
     // Getters and Setters
@@ -45,4 +47,5 @@ public class Student {
     public String getPreviousSchool() { return previousSchool; } 
     public String getGender() { return gender; } 
     public String getProfileImagePath() { return profileImagePath; } 
+    public String getEnrollmentStatus() { return enrollmentStatus; }
 }

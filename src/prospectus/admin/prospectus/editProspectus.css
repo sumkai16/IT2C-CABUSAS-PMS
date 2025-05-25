@@ -1,0 +1,58 @@
+/* Styles for Edit Prospectus Page */
+
+#AnchorPane {
+    -fx-background-color: #f9f9f9;
+    -fx-padding: 15;
+}
+
+VBox {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);
+}
+
+Label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+ComboBox, TextField {
+    -fx-font-size: 14px;
+    -fx-pref-height: 30px;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+Button {
+    -fx-background-color: #0078d7;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-pref-height: 35px;
+    -fx-padding: 0 15 0 15;
+    -fx-background-radius: 4;
+}
+
+Button:hover {
+    -fx-background-color: #005a9e;
+}
+
+TableView {
+    -fx-border-color: #ccc;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+TableColumn {
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-size: 13px;
+}
+
+TextField:disabled {
+    -fx-background-color: #eee;
+    -fx-text-fill: #666;
+}

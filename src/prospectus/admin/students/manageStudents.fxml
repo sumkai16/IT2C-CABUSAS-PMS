@@ -16,12 +16,13 @@
          <children>
             <TableView fx:id="tableView" layoutX="8.0" layoutY="147.0" prefHeight="380.0" prefWidth="700.0" stylesheets="@../../../css/usersTable.css">
                <columns>
-                  <TableColumn fx:id="idColumn" prefWidth="90.0" text="Student ID" />
-                  <TableColumn fx:id="firstNameColumn" prefWidth="127.0" text="First Name" />
-                  <TableColumn fx:id="middleNameColumn" prefWidth="124.0" text="Middle Name" />
-                  <TableColumn fx:id="lastNameColumn" prefWidth="124.0" text="Last Name" />
-                  <TableColumn fx:id="yearColumn" prefWidth="95.0" text="Year" />
-                  <TableColumn fx:id="programColumn" prefWidth="123.0" text="Program" />
+                  <TableColumn fx:id="idColumn" prefWidth="83.0" text="Student ID" />
+                  <TableColumn fx:id="firstNameColumn" prefWidth="134.0" text="First Name" />
+                  <TableColumn fx:id="middleNameColumn" minWidth="0.0" prefWidth="0.0" text="Middle Name" />
+                  <TableColumn fx:id="lastNameColumn" prefWidth="83.0" text="Last Name" />
+                  <TableColumn fx:id="yearColumn" prefWidth="94.0" text="Year" />
+                  <TableColumn fx:id="programColumn" minWidth="6.0" prefWidth="92.0" text="Program" />
+                  <TableColumn fx:id="enrollmentStatusColumn" prefWidth="200.0" text="Enrollment Status" />
                </columns>
             </TableView>
             <Button layoutX="509.0" layoutY="114.0" onMouseClicked="#enrollStudentHandler" prefWidth="85.0" style="-fx-font-size: 12;" text="Enroll Student" />
@@ -38,6 +39,7 @@
             <ComboBox fx:id="filterYear" layoutX="227.0" layoutY="76.0" onMouseClicked="#filterYearHandler" prefHeight="37.0" prefWidth="150.0" promptText="Filter by Year" styleClass="combo-box" />
             <Button fx:id="resetFilters" layoutX="388.0" layoutY="80.0" onMouseClicked="#resetFilterHandler" text="Reset Filters" />
             <Button fx:id="resetFilters1" layoutX="483.0" layoutY="35.0" onMouseClicked="#searchHandler" prefHeight="25.0" prefWidth="85.0" text="Search" />
+            <Button fx:id="approvestudent" layoutX="598.0" layoutY="76.0" onMouseClicked="#approveStudentHandler" prefHeight="32.0" prefWidth="85.0" style="-fx-font-size: 12;" text="Approve Student" />
          </children>
       </Pane>
       <Label layoutX="30.0" layoutY="526.0" text=" Tip: Use filters and sorting to find courses quickly!" />

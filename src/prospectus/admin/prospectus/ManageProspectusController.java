@@ -132,14 +132,21 @@ public class ManageProspectusController implements Initializable {
 
     @FXML
     private void editProspectus(MouseEvent event) {
-//        Prospectus selectedProspectus = getSelectedProspectus(); // Implement this method to get the selected prospectus
-//        if (selectedProspectus != null) {
-//            EditProspectusController controller = new EditProspectusController();
-//            controller.setProspectus(selectedProspectus);
-//            utilities.loadFXMLWithController("/prospectus/admin/prospectus/editProspectus.fxml", controller);
-//        } else {
-//            utilities.showAlert(Alert.AlertType.WARNING, "Warning", "No prospectus selected.");
-//        }
+        Prospectus selectedProspectus = tableView.getSelectionModel().getSelectedItem();
+        if (selectedProspectus != null) {
+            try {
+                utilities.loadFXMLWithFadeEdit(overlayPane, "/prospectus/admin/prospectus/editProspectus.fxml", controller -> {
+                    if (controller instanceof EditProspectusController) {
+                        EditProspectusController editController = (EditProspectusController) controller;
+                        editController.setProspectus(selectedProspectus);
+                    }
+                });
+            } catch (Exception ex) {
+                utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open Edit Prospectus page: " + ex.getMessage());
+            }
+        } else {
+            utilities.showAlert(Alert.AlertType.WARNING, "Warning", "No prospectus selected.");
+        }
     }
 
     @FXML

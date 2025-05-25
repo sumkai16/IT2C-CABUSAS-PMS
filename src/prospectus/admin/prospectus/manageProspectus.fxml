@@ -16,11 +16,11 @@
             <TableView fx:id="tableView" layoutX="2.0" layoutY="150.0" prefHeight="380.0" prefWidth="700.0" stylesheets="@../../../css/usersTable.css">
                <columns>
                   <TableColumn fx:id="idColumn" prefWidth="90.0" text="ID" />
-                  <TableColumn fx:id="programColumn" prefWidth="350.0" text="Program" />
-                  <TableColumn fx:id="effectiveYear" prefWidth="124.0" text="Effective Year" />
-                  <TableColumn fx:id="status" prefWidth="116.0" text="Status" />
+                  <TableColumn fx:id="programColumn" prefWidth="270.0" text="Program" />
+                  <TableColumn fx:id="effectiveYear" prefWidth="139.0" text="Effective Year" />
+                  <TableColumn fx:id="status" prefWidth="181.0" text="Status" />
                   <TableColumn fx:id="yearLevel" minWidth="0.0" prefWidth="0.0" text="Year Level" />
-                  <TableColumn fx:id="semesterColumn" minWidth="0.0" prefWidth="0.0" text="Semester" />
+                  <TableColumn fx:id="semesterColumn" minWidth="100.0" prefWidth="0.0" text="Semester" />
                </columns>
             </TableView>
             <HBox layoutX="363.0" layoutY="108.0" style="-fx-spacing: 10;">

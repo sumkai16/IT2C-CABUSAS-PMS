@@ -43,6 +43,7 @@
             <Label layoutX="40.0" layoutY="525.0" text="Tip: Use search, filter, and sort options for quick navigation." />
             <Button layoutX="530.0" layoutY="105.0" onMouseClicked="#addUserHandler" prefWidth="81.0" text="Add User" />
             <Button layoutX="619.0" layoutY="105.0" onMouseClicked="#editUserHandler" prefWidth="81.0" text="Edit User" />
+            <Button layoutX="530.0" layoutY="59.0" onMouseClicked="#enrollStudentHandler" prefHeight="30.0" prefWidth="92.0" style="-fx-font-size: 12;" text="Enroll Student" />
          </children>
       </Pane>
    </children>

@@ -23,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import main.dbConnector;
+import prospectus.admin.students.EnrollmentController;
 import prospectus.models.User;
 import prospectus.utilities.utilities;
 
@@ -223,6 +224,39 @@ public class manageUsers implements Initializable {
             user.getStatus().toLowerCase().contains(searchText)||
             user.getEnrollmentStatus().toLowerCase().contains(searchText)
         );
+    }
+
+    @FXML
+    private void enrollStudentHandler(MouseEvent event) {
+        User selectedUser = tableView.getSelectionModel().getSelectedItem();
+
+        if (selectedUser == null) {
+            utilities.showAlert(Alert.AlertType.WARNING, "No user selected!", "Please select a user to enroll.");
+            return;
+        }
+
+        // Check if user is already enrolled
+        String enrollmentStatus = selectedUser.getEnrollmentStatus();
+        if (enrollmentStatus != null && enrollmentStatus.equalsIgnoreCase("Enrolled")) {
+            utilities.showAlert(Alert.AlertType.INFORMATION, "Already Enrolled", "This user is already enrolled in the system.");
+            return;
+        }
+
+        // Check if enrollment is pending
+        if (enrollmentStatus != null && enrollmentStatus.equalsIgnoreCase("Pending")) {
+            utilities.showAlert(Alert.AlertType.INFORMATION, "Enrollment in Process", "This user's enrollment is still being processed.");
+            return;
+        }
+
+        // If user is not enrolled, proceed with enrollment
+        try {
+            utilities.loadFXMLWithFadeEdit(rootPane, "/prospectus/admin/students/enrollmentFormAdmin.fxml", controller -> {
+                EnrollmentController enrollmentController = (EnrollmentController) controller;
+                enrollmentController.setUserId(selectedUser.getId());
+            });
+        } catch (Exception ex) {
+            utilities.showAlert(Alert.AlertType.ERROR, "Scene Error", "Failed to load enrollment form: " + ex.getMessage());
+        }
     }
 
 

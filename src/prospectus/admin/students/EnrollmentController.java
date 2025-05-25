@@ -1,5 +1,6 @@
-package prospectus.user.controller;
+package prospectus.admin.students;
 
+import prospectus.user.controller.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -38,7 +39,7 @@ import prospectus.utilities.validations;
 
 import static prospectus.utilities.validations.isStudentEnrolledById;
 
-public class EnrollmentFormController implements Initializable {
+public class EnrollmentController implements Initializable {
 
     @FXML private TextField fnameField;
     @FXML private TextField mnameField;

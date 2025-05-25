@@ -34,6 +34,7 @@ public class ManageStudentsController implements Initializable {
     @FXML private TableColumn<Student, String> lastNameColumn;
     @FXML private TableColumn<Student, Integer> yearColumn;
     @FXML private TableColumn<Student, String> programColumn;
+    @FXML private TableColumn<Student, String> enrollmentStatusColumn;
     @FXML private Label totalStudentsLabel;
     private ObservableList<Student> studentList = FXCollections.observableArrayList();
     private dbConnector db;
@@ -52,6 +53,8 @@ public class ManageStudentsController implements Initializable {
     private Label withPrereqLabel;
     @FXML
     private Button resetFilters1;
+    @FXML
+    private Button approvestudent;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -64,6 +67,7 @@ public class ManageStudentsController implements Initializable {
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
         programColumn.setCellValueFactory(new PropertyValueFactory<>("program"));
+        enrollmentStatusColumn.setCellValueFactory(new PropertyValueFactory<>("enrollmentStatus"));
 
         // Load student data
         loadStudents();
@@ -80,9 +84,10 @@ public class ManageStudentsController implements Initializable {
         String query = "SELECT " +
 "                s.s_id, s.u_id, s.s_fname, s.s_mname, s.s_lname, s.s_bdate," +
 "                s.s_address, s.s_year, p.p_department, s.previous_school," +
-"                s.s_sex, s.s_image" +
+"                s.s_sex, s.s_image, u.enrollment_status" +
 "            FROM student s" +
-"            JOIN program p ON s.s_program = p.p_id";
+"            JOIN program p ON s.s_program = p.p_id" +
+"            JOIN user u ON s.u_id = u.u_id";
 
         try (ResultSet rs = db.getData(query)) {
             while (rs.next()) {
@@ -98,7 +103,8 @@ public class ManageStudentsController implements Initializable {
                     rs.getString("p_department"),
                     rs.getString("previous_school"),
                     rs.getString("s_sex"),
-                    rs.getString("s_image")
+                    rs.getString("s_image"),
+                    rs.getString("enrollment_status")
                 );
                 studentList.add(student);
             }
@@ -186,9 +192,30 @@ public class ManageStudentsController implements Initializable {
     @FXML
     private void enrollStudentHandler(MouseEvent event) {
         try {
-            utilities.loadFXMLWithFade(overlayPane, "/prospectus/user/fxml/enrollmentForm.fxml");
+            utilities.loadFXMLWithFade(overlayPane, "/prospectus/admin/student/enrollmentForm.fxml");
         } catch (Exception ex) {
             utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to open Enrollment page: " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void approveStudentHandler(MouseEvent event) {
+        Student selectedStudent = tableView.getSelectionModel().getSelectedItem();
+        if (selectedStudent != null) {
+            if ("pending".equalsIgnoreCase(selectedStudent.getEnrollmentStatus())) {
+                String updateQuery = "UPDATE user SET enrollment_status = 'Enrolled' WHERE u_id = ?";
+                boolean success = db.updateData(updateQuery, selectedStudent.getUserId());
+                if (success) {
+                    utilities.showAlert(Alert.AlertType.INFORMATION, "Success", "Student enrollment status updated to enrolled.");
+                    loadStudents(); // Refresh the table
+                } else {
+                    utilities.showAlert(Alert.AlertType.ERROR, "Error", "Failed to update enrollment status.");
+                }
+            } else {
+                utilities.showAlert(Alert.AlertType.WARNING, "Invalid Status", "Only students with pending status can be approved.");
+            }
+        } else {
+            utilities.showAlert(Alert.AlertType.WARNING, "No Selection", "Please select a student to approve.");
         }
     }
 }
