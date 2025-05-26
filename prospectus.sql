@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2025 at 06:26 PM
+-- Generation Time: May 26, 2025 at 02:46 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -338,7 +338,46 @@ INSERT INTO `logs` (`log_id`, `user_id`, `action`, `description`, `date_time`) V
 (791, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:25:09'),
 (792, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:25:16'),
 (793, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:25:24'),
-(794, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:25:32');
+(794, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-16 16:25:32'),
+(795, 20251001, 'Login', 'User logged in: axcee', '2025-05-23 14:53:35'),
+(796, 20251001, 'Login', 'User logged in: axcee', '2025-05-23 15:02:32'),
+(797, 20251001, 'Login', 'User logged in: axcee', '2025-05-23 15:02:59'),
+(798, 20251001, 'Login', 'User logged in: axcee', '2025-05-23 15:03:21'),
+(799, 20251001, 'Login', 'User logged in: axcee', '2025-05-23 15:07:15'),
+(800, 20251001, 'Login', 'User logged in: axcee', '2025-05-23 15:09:38'),
+(801, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-23 15:09:42'),
+(802, 20251001, 'Prospectus', 'Prospectus updated successfully: axcee', '2025-05-23 15:10:07'),
+(803, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-23 15:10:12'),
+(804, 20251001, 'Login', 'User logged in: axcee', '2025-05-23 15:12:59'),
+(805, 20251001, 'Login', 'User logged in: axcee', '2025-05-23 15:16:17'),
+(806, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-23 15:16:20'),
+(807, 20251001, 'Login', 'User logged in: axcee', '2025-05-23 15:16:45'),
+(808, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-23 15:16:48'),
+(809, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 13:00:48'),
+(810, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 13:23:03'),
+(811, 20251019, 'Login', 'User logged in: aljon', '2025-05-25 13:26:18'),
+(812, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 13:26:31'),
+(813, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 13:38:04'),
+(814, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 13:53:10'),
+(815, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 13:54:11'),
+(816, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 13:57:04'),
+(817, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-25 13:57:40'),
+(818, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 14:03:23'),
+(819, 20251001, 'Prospectus', 'Prospectus updated successfully: axcee', '2025-05-25 14:05:17'),
+(820, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-25 14:05:21'),
+(821, 20251001, 'Prospectus', 'Prospectus updated successfully: axcee', '2025-05-25 14:08:00'),
+(822, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 14:09:35'),
+(823, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 14:12:24'),
+(824, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 14:13:29'),
+(825, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 14:14:47'),
+(826, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 14:16:43'),
+(827, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 14:27:03'),
+(828, 20251001, 'Prospectus', 'Viewed Prospectus.: axcee', '2025-05-25 14:36:13'),
+(829, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 14:57:35'),
+(830, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 15:04:24'),
+(831, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 15:10:12'),
+(832, 20251001, 'Login', 'User logged in: axcee', '2025-05-25 15:12:45'),
+(833, 20251001, 'Prospectus', 'Prospectus updated successfully: axcee', '2025-05-25 15:13:00');
 
 -- --------------------------------------------------------
 
@@ -408,18 +447,6 @@ CREATE TABLE `prospectus_details` (
 --
 
 INSERT INTO `prospectus_details` (`pd_id`, `pr_id`, `course_id`, `year_level`, `semester`) VALUES
-(190, 25, 3, '1st Year', '1st Semester'),
-(191, 25, 4, '1st Year', '1st Semester'),
-(192, 25, 5, '1st Year', '1st Semester'),
-(193, 25, 6, '1st Year', '1st Semester'),
-(194, 25, 7, '1st Year', '1st Semester'),
-(195, 25, 8, '1st Year', '1st Semester'),
-(196, 25, 9, '1st Year', '1st Semester'),
-(197, 25, 10, '1st Year', '1st Semester'),
-(198, 25, 11, '1st Year', '1st Semester'),
-(199, 25, 12, '1st Year', '1st Semester'),
-(200, 25, 13, '1st Year', '1st Semester'),
-(201, 25, 14, '1st Year', '1st Semester'),
 (202, 25, 15, '1st Year', '2nd Semester'),
 (203, 25, 16, '1st Year', '2nd Semester'),
 (204, 25, 17, '1st Year', '2nd Semester'),
@@ -429,26 +456,28 @@ INSERT INTO `prospectus_details` (`pd_id`, `pr_id`, `course_id`, `year_level`, `
 (208, 25, 21, '1st Year', '2nd Semester'),
 (209, 25, 22, '1st Year', '2nd Semester'),
 (210, 25, 23, '1st Year', '2nd Semester'),
-(240, 25, 24, '2nd Year', '1st Semester'),
-(241, 25, 25, '2nd Year', '1st Semester'),
-(242, 25, 26, '2nd Year', '1st Semester'),
-(243, 25, 27, '2nd Year', '1st Semester'),
-(244, 25, 33, '2nd Year', '1st Semester'),
-(245, 25, 34, '2nd Year', '1st Semester'),
-(246, 25, 35, '2nd Year', '1st Semester'),
-(247, 25, 36, '2nd Year', '1st Semester'),
-(248, 25, 37, '2nd Year', '1st Semester'),
-(249, 25, 71, '2nd Year', '1st Semester'),
-(250, 26, 4, '1st Year', '1st Semester'),
-(251, 26, 7, '1st Year', '1st Semester'),
-(252, 26, 10, '1st Year', '1st Semester'),
-(253, 26, 11, '1st Year', '1st Semester'),
-(254, 26, 12, '1st Year', '1st Semester'),
-(255, 27, 3, '1st Year', '1st Semester'),
-(256, 27, 4, '1st Year', '1st Semester'),
-(257, 27, 5, '1st Year', '1st Semester'),
-(258, 27, 6, '1st Year', '1st Semester'),
-(259, 27, 7, '1st Year', '1st Semester');
+(304, 25, 36, '2nd Year', '1st Semester'),
+(305, 25, 33, '2nd Year', '1st Semester'),
+(306, 25, 34, '2nd Year', '1st Semester'),
+(307, 25, 24, '2nd Year', '1st Semester'),
+(308, 25, 26, '2nd Year', '1st Semester'),
+(309, 25, 35, '2nd Year', '1st Semester'),
+(310, 25, 71, '2nd Year', '1st Semester'),
+(311, 25, 25, '2nd Year', '1st Semester'),
+(312, 25, 37, '2nd Year', '1st Semester'),
+(313, 25, 27, '2nd Year', '1st Semester'),
+(314, 25, 9, '1st Year', '1st Semester'),
+(315, 25, 11, '1st Year', '1st Semester'),
+(316, 25, 7, '1st Year', '1st Semester'),
+(317, 25, 3, '1st Year', '1st Semester'),
+(318, 25, 4, '1st Year', '1st Semester'),
+(319, 25, 6, '1st Year', '1st Semester'),
+(320, 25, 5, '1st Year', '1st Semester'),
+(321, 25, 12, '1st Year', '1st Semester'),
+(322, 25, 14, '1st Year', '1st Semester'),
+(323, 25, 13, '1st Year', '1st Semester'),
+(324, 25, 10, '1st Year', '1st Semester'),
+(325, 25, 8, '1st Year', '1st Semester');
 
 -- --------------------------------------------------------
 
@@ -478,8 +507,7 @@ CREATE TABLE `student` (
 INSERT INTO `student` (`s_id`, `u_id`, `s_fname`, `s_mname`, `s_lname`, `s_bdate`, `s_address`, `s_sex`, `s_year`, `s_program`, `previous_school`, `s_image`) VALUES
 (8, 20251017, 'Rashed', '', 'Tapales', '2004-06-28', 'San Fernando', 'Male', 1, 1, 'SCC', 'src/prospectus/images/student/default-user.png'),
 (9, 20251020, 'Myca', '', 'Lariosa', '1560-04-08', 'Vito, Minglanilla', 'Female', 3, 1, 'SCC', 'src/prospectus/images/student/default-user.png'),
-(10, 20251019, 'Aljon', '', 'Paragoso', '2000-01-02', 'Inayagan', 'Male', 3, 1, 'SCC', 'src/prospectus/images/student/default-user.png'),
-(11, 20251019, 'Aljon', '', 'Paragoso', '2002-01-02', 'Inayagan', 'Male', 4, 1, 'SCC', 'src/prospectus/images/student/default-user.png');
+(10, 20251019, 'Aljon', '', 'Paragoso', '2000-01-02', 'Inayagan', 'Male', 3, 1, 'SCC', 'src/prospectus/images/student/default-user.png');
 
 -- --------------------------------------------------------
 
@@ -511,7 +539,7 @@ INSERT INTO `user` (`u_id`, `u_fname`, `u_mname`, `u_lname`, `u_email`, `u_conta
 (20251001, 'Axcee', 'Felisilda', 'Cabusas', 'axceelfelis03@gmail.com', '99140820611', 'axcee', 'fRm8kPPm6HMqAiRuWC3AzkiYLvVFYqLcpR/PK71tMww=', 'Admin', 'Active', 'Not Enrolled', '1234', 'src/prospectus/images/users/default-user.png'),
 (20251017, 'Rasheed', '', 'Tapales', 'rashed@gmail.com', '98273645671', 'rashed', 'fRm8kPPm6HMqAiRuWC3AzkiYLvVFYqLcpR/PK71tMww=', 'Student', 'Active', 'Enrolled', 'jungle sunflower waterfall grape volcano sunflower umbrella tiger apple banana grape mountain', 'src/prospectus/images/users/default-user.png'),
 (20251018, 'Adrianne Lhoue', '', 'Inso', 'inso12@gmail.com', '99872635678', 'inso', 'ZMI04LI4wpHFQpAFMuXoV2yxsvqk4QMRbYUIAql7DWI=', 'User', 'Active', 'Not Enrolled', 'elephant waterfall jungle kangaroo banana jungle dog flower waterfall grape waterfall queen', 'src/prospectus/images/users/received_178815621514415.jpg'),
-(20251019, 'Aljon', '', 'Paragoso', 'aljon@gmail.com', '9872634567', 'aljon', '4Sbb5S0/5dD/PgMPKbxnvhdqH4oUlAoorkqbhnsOiVY=', 'Student', 'Active', 'Pending', 'jungle banana volcano tiger zebra grape house queen xylophone flower xylophone waterfall', 'src/prospectus/images/users/Screenshot_1.png'),
+(20251019, 'Aljon', '', 'Paragoso', 'aljon@gmail.com', '9872634567', 'aljon', '4Sbb5S0/5dD/PgMPKbxnvhdqH4oUlAoorkqbhnsOiVY=', 'Student', 'Active', 'enrolled', 'jungle banana volcano tiger zebra grape house queen xylophone flower xylophone waterfall', 'src/prospectus/images/users/Screenshot_1.png'),
 (20251020, 'Mica', '', 'Lariosa', 'mica@gmail.com', '9876153789', 'mica', 'fRm8kPPm6HMqAiRuWC3AzkiYLvVFYqLcpR/PK71tMww=', 'Student', 'Active', 'Enrolled', 'zebra jungle xylophone queen kangaroo umbrella yellow mountain penguin tiger cherry apple', 'src/prospectus/images/users/default-user.png'),
 (20251021, 'Alessandra Nayeli', '', 'Crispin', 'alenaye@gmail.com', '9827364512', 'ale', 'fRm8kPPm6HMqAiRuWC3AzkiYLvVFYqLcpR/PK71tMww=', 'User ', 'Active', 'Not Enrolled', 'zebra orange elephant house house waterfall volcano jungle rainbow sunflower notebook rainbow', 'src/prospectus/images/users/default-user.png');
 
@@ -597,7 +625,7 @@ ALTER TABLE `enrollment`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=795;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=834;
 
 --
 -- AUTO_INCREMENT for table `program`
@@ -615,7 +643,7 @@ ALTER TABLE `prospectus`
 -- AUTO_INCREMENT for table `prospectus_details`
 --
 ALTER TABLE `prospectus_details`
-  MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=260;
+  MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=326;
 
 --
 -- AUTO_INCREMENT for table `student`
